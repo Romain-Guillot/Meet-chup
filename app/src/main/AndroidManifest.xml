@@ -9,15 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".ui.homepage.HomePageActivity">
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
         </activity>
+
+        <activity android:name=".ui.event_view.EventViewActivity" />
+
+        <activity android:name=".ui.authentication.AuthenticationActivity" />
+        <activity android:name=".ui.event_creation.EventCreationActivity" />
+        <activity android:name=".ui.document_view.DocumentViewActivity" />
+        <activity android:name=".ui.document_creation.DocumentCreationActivity" />
+
     </application>
 
 </manifest>
