@@ -10,6 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 
+/**
+ * Handle the user list of events
+ */
 public class EventsListFragment extends Fragment {
 
     @Override
