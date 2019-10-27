@@ -3,4 +3,10 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+
+    <!--  Event view navigation bar  -->
+    <string name="event_nav_feed">Feed</string>
+    <string name="event_nav_album">Album</string>
+    <string name="event_nav_todo">ToDo</string>
 </resources>

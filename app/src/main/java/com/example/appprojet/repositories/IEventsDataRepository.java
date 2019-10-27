@@ -15,6 +15,8 @@ public interface IEventsDataRepository {
 
     public void createEvent(User user, Event event, Callback<Event> callback);
 
+    public void getEvent(User user, String event_id, Callback<Event> callback);
+
     public void joinEvent(User user, String eventID, Callback<Event> callback);
 
     public void modifyEvent(User user, Event event, Callback<Event> callback);
