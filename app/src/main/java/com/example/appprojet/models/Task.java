@@ -3,6 +3,7 @@ package com.example.appprojet.models;
 import java.util.List;
 
 public class Task {
+
     private String name;
     private List<User> userList;
 

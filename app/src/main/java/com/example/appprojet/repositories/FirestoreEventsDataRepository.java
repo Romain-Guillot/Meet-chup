@@ -1,6 +1,14 @@
 package com.example.appprojet.repositories;
 
 
+import com.example.appprojet.models.Event;
+import com.example.appprojet.models.Post;
+import com.example.appprojet.models.User;
+import com.example.appprojet.utils.Callback;
+
+import java.util.List;
+
+
 public class FirestoreEventsDataRepository implements IEventsDataRepository {
 
     private static FirestoreEventsDataRepository instance = null;
@@ -17,48 +25,49 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
         }
     }
 
+
     @Override
-    public void createEvent() {
+    public void getUserEvents(User user, Callback<List<Event>> callback) {
 
     }
 
     @Override
-    public void joinEvent() {
+    public void createEvent(User user, Event event, Callback<Event> callback) {
 
     }
 
     @Override
-    public void mofifyEvent() {
+    public void joinEvent(User user, String eventID, Callback<Event> callback) {
 
     }
 
     @Override
-    public void deleteEvent() {
+    public void modifyEvent(User user, Event event, Callback<Event> callback) {
 
     }
 
     @Override
-    public void getUserEvents() {
+    public void deleteEvent(User user, Event event, Callback<Boolean> callback) {
 
     }
 
     @Override
-    public void loadEventPosts() {
+    public void loadEventPosts(User user, Event event, Callback<Event> callback) {
 
     }
 
     @Override
-    public void loadEventToDoList() {
+    public void loadEventToDoList(User user, Event event, Callback<Event> callback) {
 
     }
 
     @Override
-    public void addPost() {
+    public void addPost(User user, Event event, Post post, Callback<Post> callback) {
 
     }
 
     @Override
-    public void deletePost() {
+    public void deletePost(User user, Event event, Post post, Callback<Boolean> callback) {
 
     }
 }
