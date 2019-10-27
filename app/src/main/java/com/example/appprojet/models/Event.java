@@ -1,31 +1,27 @@
 package com.example.appprojet.models;
 
-import android.location.Geocoder;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
+
 import java.util.List;
-import java.util.ListIterator;
+
 
 public class Event {
     private String title;
     private String description;
     private List<User> participants;
     private List<Post> posts;
+    private Date dateCreated;
     private Date dateBegin;
     private Date dateEnd;
-    private Geocoder localisation;
+    private Location localisation;
 
-    public Event(String title, String description, List<User> participants, Date dateBegin, Date dateEnd, Geocoder localisation){
+    public Event(String title, String description, List<User> participants, Date dateBegin, Date dateEnd, Date dateCreated, Location localisation){
         this.title = title;
         this.description = description;
         this.dateBegin = dateBegin;
         this.dateEnd = dateEnd;
+        this.dateCreated = dateCreated;
         this.participants = participants;
         this.localisation = localisation;
         this.posts = null;
@@ -51,11 +47,15 @@ public class Event {
         return posts;
     }
 
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
     public List<User> getParticipants() {
         return participants;
     }
 
-    public Geocoder getLocalisation() {
+    public Location getLocalisation() {
         return localisation;
     }
 }
