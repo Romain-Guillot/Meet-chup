@@ -1,12 +1,18 @@
 package com.example.appprojet.models;
 
 public class Comment {
+    private String id;
     private User user;
     private String comment;
 
-    public Comment(User user, String comment){
+    public Comment(String id, User user, String comment){
+        this.id = id;
         this.user = user;
         this.comment = comment;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getComment() {

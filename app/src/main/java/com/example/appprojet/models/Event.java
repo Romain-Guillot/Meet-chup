@@ -7,6 +7,7 @@ import java.util.List;
 
 
 public class Event {
+    private String id;
     private String title;
     private String description;
     private List<User> participants;
@@ -14,17 +15,22 @@ public class Event {
     private Date dateCreated;
     private Date dateBegin;
     private Date dateEnd;
-    private Location localisation;
+    private Location location;
 
-    public Event(String title, String description, List<User> participants, Date dateBegin, Date dateEnd, Date dateCreated, Location localisation){
+    public Event(String id, String title, String description, List<User> participants, Date dateBegin, Date dateEnd, Date dateCreated, Location location){
+        this.id = id;
         this.title = title;
         this.description = description;
         this.dateBegin = dateBegin;
         this.dateEnd = dateEnd;
         this.dateCreated = dateCreated;
         this.participants = participants;
-        this.localisation = localisation;
+        this.location = location;
         this.posts = null;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -55,7 +61,7 @@ public class Event {
         return participants;
     }
 
-    public Location getLocalisation() {
-        return localisation;
+    public Location getLocation() {
+        return location;
     }
 }
