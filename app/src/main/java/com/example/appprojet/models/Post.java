@@ -4,15 +4,21 @@ import java.util.List;
 
 public class Post {
     private String description;
-    private List<Document> documentsList;
+    private Document document;
+    private List<Comment> commentsList;
 
-    public Post(String description, List<Document> documentsList){
+    public Post(String description, Document document){
         this.description = description;
-        this.documentsList = documentsList;
+        this.document = document;
+        this.commentsList = null;
     }
 
-    public List<Document> getDocumentsList() {
-        return documentsList;
+    public List<Comment> getCommentsList() {
+        return commentsList;
+    }
+
+    public Document getDocument() {
+        return document;
     }
 
     public String getDescription() {
