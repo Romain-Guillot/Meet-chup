@@ -9,4 +9,5 @@
     <string name="event_nav_feed">Feed</string>
     <string name="event_nav_album">Album</string>
     <string name="event_nav_todo">ToDo</string>
+    <string name="item_post_image_description">post image</string>
 </resources>

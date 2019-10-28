@@ -2,16 +2,14 @@ package com.example.appprojet.ui.event_view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toolbar;
+import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.NavArgument;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
 import androidx.navigation.NavGraph;
 import androidx.navigation.NavInflater;
 import androidx.navigation.Navigation;
@@ -29,6 +27,8 @@ public class EventViewActivity extends AppCompatActivity {
 
     public static final String EXTRA_EVENT_ID = "com.example.appprojet.event_id";
 
+    private ActionBar actionBar;
+
     EventViewViewModel viewModel;
 
     @Override
@@ -36,17 +36,17 @@ public class EventViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_view);
 
+        this.actionBar = getSupportActionBar();
+
         Intent intent = getIntent();
         String event_id = intent.getStringExtra(EXTRA_EVENT_ID);
 
         viewModel = ViewModelProviders.of(this).get(EventViewViewModel.class);
-        viewModel.initEvent(event_id);
+        viewModel.initEventMetaData(event_id);
 
-        viewModel.eventLiveData.observe(this, event -> {
-            if (event.getTitle() != null) {
-//                getActionBar().setTitle(event.getTitle());
-                getSupportActionBar().setTitle(event.getTitle());
-            }
+        viewModel.eventTitleLive.observe(this, event -> {
+                if (actionBar != null)
+                    actionBar.setTitle(event);
         });
 
 
@@ -66,8 +66,9 @@ public class EventViewActivity extends AppCompatActivity {
 //        graph.addArgument("event_id", new NavArgument.Builder().setDefaultValue(event_id).build());
         navController.setGraph(graph);
 
-        NavigationUI.setupActionBarWithNavController(this, navController, navConfig);
         NavigationUI.setupWithNavController(navView, navController);
+
+        setBackPressActionBar();
 
 
 
@@ -79,5 +80,22 @@ public class EventViewActivity extends AppCompatActivity {
 //        );
     }
 
+    private void setBackPressActionBar() {
+        if (actionBar != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+        }
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

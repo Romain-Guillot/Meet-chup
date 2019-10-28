@@ -78,11 +78,11 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
         callback.onSucceed(new Event(
             "Anniversaire de Tonton Michel",
             "Merguez et saucisse seront au rendez-vous",
-            Arrays.asList(u1, u3, u3),
+            Arrays.asList(u1, u3, u2),
             new Date(2019, 12, 25),
-            null,
+            new Date(2020, 1, 10),
             new Date(2019, 1, 1),
-            new Location(25.4d, 29.7d)));
+            new Location(40.7128, -74.0060)));
     }
 
     @Override
