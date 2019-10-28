@@ -1,11 +1,17 @@
 package com.example.appprojet.models;
 
 public class Document {
+    private String id;
     private String url;
-    private MediaType media;
-    public Document(String url, MediaType media) {
+
+    public Document(String id, String url){
+        this.id = id;
         this.url = url;
         this.media = media;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getUrl() {
