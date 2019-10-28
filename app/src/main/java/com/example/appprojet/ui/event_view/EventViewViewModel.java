@@ -24,6 +24,9 @@ import java.util.Date;
 import java.util.List;
 
 
+/**
+ *
+ */
 public class EventViewViewModel extends AndroidViewModel {
 
     private IEventsDataRepository eventsRepo;

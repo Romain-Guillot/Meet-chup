@@ -1,4 +1,4 @@
-package com.example.appprojet.ui.event_view;
+package com.example.appprojet.ui.event_view.adapters;
 
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -10,6 +10,10 @@ import com.example.appprojet.models.User;
 
 import java.util.List;
 
+
+/**
+ *
+ */
 public class ParticipantsListViewAdapter extends RecyclerView.Adapter<ParticipantsListViewAdapter.ParticipantViewHolder> {
 
     private List<User> participants;

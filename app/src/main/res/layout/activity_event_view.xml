@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Bottom navigation bar that displays the 3 tabs : feed, album, to-do -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/event_nav_view"
         android:layout_width="0dp"
@@ -18,6 +19,7 @@
         app:menu="@menu/event_view_bottom_nav_menu"/>
 
 
+    <!-- The main activity fragment (displays according the navigation bar selection) -->
     <fragment
         android:id="@+id/event_view_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"

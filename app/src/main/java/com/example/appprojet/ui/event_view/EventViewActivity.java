@@ -17,7 +17,47 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 /**
- * Required an intent with the event ID to load
+ * [EventViewActivity] handles the event visualisation throw the feed, the album and the to-do list.
+ * [EventViewActivity] requires an extra string in the intend to load the appropriate event.
+ *
+ * ## INTENT COMMUNICATION
+ * The intent extra string is the event ID and the extra name has to be [EXTRA_EVENT_ID].
+ *
+ *
+ * ## ARCHITECTURE
+ * This activity can contains three fragments :
+ *
+ * - FeedFragment
+ * - AlbumFragment
+ * - ToDoFragment
+ *
+ * The entire business logic for these fragments and this activity is handled by the
+ * [EventViewViewModel]
+ *
+ *
+ * ## PURPOSE
+ * This class handle the event view. So the activity displays a BottomNavigationBar with the
+ * following three tabs :
+ *
+ * - Feed
+ * - Album
+ * - ToDoList
+ *
+ * Each tab corresponds to one fragment. When the user click on one tab, the associated fragment
+ * is inflate in the activity layout. The navigation system is handled with :
+ * - The BottomNavigationView view which defines the menu corresponding to the 3 tab (see activity layout)
+ * - The menu previously mentioned menu (see event_view_bottom_nav_menu.xml menu file)
+ * - The fragment view which defines the navigation graph (see activity layout)
+ * - The previously mentioned navigation graph (see event_view_navigation.xml navigation file)
+ * - The navigation controller defined in this class
+ *
+ * The last thing this activity does is to set the action bar title according to the event name.
+ * The title of the event is provided by the ViewModel associated with this activity. See
+ * [EventViewViewModel]
+ *
+ * TODO 1: Add loading text until the title is available
+ * TODO 2: Handle event loading error (wrong id for example)
+ * TODO 3: Delegate ViewModel responsibilities to three sub-viewmodels for each fragment
  */
 public class EventViewActivity extends AppCompatActivity {
 

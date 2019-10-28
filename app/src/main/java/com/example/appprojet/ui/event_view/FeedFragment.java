@@ -17,13 +17,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appprojet.R;
 import com.example.appprojet.ui.document_creation.DocumentCreationActivity;
+import com.example.appprojet.ui.event_view.adapters.ParticipantsListViewAdapter;
+import com.example.appprojet.ui.event_view.adapters.PostsListViewAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 /**
- * TODO 1:
- * TODO 2:
- * TODO 3:
+ *
+ * TODO 1: Post contextual menu on long-click
+ * TODO 2: Add participant button click listener
+ * TODO 3: Loading indication while data loading (meta-data, posts and post documents)
  */
 public class FeedFragment extends Fragment {
 

@@ -1,4 +1,4 @@
-package com.example.appprojet.ui.event_view;
+package com.example.appprojet.ui.event_view.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -18,10 +18,13 @@ import com.example.appprojet.models.Post;
 import com.example.appprojet.models.User;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+
+/**
+ *
+ */
 public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdapter.PostViewHolder> {
 
     List<Post> posts;
