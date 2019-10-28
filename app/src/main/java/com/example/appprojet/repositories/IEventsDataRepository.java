@@ -29,6 +29,8 @@ public interface IEventsDataRepository {
     public void loadEventToDoList(Event event, Callback<Event> callback);
 
 
+    public void getPost(String post_id, Callback<Post> callback);
+
     public void addPost(Event event, Post post, Callback<Post> callback);
 
     public void deletePost(Event event, Post post, Callback<Boolean> callback);

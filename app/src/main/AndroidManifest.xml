@@ -24,7 +24,7 @@
 
         <activity android:name=".ui.authentication.AuthenticationActivity" />
         <activity android:name=".ui.event_creation.EventCreationActivity" />
-        <activity android:name=".ui.document_view.DocumentViewActivity" />
+        <activity android:name=".ui.post_view.PostViewActivity" />
         <activity android:name=".ui.document_creation.DocumentCreationActivity" />
 
     </application>

@@ -1,6 +1,7 @@
 package com.example.appprojet.ui.event_view.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appprojet.R;
 import com.example.appprojet.models.Post;
 import com.example.appprojet.models.User;
+import com.example.appprojet.ui.post_view.PostViewActivity;
+import com.example.appprojet.utils.DownloadImage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -75,36 +78,18 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
         String name = user.getName();
         if (name != null)
             holder.userView.setText(name);
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.itemView.getContext(), PostViewActivity.class);
+            intent.putExtra(PostViewActivity.EXTRA_POST_ID, post.getId());
+            holder.itemView.getContext().startActivity(intent);
+        });
     }
 
 
     @Override
     public int getItemCount() {
         return posts.size();
-    }
-
-    private class DownloadImage extends AsyncTask<String, Void, Bitmap> {
-        ImageView image;
-
-        public DownloadImage(ImageView image) {
-            this.image = image;
-        }
-
-        @Override
-        protected Bitmap doInBackground(String... urls) {
-            String url = urls[0];
-            Bitmap image = null;
-            try {
-                image = BitmapFactory.decodeStream(new URL(url).openConnection().getInputStream());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return image;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            image.setImageBitmap(result);
-        }
     }
 
 }

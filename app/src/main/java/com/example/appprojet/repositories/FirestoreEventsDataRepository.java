@@ -26,7 +26,8 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
 
     private Map<String, Event> fakeEvents = new HashMap<>();
     private Map<String, User> fakeUsers = new HashMap<>();
-    private Map<String, List<Post>> fakePosts = new HashMap<>();
+    private Map<String, Post> fakePosts = new HashMap<>();
+    private Map<String, List<Post>> postByEventId = new HashMap<>();
 
     private FirestoreEventsDataRepository() {
         authRepo = FirebaseAuthenticationRepository.getInstance();
@@ -60,14 +61,13 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
                 new Location(40.7128, -74.0060))
         );
 
-        List<Post> postsEvent1 = Arrays.asList(
-                new Post("", fakeUsers.get("4"), null, "Un premier post", new Document("", "https://i.imgur.com/WHRgwnI.jpg")),
-                new Post("", fakeUsers.get("2"), null, "Bla bla bla", new Document("", "https://www.plethorist.com/wp-content/uploads/2017/07/The-Worst-Stock-Photos-On-The-Internet-2.jpg")),
-                new Post("", fakeUsers.get("3"), null, "Michel à la plage", new Document("", "https://www.demilked.com/magazine/wp-content/uploads/2018/03/5aaa1cc45a750-funny-weird-wtf-stock-photos-4-5a3927b70f562__700.jpg"))
-        );
+        fakePosts.put("1", new Post("1", fakeUsers.get("4"), null, "Un premier post", new Document("", "https://i.imgur.com/WHRgwnI.jpg")));
+        fakePosts.put("2", new Post("2", fakeUsers.get("2"), null, "Bla bla bla", new Document("", "https://www.plethorist.com/wp-content/uploads/2017/07/The-Worst-Stock-Photos-On-The-Internet-2.jpg")));
+        fakePosts.put("3",new Post("3", fakeUsers.get("3"), null, "Michel à la plage", new Document("", "https://www.demilked.com/magazine/wp-content/uploads/2018/03/5aaa1cc45a750-funny-weird-wtf-stock-photos-4-5a3927b70f562__700.jpg")));
 
-        fakePosts.put("1", postsEvent1);
-        fakePosts.put("2", null);
+        postByEventId.put("1", Arrays.asList(fakePosts.get("1"), fakePosts.get("2"), fakePosts.get("3")));
+
+
     }
 
 
@@ -113,7 +113,7 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
 
 
     public void loadEventPosts(Event event, Callback<Event> callback) {
-        List<Post> postsEvents = fakePosts.get(event.getId());
+        List<Post> postsEvents = postByEventId.get(event.getId());
         event.setPosts(postsEvents);
         callback.onSucceed(event);
     }
@@ -121,6 +121,12 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
     @Override
     public void loadEventToDoList(Event event, Callback<Event> callback) {
 
+    }
+
+    @Override
+    public void getPost(String post_id, Callback<Post> callback) {
+        Post post = fakePosts.get(post_id);
+        callback.onSucceed(post);
     }
 
     @Override
