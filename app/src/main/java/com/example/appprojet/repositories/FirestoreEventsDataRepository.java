@@ -10,7 +10,9 @@ import com.example.appprojet.utils.Callback;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,33 +35,35 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
         fakeUsers.put("3", new User("Corentin", "", ""));
         fakeUsers.put("4", new User("Jean", "", ""));
 
-
+        Calendar begin = new GregorianCalendar();Calendar end = new GregorianCalendar();;Calendar created = new GregorianCalendar();
+        begin.set(2019, 4, 21); end.set(2019, 6, 12);created.set(2019, 1, 1);
         fakeEvents.put("1", new Event(
                 "1",
                 "Week-end au ski",
                 "Un super week-end de malade",
                 Arrays.asList(fakeUsers.get("1"), fakeUsers.get("2")),
-                new Date(2019, 4, 21),
-                new Date(2019, 6, 12),
-                new Date(2019, 1, 2),
+                begin.getTime(),
+                end.getTime(),
+                created.getTime(),
                 new Location(25.4d, 29.7d))
         );
 
+        begin.set(2019, 12, 24); end.set(2020, 1, 12);created.set(2019, 1, 2);
         fakeEvents.put("2", new Event(
                 "2",
                 "Anniversaire de Tonton Michel",
                 "Merguez et saucisse seront au rendez-vous",
                 Arrays.asList(fakeUsers.get("1"), fakeUsers.get("2"), fakeUsers.get("4")),
-                new Date(2019, 12, 25),
+                begin.getTime(),
                 null,
-                new Date(2019, 1, 1),
-                new Location(25.4d, 29.7d))
+                created.getTime(),
+                new Location(40.7128, -74.0060))
         );
 
         List<Post> postsEvent1 = Arrays.asList(
-                new Post("", null, null, "Un premier post", new Document("", "https://i.imgur.com/WHRgwnI.jpg")),
-                new Post("", null, null, "Bla bla bla", new Document("", "https://www.plethorist.com/wp-content/uploads/2017/07/The-Worst-Stock-Photos-On-The-Internet-2.jpg")),
-                new Post("", null, null, "Michel à la plage", new Document("", "https://www.demilked.com/magazine/wp-content/uploads/2018/03/5aaa1cc45a750-funny-weird-wtf-stock-photos-4-5a3927b70f562__700.jpg"))
+                new Post("", fakeUsers.get("4"), null, "Un premier post", new Document("", "https://i.imgur.com/WHRgwnI.jpg")),
+                new Post("", fakeUsers.get("2"), null, "Bla bla bla", new Document("", "https://www.plethorist.com/wp-content/uploads/2017/07/The-Worst-Stock-Photos-On-The-Internet-2.jpg")),
+                new Post("", fakeUsers.get("3"), null, "Michel à la plage", new Document("", "https://www.demilked.com/magazine/wp-content/uploads/2018/03/5aaa1cc45a750-funny-weird-wtf-stock-photos-4-5a3927b70f562__700.jpg"))
         );
 
         fakePosts.put("1", postsEvent1);

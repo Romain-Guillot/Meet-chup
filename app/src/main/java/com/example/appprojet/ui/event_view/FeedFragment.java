@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -59,7 +57,7 @@ public class FeedFragment extends Fragment {
             durationView.setText(duration);
         });
 
-        viewModel.eventLocalisationLive.observe(this, localisation -> {
+        viewModel.eventLocationLive.observe(this, localisation -> {
             localisationView.setText(localisation);
         });
 

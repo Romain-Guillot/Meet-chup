@@ -17,6 +17,8 @@ import com.example.appprojet.repositories.IEventsDataRepository;
 import com.example.appprojet.utils.Callback;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -27,10 +29,12 @@ public class EventViewViewModel extends AndroidViewModel {
 
     private Event event = null;
 
+    private DateFormat dateFormat = DateFormat.getDateInstance();
+
     protected MutableLiveData<String> eventTitleLive = new MutableLiveData<>();
     protected MutableLiveData<String> eventBeginDateLive = new MutableLiveData<>();
     protected MutableLiveData<String> eventDurationLive = new MutableLiveData<>();
-    protected MutableLiveData<String> eventLocalisationLive = new MutableLiveData<>();
+    protected MutableLiveData<String> eventLocationLive = new MutableLiveData<>();
 
     protected  MutableLiveData<List<User>> eventParticipantsList = new MutableLiveData<>();
     protected MutableLiveData<List<Post>> eventPosts = new MutableLiveData<>();
@@ -43,7 +47,7 @@ public class EventViewViewModel extends AndroidViewModel {
 
 
     public void initEventMetaData(String eventId) {
-        eventsRepo.getEvent(null, eventId, new Callback<Event>() {
+        eventsRepo.getEvent( eventId, new Callback<Event>() {
             @Override
             public void onSucceed(Event result) {
                 event = result;
@@ -61,15 +65,15 @@ public class EventViewViewModel extends AndroidViewModel {
         eventTitleLive.setValue(event.getTitle());
         Date dateBegin = event.getDateBegin();
         if (dateBegin != null)
-            eventBeginDateLive.setValue(dateBegin.toString());
+            eventBeginDateLive.setValue(dateFormat.format(dateBegin));
 
         Date dateEnd = event.getDateEnd();
         if (dateBegin != null && dateEnd != null)
             eventDurationLive.setValue(getDurationBetweenDate(dateBegin, dateEnd));
 
-        Location localisation = event.getLocalisation();
-        if (localisation != null)
-            eventLocalisationLive.setValue(getAddressLocalisation(localisation));
+        Location location = event.getLocation();
+        if (location != null)
+            eventLocationLive.setValue(getAddressLocalisation(location));
 
         List<User> participants = event.getParticipants();
         if (participants != null && participants.size() > 0)
@@ -78,8 +82,7 @@ public class EventViewViewModel extends AndroidViewModel {
 
 
     public void loadPosts() {
-        Log.d(">>>>", "load posts");
-        eventsRepo.loadEventPosts(null, event, new Callback<Event>() {
+        eventsRepo.loadEventPosts( event, new Callback<Event>() {
             @Override
             public void onSucceed(Event result) {
                 event = result;
@@ -92,6 +95,7 @@ public class EventViewViewModel extends AndroidViewModel {
             }
         });
     }
+
 
     private void setPostsLive() {
         List<Post> posts = event.getPosts();
@@ -110,10 +114,11 @@ public class EventViewViewModel extends AndroidViewModel {
         if (weeks >= 1)
             duration += (weeks + " week" + (weeks > 1 ? "s" : ""));
         if (daysAfterLastWeek >= 1)
-            duration += (" " + daysAfterLastWeek + "day" + (daysAfterLastWeek > 1 ? "s" : ""));
+            duration += (" " + daysAfterLastWeek + " day" + (daysAfterLastWeek > 1 ? "s" : ""));
 
         return duration;
     }
+
 
     private String getAddressLocalisation(Location localisation) {
         Geocoder geocoder = new Geocoder(this.getApplication().getApplicationContext());
@@ -123,7 +128,7 @@ public class EventViewViewModel extends AndroidViewModel {
                 Address a =  addresses.get(0);
                 String address= "";
                 if (a.getLocality() != null) address += a.getLocality();
-                if (a.getCountryName() != null) address += (", " + a.getCountryName());
+                if (a.getCountryName() != null) address += ((address.isEmpty() ? "" : ", ") + a.getCountryName());
                 if (!address.isEmpty()) return address;
             }
         } catch (IOException e) {
@@ -132,10 +137,6 @@ public class EventViewViewModel extends AndroidViewModel {
         Log.d(">>>>>>>>", "Empty address");
         return null;
     }
-
-
-
-
 
 
 }

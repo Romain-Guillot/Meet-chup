@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appprojet.R;
 import com.example.appprojet.models.Post;
+import com.example.appprojet.models.User;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -28,10 +29,12 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
     public static class PostViewHolder extends RecyclerView.ViewHolder {
         TextView descriptionView;
         ImageView imageView;
+        TextView userView;
         PostViewHolder(View itemView) {
             super(itemView);
             this.descriptionView = itemView.findViewById(R.id.item_post_description);
             this.imageView = itemView.findViewById(R.id.item_post_image);
+            this.userView = itemView.findViewById(R.id.item_post_user);
         }
     }
 
@@ -65,6 +68,10 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
             new DownloadImage(holder.imageView).execute(imageURL);
         }
 
+        User user = post.getUser();
+        String name = user.getName();
+        if (name != null)
+            holder.userView.setText(name);
     }
 
 
