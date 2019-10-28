@@ -1,7 +1,6 @@
 package com.example.appprojet.repositories;
 
 
-import com.example.appprojet.models.Document;
 import com.example.appprojet.models.Event;
 import com.example.appprojet.models.Location;
 import com.example.appprojet.models.Post;
@@ -40,24 +39,24 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
 
         List<Event> fakeEvents = new ArrayList<>();
         fakeEvents.add(
-            new Event(
-                "Week-end au ski",
-                "Un super week-end de malade",
-                Arrays.asList(u1, u2),
-                new Date(2019, 4, 21),
-                new Date(2019, 6, 12),
-                    new Date(2019, 1, 2),
-                new Location(25.4d, 29.7d))
+                new Event(
+                        "Week-end au ski",
+                        "Un super week-end de malade",
+                        Arrays.asList(u1, u2),
+                        new Date(2019, 4, 21),
+                        new Date(2019, 6, 12),
+                        new Date(2019, 1, 2),
+                        new Location(25.4d, 29.7d))
         );
         fakeEvents.add(
-            new Event(
-                "Anniversaire de Tonton Michel",
-                "Merguez et saucisse seront au rendez-vous",
-                Arrays.asList(u1, u3, u4),
-                new Date(2019, 12, 25),
-                null,
-                new Date(2019, 1, 1),
-                new Location(25.4d, 29.7d))
+                new Event(
+                        "Anniversaire de Tonton Michel",
+                        "Merguez et saucisse seront au rendez-vous",
+                        Arrays.asList(u1, u3, u4),
+                        new Date(2019, 12, 25),
+                        null,
+                        new Date(2019, 1, 1),
+                        new Location(25.4d, 29.7d))
         );
 
         callback.onSucceed(fakeEvents);

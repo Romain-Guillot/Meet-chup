@@ -8,7 +8,7 @@ public class Post {
     private Document document;
     private List<Comment> commentsList;
 
-    public Post(User user, String description, Document document){
+    public Post(User user, String description, Document document) {
         this.user = user;
         this.description = description;
         this.document = document;
@@ -19,9 +19,13 @@ public class Post {
         return commentsList;
     }
 
-    public User getUser() { return user; }
+    public User getUser() {
+        return user;
+    }
 
-    public Document getDocument() { return document; }
+    public Document getDocument() {
+        return document;
+    }
 
     public String getDescription() {
         return description;
