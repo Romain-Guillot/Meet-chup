@@ -1,5 +1,6 @@
 package com.example.appprojet.ui.event_view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appprojet.R;
+import com.example.appprojet.ui.document_creation.DocumentCreationActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 
 
 public class FeedFragment extends Fragment {
@@ -23,6 +27,7 @@ public class FeedFragment extends Fragment {
     private TextView beginDateView;
     private TextView durationView;
     private RecyclerView participantsView;
+    private TextView descriptionView;
     private TextView localisationView;
     private RecyclerView postsView;
 
@@ -40,8 +45,14 @@ public class FeedFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event_view_feed, container, false);
 
+        FloatingActionButton addPostFAB = view.findViewById(R.id.feed_add_post_fab);
+        addPostFAB.setOnClickListener(v -> {
+            launchCreationPostActivity();
+        });
+
         this.beginDateView = view.findViewById(R.id.event_begin_date);
         this.durationView = view.findViewById(R.id.event_duration);
+        this.descriptionView = view.findViewById(R.id.event_description);
         this.localisationView = view.findViewById(R.id.event_localisation);
         this.participantsView = view.findViewById(R.id.event_participants_list);
         participantsView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
@@ -57,6 +68,10 @@ public class FeedFragment extends Fragment {
             durationView.setText(duration);
         });
 
+        viewModel.eventDescriptionLive.observe(this, description -> {
+            descriptionView.setText(description);
+        });
+
         viewModel.eventLocationLive.observe(this, localisation -> {
             localisationView.setText(localisation);
         });
@@ -69,12 +84,14 @@ public class FeedFragment extends Fragment {
             postsView.setAdapter(new PostsListViewAdapter(posts));
         });
 
-
-
-
         return view;
     }
 
 
+    private void launchCreationPostActivity() {
+        Intent intent = new Intent(getActivity(), DocumentCreationActivity.class);
+        // put extras
+        startActivity(intent);
+    }
 
 }

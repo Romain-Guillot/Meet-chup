@@ -35,6 +35,7 @@ public class EventViewViewModel extends AndroidViewModel {
     protected MutableLiveData<String> eventBeginDateLive = new MutableLiveData<>();
     protected MutableLiveData<String> eventDurationLive = new MutableLiveData<>();
     protected MutableLiveData<String> eventLocationLive = new MutableLiveData<>();
+    protected MutableLiveData<String> eventDescriptionLive = new MutableLiveData<>();
 
     protected  MutableLiveData<List<User>> eventParticipantsList = new MutableLiveData<>();
     protected MutableLiveData<List<Post>> eventPosts = new MutableLiveData<>();
@@ -70,6 +71,10 @@ public class EventViewViewModel extends AndroidViewModel {
         Date dateEnd = event.getDateEnd();
         if (dateBegin != null && dateEnd != null)
             eventDurationLive.setValue(getDurationBetweenDate(dateBegin, dateEnd));
+
+        String description = event.getDescription();
+        if (description != null)
+            eventDescriptionLive.setValue(description);
 
         Location location = event.getLocation();
         if (location != null)
