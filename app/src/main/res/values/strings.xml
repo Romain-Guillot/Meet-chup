@@ -1,13 +1,22 @@
 <resources>
-    <string name="app_name">App Projet</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-
+    <!-- General strings -->
+    <string name="app_name">Meet\'chup</string>
 
     <!--  Event view navigation bar  -->
     <string name="event_nav_feed">Feed</string>
     <string name="event_nav_album">Album</string>
     <string name="event_nav_todo">ToDo</string>
+    
+    <!-- Event duration labels-->
+    <plurals name="week_label">
+        <item quantity="one">%d week</item>
+        <item quantity="other">%d weeks</item>
+    </plurals>
+    <plurals name="day_label">
+        <item quantity="one">%d day</item>
+        <item quantity="other">%d days</item>
+    </plurals>
+
+    <!-- Unclassified / temporary -->
     <string name="item_post_image_description">post image</string>
 </resources>

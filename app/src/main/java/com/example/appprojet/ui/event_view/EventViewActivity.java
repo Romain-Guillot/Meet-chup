@@ -49,43 +49,21 @@ public class EventViewActivity extends AppCompatActivity {
                     actionBar.setTitle(event);
         });
 
-
-
         BottomNavigationView navView = findViewById(R.id.event_nav_view);
-
-        AppBarConfiguration navConfig = new AppBarConfiguration.Builder(
-                R.id.event_view_navigation_feed,
-                R.id.event_view_navigation_album,
-                R.id.event_view_navigation_todo
-        ).build();
-
         NavController navController = Navigation.findNavController(this, R.id.event_view_host_fragment);
-        NavInflater navInflater = navController.getNavInflater();
-        NavGraph graph = navInflater.inflate(R.navigation.event_view_navigation);
-
-//        graph.addArgument("event_id", new NavArgument.Builder().setDefaultValue(event_id).build());
-        navController.setGraph(graph);
-
         NavigationUI.setupWithNavController(navView, navController);
 
         setBackPressActionBar();
-
-
-
-//        navController.addOnDestinationChangedListener(
-//            (controller, destination, arguments) -> {
-//                NavArgument argument = new NavArgument.Builder().setDefaultValue(event_id).build();
-//                destination.addArgument("event_id", argument);
-//            }
-//        );
     }
+
 
     private void setBackPressActionBar() {
         if (actionBar != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDefaultDisplayHomeAsUpEnabled(true);
         }
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

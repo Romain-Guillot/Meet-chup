@@ -8,6 +8,7 @@ import android.util.Log;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.appprojet.R;
 import com.example.appprojet.models.Event;
 import com.example.appprojet.models.Location;
 import com.example.appprojet.models.Post;
@@ -117,9 +118,9 @@ public class EventViewViewModel extends AndroidViewModel {
 
         String duration = "";
         if (weeks >= 1)
-            duration += (weeks + " week" + (weeks > 1 ? "s" : ""));
+            duration += getApplication().getResources().getQuantityString(R.plurals.week_label, weeks, weeks);
         if (daysAfterLastWeek >= 1)
-            duration += (" " + daysAfterLastWeek + " day" + (daysAfterLastWeek > 1 ? "s" : ""));
+            duration += ((duration.isEmpty() ? "" : ", ") +  getApplication().getResources().getQuantityString(R.plurals.day_label, daysAfterLastWeek, daysAfterLastWeek));
 
         return duration;
     }
