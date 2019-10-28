@@ -86,12 +86,12 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
 
     @Override
     public void loadEventPosts(User user, Event event, Callback<Event> callback) {
-        ArrayList<Post> posts = new ArrayList<>();
+        /*ArrayList<Post> posts = new ArrayList<>();
         posts.add(new Post("Un premier post", Arrays.asList(new Document("https://i.imgur.com/WHRgwnI.jpg"), new Document("https://www.plethorist.com/wp-content/uploads/2017/07/The-Worst-Stock-Photos-On-The-Internet-2.jpg"))));
         posts.add(new Post("Huguette à la plage", Arrays.asList(new Document("https://www.demilked.com/magazine/wp-content/uploads/2018/03/5aaa1cc45a750-funny-weird-wtf-stock-photos-4-5a3927b70f562__700.jpg"))));
         event.setPosts(posts);
 
-        callback.onSucceed(event);
+        callback.onSucceed(event);*/
     }
 
     @Override

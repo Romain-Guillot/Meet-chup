@@ -23,8 +23,8 @@
 
         <activity android:name=".ui.authentication.AuthenticationActivity" />
         <activity android:name=".ui.event_creation.EventCreationActivity" />
-        <activity android:name=".ui.document_view.DocumentViewActivity" />
-        <activity android:name=".ui.document_creation.DocumentCreationActivity" />
+        <activity android:name=".ui.news_feed_view.NewsFeedActivity" />
+        <activity android:name=".ui.post_creation.PostCreationActivity" />
 
     </application>
 
