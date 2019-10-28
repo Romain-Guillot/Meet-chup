@@ -35,4 +35,6 @@ public interface IEventsDataRepository {
 
     public void deletePost(Event event, Post post, Callback<Boolean> callback);
 
+    public void loadPostComments(Post post, Callback<Post> callback);
+
 }

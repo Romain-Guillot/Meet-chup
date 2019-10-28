@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appprojet.R;
 import com.example.appprojet.models.Document;
@@ -26,6 +28,8 @@ public class PostViewFragment extends Fragment {
 
     private TextView descriptionView;
     private ImageView imageView;
+    private RecyclerView commentsView;
+    private ViewGroup emptyCommentsContainer;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,20 +46,29 @@ public class PostViewFragment extends Fragment {
 
         descriptionView = view.findViewById(R.id.post_view_description);
         imageView = view.findViewById(R.id.post_view_image);
+        this.commentsView = view.findViewById(R.id.post_comments);
+        commentsView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+        emptyCommentsContainer = view.findViewById(R.id.post_empty_comments);
 
 
-        viewModel.postLive.observe(this, post -> {
-            String description = post.getDescription();
-            if (description != null)
-                descriptionView.setText(description);
-
-            Document doc = post.getDocument();
-            String url = doc.getUrl();
-            if (url != null)
-                new DownloadImage(imageView).execute(post.getDocument().getUrl());
+        viewModel.postDescriptionLive.observe(this, description -> {
+            descriptionView.setText(description);
         });
 
+        viewModel.postImageLive.observe(this, url -> {
+            new DownloadImage(imageView).execute(url);
+        });
 
+        viewModel.postCommentsLive.observe(this, comments -> {
+            if(comments.isEmpty()){
+                emptyCommentsContainer.setVisibility(View.VISIBLE);
+                commentsView.setVisibility(View.GONE);
+            } else {
+                emptyCommentsContainer.setVisibility(View.GONE);
+                commentsView.setVisibility(View.VISIBLE);
+                commentsView.setAdapter(new CommentsListViewAdapter(comments));
+            }
+        });
 
         return view;
     }

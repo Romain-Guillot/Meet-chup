@@ -10,11 +10,16 @@ import com.example.appprojet.repositories.FirestoreEventsDataRepository;
 import com.example.appprojet.repositories.IEventsDataRepository;
 import com.example.appprojet.utils.Callback;
 
+import java.util.List;
+
 public class PostViewViewModel extends ViewModel {
 
     private IEventsDataRepository eventRepo;
 
-    MutableLiveData<Post> postLive = new MutableLiveData<>();
+    MutableLiveData<String> postDescriptionLive = new MutableLiveData<>();
+    MutableLiveData<String> postImageLive = new MutableLiveData<>();
+    MutableLiveData<List> postCommentsLive = new MutableLiveData<>();
+
 
 
     public PostViewViewModel() {
@@ -27,6 +32,17 @@ public class PostViewViewModel extends ViewModel {
             @Override
             public void onSucceed(Post result) {
                 setPostLive(result);
+                eventRepo.loadPostComments(result, new Callback<Post>() {
+                    @Override
+                    public void onSucceed(Post result) {
+                        setCommentsLive(result);
+                    }
+
+                    @Override
+                    public void onFail(Exception e) {
+
+                    }
+                });
             }
 
             @Override
@@ -34,14 +50,25 @@ public class PostViewViewModel extends ViewModel {
 
             }
         });
+
     }
+
+
 
     private void setPostLive(Post post) {
         if (post == null) {
             Log.d(">>>>>>>>>>>>>>>", "Post null");
         } else {
-            postLive.setValue(post);
+            postDescriptionLive.setValue(post.getDescription());
+            postImageLive.setValue(post.getDocument().getUrl());
         }
+    }
 
+    private void setCommentsLive(Post post) {
+        if (post == null) {
+            Log.d(">>>>>>>>>>>>>>>", "Post null");
+        } else {
+            postCommentsLive.setValue(post.getCommentsList());
+        }
     }
 }

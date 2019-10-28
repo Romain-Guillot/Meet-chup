@@ -1,6 +1,7 @@
 package com.example.appprojet.repositories;
 
 
+import com.example.appprojet.models.Comment;
 import com.example.appprojet.models.Document;
 import com.example.appprojet.models.Event;
 import com.example.appprojet.models.Location;
@@ -137,5 +138,25 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
     @Override
     public void deletePost(Event event, Post post, Callback<Boolean> callback) {
 
+    }
+
+    @Override
+    public void loadPostComments(Post post, Callback<Post> callback) {
+        List<Comment> comments = Arrays.asList(
+                new Comment("", fakeUsers.get("1"),"Pour savoir d'où vient le vent, faut mettre le doigt dans le cul du coq !" ),
+                new Comment("", fakeUsers.get("2"),"Elle est où la poulette ?" ),
+                new Comment("", fakeUsers.get("3"),"Tatan, elle fait du flan" ),
+                new Comment("", fakeUsers.get("4"),"Dans trois jour tatan elle m'emmène à la mer pour me noyer"),
+                new Comment("", fakeUsers.get("1"),"Pour savoir d'où vient le vent, faut mettre le doigt dans le cul du coq !" ),
+                new Comment("", fakeUsers.get("2"),"Elle est où la poulette ?" ),
+                new Comment("", fakeUsers.get("3"),"Tatan, elle fait du flan" ),
+                new Comment("", fakeUsers.get("4"),"Dans trois jour tatan elle m'emmène à la mer pour me noyer"),
+                new Comment("", fakeUsers.get("1"),"Pour savoir d'où vient le vent, faut mettre le doigt dans le cul du coq !" ),
+                new Comment("", fakeUsers.get("2"),"Elle est où la poulette ?" ),
+                new Comment("", fakeUsers.get("3"),"Tatan, elle fait du flan" ),
+                new Comment("", fakeUsers.get("4"),"Dans trois jour tatan elle m'emmène à la mer pour me noyer")
+        );
+        post.setCommentsList(comments);
+        callback.onSucceed(post);
     }
 }

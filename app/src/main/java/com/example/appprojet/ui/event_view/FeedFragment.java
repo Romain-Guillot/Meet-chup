@@ -102,12 +102,12 @@ public class FeedFragment extends Fragment {
 
         FloatingActionButton addPostFAB = view.findViewById(R.id.feed_add_post_fab);
         addPostFAB.setOnClickListener(v ->
-            launchCreationPostActivity()
+                launchCreationPostActivity()
         );
 
         Button addPostButton = view.findViewById(R.id.event_empty_posts_add_btn);
         addPostButton.setOnClickListener(v ->
-            launchCreationPostActivity()
+                launchCreationPostActivity()
         );
 
         return view;

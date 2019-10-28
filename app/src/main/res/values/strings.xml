@@ -22,4 +22,5 @@
     <string name="event_empty_post_indicator">No post</string>
     <string name="event_add_new_post_btn_label">Add a new post</string>
     <string name="event_participants_add_label">add</string>
+    <string name="post_view_no_comments">No comments</string>
 </resources>
