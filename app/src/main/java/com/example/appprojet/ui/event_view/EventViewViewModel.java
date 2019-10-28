@@ -19,7 +19,7 @@ import com.example.appprojet.utils.Callback;
 
 import java.io.IOException;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,14 +32,14 @@ public class EventViewViewModel extends AndroidViewModel {
 
     private DateFormat dateFormat = DateFormat.getDateInstance();
 
-    protected MutableLiveData<String> eventTitleLive = new MutableLiveData<>();
-    protected MutableLiveData<String> eventBeginDateLive = new MutableLiveData<>();
-    protected MutableLiveData<String> eventDurationLive = new MutableLiveData<>();
-    protected MutableLiveData<String> eventLocationLive = new MutableLiveData<>();
-    protected MutableLiveData<String> eventDescriptionLive = new MutableLiveData<>();
+    MutableLiveData<String> eventTitleLive = new MutableLiveData<>();
+    MutableLiveData<String> eventBeginDateLive = new MutableLiveData<>();
+    MutableLiveData<String> eventDurationLive = new MutableLiveData<>();
+    MutableLiveData<String> eventLocationLive = new MutableLiveData<>();
+    MutableLiveData<String> eventDescriptionLive = new MutableLiveData<>();
 
-    protected  MutableLiveData<List<User>> eventParticipantsList = new MutableLiveData<>();
-    protected MutableLiveData<List<Post>> eventPosts = new MutableLiveData<>();
+    MutableLiveData<List<User>> eventParticipantsList = new MutableLiveData<>();
+    MutableLiveData<List<Post>> eventPosts = new MutableLiveData<>();
 
 
     public EventViewViewModel(Application application) {
@@ -94,7 +94,6 @@ public class EventViewViewModel extends AndroidViewModel {
                 event = result;
                 setPostsLive();
             }
-
             @Override
             public void onFail(Exception e) {
 
@@ -105,7 +104,9 @@ public class EventViewViewModel extends AndroidViewModel {
 
     private void setPostsLive() {
         List<Post> posts = event.getPosts();
-        if (posts != null)
+        if (posts == null || posts.isEmpty())
+            eventPosts.setValue(new ArrayList<>());
+        else
             eventPosts.setValue(posts);
     }
 
@@ -140,9 +141,6 @@ public class EventViewViewModel extends AndroidViewModel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Log.d(">>>>>>>>", "Empty address");
         return null;
     }
-
-
 }

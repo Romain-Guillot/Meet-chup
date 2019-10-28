@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,7 +20,11 @@ import com.example.appprojet.ui.document_creation.DocumentCreationActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
-
+/**
+ * TODO 1:
+ * TODO 2:
+ * TODO 3:
+ */
 public class FeedFragment extends Fragment {
 
     private EventViewViewModel viewModel;
@@ -30,11 +35,16 @@ public class FeedFragment extends Fragment {
     private TextView descriptionView;
     private TextView localisationView;
     private RecyclerView postsView;
+    private ViewGroup emptyPostsContainer;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getActivity() == null)
+            throw new RuntimeException("Unexpected fragment creation");
+
         viewModel = ViewModelProviders.of(getActivity()).get(EventViewViewModel.class);
         viewModel.loadPosts();
     }
@@ -45,11 +55,6 @@ public class FeedFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event_view_feed, container, false);
 
-        FloatingActionButton addPostFAB = view.findViewById(R.id.feed_add_post_fab);
-        addPostFAB.setOnClickListener(v -> {
-            launchCreationPostActivity();
-        });
-
         this.beginDateView = view.findViewById(R.id.event_begin_date);
         this.durationView = view.findViewById(R.id.event_duration);
         this.descriptionView = view.findViewById(R.id.event_description);
@@ -58,31 +63,49 @@ public class FeedFragment extends Fragment {
         participantsView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
         this.postsView = view.findViewById(R.id.event_posts);
         postsView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+        this.emptyPostsContainer = view.findViewById(R.id.event_empty_posts);
 
 
-        viewModel.eventBeginDateLive.observe(this, begin -> {
-            beginDateView.setText(begin);
-        });
+        viewModel.eventBeginDateLive.observe(this, begin ->
+            beginDateView.setText(begin)
+        );
 
-        viewModel.eventDurationLive.observe(this, duration -> {
-            durationView.setText(duration);
-        });
+        viewModel.eventDurationLive.observe(this, duration ->
+            durationView.setText(duration)
+        );
 
-        viewModel.eventDescriptionLive.observe(this, description -> {
-            descriptionView.setText(description);
-        });
+        viewModel.eventDescriptionLive.observe(this, description ->
+            descriptionView.setText(description)
+        );
 
-        viewModel.eventLocationLive.observe(this, localisation -> {
-            localisationView.setText(localisation);
-        });
+        viewModel.eventLocationLive.observe(this, localisation ->
+            localisationView.setText(localisation)
+        );
 
-        viewModel.eventParticipantsList.observe(this, participants -> {
-            participantsView.setAdapter(new ParticipantsListViewAdapter(participants));
-        });
+        viewModel.eventParticipantsList.observe(this, participants ->
+            participantsView.setAdapter(new ParticipantsListViewAdapter(participants))
+        );
 
         viewModel.eventPosts.observe(this, posts -> {
-            postsView.setAdapter(new PostsListViewAdapter(posts));
+            if (posts.isEmpty()) {
+                emptyPostsContainer.setVisibility(View.VISIBLE);
+                postsView.setVisibility(View.GONE);
+            } else {
+                emptyPostsContainer.setVisibility(View.GONE);
+                postsView.setVisibility(View.VISIBLE);
+                postsView.setAdapter(new PostsListViewAdapter(posts));
+            }
         });
+
+        FloatingActionButton addPostFAB = view.findViewById(R.id.feed_add_post_fab);
+        addPostFAB.setOnClickListener(v ->
+            launchCreationPostActivity()
+        );
+
+        Button addPostButton = view.findViewById(R.id.event_empty_posts_add_btn);
+        addPostButton.setOnClickListener(v ->
+            launchCreationPostActivity()
+        );
 
         return view;
     }
