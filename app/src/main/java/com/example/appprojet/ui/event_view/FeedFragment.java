@@ -16,14 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appprojet.R;
-import com.example.appprojet.ui.document_creation.DocumentCreationActivity;
 import com.example.appprojet.ui.event_view.adapters.ParticipantsListViewAdapter;
 import com.example.appprojet.ui.event_view.adapters.PostsListViewAdapter;
+import com.example.appprojet.ui.post_creation.PostCreationActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 /**
- *
  * TODO 1: Post contextual menu on long-click
  * TODO 2: Add participant button click listener
  * TODO 3: Loading indication while data loading (meta-data, posts and post documents)
@@ -70,23 +69,23 @@ public class FeedFragment extends Fragment {
 
 
         viewModel.eventBeginDateLive.observe(this, begin ->
-            beginDateView.setText(begin)
+                beginDateView.setText(begin)
         );
 
         viewModel.eventDurationLive.observe(this, duration ->
-            durationView.setText(duration)
+                durationView.setText(duration)
         );
 
         viewModel.eventDescriptionLive.observe(this, description ->
-            descriptionView.setText(description)
+                descriptionView.setText(description)
         );
 
         viewModel.eventLocationLive.observe(this, localisation ->
-            localisationView.setText(localisation)
+                localisationView.setText(localisation)
         );
 
         viewModel.eventParticipantsList.observe(this, participants ->
-            participantsView.setAdapter(new ParticipantsListViewAdapter(participants))
+                participantsView.setAdapter(new ParticipantsListViewAdapter(participants))
         );
 
         viewModel.eventPosts.observe(this, posts -> {
@@ -115,7 +114,7 @@ public class FeedFragment extends Fragment {
 
 
     private void launchCreationPostActivity() {
-        Intent intent = new Intent(getActivity(), DocumentCreationActivity.class);
+        Intent intent = new Intent(getActivity(), PostCreationActivity.class);
         // put extras
         startActivity(intent);
     }

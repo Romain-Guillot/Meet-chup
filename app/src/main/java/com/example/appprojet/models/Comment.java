@@ -5,7 +5,7 @@ public class Comment {
     private User user;
     private String comment;
 
-    public Comment(String id, User user, String comment){
+    public Comment(String id, User user, String comment) {
         this.id = id;
         this.user = user;
         this.comment = comment;

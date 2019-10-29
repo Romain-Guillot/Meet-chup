@@ -4,7 +4,7 @@ public class Document {
     private String id;
     private String url;
 
-    public Document(String id, String url){
+    public Document(String id, String url) {
         this.id = id;
         this.url = url;
     }

@@ -11,7 +11,7 @@ public class Post {
     private Document document;
     private List<Comment> commentsList;
 
-    public Post(String id, User user, Date date, String description, Document document){
+    public Post(String id, User user, Date date, String description, Document document) {
         this.id = id;
         this.user = user;
         this.date = date;
