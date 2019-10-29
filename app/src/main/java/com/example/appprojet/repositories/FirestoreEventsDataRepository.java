@@ -1,6 +1,7 @@
 package com.example.appprojet.repositories;
 
 
+import com.example.appprojet.models.Document;
 import com.example.appprojet.models.Event;
 import com.example.appprojet.models.Location;
 import com.example.appprojet.models.Post;

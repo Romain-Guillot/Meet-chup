@@ -4,10 +4,9 @@ public class Document {
     private String id;
     private String url;
 
-    public Document(String id, String url){
+    public Document(String id, String url) {
         this.id = id;
         this.url = url;
-        this.media = media;
     }
 
     public String getId() {
@@ -17,10 +16,4 @@ public class Document {
     public String getUrl() {
         return url;
     }
-
-    public MediaType getMedia() {
-        return media;
-    }
-
-    public enum MediaType {PICTURE, VIDEO}
 }
