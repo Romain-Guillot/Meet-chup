@@ -5,4 +5,18 @@
     android:layout_height="match_parent"
     android:paddingTop="?attr/actionBarSize"
     android:orientation="vertical">
+
+    <Button
+        android:id="@+id/event1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="event 1"/>
+
+    <Button
+        android:id="@+id/event2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="event 2"/>
+
+
 </LinearLayout>

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.appprojet">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,7 +16,6 @@
             android:name=".ui.homepage.HomePageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -23,9 +24,10 @@
 
         <activity android:name=".ui.authentication.AuthenticationActivity" />
         <activity android:name=".ui.event_creation.EventCreationActivity" />
-        <activity android:name=".ui.news_feed_view.NewsFeedActivity" />
-        <activity android:name=".ui.post_creation.PostCreationActivity" />
+        <activity android:name=".ui.post_view.PostViewActivity" />
+        <activity android:name=".ui.document_creation.DocumentCreationActivity" />
 
     </application>
+
 
 </manifest>

@@ -43,4 +43,8 @@ public class Post {
     public List<Comment> getCommentsList() {
         return commentsList;
     }
+
+    public void setCommentsList(List<Comment> commentsList) {
+        this.commentsList = commentsList;
+    }
 }

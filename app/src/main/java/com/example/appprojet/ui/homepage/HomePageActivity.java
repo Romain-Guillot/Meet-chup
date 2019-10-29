@@ -3,15 +3,12 @@ package com.example.appprojet.ui.homepage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appprojet.R;
-import com.example.appprojet.ui.news_feed_view.NewsFeedActivity;
-import com.example.appprojet.ui.post_creation.PostCreationActivity;
-import com.example.appprojet.ui.post_creation.PostCreationFragment;
+import com.example.appprojet.ui.event_view.EventViewActivity;
 
 
 /**
@@ -27,7 +24,20 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
 
-        Intent intent = new Intent(HomePageActivity.this, PostCreationActivity.class);
-        startActivity(intent);
+        Intent intent = new Intent(this, EventViewActivity.class);
+
+        findViewById(R.id.event1).setOnClickListener(v -> {
+            intent.putExtra(EventViewActivity.EXTRA_EVENT_ID, "1");
+            startActivity(intent);
+        });
+
+        findViewById(R.id.event2).setOnClickListener(v -> {
+            intent.putExtra(EventViewActivity.EXTRA_EVENT_ID, "2");
+            startActivity(intent);
+        });
+
+
+
+
     }
 }

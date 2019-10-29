@@ -15,6 +15,8 @@ public interface IEventsDataRepository {
 
     public void createEvent(Event event, Callback<Event> callback);
 
+    public void getEvent(String event_id, Callback<Event> callback);
+
     public void joinEvent(String eventID, Callback<Event> callback);
 
     public void modifyEvent(Event event, Callback<Event> callback);
@@ -27,8 +29,12 @@ public interface IEventsDataRepository {
     public void loadEventToDoList(Event event, Callback<Event> callback);
 
 
+    public void getPost(String post_id, Callback<Post> callback);
+
     public void addPost(Event event, Post post, Callback<Post> callback);
 
     public void deletePost(Event event, Post post, Callback<Boolean> callback);
+
+    public void loadPostComments(Post post, Callback<Post> callback);
 
 }
