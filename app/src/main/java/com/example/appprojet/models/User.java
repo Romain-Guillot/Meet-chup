@@ -3,12 +3,13 @@ package com.example.appprojet.models;
 import java.util.List;
 
 public class User {
-    private String name;
+
     private String id;
+    private String name;
     private String email;
     private List<Event> eventList;
 
-    public User(String name, String id, String email){
+    public User(String id, String name, String email){
         this.name = name;
         this.id = id;
         this.email = email;
