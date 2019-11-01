@@ -1,10 +1,9 @@
-package com.example.appprojet.ui.authentication;
+package com.example.appprojet.ui.authentication.sign_auth;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.appprojet.R;
+import com.example.appprojet.ui.authentication.AuthenticationActivity;
 import com.example.appprojet.ui.authentication.custom_live_data.FormMutableLiveData;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;

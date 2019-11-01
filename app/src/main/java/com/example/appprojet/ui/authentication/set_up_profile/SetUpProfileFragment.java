@@ -1,4 +1,4 @@
-package com.example.appprojet.ui.authentication;
+package com.example.appprojet.ui.authentication.set_up_profile;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

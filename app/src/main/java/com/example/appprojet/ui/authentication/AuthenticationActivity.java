@@ -14,8 +14,13 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.appprojet.R;
+import com.example.appprojet.ui.authentication.set_up_profile.SetUpProfileFragment;
+import com.example.appprojet.ui.authentication.sign_auth.SignInFragment;
+import com.example.appprojet.ui.authentication.sign_auth.SignUpFragment;
 import com.example.appprojet.ui.homepage.HomePageActivity;
 
+
+// TODO : here listen for authentication state changed and move in consequence
 public class AuthenticationActivity extends AppCompatActivity {
 
     public AuthenticationViewModel viewModel;
@@ -96,7 +101,7 @@ public class AuthenticationActivity extends AppCompatActivity {
     }
 
 
-    static AuthenticationViewModel obtainViewModel(FragmentActivity activity) {
+    public static AuthenticationViewModel obtainViewModel(FragmentActivity activity) {
         return ViewModelProviders.of(activity).get(AuthenticationViewModel.class);
     }
 
