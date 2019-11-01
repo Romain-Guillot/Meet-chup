@@ -1,4 +1,4 @@
-package com.example.appprojet.models;
+package com.example.appprojet.utils;
 
 public class Location {
     private double longitude;

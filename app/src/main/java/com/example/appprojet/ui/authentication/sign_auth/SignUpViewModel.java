@@ -2,9 +2,9 @@ package com.example.appprojet.ui.authentication.sign_auth;
 
 import com.example.appprojet.models.User;
 import com.example.appprojet.ui.authentication.FormViewModel;
-import com.example.appprojet.ui.authentication.custom_live_data.EmailValidator;
-import com.example.appprojet.ui.authentication.custom_live_data.FormMutableLiveData;
-import com.example.appprojet.ui.authentication.custom_live_data.PasswordValidator;
+import com.example.appprojet.utils.custom_live_data.EmailValidator;
+import com.example.appprojet.utils.custom_live_data.FormMutableLiveData;
+import com.example.appprojet.utils.custom_live_data.PasswordValidator;
 import com.example.appprojet.utils.Callback;
 
 public class SignUpViewModel extends FormViewModel {

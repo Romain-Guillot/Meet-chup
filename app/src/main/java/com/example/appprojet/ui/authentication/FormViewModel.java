@@ -12,7 +12,6 @@ public abstract class FormViewModel extends ViewModel {
 
     protected MutableLiveData<Boolean> isLoadingLive = new MutableLiveData<>(false);
     protected MutableLiveData<String> errorLive = new MutableLiveData<>();
-    protected MutableLiveData<Boolean> isLoggedLive = new MutableLiveData<>(false);
 
 
     public FormViewModel() {

@@ -1,4 +1,4 @@
-package com.example.appprojet.ui.authentication.custom_live_data;
+package com.example.appprojet.utils.custom_live_data;
 
 public class BasicValidator implements Validator {
 

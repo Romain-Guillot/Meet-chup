@@ -112,5 +112,8 @@ public class AuthenticationActivity extends AppCompatActivity {
             actionBar.hide();
     }
 
-
+    @Override
+    public void onBackPressed() {
+        // we block the back navigation
+    }
 }

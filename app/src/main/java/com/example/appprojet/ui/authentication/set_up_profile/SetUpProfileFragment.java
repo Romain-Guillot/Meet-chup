@@ -7,15 +7,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.appprojet.R;
+import com.example.appprojet.ui.authentication.AuthenticationActivity;
 import com.example.appprojet.ui.authentication.FormFragment;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class SetUpProfileFragment extends FormFragment {
@@ -43,6 +41,10 @@ public class SetUpProfileFragment extends FormFragment {
                 Collections.singletonList(nameLayout),
                 Collections.singletonList(viewModel.nameLive)
         );
+
+        viewModel.isFinish.observe(this, isFinish -> {
+            if (isFinish) AuthenticationActivity.obtainViewModel(getActivity()).finish();
+        });
 
 
         return view;

@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".MeetChupApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,7 +14,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.MainEmptyActivity"
+            android:name=".ui.homepage.HomePageActivity"
             android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -22,7 +23,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.homepage.HomePageActivity"/>
+<!--        <activity android:name=".ui.homepage.HomePageActivity"/>-->
 
         <activity android:name=".ui.event_view.EventViewActivity" />
 
@@ -30,6 +31,8 @@
         <activity android:name=".ui.event_creation.EventCreationActivity" />
         <activity android:name=".ui.post_view.PostViewActivity" />
         <activity android:name=".ui.post_creation.PostCreationActivity" />
+
+        <service android:name=".ui.authentication.ReturnToAuthenticationService" android:exported="false"/>
 
     </application>
 

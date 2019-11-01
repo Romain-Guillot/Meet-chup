@@ -10,8 +10,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.appprojet.R;
-import com.example.appprojet.ui.authentication.FormViewModel;
-import com.example.appprojet.ui.authentication.custom_live_data.FormMutableLiveData;
+import com.example.appprojet.utils.custom_live_data.FormMutableLiveData;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Iterator;

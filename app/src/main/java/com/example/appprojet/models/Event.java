@@ -1,6 +1,8 @@
 package com.example.appprojet.models;
 
 
+import com.example.appprojet.utils.Location;
+
 import java.util.Date;
 
 import java.util.List;

@@ -1,6 +1,5 @@
 package com.example.appprojet.repositories;
 
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -54,7 +53,6 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
     }
 
 
-    // TODO : refactor duplicate code with classicSignUp
     @Override
     public void classicSignIn(String email, String password, Callback<User> callback) {
         firebaseAuth.signInWithEmailAndPassword(email, password)
@@ -62,7 +60,6 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
     }
 
 
-    // TODO : refactor duplicate code with classicSignUp
     @Override
     public void credentialSignIn(AuthCredential authCredential, Callback<User> callback) {
         firebaseAuth.signInWithCredential(authCredential)
@@ -106,6 +103,7 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
     @Override
     public void signOut() {
         firebaseAuth.signOut();
+        setUser();
     }
 
 

@@ -1,19 +1,19 @@
 package com.example.appprojet.ui.authentication.set_up_profile;
 
 
-import android.util.Log;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.appprojet.models.User;
 import com.example.appprojet.ui.authentication.FormViewModel;
-import com.example.appprojet.ui.authentication.custom_live_data.FormMutableLiveData;
-import com.example.appprojet.ui.authentication.custom_live_data.NameValidator;
+import com.example.appprojet.utils.custom_live_data.FormMutableLiveData;
+import com.example.appprojet.utils.custom_live_data.NameValidator;
 import com.example.appprojet.utils.Callback;
 
 public class SetUpProfileViewModel extends FormViewModel {
 
 
     FormMutableLiveData nameLive = new FormMutableLiveData(new NameValidator());
-
+    MutableLiveData<Boolean> isFinish = new MutableLiveData<>(false);
 
     public SetUpProfileViewModel() {
         super();
@@ -25,25 +25,23 @@ public class SetUpProfileViewModel extends FormViewModel {
     @Override
     protected void submitForm() {
         if (validate()) {
-            Log.d(">>>>>>>>>>>", "1");
+            isLoadingLive.setValue(true);
             String name = nameLive.getValue();
             authenticationRepository.updateName(name, new Callback<User>() {
                 @Override
                 public void onSucceed(User result) {
-                    Log.e(">>>>>>>", "OKKKK");
+                    isFinish.setValue(true);
                 }
 
                 @Override
                 public void onFail(Exception e) {
-                    Log.e(">>>>>>>", "NONNN");
+                    isLoadingLive.setValue(false);
                     errorLive.setValue(e.toString());
                 }
             });
         }
-        Log.d(">>>>>>>>>>>", "2");
-
-
     }
+
 
     @Override
     protected boolean validate() {

@@ -57,5 +57,9 @@ public class AuthenticationViewModel extends ViewModel {
         });
     }
 
+    public void finish() {
+        moveToHomePage.setValue(true);
+    }
+
 
 }
