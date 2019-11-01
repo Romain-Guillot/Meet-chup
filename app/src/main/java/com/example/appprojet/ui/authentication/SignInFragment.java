@@ -1,5 +1,6 @@
 package com.example.appprojet.ui.authentication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,11 +19,19 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.appprojet.R;
 import com.example.appprojet.ui.authentication.custom_live_data.FormMutableLiveData;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class SignInFragment extends Fragment {
 
     SignInViewModel viewModel;
+
+    private static int GOOGLE_SIGN_IN = 1;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,6 +84,18 @@ public class SignInFragment extends Fragment {
                 AuthenticationActivity.obtainViewModel(getActivity()).finish();
         });
 
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestIdToken(getString(R.string.google_web_client_id))
+                .build();
+        GoogleSignInClient googleSignIn = GoogleSignIn.getClient(getActivity(), gso);
+
+        Button googleSignInButton = view.findViewById(R.id.sign_in_google);
+        googleSignInButton.setOnClickListener(v -> {
+            signInWithGoogle(googleSignIn);
+        });
+
         return view;
     }
 
@@ -102,4 +123,23 @@ public class SignInFragment extends Fragment {
         layout.setError(!formMutableLiveData.isValid() ? formMutableLiveData.getError() : null);
     }
 
+    private void signInWithGoogle(GoogleSignInClient googleSignInClient) {
+        Intent intent = googleSignInClient.getSignInIntent();
+        startActivityForResult(intent, GOOGLE_SIGN_IN);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == GOOGLE_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                GoogleSignInAccount googleSignInAccount = task.getResult(ApiException.class);
+                viewModel.requestGoogleSignIn(googleSignInAccount);
+            } catch (ApiException e) {
+                e.printStackTrace(); // update ui
+            }
+        }
+    }
 }

@@ -3,8 +3,12 @@ package com.example.appprojet.repositories;
 
 import com.example.appprojet.models.User;
 import com.example.appprojet.utils.Callback;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthCredential;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
@@ -61,6 +65,18 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
         });
     }
 
+
+    @Override
+    public void googleSignIn(GoogleSignInAccount googleSignInAccount, Callback<User> callback) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(googleSignInAccount.getIdToken(), null);
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+
+            } else {
+
+            }
+        });
+    }
 
     /**
      * Create a new user account with the given [email] and the [password].

@@ -24,20 +24,19 @@ public class AuthenticationActivity extends AppCompatActivity {
     private TextView switchFormLabel;
     private Button switchFormBtn;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null)
-            actionBar.hide();
+        hideActionBar();
+
+        viewModel = obtainViewModel(this);
 
         switchFormContainer = findViewById(R.id.auth_switch_form_container);
         switchFormLabel = findViewById(R.id.auth_switch_form_label);
         switchFormBtn = findViewById(R.id.auth_switch_form_btn);
-
-        viewModel = obtainViewModel(this);
 
         // There is already a data inside the LiveData currentFormTypeLive (initialisation value)
         // This form type will be delivered to us directly, no need for a specific initialization code
@@ -48,8 +47,7 @@ public class AuthenticationActivity extends AppCompatActivity {
 
         viewModel.moveToHomePage.observe(this, b -> {
             if (b) {
-                Intent intent = new Intent(this, HomePageActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(this, HomePageActivity.class));
                 finish();
             }
         });
@@ -78,6 +76,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                 .commit();
     }
 
+
     private void updateUI(AuthenticationViewModel.FormType formType) {
         switch (formType) {
             case SETUP:
@@ -96,8 +95,16 @@ public class AuthenticationActivity extends AppCompatActivity {
         }
     }
 
+
     static AuthenticationViewModel obtainViewModel(FragmentActivity activity) {
         return ViewModelProviders.of(activity).get(AuthenticationViewModel.class);
+    }
+
+
+    private void hideActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null)
+            actionBar.hide();
     }
 
 

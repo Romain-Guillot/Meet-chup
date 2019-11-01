@@ -10,6 +10,7 @@ import com.example.appprojet.ui.authentication.custom_live_data.EmailValidator;
 import com.example.appprojet.ui.authentication.custom_live_data.FormMutableLiveData;
 import com.example.appprojet.ui.authentication.custom_live_data.PasswordValidator;
 import com.example.appprojet.utils.Callback;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 public class SignInViewModel extends ViewModel {
 
@@ -54,6 +55,20 @@ public class SignInViewModel extends ViewModel {
 
     private boolean validate() {
         return emailLive.isValid() && passwordLive.isValid();
+    }
+
+    public void requestGoogleSignIn(GoogleSignInAccount googleSignInAccount) {
+        authenticationRepository.googleSignIn(googleSignInAccount, new Callback<User>() {
+            @Override
+            public void onSucceed(User result) {
+
+            }
+
+            @Override
+            public void onFail(Exception e) {
+
+            }
+        });
     }
 
 }
