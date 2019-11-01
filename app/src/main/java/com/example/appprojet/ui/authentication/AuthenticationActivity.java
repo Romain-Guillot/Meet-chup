@@ -20,7 +20,6 @@ import com.example.appprojet.ui.authentication.sign_auth.SignUpFragment;
 import com.example.appprojet.ui.homepage.HomePageActivity;
 
 
-// TODO : here listen for authentication state changed and move in consequence
 public class AuthenticationActivity extends AppCompatActivity {
 
     public AuthenticationViewModel viewModel;
@@ -50,16 +49,17 @@ public class AuthenticationActivity extends AppCompatActivity {
             updateUI(formType);
         });
 
+        switchFormBtn.setOnClickListener(v ->
+            viewModel.switchSignInSignUpForm()
+        );
+
+
         viewModel.moveToHomePage.observe(this, b -> {
             if (b) {
                 startActivity(new Intent(this, HomePageActivity.class));
                 finish();
             }
         });
-
-        switchFormBtn.setOnClickListener(v ->
-            viewModel.switchSignInSignUpForm()
-        );
     }
 
 

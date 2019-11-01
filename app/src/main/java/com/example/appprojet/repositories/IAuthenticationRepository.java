@@ -2,7 +2,7 @@ package com.example.appprojet.repositories;
 
 import com.example.appprojet.models.User;
 import com.example.appprojet.utils.Callback;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.auth.AuthCredential;
 
 public interface IAuthenticationRepository {
 
@@ -10,7 +10,7 @@ public interface IAuthenticationRepository {
 
     void classicSignIn(String email, String password, Callback<User> callback);
 
-    void googleSignIn(GoogleSignInAccount googleSignInAccount, Callback<User> callback);
+    void credentialSignIn(AuthCredential authCredential, Callback<User> callback);
 
 
     /**
@@ -21,8 +21,16 @@ public interface IAuthenticationRepository {
      */
     void classicSignUp(String email, String password, Callback<User> callback);
 
+
+    void updateName(String name, Callback<User> callback);
+
+
     void signOut();
 
+
+    void addAuthStateListener(Callback<User> listener);
+
+    void removeAuthStateListener(Callback<User> listener);
 
 
 }

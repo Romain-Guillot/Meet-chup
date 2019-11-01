@@ -8,8 +8,19 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
-public class SetUpProfileFragment extends Fragment {
+import com.example.appprojet.R;
+import com.example.appprojet.ui.authentication.FormFragment;
+import com.google.android.material.textfield.TextInputLayout;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Collections;
+
+public class SetUpProfileFragment extends FormFragment {
+
+    SetUpProfileViewModel viewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -20,6 +31,20 @@ public class SetUpProfileFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.fragment_authentication_setup, container, false);
+
+        TextInputLayout nameLayout = view.findViewById(R.id.auth_setup_name_layout);
+
+        viewModel = ViewModelProviders.of(this).get(SetUpProfileViewModel.class);
+
+        init(
+                view,
+                viewModel,
+                Collections.singletonList(nameLayout),
+                Collections.singletonList(viewModel.nameLive)
+        );
+
+
+        return view;
     }
 }

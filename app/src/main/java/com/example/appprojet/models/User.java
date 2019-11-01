@@ -9,6 +9,8 @@ public class User {
     private String email;
     private List<Event> eventList;
 
+    private boolean isFirstLogIn = false;
+
     public User(String id, String name, String email){
         this.name = name;
         this.id = id;
@@ -18,6 +20,10 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<Event> getEventList() {
@@ -30,5 +36,13 @@ public class User {
 
     public String getId() {
         return id;
+    }
+
+    public boolean isFirstLogIn() {
+        return isFirstLogIn;
+    }
+
+    public void setFirstLogIn(boolean firstLogIn) {
+        isFirstLogIn = firstLogIn;
     }
 }

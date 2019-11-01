@@ -1,13 +1,17 @@
 package com.example.appprojet.ui.authentication.custom_live_data;
 
 public class NameValidator implements Validator {
+
+    private int minLenght = 6;
+    private int maxLenght = 20;
+
     @Override
     public boolean isValid(String value) {
-        return true;
+        return value != null && value.length() >= minLenght && value.length() <= maxLenght;
     }
 
     @Override
     public String errorMessage() {
-        return "";
+        return "Your name must be " + minLenght + " to " + maxLenght + " characters long";
     }
 }

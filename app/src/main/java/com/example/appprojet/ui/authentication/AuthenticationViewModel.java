@@ -1,7 +1,14 @@
 package com.example.appprojet.ui.authentication;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.example.appprojet.models.User;
+import com.example.appprojet.repositories.FirebaseAuthenticationRepository;
+import com.example.appprojet.utils.Callback;
+
 
 public class AuthenticationViewModel extends ViewModel {
 
@@ -11,6 +18,11 @@ public class AuthenticationViewModel extends ViewModel {
 
     MutableLiveData<FormType> currentFormTypeLive = new MutableLiveData<>(FormType.SIGNIN);
     MutableLiveData<Boolean> moveToHomePage = new MutableLiveData<>(false);
+
+
+    public AuthenticationViewModel() {
+        registerUserStateListener();
+    }
 
 
     void switchSignInSignUpForm() {
@@ -30,8 +42,20 @@ public class AuthenticationViewModel extends ViewModel {
         }
     }
 
-    void finish() {
-        moveToHomePage.setValue(true);
+
+    private void registerUserStateListener() {
+        FirebaseAuthenticationRepository.getInstance().addAuthStateListener(new Callback<User>() {
+            @Override
+            public void onSucceed(User result) {
+                Log.e(">>>>>>>", "" + result.isFirstLogIn());
+                if (result != null) {
+                    if (result.isFirstLogIn()) currentFormTypeLive.setValue(FormType.SETUP);
+                    else moveToHomePage.setValue(true);
+                }
+            }
+            @Override public void onFail(Exception e) { }
+        });
     }
+
 
 }
