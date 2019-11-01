@@ -27,6 +27,7 @@ public class MainEmptyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         IAuthenticationRepository authRepo = FirebaseAuthenticationRepository.getInstance();
+        authRepo.signOut();
         Intent startupActivity;
 
         if (authRepo.getUser() == null)

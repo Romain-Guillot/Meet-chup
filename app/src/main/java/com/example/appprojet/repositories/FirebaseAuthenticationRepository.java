@@ -1,11 +1,11 @@
 package com.example.appprojet.repositories;
 
-import android.telecom.Call;
 
 import com.example.appprojet.models.User;
 import com.example.appprojet.utils.Callback;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 /**
@@ -15,16 +15,18 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
 
     private static FirebaseAuthenticationRepository INSTANCE = null;
     private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore firestore;
+
     private User user = null;
 
 
     private FirebaseAuthenticationRepository() {
         firebaseAuth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
         setUser();
         firebaseAuth.addAuthStateListener(state ->
             setUser()
         );
-
     }
 
 
@@ -43,9 +45,20 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
     }
 
 
+    // TODO : refactor duplicate code with classicSignUp
     @Override
     public void classicSignIn(String email, String password, Callback<User> callback) {
-
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            FirebaseUser fbUser = firebaseAuth.getCurrentUser();
+            if (task.isSuccessful() && fbUser != null) {
+                String temporaryName = getEmailAddressLocalPart(email);
+                User user = new User(fbUser.getUid(), temporaryName, email);
+                callback.onSucceed(user);
+            } else {
+                Exception exception = task.getException();
+                callback.onFail(exception != null ? exception : new Exception());
+            }
+        });
     }
 
 
