@@ -8,14 +8,18 @@ public class User {
     private String name;
     private String email;
     private List<Event> eventList;
+    private boolean isFirstLogIn;
 
-    private boolean isFirstLogIn = false;
+    public User(String id, String name, String email) {
+        this(id, name, email, false);
+    }
 
-    public User(String id, String name, String email){
+    public User(String id, String name, String email, boolean isFirstLogIn) {
         this.name = name;
         this.id = id;
         this.email = email;
         this.eventList = null;
+        this.isFirstLogIn = isFirstLogIn;
     }
 
     public String getName() {
@@ -42,7 +46,4 @@ public class User {
         return isFirstLogIn;
     }
 
-    public void setFirstLogIn(boolean firstLogIn) {
-        isFirstLogIn = firstLogIn;
-    }
 }

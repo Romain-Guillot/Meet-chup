@@ -47,8 +47,8 @@ public class AuthenticationViewModel extends ViewModel {
         FirebaseAuthenticationRepository.getInstance().addAuthStateListener(new Callback<User>() {
             @Override
             public void onSucceed(User result) {
-                Log.e(">>>>>>>", "" + result.isFirstLogIn());
                 if (result != null) {
+                    Log.e(">>>>>>>", result.isFirstLogIn() + "");
                     if (result.isFirstLogIn()) currentFormTypeLive.setValue(FormType.SETUP);
                     else moveToHomePage.setValue(true);
                 }

@@ -1,6 +1,5 @@
 package com.example.appprojet.repositories;
 
-
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -13,15 +12,11 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 
 /**
@@ -31,11 +26,7 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
 
     private static FirebaseAuthenticationRepository INSTANCE = null;
 
-    private static final String USERS_COLLECTION = "users";
-    private static final String USER_FIELD_NAME = "name";
-
     private FirebaseAuth firebaseAuth;
-    private FirebaseFirestore firestore;
 
     private User user;
     private List<Callback<User>> authStateListeners;
@@ -43,13 +34,8 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
 
     private FirebaseAuthenticationRepository() {
         firebaseAuth = FirebaseAuth.getInstance();
-        firestore = FirebaseFirestore.getInstance();
 
         authStateListeners = new ArrayList<>();
-
-        firebaseAuth.addAuthStateListener(state ->
-            setUser()
-        );
     }
 
 
@@ -71,18 +57,16 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
     // TODO : refactor duplicate code with classicSignUp
     @Override
     public void classicSignIn(String email, String password, Callback<User> callback) {
-        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(
-            new OnSignComplete(callback)
-        );
+        firebaseAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnSignComplete(callback));
     }
 
 
     // TODO : refactor duplicate code with classicSignUp
     @Override
     public void credentialSignIn(AuthCredential authCredential, Callback<User> callback) {
-        firebaseAuth.signInWithCredential(authCredential).addOnCompleteListener(
-            new OnSignComplete(callback)
-        );
+        firebaseAuth.signInWithCredential(authCredential)
+                .addOnCompleteListener(new OnSignComplete(callback));
     }
 
     /**
@@ -96,22 +80,23 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
      */
     @Override
     public void classicSignUp(String email, String password, Callback<User> callback) {
-        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
-                new OnSignComplete(callback)
-        );
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnSignComplete(callback));
     }
 
     @Override
     public void updateName(String name, Callback<User> callback) {
-        if (this.user != null) {
-            Map<String, String> info = new HashMap<>();
-            info.put(USER_FIELD_NAME, name);
-            getUserDocRef(user.getId()).set(info, SetOptions.merge()).addOnCompleteListener(task -> {
-                if (task.isSuccessful()) callback.onSucceed(user);
-                else callback.onFail(task.getException());
+        FirebaseUser fbUser = firebaseAuth.getCurrentUser();
+
+        if (fbUser != null) {
+            UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(name).build();
+            fbUser.updateProfile(profileUpdate).addOnCompleteListener(task -> {
+               if (task.isSuccessful()) callback.onSucceed(user);
+               else callback.onFail(task.getException());
             });
         } else {
-            callback.onFail(new Exception("User not signed in"));
+            callback.onFail(new Exception(""));
         }
     }
 
@@ -135,36 +120,27 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
         this.authStateListeners.remove(listener);
     }
 
-
     private void setUser() {
+        setUser(false);
+    }
+
+    private void setUser(boolean firstLogin) {
         FirebaseUser fbUser = firebaseAuth.getCurrentUser();
+
         if (fbUser != null) {
             String email = fbUser.getEmail();
-
             if (email == null) email = "unknown";
 
-            String temporaryName = getEmailAddressLocalPart(email);
-            user = new User(fbUser.getUid(), temporaryName, email);
+            String name = fbUser.getDisplayName();
+            if (name == null) name = getEmailAddressLocalPart(email);
 
-            getUserDocRef(user.getId()).get().addOnCompleteListener(taskFirestore -> {
-                if (taskFirestore.isSuccessful()) {
-                    DocumentSnapshot documentSnapshot = taskFirestore.getResult();
-                    if (documentSnapshot != null && documentSnapshot.exists()) {
-                        Object userName = documentSnapshot.get(USER_FIELD_NAME);
-                        if (userName != null) {
-                            user.setFirstLogIn(false);
-                            user.setName(userName.toString());
-                        } else { user.setFirstLogIn(true); }
-                    } else { user.setFirstLogIn(true); }
-                } else { user.setFirstLogIn(true); }
-
-                for (Callback<User> listener : authStateListeners) {
-                    listener.onSucceed(user);
-                }
-            });
+            user = new User(fbUser.getUid(), name, email, firstLogin);
         } else {
             this.user = null;
         }
+
+        for (Callback<User> listener : authStateListeners)
+            listener.onSucceed(user);
     }
 
 
@@ -181,23 +157,23 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
 
 
     private class OnSignComplete implements OnCompleteListener<AuthResult> {
+
         Callback<User> callback;
-        OnSignComplete(Callback<User> callback) { this.callback = callback; }
+
+        OnSignComplete(Callback<User> callback) {
+            this.callback = callback;
+        }
+
         @Override
-        public void onComplete(@NonNull Task task) {
-            setUser();
-            if (task.isSuccessful() && user != null) {
-                addAuthStateListener(callback);
-                setUser();
-                removeAuthStateListener(callback);
+        public void onComplete(@NonNull Task<AuthResult> task) {
+            if (task.isSuccessful()) {
+                boolean firstLogin = task.getResult().getAdditionalUserInfo().isNewUser();
+                setUser(firstLogin);
+                callback.onSucceed(user);
             } else {
                 Exception exception = task.getException();
                 callback.onFail(exception != null ? exception : new Exception());
             }
         }
-    }
-
-    private DocumentReference getUserDocRef(String uid) {
-        return firestore.collection(USERS_COLLECTION).document(uid);
     }
 }
