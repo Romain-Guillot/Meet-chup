@@ -34,6 +34,9 @@ public class ProvidersAuthenticationFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_authentication_providers, container, false);
 
+        if (getActivity() == null)
+            throw new RuntimeException("Unexpected fragment creation");
+
         viewModel = ViewModelProviders.of(getActivity()).get(ProvidersAuthenticationViewModel.class);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -72,10 +75,8 @@ public class ProvidersAuthenticationFragment extends Fragment {
                     e.printStackTrace(); // update ui
                 }
                 break;
-            case FACEBOOK_SIGN_IN:
-                break;
-            case TWITTER_SIGN_IN:
-                break;
+            case FACEBOOK_SIGN_IN: // TODO
+            case TWITTER_SIGN_IN: // TODO
         }
     }
 

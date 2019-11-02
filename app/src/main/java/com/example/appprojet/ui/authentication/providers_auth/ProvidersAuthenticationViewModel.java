@@ -13,9 +13,9 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class ProvidersAuthenticationViewModel extends ViewModel {
 
-    private IAuthenticationRepository authenticationRepository;
+    private final IAuthenticationRepository authenticationRepository;
 
-    MutableLiveData<Boolean> googleIsLoading = new MutableLiveData<>(false);
+    final MutableLiveData<Boolean> googleIsLoading = new MutableLiveData<>(false);
 
     public ProvidersAuthenticationViewModel() {
         authenticationRepository = FirebaseAuthenticationRepository.getInstance();
@@ -23,6 +23,9 @@ public class ProvidersAuthenticationViewModel extends ViewModel {
 
 
     void requestGoogleSignIn(GoogleSignInAccount googleSignInAccount) {
+        if (googleSignInAccount == null)
+            throw new RuntimeException("Cannot request a connexion with a null Google account");
+
         AuthCredential authCredential = GoogleAuthProvider.getCredential(googleSignInAccount.getIdToken(), null);
         authenticationRepository.credentialSignIn(authCredential, new Callback<User>() {
             @Override

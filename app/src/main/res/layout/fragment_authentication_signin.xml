@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/auth_signin_error"
+        android:id="@+id/form_error_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -44,7 +44,7 @@
 
     <!-- Submit button -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/auth_sign_submit"
+        android:id="@+id/form_submit_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Log in"/>

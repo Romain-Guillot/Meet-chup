@@ -1,4 +1,4 @@
-package com.example.appprojet.ui.authentication.sign_auth;
+package com.example.appprojet.ui.authentication.sign_in_form;
 
 import com.example.appprojet.models.User;
 import com.example.appprojet.ui.authentication.FormViewModel;
@@ -9,11 +9,11 @@ import com.example.appprojet.utils.Callback;
 
 public class SignInViewModel extends FormViewModel {
 
-    FormMutableLiveData emailLive = new FormMutableLiveData(new BasicValidator());
-    FormMutableLiveData passwordLive = new FormMutableLiveData(new BasicValidator());
+    final FormMutableLiveData emailLive = new FormMutableLiveData(new BasicValidator());
+    final FormMutableLiveData passwordLive = new FormMutableLiveData(new BasicValidator());
 
-
-     protected void submitForm() {
+    @Override
+    protected void submitForm() {
         if (validate()) {
             isLoadingLive.setValue(true);
             String email =emailLive.getValue();
@@ -33,6 +33,7 @@ public class SignInViewModel extends FormViewModel {
         }
     }
 
+    @Override
     protected boolean validate() {
         return emailLive.isValid() && passwordLive.isValid();
     }

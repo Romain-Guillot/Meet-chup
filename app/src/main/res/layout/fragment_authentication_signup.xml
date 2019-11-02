@@ -4,16 +4,18 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/form_error_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
     <fragment
         android:id="@+id/sign_in_providers"
         android:name="com.example.appprojet.ui.authentication.providers_auth.ProvidersAuthenticationFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="sign up"/>
 
     <!-- Email field -->
     <com.google.android.material.textfield.TextInputLayout
@@ -55,7 +57,7 @@
 
     <!-- Submit button -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/auth_sign_submit"
+        android:id="@+id/form_submit_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Log in"/>

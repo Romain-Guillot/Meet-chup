@@ -33,8 +33,8 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
 
     private FirebaseAuthenticationRepository() {
         firebaseAuth = FirebaseAuth.getInstance();
-
         authStateListeners = new ArrayList<>();
+        setUser();
     }
 
 

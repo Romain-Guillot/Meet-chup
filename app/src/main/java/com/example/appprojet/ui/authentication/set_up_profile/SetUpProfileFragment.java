@@ -16,13 +16,20 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Collections;
 
+
+/**
+ *
+ */
 public class SetUpProfileFragment extends FormFragment {
 
-    SetUpProfileViewModel viewModel;
+    private SetUpProfileViewModel viewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // We "link" the view model to the activity to keep the same view model, even is the fragment instance change
+        viewModel = ViewModelProviders.of(getActivity()).get(SetUpProfileViewModel.class);
     }
 
 
@@ -33,8 +40,6 @@ public class SetUpProfileFragment extends FormFragment {
 
         TextInputLayout nameLayout = view.findViewById(R.id.auth_setup_name_layout);
 
-        viewModel = ViewModelProviders.of(this).get(SetUpProfileViewModel.class);
-
         init(
                 view,
                 viewModel,
@@ -42,10 +47,10 @@ public class SetUpProfileFragment extends FormFragment {
                 Collections.singletonList(viewModel.nameLive)
         );
 
+        // Notify the authentication activity that the authentication process is done.
         viewModel.isFinish.observe(this, isFinish -> {
             if (isFinish) AuthenticationActivity.obtainViewModel(getActivity()).finish();
         });
-
 
         return view;
     }

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appprojet.R;
+import com.example.appprojet.repositories.FirebaseAuthenticationRepository;
 import com.example.appprojet.ui.event_view.adapters.ParticipantsListViewAdapter;
 import com.example.appprojet.ui.event_view.adapters.PostsListViewAdapter;
 import com.example.appprojet.ui.post_creation.PostCreationActivity;

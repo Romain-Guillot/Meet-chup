@@ -1,4 +1,4 @@
-package com.example.appprojet.ui.authentication.sign_auth;
+package com.example.appprojet.ui.authentication.sign_in_form;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,13 +18,11 @@ import java.util.Arrays;
 
 public class SignInFragment extends FormFragment {
 
-    SignInViewModel viewModel;
+    private SignInViewModel viewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getActivity() == null) throw new RuntimeException();
 
         // We "link" the view model to the activity to keep the same view model, even is the fragment instance change
         viewModel = ViewModelProviders.of(getActivity()).get(SignInViewModel.class);
@@ -39,7 +37,8 @@ public class SignInFragment extends FormFragment {
         TextInputLayout emailLayout = view.findViewById(R.id.auth_signin_email_layout);
         TextInputLayout passwordLayout = view.findViewById(R.id.auth_signin_password_layout);
 
-        init(   view,
+        init(
+                view,
                 viewModel,
                 Arrays.asList(emailLayout, passwordLayout),
                 Arrays.asList(viewModel.emailLive, viewModel.passwordLive)

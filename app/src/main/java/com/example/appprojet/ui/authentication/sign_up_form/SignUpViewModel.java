@@ -1,4 +1,4 @@
-package com.example.appprojet.ui.authentication.sign_auth;
+package com.example.appprojet.ui.authentication.sign_up_form;
 
 import com.example.appprojet.models.User;
 import com.example.appprojet.ui.authentication.FormViewModel;
@@ -9,9 +9,9 @@ import com.example.appprojet.utils.Callback;
 
 public class SignUpViewModel extends FormViewModel {
 
-    FormMutableLiveData emailLive = new FormMutableLiveData(new EmailValidator());
-    FormMutableLiveData passwordLive = new FormMutableLiveData(new PasswordValidator());
-    FormMutableLiveData passwordConfirmLive = new FormMutableLiveData(null);
+    final FormMutableLiveData emailLive = new FormMutableLiveData(new EmailValidator());
+    final FormMutableLiveData passwordLive = new FormMutableLiveData(new PasswordValidator());
+    final FormMutableLiveData passwordConfirmLive = new FormMutableLiveData(null);
 
     @Override
     protected void submitForm() {

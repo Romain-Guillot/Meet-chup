@@ -12,8 +12,8 @@ import com.example.appprojet.utils.Callback;
 public class SetUpProfileViewModel extends FormViewModel {
 
 
-    FormMutableLiveData nameLive = new FormMutableLiveData(new NameValidator());
-    MutableLiveData<Boolean> isFinish = new MutableLiveData<>(false);
+    final FormMutableLiveData nameLive = new FormMutableLiveData(new NameValidator());
+    final MutableLiveData<Boolean> isFinish = new MutableLiveData<>(false);
 
     public SetUpProfileViewModel() {
         super();

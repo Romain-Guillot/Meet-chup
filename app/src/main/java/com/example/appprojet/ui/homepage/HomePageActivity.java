@@ -2,6 +2,7 @@ package com.example.appprojet.ui.homepage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
@@ -27,18 +28,10 @@ public class HomePageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        IAuthenticationRepository authRepo = FirebaseAuthenticationRepository.getInstance();
-        Intent startupActivity;
-
-        if (authRepo.getUser() == null)
-            startupActivity = new Intent(this, AuthenticationActivity.class);
-        else
-            startupActivity = new Intent(this, HomePageActivity.class);
-
-        startActivity(startupActivity);
-
+        navigateToAuthenticationActivityIfUserIsNotLogged();
         setContentView(R.layout.activity_homepage);
+
+
 
         Intent intent = new Intent(this, EventViewActivity.class);
 
@@ -48,13 +41,19 @@ public class HomePageActivity extends AppCompatActivity {
         });
 
         Button b = findViewById(R.id.event2);
-        b.setText(FirebaseAuthenticationRepository.getInstance().getUser().getName());
+//        b.setText(FirebaseAuthenticationRepository.getInstance().getUser().getName());
         b.setOnClickListener(v -> {
             FirebaseAuthenticationRepository.getInstance().signOut();
         });
 
+    }
 
-
-
+    public void navigateToAuthenticationActivityIfUserIsNotLogged() {
+        IAuthenticationRepository authRepo = FirebaseAuthenticationRepository.getInstance();
+        Log.e(">>>>>>>", (authRepo.getUser() == null ? "null" : "not null"));
+        if (authRepo.getUser() == null) {
+            Intent authActivityIntent =  new Intent(this, AuthenticationActivity.class);
+            startActivity(authActivityIntent);
+        }
     }
 }
