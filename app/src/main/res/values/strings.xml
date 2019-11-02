@@ -13,7 +13,7 @@
     <string name="auth_password_hint">Password</string>
     <string name="auth_setup_username_hint">Username</string>
     <string name="auth_sign_in_with_provider">Continue with %1$s</string>
-
+    <string name="auth_error_form">An error occurred, please check your information</string>
 
     <!-- Provider names -->
     <string name="provider_google">Google</string>

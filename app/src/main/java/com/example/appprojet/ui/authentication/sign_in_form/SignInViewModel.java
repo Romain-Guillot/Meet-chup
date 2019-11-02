@@ -1,8 +1,10 @@
 package com.example.appprojet.ui.authentication.sign_in_form;
 
+import android.app.Application;
+
 import com.example.appprojet.ui.authentication.FormViewModel;
-import com.example.appprojet.utils.custom_live_data.BasicValidator;
-import com.example.appprojet.utils.custom_live_data.FormData;
+import com.example.appprojet.utils.form_data_with_validators.BasicValidator;
+import com.example.appprojet.utils.form_data_with_validators.FormData;
 
 
 /**
@@ -21,6 +23,10 @@ public class SignInViewModel extends FormViewModel {
 
     final FormData emailLive = new FormData(new BasicValidator());
     final FormData passwordLive = new FormData(new BasicValidator());
+
+    public SignInViewModel(Application application) {
+        super(application);
+    }
 
     @Override
     protected void submitForm() {

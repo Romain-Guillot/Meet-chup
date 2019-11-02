@@ -1,8 +1,12 @@
 package com.example.appprojet.ui.authentication;
 
+import android.app.Application;
+
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.appprojet.R;
 import com.example.appprojet.models.User;
 import com.example.appprojet.repositories.FirebaseAuthenticationRepository;
 import com.example.appprojet.repositories.IAuthenticationRepository;
@@ -17,8 +21,10 @@ import com.example.appprojet.utils.Callback;
  * When the FormViewModel is create, the authentication repository instance is set.
  *
  * When extending this class, submitForm and validate methods have to be implements.
+ *
+ * TODO: Change error message based on the FirebaseException return by the repo
  */
-public abstract class FormViewModel extends ViewModel {
+public abstract class FormViewModel extends AndroidViewModel {
 
     /** Authentication repository instance*/
     protected final IAuthenticationRepository authenticationRepository;
@@ -39,12 +45,13 @@ public abstract class FormViewModel extends ViewModel {
         @Override
         public void onFail(Exception e) {
             isLoadingLive.setValue(false);
-            errorLive.setValue(e.toString());
+            errorLive.setValue(getApplication().getString(R.string.auth_error_form));
         }
     };
 
 
-    protected FormViewModel() {
+    protected FormViewModel(Application application) {
+        super(application);
         authenticationRepository = FirebaseAuthenticationRepository.getInstance();
     }
 

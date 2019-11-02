@@ -1,11 +1,13 @@
 package com.example.appprojet.ui.authentication.set_up_profile;
 
+import android.app.Application;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.appprojet.models.User;
 import com.example.appprojet.ui.authentication.FormViewModel;
-import com.example.appprojet.utils.custom_live_data.FormData;
-import com.example.appprojet.utils.custom_live_data.NameValidator;
+import com.example.appprojet.utils.form_data_with_validators.FormData;
+import com.example.appprojet.utils.form_data_with_validators.NameValidator;
 import com.example.appprojet.utils.Callback;
 
 
@@ -30,8 +32,8 @@ public class SetUpProfileViewModel extends FormViewModel {
     final MutableLiveData<Boolean> isFinish = new MutableLiveData<>(false);
 
 
-    public SetUpProfileViewModel() {
-        super();
+    public SetUpProfileViewModel(Application application) {
+        super(application);
         User user = authenticationRepository.getUser();
         if (user != null)
             nameLive.setValue(user.getName());

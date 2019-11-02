@@ -1,10 +1,12 @@
 package com.example.appprojet.ui.authentication.sign_up_form;
 
+import android.app.Application;
+
 import com.example.appprojet.ui.authentication.FormViewModel;
-import com.example.appprojet.utils.custom_live_data.EmailValidator;
-import com.example.appprojet.utils.custom_live_data.FormData;
-import com.example.appprojet.utils.custom_live_data.PasswordConfirmationValidator;
-import com.example.appprojet.utils.custom_live_data.PasswordValidator;
+import com.example.appprojet.utils.form_data_with_validators.EmailValidator;
+import com.example.appprojet.utils.form_data_with_validators.FormData;
+import com.example.appprojet.utils.form_data_with_validators.PasswordConfirmationValidator;
+import com.example.appprojet.utils.form_data_with_validators.PasswordValidator;
 
 
 /**
@@ -25,6 +27,11 @@ public class SignUpViewModel extends FormViewModel {
     final FormData emailLive = new FormData(new EmailValidator());
     final FormData passwordLive = new FormData(new PasswordValidator());
     final FormData passwordConfirmLive = new FormData(new PasswordConfirmationValidator(passwordLive));
+
+
+    public SignUpViewModel(Application application) {
+        super(application);
+    }
 
     @Override
     protected void submitForm() {
