@@ -11,13 +11,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class ProvidersAuthenticationViewModel extends ViewModel {
+
+/**
+ *
+ */
+public class ProvidersAuthViewModel extends ViewModel {
 
     private final IAuthenticationRepository authenticationRepository;
 
     final MutableLiveData<Boolean> googleIsLoading = new MutableLiveData<>(false);
 
-    public ProvidersAuthenticationViewModel() {
+    public ProvidersAuthViewModel() {
         authenticationRepository = FirebaseAuthenticationRepository.getInstance();
     }
 

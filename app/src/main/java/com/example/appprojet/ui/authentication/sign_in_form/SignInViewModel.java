@@ -7,6 +7,9 @@ import com.example.appprojet.utils.custom_live_data.FormMutableLiveData;
 import com.example.appprojet.utils.Callback;
 
 
+/**
+ *
+ */
 public class SignInViewModel extends FormViewModel {
 
     final FormMutableLiveData emailLive = new FormMutableLiveData(new BasicValidator());

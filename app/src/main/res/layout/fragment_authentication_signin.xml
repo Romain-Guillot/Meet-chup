@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/sign_in_providers"
-        android:name="com.example.appprojet.ui.authentication.providers_auth.ProvidersAuthenticationFragment"
+        android:name="com.example.appprojet.ui.authentication.providers_auth.ProvidersAuthFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

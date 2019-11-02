@@ -21,23 +21,32 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
 
-public class ProvidersAuthenticationFragment extends Fragment {
+/**
+ *
+ */
+public class ProvidersAuthFragment extends Fragment {
 
-    private ProvidersAuthenticationViewModel viewModel;
+    private ProvidersAuthViewModel viewModel;
 
     private static final int GOOGLE_SIGN_IN = 1;
     private static final int FACEBOOK_SIGN_IN = 2;
     private static final int TWITTER_SIGN_IN = 3;
 
-    @Nullable
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_authentication_providers, container, false);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         if (getActivity() == null)
             throw new RuntimeException("Unexpected fragment creation");
 
-        viewModel = ViewModelProviders.of(getActivity()).get(ProvidersAuthenticationViewModel.class);
+        viewModel = ViewModelProviders.of(getActivity()).get(ProvidersAuthViewModel.class);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_authentication_providers, container, false);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()

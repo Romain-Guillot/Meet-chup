@@ -16,6 +16,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.Arrays;
 
 
+/**
+ *
+ */
 public class SignUpFragment extends FormFragment {
 
     private SignUpViewModel viewModel;
