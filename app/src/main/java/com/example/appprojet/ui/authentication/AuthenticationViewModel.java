@@ -5,12 +5,12 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.appprojet.models.User;
 import com.example.appprojet.repositories.FirebaseAuthenticationRepository;
+import com.example.appprojet.repositories.IAuthenticationRepository;
 import com.example.appprojet.utils.Callback;
 
 
 /**
- * View model intended to handle the authentication activity form state lifecycle. It is composed of
- * two LiveData :
+ * Handle the authentication activity form state lifecycle. It is composed of two LiveData :
  *  - currentTypeFormLive : the current form state (sign in, sign up, set up)
  *  - isFinish : a flag to indicate that the authentication process is done
  *
@@ -20,8 +20,14 @@ import com.example.appprojet.utils.Callback;
  *
  *  In its default configuration, the current form state is the sign in form, and of course the
  *  finish flag is set to false.
+ *
+ *  We add a listener to the user auth state when the instance is created, and we delete this
+ *  listener when the onCleared method is called.
  */
 public class AuthenticationViewModel extends ViewModel {
+
+    /** Current app authentication repository*/
+    private IAuthenticationRepository authenticationRepository;
 
     /** current form state : sign in, sign up or set up profile */
     final MutableLiveData<FormType> currentFormTypeLive = new MutableLiveData<>(FormType.SIGNIN);
@@ -29,9 +35,25 @@ public class AuthenticationViewModel extends ViewModel {
     /** flag to indicate if the authentication process is done or not */
     final MutableLiveData<Boolean> isFinish = new MutableLiveData<>(false);
 
+    /**
+     * Listener callback for the user auth state.
+     *   - if it's a new user (first connexion) -> we update the current form state to the set up form
+     *   - else -> we call the finish method to end the process
+     */
+    private Callback<User> authStateListener = new Callback<User>() {
+        @Override public void onFail(Exception e) { }
+        @Override
+        public void onSucceed(User result) {
+            if (result != null) {
+                if (result.isFirstLogIn()) currentFormTypeLive.setValue(FormType.SETUP);
+                else finish();
+            }
+        }
+    };
 
     /** NEVER CREATE AN INSTANCE BY YOURSELF */
     public AuthenticationViewModel() {
+        authenticationRepository = FirebaseAuthenticationRepository.getInstance();
         registerUserStateListener();
     }
 
@@ -53,23 +75,9 @@ public class AuthenticationViewModel extends ViewModel {
         }
     }
 
-    /**
-     * Listen the current user authentication state. When a non null user is returned through the
-     * callback :
-     *  - if it's a new user (first connexion) -> we update the current form state to the set up form
-     *  - else -> we call the finish method to end the process
-     */
+    /** Add listener to the current user authentication state. */
     private void registerUserStateListener() {
-        FirebaseAuthenticationRepository.getInstance().addAuthStateListener(new Callback<User>() {
-            @Override public void onFail(Exception e) { }
-            @Override
-            public void onSucceed(User result) {
-                if (result != null) {
-                    if (result.isFirstLogIn()) currentFormTypeLive.setValue(FormType.SETUP);
-                    else finish();
-                }
-            }
-        });
+        authenticationRepository.addAuthStateListener(authStateListener);
     }
 
     /** Set the finish flag to true to ends the process (typically destroyed the activity) */
@@ -82,4 +90,9 @@ public class AuthenticationViewModel extends ViewModel {
         SIGNIN, SIGNUP, SETUP
     }
 
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        authenticationRepository.removeAuthStateListener(authStateListener);
+    }
 }

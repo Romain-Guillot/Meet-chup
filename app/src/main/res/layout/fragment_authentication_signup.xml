@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Error view -->
     <TextView
         android:id="@+id/form_error_textview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
 
-
+    <!-- Providers auth fragment -->
     <fragment
         android:id="@+id/sign_in_providers"
         android:name="com.example.appprojet.ui.authentication.providers_auth.ProvidersAuthFragment"
@@ -60,6 +63,6 @@
         android:id="@+id/form_submit_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Log in"/>
+        android:text="@string/auth_signup_btn"/>
 
 </LinearLayout>

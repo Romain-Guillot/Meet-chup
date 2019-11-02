@@ -21,16 +21,24 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
 
+
 /**
+ * Fragment to handle the sign in with the following providers :
+ *  Google, Facebook, Twitter
  *
+ * It handles the sign in buttons and the processes to do when the user click on them. When a
+ * connection is ready, the fragment request the connection to the ProvidersAuthViewModel.
+ *
+ * TODO: Facebook sign in
+ * TODO: Twitter sign in
  */
 public class ProvidersAuthFragment extends Fragment {
 
     private ProvidersAuthViewModel viewModel;
 
     private static final int GOOGLE_SIGN_IN = 1;
-    private static final int FACEBOOK_SIGN_IN = 2;
-    private static final int TWITTER_SIGN_IN = 3;
+//    private static final int FACEBOOK_SIGN_IN = 2;
+//    private static final int TWITTER_SIGN_IN = 3;
 
 
     @Override
@@ -61,8 +69,10 @@ public class ProvidersAuthFragment extends Fragment {
             signInWithGoogle(googleSignIn);
         });
 
+        String signInGoogleButtonText = getString(R.string.auth_sign_in_with_provider, getString(R.string.provider_google));
+        String signInLoadingText = getString(R.string.auth_loading_btn);
         viewModel.googleIsLoading.observe(this, isLoading -> {
-            googleSignInButton.setText(isLoading ? "Loading ..." : "Sign in with Google");
+            googleSignInButton.setText(isLoading ? signInLoadingText : signInGoogleButtonText);
             googleSignInButton.setEnabled(!isLoading);
         });
 
@@ -84,8 +94,8 @@ public class ProvidersAuthFragment extends Fragment {
                     e.printStackTrace(); // update ui
                 }
                 break;
-            case FACEBOOK_SIGN_IN: // TODO
-            case TWITTER_SIGN_IN: // TODO
+//            case FACEBOOK_SIGN_IN:
+//            case TWITTER_SIGN_IN:
         }
     }
 

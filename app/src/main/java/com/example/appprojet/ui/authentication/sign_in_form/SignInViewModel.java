@@ -1,38 +1,34 @@
 package com.example.appprojet.ui.authentication.sign_in_form;
 
-import com.example.appprojet.models.User;
 import com.example.appprojet.ui.authentication.FormViewModel;
 import com.example.appprojet.utils.custom_live_data.BasicValidator;
-import com.example.appprojet.utils.custom_live_data.FormMutableLiveData;
-import com.example.appprojet.utils.Callback;
+import com.example.appprojet.utils.custom_live_data.FormData;
 
 
 /**
+ * ViewModel that extends the FormViewModel to handle the sign in form data and communicate with the
+ * authentication repository.
+ * See the FormViewModel documentation for more details.
  *
+ * There are two form data :
+ *  - the email form data
+ *  - the password form data
+ *
+ * Note: the data validation is performed by Validator instances that are directly given to the form
+ * data when creating them.
  */
 public class SignInViewModel extends FormViewModel {
 
-    final FormMutableLiveData emailLive = new FormMutableLiveData(new BasicValidator());
-    final FormMutableLiveData passwordLive = new FormMutableLiveData(new BasicValidator());
+    final FormData emailLive = new FormData(new BasicValidator());
+    final FormData passwordLive = new FormData(new BasicValidator());
 
     @Override
     protected void submitForm() {
         if (validate()) {
             isLoadingLive.setValue(true);
-            String email =emailLive.getValue();
+            String email = emailLive.getValue();
             String password = passwordLive.getValue();
-            authenticationRepository.classicSignIn(email, password, new Callback<User>() {
-                @Override
-                public void onSucceed(User result) {
-                    errorLive.setValue(null);
-                }
-
-                @Override
-                public void onFail(Exception e) {
-                    isLoadingLive.setValue(false);
-                    errorLive.setValue(e.toString());
-                }
-            });
+            authenticationRepository.classicSignIn(email, password, submitCallback);
         }
     }
 

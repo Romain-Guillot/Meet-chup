@@ -8,11 +8,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- Application name -->
         <TextView
             android:text="@string/app_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
+        <!-- Switch form container (switch between sign in and sign up form -->
         <com.google.android.flexbox.FlexboxLayout
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/auth_switch_form_container"
@@ -32,13 +34,10 @@
                 android:layout_height="wrap_content" />
         </com.google.android.flexbox.FlexboxLayout>
 
-
+        <!-- Main form fragment : SignInFragment, SignUpFragment, SetUpProfileFragment -->
         <FrameLayout
             android:id="@+id/auth_main_fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-
     </LinearLayout>
-
-
 </ScrollView>

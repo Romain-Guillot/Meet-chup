@@ -1,12 +1,12 @@
 package com.example.appprojet.utils.custom_live_data;
 
-import androidx.lifecycle.LiveData;
 
 public class PasswordConfirmationValidator implements Validator {
 
-    private LiveData<String> originalPassword;
+    private FormData originalPassword;
 
-    public PasswordConfirmationValidator(LiveData<String> originalPassword) {
+
+    public PasswordConfirmationValidator(FormData originalPassword) {
         this.originalPassword = originalPassword;
     }
 

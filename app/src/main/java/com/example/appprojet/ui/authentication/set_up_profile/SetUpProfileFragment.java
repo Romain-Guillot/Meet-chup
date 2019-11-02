@@ -18,7 +18,14 @@ import java.util.Collections;
 
 
 /**
+ * Subclass of FormFragment to handle the set up profile form.
+ * See the FormFragment documentation to more details.
  *
+ * This fragment retrieve the SetUpProfileViewModel associated.
+ * It also init the form following fields layout ...
+ *  - username
+ * ... and init the FormFragment with these layouts and the FormData associated in the
+ * SetUpProfileViewModel.
  */
 public class SetUpProfileFragment extends FormFragment {
 
@@ -44,7 +51,9 @@ public class SetUpProfileFragment extends FormFragment {
                 view,
                 viewModel,
                 Collections.singletonList(nameLayout),
-                Collections.singletonList(viewModel.nameLive)
+                Collections.singletonList(viewModel.nameLive),
+                getString(R.string.auth_set_up_btn),
+                getString(R.string.auth_set_up_btn)
         );
 
         // Notify the authentication activity that the authentication process is done.

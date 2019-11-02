@@ -17,7 +17,16 @@ import java.util.Arrays;
 
 
 /**
+ * Subclass of FormFragment to handle the sign-up form.
+ * See the FormFragment documentation to more details.
  *
+ * This fragment retrieve the SignUpViewModel associated.
+ * It also init the following form fields layout ...
+ *  - email
+ *  - password
+ *  - password confirmation
+ * ... and init the FormFragment with these layouts and the FormData associated in the
+ * SignUpViewModel.
  */
 public class SignUpFragment extends FormFragment {
 
@@ -45,7 +54,9 @@ public class SignUpFragment extends FormFragment {
                 view,
                 viewModel,
                 Arrays.asList(emailLayout, passwordLayout, passwordConfirmLayout),
-                Arrays.asList(viewModel.emailLive, viewModel.passwordLive, viewModel.passwordConfirmLive)
+                Arrays.asList(viewModel.emailLive, viewModel.passwordLive, viewModel.passwordConfirmLive),
+                getString(R.string.auth_signup_btn),
+                getString(R.string.auth_loading_btn)
         );
 
         return view;

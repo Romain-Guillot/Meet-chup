@@ -4,22 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- NOTE: string are set in the fragment as the string contain a parameter (the provider name) -->
+
+    <!-- Sign in with Google -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/sign_in_google"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sign in with Google"/>
+        android:layout_height="wrap_content" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/sign_in_twitter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sign in with Twitter"/>
+    <!-- Sign in with Twitter -->
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/sign_in_twitter"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content" />-->
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/sign_in_facebook"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sign in with Facebook"/>
+    <!-- Sign in with Facebook -->
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/sign_in_facebook"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content" />-->
 
 </LinearLayout>

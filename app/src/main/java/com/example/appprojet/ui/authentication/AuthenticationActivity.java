@@ -27,17 +27,17 @@ import com.example.appprojet.ui.authentication.sign_up_form.SignUpFragment;
  *
  * =================================================================================================
  *
- * When the authentication process is finished, the activity is destroyed (finish method) so the
+ * When the authentication process finished, the activity is destroyed (finish method) so the
  * the top activity of the stack is displayed. So, if there is no other activity in the stack, the
  * application will be destroyed after the authentication process.
  *
  * Basically, this application handle the navigation between the three main authentication fragments
- *  - SignInFragment
- *  - SignUpFragment
+ *  - SignInFragment (that contains a ProvidersAuthFragment)
+ *  - SignUpFragment (that contains a ProvidersAuthFragment)
  *  - SetUpProfileFragment
  *
  * To achieve the navigation between the sign in, the sign up and the set up fragments, the current
- * form state is handle by an AuthenticationViewModel instance. This activity observe the current
+ * form state is handled by an AuthenticationViewModel instance. This activity observes the current
  * form state and update the UI in accordingly.
  *
  * To change the form state between the sign in form and the sign up form, there is a button in
@@ -48,13 +48,13 @@ import com.example.appprojet.ui.authentication.sign_up_form.SignUpFragment;
  *
  * To achieve the navigation between the sign in or the sign up form and the set up form, the
  * activity view model listen the authentication state thanks to the current application
- * IAuthenticationRepository. When the user is logged (and so the authentication repo notify its
+ * IAuthenticationRepository. When the user is logged in (and so the authentication repo notify its
  * listeners), depending on whether it is a new user, either the set up fragment is display or the
  * activity is destroyed (as the authentication process is finished).
  *
  * If the current form is the user information set up, then, the only way to finish this activity
  * is to retrieve the activity view model thanks to the obtainViewModel method, and to call the
- * finish method. This activity listen the finish flag boolean, and destroyed the activity when
+ * finish method. This activity listen the isFinish flag boolean, and destroyed the activity when
  * it set to true.
  *
  * =================================================================================================
@@ -134,13 +134,13 @@ public class AuthenticationActivity extends AppCompatActivity {
             case SIGNUP:
                 switchFormContainer.setVisibility(View.VISIBLE);
                 switchFormLabel.setText(R.string.auth_switch_to_signin_label);
-                switchFormBtn.setText(R.string.auth_switch_to_signin_btn);
+                switchFormBtn.setText(R.string.auth_signin_btn);
                 break;
             case SIGNIN:
             default:
                 switchFormContainer.setVisibility(View.VISIBLE);
                 switchFormLabel.setText(R.string.auth_switch_to_signup_label);
-                switchFormBtn.setText(R.string.auth_switch_to_signup_btn);
+                switchFormBtn.setText(R.string.auth_signup_btn);
         }
     }
 
