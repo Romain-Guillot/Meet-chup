@@ -3,7 +3,6 @@ package com.example.appprojet.ui.authentication;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.telecom.Call;
 
 import androidx.annotation.Nullable;
 
@@ -28,7 +27,7 @@ public class ReturnToAuthenticationService extends Service {
 
     private IAuthenticationRepository authenticationRepository;
     private Intent authActivityIntent;
-    private Callback<User> userAuthStateCallback = new Callback<User>() {
+    private final Callback<User> userAuthStateCallback = new Callback<User>() {
         @Override public void onFail(Exception e) { }
         @Override
         public void onSucceed(User result) {

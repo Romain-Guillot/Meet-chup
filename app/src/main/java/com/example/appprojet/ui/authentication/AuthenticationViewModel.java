@@ -27,7 +27,7 @@ import com.example.appprojet.utils.Callback;
 public class AuthenticationViewModel extends ViewModel {
 
     /** Current app authentication repository*/
-    private IAuthenticationRepository authenticationRepository;
+    private final IAuthenticationRepository authenticationRepository;
 
     /** current form state : sign in, sign up or set up profile */
     final MutableLiveData<FormType> currentFormTypeLive = new MutableLiveData<>(FormType.SIGNIN);
@@ -40,7 +40,7 @@ public class AuthenticationViewModel extends ViewModel {
      *   - if it's a new user (first connexion) -> we update the current form state to the set up form
      *   - else -> we call the finish method to end the process
      */
-    private Callback<User> authStateListener = new Callback<User>() {
+    private final Callback<User> authStateListener = new Callback<User>() {
         @Override public void onFail(Exception e) { }
         @Override
         public void onSucceed(User result) {
