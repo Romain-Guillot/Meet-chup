@@ -4,6 +4,7 @@ import com.example.appprojet.models.User;
 import com.example.appprojet.ui.authentication.FormViewModel;
 import com.example.appprojet.utils.custom_live_data.EmailValidator;
 import com.example.appprojet.utils.custom_live_data.FormMutableLiveData;
+import com.example.appprojet.utils.custom_live_data.PasswordConfirmationValidator;
 import com.example.appprojet.utils.custom_live_data.PasswordValidator;
 import com.example.appprojet.utils.Callback;
 
@@ -15,7 +16,7 @@ public class SignUpViewModel extends FormViewModel {
 
     final FormMutableLiveData emailLive = new FormMutableLiveData(new EmailValidator());
     final FormMutableLiveData passwordLive = new FormMutableLiveData(new PasswordValidator());
-    final FormMutableLiveData passwordConfirmLive = new FormMutableLiveData(null);
+    final FormMutableLiveData passwordConfirmLive = new FormMutableLiveData(new PasswordConfirmationValidator(passwordLive));
 
     @Override
     protected void submitForm() {
