@@ -91,7 +91,7 @@ public class ProvidersAuthFragment extends Fragment {
                     GoogleSignInAccount googleSignInAccount = task.getResult(ApiException.class);
                     viewModel.requestGoogleSignIn(googleSignInAccount);
                 } catch (ApiException e) {
-                    e.printStackTrace(); // update ui
+                    viewModel.googleIsLoading.setValue(false);
                 }
                 break;
 //            case FACEBOOK_SIGN_IN:
