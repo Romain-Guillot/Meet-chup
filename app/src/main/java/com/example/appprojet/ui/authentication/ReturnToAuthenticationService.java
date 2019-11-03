@@ -3,6 +3,7 @@ package com.example.appprojet.ui.authentication;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -38,6 +39,7 @@ public class ReturnToAuthenticationService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.e(">>>>>>>>>>", "SERVICE START");
         authenticationRepository = FirebaseAuthenticationRepository.getInstance();
 
         authActivityIntent =  new Intent(this, AuthenticationActivity.class);
@@ -45,8 +47,9 @@ public class ReturnToAuthenticationService extends Service {
 
         authenticationRepository.addAuthStateListener(userAuthStateCallback);
 
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
+
 
     @Nullable
     @Override
@@ -57,6 +60,7 @@ public class ReturnToAuthenticationService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.e(">>>>>>>>>>>>>>", "SERVICE DESTROY");
         authenticationRepository.removeAuthStateListener(userAuthStateCallback);
     }
 }

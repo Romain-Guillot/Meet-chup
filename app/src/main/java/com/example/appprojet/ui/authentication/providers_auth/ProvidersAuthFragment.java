@@ -2,6 +2,9 @@ package com.example.appprojet.ui.authentication.providers_auth;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,10 +72,15 @@ public class ProvidersAuthFragment extends Fragment {
             signInWithGoogle(googleSignIn);
         });
 
-        String signInGoogleButtonText = getString(R.string.auth_sign_in_with_provider, getString(R.string.provider_google));
+        String providerTextSuffix = getString(R.string.auth_sign_in_with_provider);
+        String providerGoogle = getString(R.string.provider_google);
+        String buttonText = providerTextSuffix + " " + providerGoogle;
+        SpannableStringBuilder str = new SpannableStringBuilder(buttonText);
+        str.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), providerTextSuffix.length(), buttonText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
         String signInLoadingText = getString(R.string.auth_loading_btn);
         viewModel.googleIsLoading.observe(this, isLoading -> {
-            googleSignInButton.setText(isLoading ? signInLoadingText : signInGoogleButtonText);
+            googleSignInButton.setText(isLoading ? signInLoadingText : str);
             googleSignInButton.setEnabled(!isLoading);
         });
 
