@@ -26,7 +26,9 @@
 
         <activity android:name=".ui.event_view.EventViewActivity" />
 
-        <activity android:name=".ui.authentication.AuthenticationActivity" />
+        <activity
+            android:name=".ui.authentication.AuthenticationActivity"
+            android:theme="@style/Authentication"/>
         <activity android:name=".ui.event_creation.EventCreationActivity" />
         <activity android:name=".ui.post_view.PostViewActivity" />
         <activity android:name=".ui.post_creation.PostCreationActivity" />

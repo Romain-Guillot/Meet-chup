@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center">
 
     <!-- Error view -->
     <TextView
@@ -63,6 +64,7 @@
         android:id="@+id/form_submit_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/AuthenticationFlatButton"
         android:text="@string/auth_signup_btn"/>
 
 </LinearLayout>
