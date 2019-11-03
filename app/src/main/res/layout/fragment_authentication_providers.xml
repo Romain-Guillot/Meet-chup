@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- NOTE: string are set in the fragment as the string contain a parameter (the provider name) -->
+
 
     <!-- Sign in with Google -->
     <com.google.android.material.button.MaterialButton

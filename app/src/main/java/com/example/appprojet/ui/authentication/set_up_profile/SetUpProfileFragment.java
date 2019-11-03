@@ -53,7 +53,7 @@ public class SetUpProfileFragment extends FormFragment {
                 Collections.singletonList(nameLayout),
                 Collections.singletonList(viewModel.nameLive),
                 getString(R.string.auth_set_up_btn),
-                getString(R.string.auth_set_up_btn)
+                getString(R.string.auth_loading_btn)
         );
 
         // Notify the authentication activity that the authentication process is done.

@@ -74,7 +74,6 @@ public class AuthenticationActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
-        hideActionBar();
 
         viewModel = obtainViewModel(this);
 
@@ -149,12 +148,6 @@ public class AuthenticationActivity extends AppCompatActivity {
         return ViewModelProviders.of(activity).get(AuthenticationViewModel.class);
     }
 
-    /** hide the activity action bar, if any */
-    private void hideActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null)
-            actionBar.hide();
-    }
 
     /** we override the back navigation behavior to disable it */
     @Override

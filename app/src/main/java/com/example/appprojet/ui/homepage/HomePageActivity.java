@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appprojet.R;
@@ -30,7 +31,7 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         navigateToAuthenticationActivityIfUserIsNotLogged();
         setContentView(R.layout.activity_homepage);
-
+        setActionBarStyle();
 
 
         Intent intent = new Intent(this, EventViewActivity.class);
@@ -55,5 +56,14 @@ public class HomePageActivity extends AppCompatActivity {
             Intent authActivityIntent =  new Intent(this, AuthenticationActivity.class);
             startActivity(authActivityIntent);
         }
+    }
+
+    /** Set the custom action bar title for the homepage */
+    private void setActionBarStyle() {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+            getSupportActionBar().setCustomView(R.layout.view_homepage_title);
+        }
+
     }
 }
