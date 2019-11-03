@@ -1,8 +1,48 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.MaterialComponents.Light">
-        
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="actionBarStyle">@style/ActionBarStyle</item>
+
+        <item name="textInputStyle">@style/AppInputTextStyle</item>
+
+    </style>
+
+
+
+    <style name="ActionBarStyle" parent="@style/Widget.MaterialComponents.ActionBar.Primary">
+        <item name="background">@color/backgroundColor</item>
+        <item name="elevation">0dp</item>
+        <item name="titleTextStyle">@style/_ActionBarTitleTextStyle</item>
+    </style>
+
+    <style name="_ActionBarTitleTextStyle">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="HomepageActionBarTitleTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@font/fredoka</item>
+    </style>
+
+
+
+
+
+    <style name="AppInputTextStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MyApp.TextInputLayout.Rounded</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MyApp.TextInputLayout.Rounded" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/radius</item>
     </style>
 
 
 </resources>
+

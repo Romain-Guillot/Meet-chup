@@ -4,7 +4,7 @@ package com.example.appprojet.repositories;
 import com.example.appprojet.models.Comment;
 import com.example.appprojet.models.Document;
 import com.example.appprojet.models.Event;
-import com.example.appprojet.models.Location;
+import com.example.appprojet.utils.Location;
 import com.example.appprojet.models.Post;
 import com.example.appprojet.models.User;
 import com.example.appprojet.utils.Callback;
@@ -12,7 +12,6 @@ import com.example.appprojet.utils.Callback;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +22,7 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
 
     private static FirestoreEventsDataRepository instance = null;
 
-    private IAuthenticationRepository authRepo = null;
+    private IAuthenticationRepository authRepo;
 
     private Map<String, Event> fakeEvents = new HashMap<>();
     private Map<String, User> fakeUsers = new HashMap<>();

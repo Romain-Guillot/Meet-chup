@@ -2,9 +2,6 @@ package com.example.appprojet.ui.event_view.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +17,6 @@ import com.example.appprojet.models.User;
 import com.example.appprojet.ui.post_view.PostViewActivity;
 import com.example.appprojet.utils.DownloadImage;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 
 

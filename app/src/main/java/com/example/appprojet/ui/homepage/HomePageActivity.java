@@ -2,13 +2,20 @@ package com.example.appprojet.ui.homepage;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
+import android.widget.Button;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appprojet.R;
+import com.example.appprojet.repositories.FirebaseAuthenticationRepository;
+import com.example.appprojet.repositories.IAuthenticationRepository;
+import com.example.appprojet.ui.authentication.AuthenticationActivity;
 import com.example.appprojet.ui.event_view.EventViewActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 /**
@@ -22,7 +29,10 @@ public class HomePageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        navigateToAuthenticationActivityIfUserIsNotLogged();
         setContentView(R.layout.activity_homepage);
+        setActionBarStyle();
+
 
         Intent intent = new Intent(this, EventViewActivity.class);
 
@@ -31,13 +41,29 @@ public class HomePageActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        findViewById(R.id.event2).setOnClickListener(v -> {
-            intent.putExtra(EventViewActivity.EXTRA_EVENT_ID, "2");
-            startActivity(intent);
+        Button b = findViewById(R.id.event2);
+//        b.setText(FirebaseAuthenticationRepository.getInstance().getUser().getName());
+        b.setOnClickListener(v -> {
+            FirebaseAuthenticationRepository.getInstance().signOut();
         });
 
+    }
 
+    public void navigateToAuthenticationActivityIfUserIsNotLogged() {
+        IAuthenticationRepository authRepo = FirebaseAuthenticationRepository.getInstance();
+        Log.e(">>>>>>>", (authRepo.getUser() == null ? "null" : "not null"));
+        if (authRepo.getUser() == null) {
+            Intent authActivityIntent =  new Intent(this, AuthenticationActivity.class);
+            startActivity(authActivityIntent);
+        }
+    }
 
+    /** Set the custom action bar title for the homepage */
+    private void setActionBarStyle() {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+            getSupportActionBar().setCustomView(R.layout.view_homepage_title);
+        }
 
     }
 }

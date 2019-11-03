@@ -3,14 +3,13 @@ package com.example.appprojet.ui.event_view;
 import android.app.Application;
 import android.location.Address;
 import android.location.Geocoder;
-import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.appprojet.R;
 import com.example.appprojet.models.Event;
-import com.example.appprojet.models.Location;
+import com.example.appprojet.utils.Location;
 import com.example.appprojet.models.Post;
 import com.example.appprojet.models.User;
 import com.example.appprojet.repositories.FirestoreEventsDataRepository;

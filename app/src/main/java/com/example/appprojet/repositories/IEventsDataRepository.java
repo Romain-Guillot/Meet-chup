@@ -3,7 +3,6 @@ package com.example.appprojet.repositories;
 
 import com.example.appprojet.models.Event;
 import com.example.appprojet.models.Post;
-import com.example.appprojet.models.User;
 import com.example.appprojet.utils.Callback;
 
 import java.util.List;

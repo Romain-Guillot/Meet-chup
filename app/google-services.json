@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "147707161348",
+    "firebase_url": "https://meetchup-e905f.firebaseio.com",
+    "project_id": "meetchup-e905f",
+    "storage_bucket": "meetchup-e905f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:147707161348:android:8a432b6efd9685a0c63e51",
+        "android_client_info": {
+          "package_name": "com.example.appprojet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "147707161348-25hg3teojm742j33hljnu8ek52r0h9j3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.appprojet",
+            "certificate_hash": "02db3a235f110c508a2a78abdc6ca626dc00c624"
+          }
+        },
+        {
+          "client_id": "147707161348-8sr2m5vtelitrtjdht93vdcv3ri87258.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZ7V2rBkgAaHQkyFGhFGjIl7rx3s1UTGM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "147707161348-8sr2m5vtelitrtjdht93vdcv3ri87258.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
