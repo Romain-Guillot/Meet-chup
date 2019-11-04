@@ -13,6 +13,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.appprojet.R;
+import com.example.appprojet.utils.ChildActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -59,11 +60,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
  * TODO 2: Handle event loading error (wrong id for example)
  * TODO 3: Delegate ViewModel responsibilities to three sub-viewmodels for each fragment
  */
-public class EventViewActivity extends AppCompatActivity {
+public class EventViewActivity extends ChildActivity {
 
     public static final String EXTRA_EVENT_ID = "com.example.appprojet.event_id";
-
-    private ActionBar actionBar;
 
     EventViewViewModel viewModel;
 
@@ -72,7 +71,6 @@ public class EventViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_view);
 
-        this.actionBar = getSupportActionBar();
 
         Intent intent = getIntent();
         String event_id = intent.getStringExtra(EXTRA_EVENT_ID);
@@ -89,27 +87,5 @@ public class EventViewActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.event_view_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
 
-        setBackPressActionBar();
-    }
-
-
-    private void setBackPressActionBar() {
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDefaultDisplayHomeAsUpEnabled(true);
-        }
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 }

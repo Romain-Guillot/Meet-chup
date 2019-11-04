@@ -1,5 +1,6 @@
 package com.example.appprojet.ui.authentication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import com.example.appprojet.R;
 import com.example.appprojet.ui.authentication.set_up_profile.SetUpProfileFragment;
 import com.example.appprojet.ui.authentication.sign_in_form.SignInFragment;
 import com.example.appprojet.ui.authentication.sign_up_form.SignUpFragment;
+import com.example.appprojet.ui.homepage.HomePageActivity;
 
 
 /**
@@ -95,9 +97,7 @@ public class AuthenticationActivity extends AppCompatActivity {
 
         // we listen the finish flag and we destroyed the activity when this flags is set to true
         viewModel.isFinish.observe(this, b -> {
-            if (b) {
-                finish();
-            }
+            onBackPressed();
         });
     }
 
@@ -149,7 +149,19 @@ public class AuthenticationActivity extends AppCompatActivity {
     }
 
 
-    /** we override the back navigation behavior to disable it */
+    /**
+     * we override the back navigation
+     * - we disable it if the authentication process is not finished
+     * - if it's not the root activity, we go to the previous activity
+     * - else, we go to the homepage
+     */
     @Override
-    public void onBackPressed() { }
+    public void onBackPressed() {
+        if (viewModel.isFinish.getValue() != null && viewModel.isFinish.getValue()) {
+            if (!isTaskRoot())
+                super.onBackPressed();
+            else
+                startActivity(new Intent(this,HomePageActivity.class));
+        }
+    }
 }

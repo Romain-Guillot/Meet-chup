@@ -3,6 +3,7 @@ package com.example.appprojet.ui.homepage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
@@ -14,6 +15,7 @@ import com.example.appprojet.repositories.FirebaseAuthenticationRepository;
 import com.example.appprojet.repositories.IAuthenticationRepository;
 import com.example.appprojet.ui.authentication.AuthenticationActivity;
 import com.example.appprojet.ui.event_view.EventViewActivity;
+import com.example.appprojet.ui.profile.ProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -31,7 +33,7 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         navigateToAuthenticationActivityIfUserIsNotLogged();
         setContentView(R.layout.activity_homepage);
-        setActionBarStyle();
+        setActionBar();
 
 
         Intent intent = new Intent(this, EventViewActivity.class);
@@ -41,10 +43,9 @@ public class HomePageActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        Button b = findViewById(R.id.event2);
-//        b.setText(FirebaseAuthenticationRepository.getInstance().getUser().getName());
-        b.setOnClickListener(v -> {
-            FirebaseAuthenticationRepository.getInstance().signOut();
+        findViewById(R.id.event2).setOnClickListener(v -> {
+            intent.putExtra(EventViewActivity.EXTRA_EVENT_ID, "2");
+            startActivity(intent);
         });
 
     }
@@ -59,11 +60,17 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     /** Set the custom action bar title for the homepage */
-    private void setActionBarStyle() {
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-            getSupportActionBar().setCustomView(R.layout.view_homepage_title);
-        }
+    private void setActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar == null)
+            return ;
 
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        actionBar.setCustomView(R.layout.view_homepage_title);
+        View profileBtn = actionBar.getCustomView().findViewById(R.id.profile_button);
+        profileBtn.setOnClickListener(v -> {
+            Intent profileIntent = new Intent(this, ProfileActivity.class);
+            startActivity(profileIntent);
+        });
     }
 }

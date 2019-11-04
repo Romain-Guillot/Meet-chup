@@ -44,4 +44,5 @@
     <string name="post_view_no_comments">No comments</string>
 
     <string name="google_web_client_id">147707161348-8sr2m5vtelitrtjdht93vdcv3ri87258.apps.googleusercontent.com</string>
+    <string name="profile_button_content_description">Profile button</string>
 </resources>
