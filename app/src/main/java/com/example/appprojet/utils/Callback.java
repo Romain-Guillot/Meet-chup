@@ -8,5 +8,5 @@ public interface Callback<T> {
 
     public void onSucceed(T result);
 
-    public void onFail(Exception e);
+    public void onFail(CallbackException exception);
 }

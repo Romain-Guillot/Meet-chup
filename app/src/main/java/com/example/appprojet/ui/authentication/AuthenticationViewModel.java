@@ -1,5 +1,6 @@
 package com.example.appprojet.ui.authentication;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -35,26 +36,14 @@ public class AuthenticationViewModel extends ViewModel {
     /** flag to indicate if the authentication process is done or not */
     final MutableLiveData<Boolean> isFinish = new MutableLiveData<>(false);
 
-    /**
-     * Listener callback for the user auth state.
-     *   - if it's a new user (first connexion) -> we update the current form state to the set up form
-     *   - else -> we call the finish method to end the process
-     */
-    private final Callback<User> authStateListener = new Callback<User>() {
-        @Override public void onFail(Exception e) { }
-        @Override
-        public void onSucceed(User result) {
-            if (result != null) {
-                if (result.isFirstLogIn()) currentFormTypeLive.setValue(FormType.SETUP);
-                else finish();
-            }
-        }
-    };
+    /** the user live data retrieve from the authentication repo */
+    LiveData<User> userLive;
+
 
     /** NEVER CREATE AN INSTANCE BY YOURSELF */
     public AuthenticationViewModel() {
         authenticationRepository = FirebaseAuthenticationRepository.getInstance();
-        registerUserStateListener();
+        userLive = authenticationRepository.getObservableUser();
     }
 
     /** Switch the current state form between the sign in and the sign up form*/
@@ -75,11 +64,6 @@ public class AuthenticationViewModel extends ViewModel {
         }
     }
 
-    /** Add listener to the current user authentication state. */
-    private void registerUserStateListener() {
-        authenticationRepository.addAuthStateListener(authStateListener);
-    }
-
     /** Set the finish flag to true to ends the process (typically destroyed the activity) */
     public void finish() {
         isFinish.setValue(true);
@@ -88,11 +72,5 @@ public class AuthenticationViewModel extends ViewModel {
     /** Form type used to handle current form state */
     enum FormType {
         SIGNIN, SIGNUP, SETUP
-    }
-
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-        authenticationRepository.removeAuthStateListener(authStateListener);
     }
 }

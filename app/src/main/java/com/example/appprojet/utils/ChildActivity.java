@@ -34,4 +34,9 @@ public abstract class ChildActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    public void setActionBarTitle(String title) {
+        if (actionBar != null)
+            actionBar.setTitle(title);
+    }
 }

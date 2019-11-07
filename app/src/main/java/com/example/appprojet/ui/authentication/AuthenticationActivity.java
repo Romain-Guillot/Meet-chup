@@ -99,6 +99,16 @@ public class AuthenticationActivity extends AppCompatActivity {
         viewModel.isFinish.observe(this, b -> {
             onBackPressed();
         });
+
+            // *   - if it's a new user (first connexion) -> we update the current form state to the set up form
+              //  *   - else -> we call the finish method to end the process
+        viewModel.userLive.observe(this, user -> {
+            System.err.println("OKKKKKKKKKKK");
+            if (user != null) {
+                if (user.isFirstLogIn()) viewModel.currentFormTypeLive.setValue(AuthenticationViewModel.FormType.SETUP);
+                else viewModel.finish();
+            }
+        });
     }
 
     /** Replace the main activity fragment depending on the formType */

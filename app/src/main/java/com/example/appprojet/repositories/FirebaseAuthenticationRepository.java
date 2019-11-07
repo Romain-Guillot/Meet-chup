@@ -2,20 +2,25 @@ package com.example.appprojet.repositories;
 
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.appprojet.models.User;
 import com.example.appprojet.utils.Callback;
+import com.example.appprojet.utils.CallbackException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -26,14 +31,15 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
     private static FirebaseAuthenticationRepository INSTANCE = null;
 
     private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore firestore;
 
-    private User user;
-    private List<Callback<User>> authStateListeners;
+    private MutableLiveData<User> user;
 
 
     private FirebaseAuthenticationRepository() {
+        user = new MutableLiveData<>();
+        firestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
-        authStateListeners = new ArrayList<>();
         setUser();
     }
 
@@ -48,10 +54,14 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
 
 
     @Override
-    public User getUser() {
-        return this.user;
+    public User getCurrentUser() {
+        return user.getValue();
     }
 
+    @Override
+    public LiveData<User> getObservableUser() {
+        return user;
+    }
 
     @Override
     public void classicSignIn(String email, String password, Callback<User> callback) {
@@ -86,14 +96,20 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
         FirebaseUser fbUser = firebaseAuth.getCurrentUser();
 
         if (fbUser != null) {
-            UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(name).build();
-            fbUser.updateProfile(profileUpdate).addOnCompleteListener(task -> {
-               if (task.isSuccessful()) callback.onSucceed(user);
-               else callback.onFail(task.getException());
+            Map<String, String> userInfo = new HashMap<>();
+            userInfo.put("name", name);
+            getUserDocument(fbUser.getUid()).set(userInfo, SetOptions.merge()).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    User _user = getCurrentUser();
+                    _user.setName(name);
+                    user.setValue(_user);
+                    callback.onSucceed(_user);
+                } else {
+                    callback.onFail(new CallbackException());
+                }
             });
         } else {
-            callback.onFail(new Exception(""));
+            callback.onFail(new CallbackException());
         }
     }
 
@@ -106,39 +122,32 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
         setUser();
     }
 
-
-    @Override
-    public void addAuthStateListener(Callback<User> listener) {
-        this.authStateListeners.add(listener);
-    }
-
-
-    @Override
-    public void removeAuthStateListener(Callback<User> listener) {
-        this.authStateListeners.remove(listener);
-    }
-
     private void setUser() {
         setUser(false);
     }
 
     private void setUser(boolean firstLogin) {
-        FirebaseUser fbUser = firebaseAuth.getCurrentUser();
+        final FirebaseUser fbUser = firebaseAuth.getCurrentUser();
 
         if (fbUser != null) {
-            String email = fbUser.getEmail();
-            if (email == null) email = "unknown";
+            final String email = fbUser.getEmail() != null ? fbUser.getEmail() : "unknown";
+            user.setValue(new User(fbUser.getUid(), null, email, firstLogin));
 
-            String name = fbUser.getDisplayName();
-            if (name == null) name = getEmailAddressLocalPart(email);
-
-            user = new User(fbUser.getUid(), name, email, firstLogin);
+            getUserDocument(fbUser.getUid()).get().addOnCompleteListener(task -> {
+                String name = null;
+                try {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot userInfoDoc = task.getResult();
+                        if (userInfoDoc.exists()) {
+                            name = (String) userInfoDoc.getData().get("name");
+                        }
+                    }
+                } catch (Exception e) { }
+                user.setValue(new User(fbUser.getUid(), name, email, firstLogin));
+            });
         } else {
-            this.user = null;
+            this.user.setValue(null);
         }
-
-        for (Callback<User> listener : authStateListeners)
-            listener.onSucceed(user);
     }
 
 
@@ -167,11 +176,16 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
             if (task.isSuccessful()) {
                 boolean firstLogin = task.getResult().getAdditionalUserInfo().isNewUser();
                 setUser(firstLogin);
-                callback.onSucceed(user);
+                callback.onSucceed(user.getValue());
             } else {
                 Exception exception = task.getException();
-                callback.onFail(exception != null ? exception : new Exception());
+//                callback.onFail(exception != null ? exception : new Exception());
+                callback.onFail(new CallbackException());
             }
         }
+    }
+
+    private DocumentReference getUserDocument(String uid) {
+        return firestore.collection("users").document(uid);
     }
 }

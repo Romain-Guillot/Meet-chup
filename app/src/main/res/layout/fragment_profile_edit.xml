@@ -1,11 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:text="EDIT"
-        android:layout_width="wrap_content"
+
+
+    <fragment
+        android:tag="edit_credential"
+        android:name="com.example.appprojet.ui.profile.ProfileEditFragment$ProfileEditCredentialFragment"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+
+    <fragment
+        android:tag="edit_profile"
+        android:name="com.example.appprojet.ui.profile.ProfileEditFragment$ProfileEditProfileFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        style="@style/SubtitleStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete your account :"/>
+    
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="I'm sure, I want to delete my account"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:backgroundTint="@color/errorColor"
+        android:text="Delete my account permanently."/>
+
 
 </LinearLayout>

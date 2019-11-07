@@ -6,4 +6,6 @@
     <color name="colorPrimaryDark">#CC3757</color>
     <color name="colorAccent">#E228FA</color>
     <color name="backgroundColor">#fff</color>
+
+    <color name="errorColor">#f23333</color>
 </resources>

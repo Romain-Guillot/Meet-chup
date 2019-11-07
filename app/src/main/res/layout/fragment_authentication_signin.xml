@@ -14,7 +14,7 @@
         android:visibility="gone"/>
 
     <TextView
-        style="@style/AuthSubtitleStyle"
+        style="@style/SubtitleStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Social authentication"/>
@@ -28,7 +28,7 @@
 
 
     <TextView
-        style="@style/AuthSubtitleStyle"
+        style="@style/SubtitleStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Classic authentication"/>

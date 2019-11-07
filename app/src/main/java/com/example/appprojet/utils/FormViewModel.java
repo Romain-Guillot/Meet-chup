@@ -1,4 +1,4 @@
-package com.example.appprojet.ui.authentication;
+package com.example.appprojet.utils;
 
 import android.app.Application;
 
@@ -25,14 +25,11 @@ import com.example.appprojet.utils.Callback;
  */
 public abstract class FormViewModel extends AndroidViewModel {
 
-    /** Authentication repository instance*/
-    protected final IAuthenticationRepository authenticationRepository;
-
     /** Loading flag (when the form is being processed) */
     protected final MutableLiveData<Boolean> isLoadingLive = new MutableLiveData<>(false);
 
     /** Error flag (when an error occurred) */
-    protected final MutableLiveData<String> errorLive = new MutableLiveData<>();
+    protected final MutableLiveData<String> errorLive = new MutableLiveData<>(null);
 
     /** callback to give to the repository when submitting the form */
     protected final Callback<User> submitCallback = new Callback<User>() {
@@ -42,7 +39,7 @@ public abstract class FormViewModel extends AndroidViewModel {
         }
 
         @Override
-        public void onFail(Exception e) {
+        public void onFail(CallbackException e) {
             isLoadingLive.setValue(false);
             errorLive.setValue(getApplication().getString(R.string.auth_error_form));
         }
@@ -51,7 +48,6 @@ public abstract class FormViewModel extends AndroidViewModel {
 
     protected FormViewModel(Application application) {
         super(application);
-        authenticationRepository = FirebaseAuthenticationRepository.getInstance();
     }
 
     /** Retrieve form data and send info to the authentication repository */

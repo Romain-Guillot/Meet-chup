@@ -52,8 +52,7 @@ public class HomePageActivity extends AppCompatActivity {
 
     public void navigateToAuthenticationActivityIfUserIsNotLogged() {
         IAuthenticationRepository authRepo = FirebaseAuthenticationRepository.getInstance();
-        Log.e(">>>>>>>", (authRepo.getUser() == null ? "null" : "not null"));
-        if (authRepo.getUser() == null) {
+        if (authRepo.getCurrentUser() == null) {
             Intent authActivityIntent =  new Intent(this, AuthenticationActivity.class);
             startActivity(authActivityIntent);
         }

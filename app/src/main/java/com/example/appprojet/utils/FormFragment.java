@@ -1,4 +1,4 @@
-package com.example.appprojet.ui.authentication;
+package com.example.appprojet.utils;
 
 import android.os.Bundle;
 import android.text.Editable;
