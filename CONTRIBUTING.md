@@ -20,6 +20,8 @@ Note : il sera sûrement nécessaire de compléter les spécifications de la fon
     1. `merge` la *pull request*.
 1. Sinon, ajouter des commentaires sur la *pull request* ou sur la code (fonctionnalité de Github) pour décrire ce qu'il ne va pas et/ou discuter avec l'auteur de la *pull request*.
 
+N'oubliez pas de tester les fonctionnalités avec différents scenarios et différentes configurations (rotation de l'écran, vérouillage /devérouillage, retour launcher, désactivation de la connexion internet, etc.)
+
 Note : Si il y a des bugs connus mineurs dans la *pull request* (pas de crash de l'application par exemple ...) elle peut quand même être `merge`, mais des **[issues](https://github.com/Romain-Guillot/UQAC_Mobile_Projet/issues)** Github doivent toutes les répertoriées pour en garder une trace.
 
 
