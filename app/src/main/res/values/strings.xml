@@ -37,6 +37,28 @@
         <item quantity="other">%d days</item>
     </plurals>
 
+    <!-- Callback errors -->
+    <string name="error_re_auth_required">Please sign-out and log in again to perform this action</string>
+    <string name="error_unknown">An error occurred</string>
+    <string name="error_weak_password">Password too weak</string>
+    <string name="error_mail_collision">Email already exists</string>
+    <string name="error_invalid_credentials">Email / password doesn\'t match</string>
+    <string name="error_network">please check your network connection</string>
+    <string name="error_nologged">You have to be logged to perform this action</string>
+
+    <!-- Validators error message -->
+    <string name="validator_basic">Empty value not authorized</string>
+    <string name="validator_email">Invalid email format</string>
+    <string name="validator_password">Invalid password, %1$d characters minimum</string>
+    <string name="validator_password_confirm">Passwords doesn\'t match</string>
+    <string name="validator_username">Please enter a name between %1$d and %2$d characters</string>
+
+
+
+
+
+
+
     <!-- Unclassified / temporary -->
     <string name="item_post_image_description">post image</string>
     <string name="event_empty_post_indicator">No post</string>
@@ -46,5 +68,5 @@
 
     <string name="google_web_client_id">147707161348-8sr2m5vtelitrtjdht93vdcv3ri87258.apps.googleusercontent.com</string>
     <string name="profile_button_content_description">Profile button</string>
-    <string name="unknown_error">An error occurred</string>
+    <string name="profile_updated_success">Your profile has been updated.</string>
 </resources>

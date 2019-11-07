@@ -1,7 +1,10 @@
 package com.example.appprojet.repositories;
 
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -13,6 +16,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -92,6 +100,43 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
     }
 
     @Override
+    public void updateEmail(String email, Callback<User> callback) {
+        FirebaseUser fbUser = firebaseAuth.getCurrentUser();
+        if (fbUser == null) {
+            callback.onFail(new CallbackException(CallbackException.Type.NO_LOGGED));
+            return ;
+        }
+
+        fbUser.updateEmail(email).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                User _user = getCurrentUser();
+                _user.setEmail(email);
+                this.user.setValue(_user);
+                callback.onSucceed(_user);
+            } else {
+                callback.onFail(CallbackException.fromFirebaseException(task.getException()));
+            }
+        });
+    }
+
+    @Override
+    public void updatePassword(String newPassword, Callback<User> callback) {
+        FirebaseUser fbUser = firebaseAuth.getCurrentUser();
+        if (fbUser == null) {
+            callback.onFail(new CallbackException(CallbackException.Type.NO_LOGGED));
+            return ;
+        }
+        fbUser.updatePassword(newPassword).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                callback.onSucceed(getCurrentUser());
+            } else {
+                callback.onFail(CallbackException.fromFirebaseException(task.getException()));
+            }
+        });
+    }
+
+
+    @Override
     public void updateName(String name, Callback<User> callback) {
         FirebaseUser fbUser = firebaseAuth.getCurrentUser();
 
@@ -105,7 +150,7 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
                     user.setValue(_user);
                     callback.onSucceed(_user);
                 } else {
-                    callback.onFail(new CallbackException());
+                    callback.onFail(CallbackException.fromFirebaseException(task.getException()));
                 }
             });
         } else {
@@ -178,9 +223,7 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
                 setUser(firstLogin);
                 callback.onSucceed(user.getValue());
             } else {
-                Exception exception = task.getException();
-//                callback.onFail(exception != null ? exception : new Exception());
-                callback.onFail(new CallbackException());
+                callback.onFail(CallbackException.fromFirebaseException(task.getException()));
             }
         }
     }

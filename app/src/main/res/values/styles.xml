@@ -1,5 +1,12 @@
 <resources>
 
+    <dimen name="block_spacing">23dp</dimen>
+    <dimen name="activity_margin_horizontal">16dp</dimen>
+    <dimen name="activity_margin_vertical">16dp</dimen>
+    <dimen name="normal_spacing">10dp</dimen>
+    <dimen name="radius">7dp</dimen>
+
+
     <style name="AppTheme" parent="Theme.MaterialComponents.Light">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
@@ -51,10 +58,25 @@
     <style name="SubtitleStyle">
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:layout_marginTop">@dimen/auth_block_spacing</item>
+        <item name="android:layout_marginTop">@dimen/block_spacing</item>
         <item name="android:layout_marginBottom">@dimen/normal_spacing</item>
     </style>
 
+    <style name="info_box">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/rounded_box</item>
+    </style>
+
+    <style name="success_box" parent="info_box">
+        <item name="android:backgroundTint">@color/successColor</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="error_box" parent="info_box">
+        <item name="android:backgroundTint">@color/errorColor</item>
+        <item name="android:textColor">#fff</item>
+    </style>
 
 </resources>
 

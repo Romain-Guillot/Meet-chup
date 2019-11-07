@@ -9,9 +9,7 @@
     <!-- Error view -->
     <TextView
         android:id="@+id/form_error_textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"/>
+        style="@style/error_box"/>
 
     <TextView
         style="@style/SubtitleStyle"

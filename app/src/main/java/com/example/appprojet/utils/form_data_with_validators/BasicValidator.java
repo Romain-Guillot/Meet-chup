@@ -1,5 +1,13 @@
 package com.example.appprojet.utils.form_data_with_validators;
 
+import android.content.Context;
+
+import com.example.appprojet.R;
+
+/**
+ * Basic validator for non-empty value
+ * See {@link Validator}
+ */
 public class BasicValidator implements Validator {
 
     @Override
@@ -8,7 +16,7 @@ public class BasicValidator implements Validator {
     }
 
     @Override
-    public String errorMessage() {
-        return "Empty value not authorized";
+    public String errorMessage(Context context) {
+        return context.getString(R.string.validator_basic);
     }
 }

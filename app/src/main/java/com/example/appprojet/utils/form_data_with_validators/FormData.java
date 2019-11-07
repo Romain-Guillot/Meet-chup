@@ -1,10 +1,18 @@
 package com.example.appprojet.utils.form_data_with_validators;
 
 
+import android.content.Context;
+
+/**
+ * Text input field data
+ *
+ * It holds the input data, and have a Validator to check if the data inside the text field is
+ * 'valid' or note.
+ */
 public class FormData {
 
     private String value;
-    private Validator validator;
+    private final Validator validator;
 
 
     public FormData(Validator validator, String initialValue) {
@@ -16,7 +24,7 @@ public class FormData {
         this(validator, null);
     }
 
-
+    /** Return true if the data is valid (good formatting, etc.) */
     public boolean isValid() {
         return validator.isValid(value);
     }
@@ -29,7 +37,7 @@ public class FormData {
         this.value = value;
     }
 
-    public String getError() {
-        return validator.errorMessage();
+    public String getError(Context context) {
+        return validator.errorMessage(context);
     }
 }

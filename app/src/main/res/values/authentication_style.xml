@@ -1,7 +1,6 @@
 <resources>
     <dimen name="activity_auth_margin_horizontal">42dp</dimen>
     <dimen name="activity_auth_margin_vertical">32dp</dimen>
-    <dimen name="auth_block_spacing">23dp</dimen>
 
 
     <style name="Authentication" parent="Theme.MaterialComponents.Light.NoActionBar">

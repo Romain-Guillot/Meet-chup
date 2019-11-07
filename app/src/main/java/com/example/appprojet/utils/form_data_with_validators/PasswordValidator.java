@@ -1,25 +1,32 @@
 package com.example.appprojet.utils.form_data_with_validators;
 
+import android.content.Context;
+
+import com.example.appprojet.R;
+
+
+/**
+ * Password validator (min length), weak passwords are checked server-side
+ * See {@link Validator}
+ */
 public class PasswordValidator implements Validator {
 
-    private int minLenght = 8;
+    private int minLength = 6;
 
-    public PasswordValidator() {
+    public PasswordValidator() { }
 
-    }
-
-    public PasswordValidator(int minLenght) {
+    public PasswordValidator(int minLength) {
         this();
-        this.minLenght = minLenght;
+        this.minLength = minLength;
     }
 
     @Override
     public boolean isValid(String value) {
-        return value != null && value.length() >= minLenght;
+        return value != null && value.length() >= minLength;
     }
 
     @Override
-    public String errorMessage() {
-        return "Invlaid pass";
+    public String errorMessage(Context context) {
+        return context.getString(R.string.validator_password, minLength);
     }
 }

@@ -23,7 +23,7 @@
         <!-- Switch form container (switch between sign in and sign up form -->
         <com.google.android.flexbox.FlexboxLayout
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_marginTop="@dimen/auth_block_spacing"
+            android:layout_marginTop="@dimen/block_spacing"
             android:id="@+id/auth_switch_form_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

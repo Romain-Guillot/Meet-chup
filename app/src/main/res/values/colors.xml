@@ -8,4 +8,5 @@
     <color name="backgroundColor">#fff</color>
 
     <color name="errorColor">#f23333</color>
+    <color name="successColor">#6348e8</color>
 </resources>

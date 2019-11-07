@@ -5,10 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.appprojet.R;
 import com.example.appprojet.models.User;
-import com.example.appprojet.repositories.FirebaseAuthenticationRepository;
-import com.example.appprojet.repositories.IAuthenticationRepository;
 import com.example.appprojet.utils.Callback;
 
 
@@ -21,7 +18,6 @@ import com.example.appprojet.utils.Callback;
  *
  * When extending this class, submitForm and validate methods have to be implements.
  *
- * TODO: Change error message based on the FirebaseException return by the repo
  */
 public abstract class FormViewModel extends AndroidViewModel {
 
@@ -41,7 +37,7 @@ public abstract class FormViewModel extends AndroidViewModel {
         @Override
         public void onFail(CallbackException e) {
             isLoadingLive.setValue(false);
-            errorLive.setValue(getApplication().getString(R.string.auth_error_form));
+            errorLive.setValue(e.getErrorMessage(getApplication().getApplicationContext()));
         }
     };
 
@@ -55,5 +51,4 @@ public abstract class FormViewModel extends AndroidViewModel {
 
     /** check if the data in the form is valid.  */
     protected abstract boolean validate();
-
 }

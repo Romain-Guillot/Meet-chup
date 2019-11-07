@@ -1,5 +1,7 @@
 package com.example.appprojet.repositories;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 
 import com.example.appprojet.models.User;
@@ -26,6 +28,9 @@ public interface IAuthenticationRepository {
      */
     void classicSignUp(String email, String password, Callback<User> callback);
 
+    void updateEmail(String email, Callback<User> callback);
+
+    void updatePassword(String newPassword, Callback<User> callback);
 
     void updateName(String name, Callback<User> callback);
 
