@@ -5,33 +5,38 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal">
 
-
+        <!-- Profile picture : for now it's a default image-->
         <ImageView
             android:id="@+id/profile_view_user_picture_profile"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:src="@drawable/ic_user"
             android:scaleType="fitCenter"
-            android:contentDescription="User profile picture"/>
+            android:layout_marginBottom="@dimen/normal_spacing"
+            android:contentDescription="@string/profile_user_picture"/>
 
+        <!-- Username -->
         <TextView
             android:id="@+id/profile_view_user_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/large_text"/>
 
+        <!-- User mail -->
         <TextView
             android:id="@+id/profile_view_user_email"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorLight"/>
 
-
-
+        <!-- Sign out button-->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/profile_sign_out"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="Sign out"/>
+            android:layout_marginTop="@dimen/block_spacing"
+            android:text="@string/auth_signout_btn"/>
 </LinearLayout>
 
 

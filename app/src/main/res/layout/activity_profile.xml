@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
+    <!-- Main activity fragment : event fragment_profile_view or fragment_profile_edit-->
     <FrameLayout
         android:paddingStart="@dimen/activity_margin_horizontal"
         android:paddingEnd="@dimen/activity_margin_horizontal"

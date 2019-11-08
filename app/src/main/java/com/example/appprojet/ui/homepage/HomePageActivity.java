@@ -33,7 +33,7 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         navigateToAuthenticationActivityIfUserIsNotLogged();
         setContentView(R.layout.activity_homepage);
-        setActionBar();
+//        setActionBar();
 
 
         Intent intent = new Intent(this, EventViewActivity.class);
@@ -48,6 +48,13 @@ public class HomePageActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+    }
+
+    /** If I put the action bar in the onCreate the logo size will no be kept ...*/
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setActionBar();
     }
 
     public void navigateToAuthenticationActivityIfUserIsNotLogged() {

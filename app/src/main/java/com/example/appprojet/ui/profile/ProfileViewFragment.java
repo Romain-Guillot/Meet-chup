@@ -15,10 +15,20 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.appprojet.R;
-import com.example.appprojet.repositories.FirebaseAuthenticationRepository;
 import com.example.appprojet.ui.authentication.AuthenticationActivity;
 
 
+/**
+ * Fragment to display the user information :
+ *  - profile picture
+ *  - username
+ *  - email address
+ *
+ * It simply retrieve the ProfileViewModel and set the user information in the corresponding views.
+ * There is also a button to sign out.
+ *
+ * TODO : when user is not connected, display another view
+ */
 public class ProfileViewFragment extends Fragment {
 
     @Override
@@ -36,6 +46,7 @@ public class ProfileViewFragment extends Fragment {
         TextView usernameView = view.findViewById(R.id.profile_view_user_name);
         TextView userEmailView = view.findViewById(R.id.profile_view_user_email);
 
+        // button to sign out
         view.findViewById(R.id.profile_sign_out).setOnClickListener(v -> {
             viewModel.signOut();
             Intent authIntent = new Intent(getActivity(), AuthenticationActivity.class);
@@ -43,6 +54,7 @@ public class ProfileViewFragment extends Fragment {
             startActivity(authIntent);
         });
 
+        // update UI profile information
         viewModel.user.observe(this, user -> {
             if (user != null) {
                 String name = user.getName();
@@ -55,6 +67,7 @@ public class ProfileViewFragment extends Fragment {
     }
 
 
+    /** Create the menu in the action bar with the edit item, see the activity for the process */
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.profile_view_menu, menu);

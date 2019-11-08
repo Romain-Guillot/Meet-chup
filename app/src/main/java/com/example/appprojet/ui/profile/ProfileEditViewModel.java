@@ -1,13 +1,9 @@
 package com.example.appprojet.ui.profile;
 
 import android.app.Application;
-import android.telecom.Call;
-import android.util.Log;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.appprojet.R;
 import com.example.appprojet.models.User;
@@ -15,8 +11,6 @@ import com.example.appprojet.repositories.FirebaseAuthenticationRepository;
 import com.example.appprojet.repositories.IAuthenticationRepository;
 import com.example.appprojet.utils.Callback;
 import com.example.appprojet.utils.CallbackException;
-import com.example.appprojet.utils.FormViewModel;
-import com.example.appprojet.utils.form_data_with_validators.BasicValidator;
 import com.example.appprojet.utils.form_data_with_validators.EmailValidator;
 import com.example.appprojet.utils.form_data_with_validators.FormData;
 import com.example.appprojet.utils.form_data_with_validators.NameValidator;
@@ -24,22 +18,35 @@ import com.example.appprojet.utils.form_data_with_validators.PasswordConfirmatio
 import com.example.appprojet.utils.form_data_with_validators.PasswordValidator;
 
 
+/**
+ * View model to handle process of ProfileViewFragment to update profile.
+ *
+ * There are one FormData for each field and on is loading state Live data for each form, there are
+ * 3 forms :
+ *  - email
+ *  - username
+ *  - password
+ *
+ * The fragment ask the repo to perform actions and update Live Data according the responses.
+ */
 public class ProfileEditViewModel extends AndroidViewModel {
 
-    IAuthenticationRepository authRepo;
+    private final IAuthenticationRepository authRepo;
 
-    MutableLiveData<String> errorLive = new MutableLiveData<>(null);
-    MutableLiveData<String> successLive = new MutableLiveData<>(null);
+    final MutableLiveData<String> errorLive = new MutableLiveData<>(null);
+    final MutableLiveData<String> successLive = new MutableLiveData<>(null);
 
-    FormData emailFormData = new FormData(new EmailValidator());
-    MutableLiveData<Boolean> emailFormIsLoading = new MutableLiveData<>(false);
+    final FormData emailFormData = new FormData(new EmailValidator());
+    final MutableLiveData<Boolean> emailFormIsLoading = new MutableLiveData<>(false);
 
-    FormData newPasswordFormData = new FormData(new PasswordValidator());
-    FormData newPasswordConfirmFormData = new FormData(new PasswordConfirmationValidator(newPasswordFormData));
-    MutableLiveData<Boolean> newPasswordFormIsLoading = new MutableLiveData<>(false);
+    final FormData newPasswordFormData = new FormData(new PasswordValidator());
+    final FormData newPasswordConfirmFormData = new FormData(new PasswordConfirmationValidator(newPasswordFormData));
+    final MutableLiveData<Boolean> newPasswordFormIsLoading = new MutableLiveData<>(false);
 
-    FormData usernameFormData = new FormData(new NameValidator());
-    MutableLiveData<Boolean> usernameFormIsLoading = new MutableLiveData<>(false);
+    final FormData usernameFormData = new FormData(new NameValidator());
+    final MutableLiveData<Boolean> usernameFormIsLoading = new MutableLiveData<>(false);
+
+    final MutableLiveData<Boolean> isDeleted = new MutableLiveData<>();
 
 
     public ProfileEditViewModel(Application application) {
@@ -81,9 +88,23 @@ public class ProfileEditViewModel extends AndroidViewModel {
         }
     }
 
+    void deleteAccount() {
+        authRepo.deleteAccount(new Callback<Void>() {
+            @Override
+            public void onSucceed(Void result) {
+                isDeleted.setValue(true);
+            }
+
+            @Override
+            public void onFail(CallbackException exception) {
+                errorLive.setValue(exception.getErrorMessage(getApplication()));
+            }
+        });
+    }
+
     private class UpdateCallBack implements Callback<User> {
 
-        MutableLiveData<Boolean> loadingLiveData;
+        final MutableLiveData<Boolean> loadingLiveData;
 
         UpdateCallBack(MutableLiveData<Boolean> loadingLiveData) {
             this.loadingLiveData = loadingLiveData;

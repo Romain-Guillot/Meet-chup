@@ -1,10 +1,6 @@
 package com.example.appprojet.repositories;
 
-
-import android.util.Log;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -16,11 +12,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseAuthInvalidUserException;
-import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -154,7 +145,7 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
                 }
             });
         } else {
-            callback.onFail(new CallbackException());
+            callback.onFail(new CallbackException(CallbackException.Type.NO_LOGGED));
         }
     }
 
@@ -165,6 +156,22 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
     public void signOut() {
         firebaseAuth.signOut();
         setUser();
+    }
+
+    @Override
+    public void deleteAccount(Callback<Void> callback) {
+        FirebaseUser fbUser = firebaseAuth.getCurrentUser();
+        if (fbUser != null) {
+            fbUser.delete().addOnCompleteListener(task -> {
+               if (task.isSuccessful()) {
+                   callback.onSucceed(null);
+                   this.user.setValue(null);
+               }
+               else callback.onFail(CallbackException.fromFirebaseException(task.getException()));
+            });
+        } else {
+            callback.onFail(new CallbackException(CallbackException.Type.NO_LOGGED));
+        }
     }
 
     private void setUser() {

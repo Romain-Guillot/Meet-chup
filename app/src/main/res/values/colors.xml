@@ -9,4 +9,7 @@
 
     <color name="errorColor">#f23333</color>
     <color name="successColor">#6348e8</color>
+
+    <color name="textColor">#2C2C2C</color>
+    <color name="textColorLight">#525252</color>
 </resources>

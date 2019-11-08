@@ -1,13 +1,15 @@
 package com.example.appprojet.repositories;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 
 import com.example.appprojet.models.User;
 import com.example.appprojet.utils.Callback;
 import com.google.firebase.auth.AuthCredential;
 
+
+/**
+ *
+ */
 public interface IAuthenticationRepository {
 
     LiveData<User> getObservableUser();
@@ -36,4 +38,6 @@ public interface IAuthenticationRepository {
 
 
     void signOut();
+
+    void deleteAccount(Callback<Void> callback);
 }
