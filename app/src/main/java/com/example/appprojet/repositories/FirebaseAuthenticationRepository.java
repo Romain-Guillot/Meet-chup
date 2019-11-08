@@ -1,5 +1,7 @@
 package com.example.appprojet.repositories;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -100,10 +102,9 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
 
         fbUser.updateEmail(email).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                User _user = getCurrentUser();
-                _user.setEmail(email);
-                this.user.setValue(_user);
-                callback.onSucceed(_user);
+                getCurrentUser().setEmail(email);
+                callback.onSucceed(getCurrentUser());
+                setUser();
             } else {
                 callback.onFail(CallbackException.fromFirebaseException(task.getException()));
             }
@@ -136,10 +137,9 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
             userInfo.put("name", name);
             getUserDocument(fbUser.getUid()).set(userInfo, SetOptions.merge()).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    User _user = getCurrentUser();
-                    _user.setName(name);
-                    user.setValue(_user);
-                    callback.onSucceed(_user);
+                    getCurrentUser().setName(name);
+                    callback.onSucceed(getCurrentUser());
+                    setUser();
                 } else {
                     callback.onFail(CallbackException.fromFirebaseException(task.getException()));
                 }
@@ -165,7 +165,7 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
             fbUser.delete().addOnCompleteListener(task -> {
                if (task.isSuccessful()) {
                    callback.onSucceed(null);
-                   this.user.setValue(null);
+                   setUser();
                }
                else callback.onFail(CallbackException.fromFirebaseException(task.getException()));
             });
@@ -185,17 +185,15 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
             final String email = fbUser.getEmail() != null ? fbUser.getEmail() : "unknown";
             user.setValue(new User(fbUser.getUid(), null, email, firstLogin));
 
-            getUserDocument(fbUser.getUid()).get().addOnCompleteListener(task -> {
+            getUserDocument(fbUser.getUid()).addSnapshotListener((documentSnapshot, e) -> {
                 String name = null;
                 try {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot userInfoDoc = task.getResult();
-                        if (userInfoDoc.exists()) {
-                            name = (String) userInfoDoc.getData().get("name");
-                        }
+                    if (e == null) { // success
+                        if (documentSnapshot != null && documentSnapshot.exists())
+                            name = (String) documentSnapshot.getData().get("name");
                     }
-                } catch (Exception e) { }
-                user.setValue(new User(fbUser.getUid(), name, email, firstLogin));
+                } catch (Exception ee) { }
+               user.setValue(new User(fbUser.getUid(), name, email, firstLogin));
             });
         } else {
             this.user.setValue(null);

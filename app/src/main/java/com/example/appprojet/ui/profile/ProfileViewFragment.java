@@ -2,6 +2,7 @@ package com.example.appprojet.ui.profile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -56,6 +57,7 @@ public class ProfileViewFragment extends Fragment {
 
         // update UI profile information
         viewModel.user.observe(this, user -> {
+            Log.e(">>>>>>>>>>>>>>>>>>", "OK");
             if (user != null) {
                 String name = user.getName();
                 usernameView.setText(name != null ? name : getString(R.string.default_username));
