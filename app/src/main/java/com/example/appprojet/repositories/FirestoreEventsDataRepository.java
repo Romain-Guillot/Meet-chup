@@ -4,10 +4,14 @@ package com.example.appprojet.repositories;
 import com.example.appprojet.models.Comment;
 import com.example.appprojet.models.Document;
 import com.example.appprojet.models.Event;
+import com.example.appprojet.utils.CallbackException;
 import com.example.appprojet.utils.Location;
 import com.example.appprojet.models.Post;
 import com.example.appprojet.models.User;
 import com.example.appprojet.utils.Callback;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,6 +27,11 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
     private static FirestoreEventsDataRepository instance = null;
 
     private IAuthenticationRepository authRepo;
+    private FirebaseFirestore firestore;
+
+    private final static String EVENT_COL = "events";
+    private final static String EVENT_FIELD_INVITKEY = "invitKey";
+
 
     private Map<String, Event> fakeEvents = new HashMap<>();
     private Map<String, User> fakeUsers = new HashMap<>();
@@ -30,6 +39,7 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
     private Map<String, List<Post>> postByEventId = new HashMap<>();
 
     private FirestoreEventsDataRepository() {
+        firestore = FirebaseFirestore.getInstance();
         authRepo = FirebaseAuthenticationRepository.getInstance();
         fakeUsers.put("1", new User("Romain", "", ""));
         fakeUsers.put("2", new User("Alexis", "", ""));
@@ -103,25 +113,42 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
 
     }
 
+    // DONE
     @Override
-    public void modifyEvent(Event event, Callback<Event> callback) {
+    public void updateEventInvitationKey(String eventID, String key, Callback<String> callback) {
+        firestore.collection(EVENT_COL).document(eventID)
+                .set(new HashMap<String, String>(){{put(EVENT_FIELD_INVITKEY, key);}}, SetOptions.merge())
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) callback.onSucceed(key);
+                    else callback.onFail(CallbackException.fromFirebaseException(task.getException()));
+                });
+    }
+
+    // DONE
+    @Override
+    public void removeEventInvitationKey(String eventID, Callback<Void> callback) {
+        firestore.collection(EVENT_COL).document(eventID)
+                .update(new HashMap<String, Object>(){{put(EVENT_FIELD_INVITKEY, FieldValue.delete());}})
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) callback.onSucceed(null);
+                    else callback.onFail(CallbackException.fromFirebaseException(task.getException()));
+                });
+    }
+
+    @Override
+    public void deleteEvent(String eventID, Callback<Void> callback) {
 
     }
 
     @Override
-    public void deleteEvent(Event event, Callback<Boolean> callback) {
-
-    }
-
-
-    public void loadEventPosts(Event event, Callback<Event> callback) {
-        List<Post> postsEvents = postByEventId.get(event.getId());
-        event.setPosts(postsEvents);
-        callback.onSucceed(event);
+    public void loadEventPosts(String eventID, Callback<Event> callback) {
+//        List<Post> postsEvents = postByEventId.get(e());
+//        event.setPosts(postsEvents);
+//        callback.onSucceed(event);
     }
 
     @Override
-    public void loadEventToDoList(Event event, Callback<Event> callback) {
+    public void loadEventToDoList(String eventID, Callback<Event> callback) {
 
     }
 
@@ -132,12 +159,12 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
     }
 
     @Override
-    public void addPost(Event event, Post post, Callback<Post> callback) {
+    public void addPost(String eventID, Post post, Callback<Post> callback) {
 
     }
 
     @Override
-    public void deletePost(Event event, Post post, Callback<Boolean> callback) {
+    public void deletePost(String eventID, Post post, Callback<Boolean> callback) {
 
     }
 

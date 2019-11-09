@@ -24,9 +24,6 @@ import java.util.List;
 /**
  * Handle form UI, the business logic is handle by a FormViewModel associated.
  *
- * The fragment layout required these following views to handle the form :
- *  - a submit button with the id "form_submit_btn"
- *
  * To init the fragment call the init method with the required parameters. The method will make the
  * links between the form text fields and the fragment form data that holds the form
  * data.
@@ -43,16 +40,13 @@ public abstract class FormFragment extends Fragment {
      * main function, refer to the class documentation
      *
      * Required the following parameters :
-     *  - view: the fragment view
      *  - viewModel: the fragment view model
+     *  - the submit button
      *  - textInputLayoutList: all form fields layouts
      *  - formDataList: form data corresponding to the fields layout
      *      i.e. formDataList[i] refers to the input text included in the layout textInputLayoutList[i]
      */
-    protected void init(View view, FormViewModel viewModel, List<TextInputLayout> textInputLayoutList, List<FormData> formDataList, String submitText, String loadingText) {
-        // init views
-        Button submitButton = view.findViewById(R.id.form_submit_btn);
-
+    protected void init(FormViewModel viewModel, List<TextInputLayout> textInputLayoutList, List<FormData> formDataList, Button submitButton, String submitText, String loadingText) {
         // throw an exception if the parameters of the view fragment is invalid
         if (textInputLayoutList.size() != formDataList.size() || submitButton == null)
             throw new RuntimeException("Wrong usage of the FormFragment");

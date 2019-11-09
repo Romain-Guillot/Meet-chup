@@ -91,7 +91,7 @@ public class EventViewViewModel extends AndroidViewModel {
 
 
     public void loadPosts() {
-        eventsRepo.loadEventPosts( event, new Callback<Event>() {
+        eventsRepo.loadEventPosts( event.getId(), new Callback<Event>() {
             @Override
             public void onSucceed(Event result) {
                 event = result;

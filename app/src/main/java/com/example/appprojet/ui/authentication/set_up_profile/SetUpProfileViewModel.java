@@ -51,13 +51,13 @@ public class SetUpProfileViewModel extends FormViewModel {
             authenticationRepository.updateName(name, new Callback<User>() {
                 @Override
                 public void onSucceed(User result) {
-                    submitCallback.onSucceed(result);
+                    new SubmitCallback<User>().onSucceed(result);
                     isFinish.setValue(true);
                 }
 
                 @Override
                 public void onFail(CallbackException e) {
-                    submitCallback.onFail(e);
+                    new SubmitCallback().onFail(e);
                 }
             });
         }

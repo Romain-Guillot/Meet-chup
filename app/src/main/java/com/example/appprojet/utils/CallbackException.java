@@ -82,6 +82,7 @@ public class CallbackException extends Exception {
         return new CallbackException(Type.UNKNOWN);
     }
 
+
     /** Types of errors */
     public enum Type {
         /** When there is a problem with the internet connection to perform an action */
