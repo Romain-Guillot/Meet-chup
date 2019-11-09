@@ -89,6 +89,5 @@ public class HomePageActivity extends AppCompatActivity {
         findViewById(R.id.homepage_join_event_btn).setOnClickListener(v -> {
             joinBottomSheetFragment.show(getSupportFragmentManager(), "join_bottom_sheet");
         });
-
     }
 }

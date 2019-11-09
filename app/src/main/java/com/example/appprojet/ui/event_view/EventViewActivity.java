@@ -2,8 +2,13 @@ package com.example.appprojet.ui.event_view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.PopupMenu;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +18,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.appprojet.R;
+import com.example.appprojet.ui.event_view.invitation.InvitationKeyActivity;
 import com.example.appprojet.utils.ChildActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -87,5 +93,28 @@ public class EventViewActivity extends ChildActivity {
         NavController navController = Navigation.findNavController(this, R.id.event_view_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.event_view_menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.event_view_share_event_item :
+                Intent invitIntent = new Intent(this, InvitationKeyActivity.class);
+                startActivity(invitIntent);
+                break;
+            case R.id.event_view_quit_item :
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
     }
 }
