@@ -5,10 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center">
 
-    <!-- Error view -->
-    <TextView
-        android:id="@+id/form_error_textview"
-        style="@style/error_box"/>
+
 
     <!--Username field -->
     <com.google.android.material.textfield.TextInputLayout

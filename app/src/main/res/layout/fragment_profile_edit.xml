@@ -5,18 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Text view to display an error message -->
-    <TextView
-        android:id="@+id/form_error_textview"
-        android:layout_marginBottom="@dimen/block_spacing"
-        style="@style/error_box"/>
-
-    <!-- Text view to display an info message-->
-    <TextView
-        android:id="@+id/form_success_textview"
-        android:layout_marginBottom="@dimen/block_spacing"
-        style="@style/success_box"/>
-
 
     <!-- UPDATE EMAIL -->
     <TextView

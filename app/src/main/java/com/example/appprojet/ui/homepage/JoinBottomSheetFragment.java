@@ -41,6 +41,11 @@ public class JoinBottomSheetFragment extends BottomSheetDialogFragment {
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
         closeKeyboard();
     }
 

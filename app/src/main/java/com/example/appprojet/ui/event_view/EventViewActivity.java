@@ -71,6 +71,7 @@ public class EventViewActivity extends ChildActivity {
     public static final String EXTRA_EVENT_ID = "com.example.appprojet.event_id";
 
     EventViewViewModel viewModel;
+    String eventId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,10 +80,10 @@ public class EventViewActivity extends ChildActivity {
 
 
         Intent intent = getIntent();
-        String event_id = intent.getStringExtra(EXTRA_EVENT_ID);
+        eventId = intent.getStringExtra(EXTRA_EVENT_ID);
 
         viewModel = ViewModelProviders.of(this).get(EventViewViewModel.class);
-        viewModel.initEventMetaData(event_id);
+        viewModel.initEventMetaData(eventId);
 
         viewModel.eventTitleLive.observe(this, event -> {
                 if (actionBar != null)
@@ -108,6 +109,7 @@ public class EventViewActivity extends ChildActivity {
         switch (item.getItemId()) {
             case R.id.event_view_share_event_item :
                 Intent invitIntent = new Intent(this, InvitationKeyActivity.class);
+                invitIntent.putExtra(InvitationKeyActivity.EXTRA_EVENT_ID, eventId);
                 startActivity(invitIntent);
                 break;
             case R.id.event_view_quit_item :

@@ -46,7 +46,8 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
                 begin.getTime(),
                 end.getTime(),
                 created.getTime(),
-                new Location(25.4d, 29.7d))
+                new Location(25.4d, 29.7d),
+                "dddd")
         );
 
         begin.set(2019, 12, 24); end.set(2020, 1, 12);created.set(2019, 1, 2);
@@ -58,7 +59,8 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
                 begin.getTime(),
                 null,
                 created.getTime(),
-                new Location(40.7128, -74.0060))
+                new Location(40.7128, -74.0060),
+                null)
         );
 
         fakePosts.put("1", new Post("1", fakeUsers.get("4"), null, "Un premier post", new Document("", "https://i.imgur.com/WHRgwnI.jpg")));

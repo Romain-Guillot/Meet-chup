@@ -69,7 +69,7 @@
     <string name="validator_password">Invalid password, %1$d characters minimum</string>
     <string name="validator_password_confirm">Passwords doesn\'t match</string>
     <string name="validator_username">Please enter a name between %1$d and %2$d characters</string>
-
+    <string name="validator_invitation_key">Invalid key, %1$d characters minimum</string>
 
 
 

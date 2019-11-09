@@ -3,6 +3,7 @@ package com.example.appprojet.utils;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.appprojet.R;
 import com.example.appprojet.utils.form_data_with_validators.FormData;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Iterator;
@@ -24,7 +26,6 @@ import java.util.List;
  *
  * The fragment layout required these following views to handle the form :
  *  - a submit button with the id "form_submit_btn"
- *  - a text view to display errors with the id "form_error_textview"
  *
  * To init the fragment call the init method with the required parameters. The method will make the
  * links between the form text fields and the fragment form data that holds the form
@@ -51,10 +52,9 @@ public abstract class FormFragment extends Fragment {
     protected void init(View view, FormViewModel viewModel, List<TextInputLayout> textInputLayoutList, List<FormData> formDataList, String submitText, String loadingText) {
         // init views
         Button submitButton = view.findViewById(R.id.form_submit_btn);
-        TextView errorTextView = view.findViewById(R.id.form_error_textview);
 
         // throw an exception if the parameters of the view fragment is invalid
-        if (textInputLayoutList.size() != formDataList.size() || submitButton == null || errorTextView == null)
+        if (textInputLayoutList.size() != formDataList.size() || submitButton == null)
             throw new RuntimeException("Wrong usage of the FormFragment");
 
         // link all form edit texts with the live data
@@ -84,9 +84,15 @@ public abstract class FormFragment extends Fragment {
 
         // update the submit error text based on the error message (if any)
         viewModel.errorLive.observe(this, error -> {
-            errorTextView.setVisibility(error != null && !error.isEmpty() ? View.VISIBLE : View.GONE);
-            errorTextView.setText(error);
+            if (error != null) {
+                String message = error.getContentIfNotHandled();
+                SnackbarFactory.showSnackbar(getActivity().findViewById(android.R.id.content), message);
+            }
+
         });
+
+
+
     }
 
     /**

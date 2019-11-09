@@ -25,7 +25,7 @@ public abstract class FormViewModel extends AndroidViewModel {
     protected final MutableLiveData<Boolean> isLoadingLive = new MutableLiveData<>(false);
 
     /** Error flag (when an error occurred) */
-    protected final MutableLiveData<String> errorLive = new MutableLiveData<>(null);
+    protected final MutableLiveData<SingleEvent<String>> errorLive = new MutableLiveData<>(null);
 
     /** callback to give to the repository when submitting the form */
     protected final Callback<User> submitCallback = new Callback<User>() {
@@ -37,7 +37,7 @@ public abstract class FormViewModel extends AndroidViewModel {
         @Override
         public void onFail(CallbackException e) {
             isLoadingLive.setValue(false);
-            errorLive.setValue(e.getErrorMessage(getApplication().getApplicationContext()));
+            errorLive.setValue(new SingleEvent<>(e.getErrorMessage(getApplication().getApplicationContext())));
         }
     };
 

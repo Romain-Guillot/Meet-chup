@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.appprojet.R;
 import com.example.appprojet.ui.authentication.AuthenticationActivity;
 import com.example.appprojet.utils.FormFragment;
+import com.example.appprojet.utils.SnackbarFactory;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -112,15 +113,19 @@ public class ProfileEditFragment extends FormFragment {
         });
 
         // Set error or info messages if any
-        TextView errorView = view.findViewById(R.id.form_error_textview);
-        TextView successView = view.findViewById(R.id.form_success_textview);
         viewModel.errorLive.observe(this, errorMessage -> {
-            errorView.setVisibility(errorMessage != null ? View.VISIBLE : View.GONE);
-            errorView.setText(errorMessage);
+            if (errorMessage != null) {
+                String message = errorMessage.getContentIfNotHandled();
+                if (message != null)
+                    SnackbarFactory.showSnackbar(getActivity().findViewById(android.R.id.content), message);
+            }
         });
         viewModel.successLive.observe(this, successMessage -> {
-            successView.setVisibility(successMessage != null ? View.VISIBLE : View.GONE);
-            successView.setText(successMessage);
+            if (successMessage != null) {
+                String message = successMessage.getContentIfNotHandled();
+                if (message != null)
+                    SnackbarFactory.showSnackbar(getActivity().findViewById(android.R.id.content), message);
+            }
         });
 
         return view;
