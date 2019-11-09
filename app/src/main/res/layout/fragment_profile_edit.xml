@@ -122,7 +122,7 @@
         android:id="@+id/profile_edit_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:backgroundTint="@color/errorColor"
+        style="@style/DangerButton"
         android:text="@string/profile_edit_delete_btn"/>
 
 

@@ -19,6 +19,9 @@
         <item name="textInputStyle">@style/AppInputTextStyle</item>
 
         <item name="android:textColor">@color/textColor</item>
+<!--        <item name="buttonStyle">@style/ButtonStyle</item>-->
+        <item name="materialButtonStyle">@style/ButtonStyle</item>
+
 
     </style>
 
@@ -52,6 +55,27 @@
     <style name="ShapeAppearanceOverlay.MyApp.TextInputLayout.Rounded" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">@dimen/radius</item>
+    </style>
+
+    <style name="ButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="backgroundTint">@color/colorPrimaryLight</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+    </style>
+
+    <style name="DangerButton" parent="ButtonStyle">
+        <item name="backgroundTint">@color/errorColor</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="FloatingActionStyle" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="android:layout_margin">16dp</item>
+        <item name="backgroundTint">@color/colorPrimary</item>
+        <item name="android:strokeWidth">0</item>
     </style>
 
 
