@@ -5,6 +5,7 @@
     <dimen name="activity_margin_vertical">16dp</dimen>
     <dimen name="normal_spacing">10dp</dimen>
     <dimen name="radius">7dp</dimen>
+    <dimen name="bottom_sheet_margin">20dp</dimen>
 
     <dimen name="large_text">20sp</dimen>
 
@@ -61,10 +62,13 @@
         <item name="backgroundTint">@color/colorPrimaryLight</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textAllCaps">false</item>
+        <item name="cornerRadius">@dimen/radius</item>
         <item name="android:textStyle">bold</item>
         <item name="android:padding">10dp</item>
         <item name="android:minWidth">0dp</item>
         <item name="android:minHeight">0dp</item>
+        <item name="iconTint">@color/colorPrimary</item>
+        <item name="iconSize">16dp</item>
     </style>
 
     <style name="DangerButton" parent="ButtonStyle">
@@ -93,7 +97,7 @@
     </style>
 
     <style name="success_box" parent="info_box">
-        <item name="android:backgroundTint">@color/successColor</item>
+        <item name="android:backgroundTint">@color/infoColor</item>
         <item name="android:textColor">#fff</item>
     </style>
 

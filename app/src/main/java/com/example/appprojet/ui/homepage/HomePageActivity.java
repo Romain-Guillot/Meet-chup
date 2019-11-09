@@ -16,6 +16,8 @@ import com.example.appprojet.repositories.IAuthenticationRepository;
 import com.example.appprojet.ui.authentication.AuthenticationActivity;
 import com.example.appprojet.ui.event_view.EventViewActivity;
 import com.example.appprojet.ui.profile.ProfileActivity;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -28,13 +30,15 @@ import com.google.firebase.auth.FirebaseUser;
  */
 public class HomePageActivity extends AppCompatActivity {
 
+    private JoinBottomSheetFragment joinBottomSheetFragment;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         navigateToAuthenticationActivityIfUserIsNotLogged();
         setContentView(R.layout.activity_homepage);
-//        setActionBar();
 
+        initJoinBottomSheetBehavior();
 
         Intent intent = new Intent(this, EventViewActivity.class);
 
@@ -78,5 +82,13 @@ public class HomePageActivity extends AppCompatActivity {
             Intent profileIntent = new Intent(this, ProfileActivity.class);
             startActivity(profileIntent);
         });
+    }
+
+    public void initJoinBottomSheetBehavior() {
+        joinBottomSheetFragment = new JoinBottomSheetFragment();
+        findViewById(R.id.homepage_join_event_btn).setOnClickListener(v -> {
+            joinBottomSheetFragment.show(getSupportFragmentManager(), "join_bottom_sheet");
+        });
+
     }
 }
