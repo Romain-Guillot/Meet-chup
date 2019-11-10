@@ -7,6 +7,7 @@ import com.example.appprojet.models.User;
 import com.example.appprojet.repositories.FirebaseAuthenticationRepository;
 import com.example.appprojet.repositories.IAuthenticationRepository;
 import com.example.appprojet.utils.Callback;
+import com.example.appprojet.utils.CallbackException;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -45,7 +46,7 @@ public class ProvidersAuthViewModel extends ViewModel {
             }
 
             @Override
-            public void onFail(Exception e) {
+            public void onFail(CallbackException e) {
                 googleIsLoading.setValue(false);
             }
         });

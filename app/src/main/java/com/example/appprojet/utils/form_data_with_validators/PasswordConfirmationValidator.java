@@ -1,9 +1,18 @@
 package com.example.appprojet.utils.form_data_with_validators;
 
 
+import android.content.Context;
+
+import com.example.appprojet.R;
+
+/**
+ * Basic validator for confirmation password (it takes the original FormData password in its
+ * constructor)
+ * See {@link Validator}
+ */
 public class PasswordConfirmationValidator implements Validator {
 
-    private FormData originalPassword;
+    private final FormData originalPassword;
 
 
     public PasswordConfirmationValidator(FormData originalPassword) {
@@ -16,7 +25,7 @@ public class PasswordConfirmationValidator implements Validator {
     }
 
     @Override
-    public String errorMessage() {
-        return "Password doesn't match";
+    public String errorMessage(Context context) {
+        return context.getString(R.string.validator_password_confirm);
     }
 }

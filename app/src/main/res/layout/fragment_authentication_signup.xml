@@ -9,12 +9,10 @@
     <!-- Error view -->
     <TextView
         android:id="@+id/form_error_textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"/>
+        style="@style/error_box"/>
 
     <TextView
-        style="@style/AuthSubtitleStyle"
+        style="@style/SubtitleStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Social registration"/>
@@ -28,7 +26,7 @@
 
 
     <TextView
-        style="@style/AuthSubtitleStyle"
+        style="@style/SubtitleStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Classic registration"/>
@@ -65,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:passwordToggleEnabled="true"
-        android:hint="@string/auth_password_hint">
+        android:hint="@string/auth_password_confirm_hint">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

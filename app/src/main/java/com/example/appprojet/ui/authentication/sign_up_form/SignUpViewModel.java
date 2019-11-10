@@ -2,7 +2,9 @@ package com.example.appprojet.ui.authentication.sign_up_form;
 
 import android.app.Application;
 
-import com.example.appprojet.ui.authentication.FormViewModel;
+import com.example.appprojet.repositories.FirebaseAuthenticationRepository;
+import com.example.appprojet.repositories.IAuthenticationRepository;
+import com.example.appprojet.utils.FormViewModel;
 import com.example.appprojet.utils.form_data_with_validators.EmailValidator;
 import com.example.appprojet.utils.form_data_with_validators.FormData;
 import com.example.appprojet.utils.form_data_with_validators.PasswordConfirmationValidator;
@@ -24,6 +26,7 @@ import com.example.appprojet.utils.form_data_with_validators.PasswordValidator;
  */
 public class SignUpViewModel extends FormViewModel {
 
+    private final IAuthenticationRepository authenticationRepository;
     final FormData emailLive = new FormData(new EmailValidator());
     final FormData passwordLive = new FormData(new PasswordValidator());
     final FormData passwordConfirmLive = new FormData(new PasswordConfirmationValidator(passwordLive));
@@ -31,6 +34,7 @@ public class SignUpViewModel extends FormViewModel {
 
     public SignUpViewModel(Application application) {
         super(application);
+        authenticationRepository = FirebaseAuthenticationRepository.getInstance();
     }
 
     @Override

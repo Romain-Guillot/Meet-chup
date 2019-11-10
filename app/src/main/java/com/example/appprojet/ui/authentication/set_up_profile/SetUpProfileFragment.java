@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.appprojet.R;
 import com.example.appprojet.ui.authentication.AuthenticationActivity;
-import com.example.appprojet.ui.authentication.FormFragment;
+import com.example.appprojet.utils.FormFragment;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Collections;
@@ -58,7 +58,8 @@ public class SetUpProfileFragment extends FormFragment {
 
         // Notify the authentication activity that the authentication process is done.
         viewModel.isFinish.observe(this, isFinish -> {
-            if (isFinish) AuthenticationActivity.obtainViewModel(getActivity()).finish();
+            if (isFinish)
+                AuthenticationActivity.obtainViewModel(getActivity()).finish();
         });
 
         return view;

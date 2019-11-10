@@ -1,12 +1,21 @@
 package com.example.appprojet.repositories;
 
+import androidx.lifecycle.LiveData;
+
 import com.example.appprojet.models.User;
 import com.example.appprojet.utils.Callback;
 import com.google.firebase.auth.AuthCredential;
 
+
+/**
+ *
+ */
 public interface IAuthenticationRepository {
 
-    User getUser();
+    LiveData<User> getObservableUser();
+
+    User getCurrentUser();
+
 
     void classicSignIn(String email, String password, Callback<User> callback);
 
@@ -21,16 +30,14 @@ public interface IAuthenticationRepository {
      */
     void classicSignUp(String email, String password, Callback<User> callback);
 
+    void updateEmail(String email, Callback<User> callback);
+
+    void updatePassword(String newPassword, Callback<User> callback);
 
     void updateName(String name, Callback<User> callback);
 
 
     void signOut();
 
-
-    void addAuthStateListener(Callback<User> listener);
-
-    void removeAuthStateListener(Callback<User> listener);
-
-
+    void deleteAccount(Callback<Void> callback);
 }

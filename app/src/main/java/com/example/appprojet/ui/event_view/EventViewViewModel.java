@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.appprojet.R;
 import com.example.appprojet.models.Event;
+import com.example.appprojet.utils.CallbackException;
 import com.example.appprojet.utils.Location;
 import com.example.appprojet.models.Post;
 import com.example.appprojet.models.User;
@@ -59,7 +60,7 @@ public class EventViewViewModel extends AndroidViewModel {
             }
 
             @Override
-            public void onFail(Exception e) {
+            public void onFail(CallbackException e) {
 
             }
         });
@@ -97,7 +98,7 @@ public class EventViewViewModel extends AndroidViewModel {
                 setPostsLive();
             }
             @Override
-            public void onFail(Exception e) {
+            public void onFail(CallbackException e) {
 
             }
         });

@@ -1,8 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:text="@string/app_name"
-    style="@style/HomepageActionBarTitleTextStyle"
-    android:gravity="center"/>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:gravity="center">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/profile_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        app:icon="@drawable/ic_user"
+        app:iconTint="@null"
+        app:iconSize="40dp"
+        app:backgroundTint="#00ffffff"
+        android:padding="5dp"
+        app:iconPadding="0dp"
+        android:minWidth="0dp"
+        app:cornerRadius="999dp"
+        android:layout_marginEnd="@dimen/normal_spacing"
+        android:contentDescription="@string/profile_button_content_description"/>
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        style="@style/HomepageActionBarTitleTextStyle"
+        android:text="@string/app_name"
+        android:gravity="center"/>
+
+</LinearLayout>

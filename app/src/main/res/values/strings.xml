@@ -2,18 +2,33 @@
     <!-- General strings -->
     <string name="app_name">Meet\'chup</string>
 
-    <!-- Authentication -->
+
+    <!-- Authentication and profile -->
     <string name="auth_switch_to_signin_label">Already have an account ?</string>
     <string name="auth_switch_to_signup_label">Don\'t have an account yet ?</string>
     <string name="auth_signin_btn">Sign In</string>
     <string name="auth_signup_btn">Sign Up</string>
+    <string name="auth_signout_btn">Sign Out</string>
     <string name="auth_set_up_btn">Submit</string>
+    <string name="profile_edit_update_btn">Update</string>
     <string name="auth_loading_btn">Loading …</string>
     <string name="auth_email_hint">Email</string>
     <string name="auth_password_hint">Password</string>
+    <string name="auth_password_confirm_hint">Password confirmation</string>
     <string name="auth_setup_username_hint">Username</string>
     <string name="auth_sign_in_with_provider">Continue with</string>
     <string name="auth_error_form">An error occurred, please check your information</string>
+    <string name="default_username">Unknown</string>
+    <string name="profile_button_content_description">Profile button</string>
+    <string name="profile_updated_success">Your profile has been updated.</string>
+    <string name="profile_user_picture">User profile picture</string>
+    <string name="profile_edit_mail_label">Update your email</string>
+    <string name="profile_edit_name_label">Update your name</string>
+    <string name="profile_edit_password_label">Update your password</string>
+    <string name="profile_edit_delete_label">Delete your account</string>
+    <string name="profile_edit_delete_verification">I\'m sure, I want to delete my account</string>
+    <string name="profile_edit_delete_btn">Delete my account permanently.</string>
+
 
     <!-- Provider names -->
     <string name="provider_google">Google</string>
@@ -25,7 +40,8 @@
     <string name="event_nav_feed">Feed</string>
     <string name="event_nav_album">Album</string>
     <string name="event_nav_todo">ToDo</string>
-    
+
+
     <!-- Event duration labels-->
     <plurals name="week_label">
         <item quantity="one">%d week</item>
@@ -36,6 +52,30 @@
         <item quantity="other">%d days</item>
     </plurals>
 
+
+    <!-- Callback errors -->
+    <string name="error_re_auth_required">Please sign-out and log in again to perform this action</string>
+    <string name="error_unknown">An error occurred</string>
+    <string name="error_weak_password">Password too weak</string>
+    <string name="error_mail_collision">Email already exists</string>
+    <string name="error_invalid_credentials">Email / password doesn\'t match</string>
+    <string name="error_network">please check your network connection</string>
+    <string name="error_nologged">You have to be logged to perform this action</string>
+
+
+    <!-- Validators error message -->
+    <string name="validator_basic">Empty value not authorized</string>
+    <string name="validator_email">Invalid email format</string>
+    <string name="validator_password">Invalid password, %1$d characters minimum</string>
+    <string name="validator_password_confirm">Passwords doesn\'t match</string>
+    <string name="validator_username">Please enter a name between %1$d and %2$d characters</string>
+
+
+
+
+
+
+
     <!-- Unclassified / temporary -->
     <string name="item_post_image_description">post image</string>
     <string name="event_empty_post_indicator">No post</string>
@@ -44,4 +84,5 @@
     <string name="post_view_no_comments">No comments</string>
 
     <string name="google_web_client_id">147707161348-8sr2m5vtelitrtjdht93vdcv3ri87258.apps.googleusercontent.com</string>
+
 </resources>

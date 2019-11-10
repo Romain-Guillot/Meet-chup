@@ -5,7 +5,10 @@ import android.app.Application;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.appprojet.models.User;
-import com.example.appprojet.ui.authentication.FormViewModel;
+import com.example.appprojet.repositories.FirebaseAuthenticationRepository;
+import com.example.appprojet.repositories.IAuthenticationRepository;
+import com.example.appprojet.utils.CallbackException;
+import com.example.appprojet.utils.FormViewModel;
 import com.example.appprojet.utils.form_data_with_validators.FormData;
 import com.example.appprojet.utils.form_data_with_validators.NameValidator;
 import com.example.appprojet.utils.Callback;
@@ -27,14 +30,15 @@ import com.example.appprojet.utils.Callback;
  */
 public class SetUpProfileViewModel extends FormViewModel {
 
+    private final IAuthenticationRepository authenticationRepository;
     final FormData nameLive = new FormData(new NameValidator());
-
     final MutableLiveData<Boolean> isFinish = new MutableLiveData<>(false);
 
 
     public SetUpProfileViewModel(Application application) {
         super(application);
-        User user = authenticationRepository.getUser();
+        authenticationRepository = FirebaseAuthenticationRepository.getInstance();
+        User user = authenticationRepository.getCurrentUser();
         if (user != null)
             nameLive.setValue(user.getName());
     }
@@ -52,7 +56,7 @@ public class SetUpProfileViewModel extends FormViewModel {
                 }
 
                 @Override
-                public void onFail(Exception e) {
+                public void onFail(CallbackException e) {
                     submitCallback.onFail(e);
                 }
             });

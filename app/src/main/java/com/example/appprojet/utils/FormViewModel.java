@@ -1,14 +1,11 @@
-package com.example.appprojet.ui.authentication;
+package com.example.appprojet.utils;
 
 import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.appprojet.R;
 import com.example.appprojet.models.User;
-import com.example.appprojet.repositories.FirebaseAuthenticationRepository;
-import com.example.appprojet.repositories.IAuthenticationRepository;
 import com.example.appprojet.utils.Callback;
 
 
@@ -21,18 +18,14 @@ import com.example.appprojet.utils.Callback;
  *
  * When extending this class, submitForm and validate methods have to be implements.
  *
- * TODO: Change error message based on the FirebaseException return by the repo
  */
 public abstract class FormViewModel extends AndroidViewModel {
-
-    /** Authentication repository instance*/
-    protected final IAuthenticationRepository authenticationRepository;
 
     /** Loading flag (when the form is being processed) */
     protected final MutableLiveData<Boolean> isLoadingLive = new MutableLiveData<>(false);
 
     /** Error flag (when an error occurred) */
-    protected final MutableLiveData<String> errorLive = new MutableLiveData<>();
+    protected final MutableLiveData<String> errorLive = new MutableLiveData<>(null);
 
     /** callback to give to the repository when submitting the form */
     protected final Callback<User> submitCallback = new Callback<User>() {
@@ -42,16 +35,15 @@ public abstract class FormViewModel extends AndroidViewModel {
         }
 
         @Override
-        public void onFail(Exception e) {
+        public void onFail(CallbackException e) {
             isLoadingLive.setValue(false);
-            errorLive.setValue(getApplication().getString(R.string.auth_error_form));
+            errorLive.setValue(e.getErrorMessage(getApplication().getApplicationContext()));
         }
     };
 
 
     protected FormViewModel(Application application) {
         super(application);
-        authenticationRepository = FirebaseAuthenticationRepository.getInstance();
     }
 
     /** Retrieve form data and send info to the authentication repository */
@@ -59,5 +51,4 @@ public abstract class FormViewModel extends AndroidViewModel {
 
     /** check if the data in the form is valid.  */
     protected abstract boolean validate();
-
 }

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Text view to display an error message -->
+    <TextView
+        android:id="@+id/form_error_textview"
+        android:layout_marginBottom="@dimen/block_spacing"
+        style="@style/error_box"/>
+
+    <!-- Text view to display an info message-->
+    <TextView
+        android:id="@+id/form_success_textview"
+        android:layout_marginBottom="@dimen/block_spacing"
+        style="@style/success_box"/>
+
+
+    <!-- UPDATE EMAIL -->
+    <TextView
+        style="@style/SubtitleStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:text="@string/profile_edit_mail_label"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_profile_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/auth_email_hint">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/profile_edit_submit_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+
+    <!-- UPDATE USERNAME -->
+    <TextView
+        style="@style/SubtitleStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/profile_edit_name_label"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_profile_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/auth_setup_username_hint">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/profile_edit_submit_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <!-- UPDATE PASSWORD -->
+    <TextView
+        style="@style/SubtitleStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/profile_edit_password_label"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_profile_newpassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/normal_spacing"
+        app:passwordToggleEnabled="true"
+        android:hint="@string/auth_password_hint">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_profile_newpasswordconfirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:passwordToggleEnabled="true"
+        android:hint="@string/auth_password_confirm_hint">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/profile_edit_submit_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <!-- DELETE YOUR ACCOUNT -->
+    <TextView
+        style="@style/SubtitleStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/profile_edit_delete_label"/>
+    
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/profile_edit_delete_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="@string/profile_edit_delete_verification"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/profile_edit_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:backgroundTint="@color/errorColor"
+        android:text="@string/profile_edit_delete_btn"/>
+
+
+</LinearLayout>

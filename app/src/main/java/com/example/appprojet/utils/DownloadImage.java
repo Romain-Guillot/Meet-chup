@@ -8,7 +8,11 @@ import android.widget.ImageView;
 import java.io.IOException;
 import java.net.URL;
 
-
+/**
+ * TODO : alpha version, DO NOT USE IT.
+ */
+@Deprecated
+@SuppressWarnings("all")
 public class DownloadImage extends AsyncTask<String, Void, Bitmap> {
     ImageView image;
 

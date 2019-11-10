@@ -7,7 +7,10 @@
       <w>firebase</w>
       <w>firestore</w>
       <w>fredoka</w>
+      <w>newpassword</w>
+      <w>newpasswordconfirm</w>
       <w>signin</w>
+      <w>signout</w>
       <w>signup</w>
       <w>textview</w>
       <w>viewmodel</w>

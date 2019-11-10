@@ -1,8 +1,12 @@
 package com.example.appprojet.utils;
 
+/**
+ * Data type to store location (with a longitude and a latitude)
+ * Immutable
+ */
 public class Location {
-    private double longitude;
-    private double latitude;
+    private final double longitude;
+    private final double latitude;
 
     // create and initialize a point with given name and
     // (latitude, longitude) specified in degrees

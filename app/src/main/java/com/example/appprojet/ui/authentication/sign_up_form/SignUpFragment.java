@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.appprojet.R;
-import com.example.appprojet.ui.authentication.FormFragment;
+import com.example.appprojet.utils.FormFragment;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Arrays;

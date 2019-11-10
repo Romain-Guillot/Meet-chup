@@ -1,7 +1,6 @@
 <resources>
     <dimen name="activity_auth_margin_horizontal">42dp</dimen>
     <dimen name="activity_auth_margin_vertical">32dp</dimen>
-    <dimen name="auth_block_spacing">23dp</dimen>
 
 
     <style name="Authentication" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -54,11 +53,6 @@
     </style>
 
 
-    <style name="AuthSubtitleStyle">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:layout_marginTop">@dimen/auth_block_spacing</item>
-        <item name="android:layout_marginBottom">@dimen/normal_spacing</item>
-    </style>
+
 
 </resources>

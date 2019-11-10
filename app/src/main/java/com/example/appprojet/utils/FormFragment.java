@@ -1,4 +1,4 @@
-package com.example.appprojet.ui.authentication;
+package com.example.appprojet.utils;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -94,7 +94,7 @@ public abstract class FormFragment extends Fragment {
      * the edit text content changed.
      * We also set the layout edit text error (if any) when we unfocused the edit text
      */
-    private void setOnFieldChanged(TextInputLayout editTextLayout, FormData editTextData) {
+    protected void setOnFieldChanged(TextInputLayout editTextLayout, FormData editTextData) {
         EditText editText = editTextLayout.getEditText();
 
         if (editText == null)
@@ -118,8 +118,8 @@ public abstract class FormFragment extends Fragment {
     }
 
     /** Set the error indicator of the layout is the formData is not valid*/
-    private void setLayoutFieldError(TextInputLayout layout, FormData formData) {
-        layout.setError(!formData.isValid() ? formData.getError() : null);
+    protected void setLayoutFieldError(TextInputLayout layout, FormData formData) {
+        layout.setError(!formData.isValid() ? formData.getError(getContext()) : null);
     }
 
 
@@ -129,5 +129,4 @@ public abstract class FormFragment extends Fragment {
         if (getActivity() == null)
             throw new RuntimeException("Unexpected fragment creation");
     }
-
 }

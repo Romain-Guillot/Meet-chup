@@ -9,6 +9,7 @@ import com.example.appprojet.models.Post;
 import com.example.appprojet.repositories.FirestoreEventsDataRepository;
 import com.example.appprojet.repositories.IEventsDataRepository;
 import com.example.appprojet.utils.Callback;
+import com.example.appprojet.utils.CallbackException;
 
 import java.util.List;
 
@@ -39,14 +40,14 @@ public class PostViewViewModel extends ViewModel {
                     }
 
                     @Override
-                    public void onFail(Exception e) {
+                    public void onFail(CallbackException e) {
 
                     }
                 });
             }
 
             @Override
-            public void onFail(Exception e) {
+            public void onFail(CallbackException e) {
 
             }
         });
