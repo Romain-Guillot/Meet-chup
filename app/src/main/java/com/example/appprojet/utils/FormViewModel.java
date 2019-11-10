@@ -22,13 +22,13 @@ import com.example.appprojet.utils.Callback;
 public abstract class FormViewModel extends AndroidViewModel {
 
     /** Loading flag (when the form is being processed) */
-    protected final MutableLiveData<Boolean> isLoadingLive = new MutableLiveData<>(false);
+    public final MutableLiveData<Boolean> isLoadingLive = new MutableLiveData<>(false);
 
     /** Error flag (when an error occurred) */
-    protected final MutableLiveData<SingleEvent<String>> errorLive = new MutableLiveData<>();
+    public final MutableLiveData<SingleEvent<String>> errorLive = new MutableLiveData<>();
 
     /** Event when submit succes */
-    protected  final MutableLiveData<SingleEvent<Boolean>> successLive = new MutableLiveData<>();
+    public  final MutableLiveData<SingleEvent<Boolean>> successLive = new MutableLiveData<>();
 
 
     protected FormViewModel(Application application) {

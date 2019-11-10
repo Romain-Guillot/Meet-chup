@@ -11,7 +11,6 @@
     <string name="auth_signout_btn">Sign Out</string>
     <string name="auth_set_up_btn">Submit</string>
     <string name="profile_edit_update_btn">Update</string>
-    <string name="auth_loading_btn">Loading …</string>
     <string name="auth_email_hint">Email</string>
     <string name="auth_password_hint">Password</string>
     <string name="auth_password_confirm_hint">Password confirmation</string>
@@ -83,7 +82,8 @@
     <string name="event_add_new_post_btn_label">Add a new post</string>
     <string name="event_participants_add_label">add</string>
     <string name="post_view_no_comments">No comments</string>
-
+    <string name="loading_btn">Loading …</string>
+    <string name="join_event_btn">Join</string>
     <string name="google_web_client_id">147707161348-8sr2m5vtelitrtjdht93vdcv3ri87258.apps.googleusercontent.com</string>
 
 </resources>

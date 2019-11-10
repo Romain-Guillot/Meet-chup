@@ -59,7 +59,7 @@ public class SignUpFragment extends FormFragment {
                 Arrays.asList(viewModel.emailLive, viewModel.passwordLive, viewModel.passwordConfirmLive),
                 submitButton,
                 getString(R.string.auth_signup_btn),
-                getString(R.string.auth_loading_btn),
+                getString(R.string.loading_btn),
                 null
         );
 

@@ -2,9 +2,7 @@ package com.example.appprojet.ui.homepage;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -15,11 +13,8 @@ import com.example.appprojet.repositories.FirebaseAuthenticationRepository;
 import com.example.appprojet.repositories.IAuthenticationRepository;
 import com.example.appprojet.ui.authentication.AuthenticationActivity;
 import com.example.appprojet.ui.event_view.EventViewActivity;
+import com.example.appprojet.ui.homepage.invitation.JoinBottomSheetFragment;
 import com.example.appprojet.ui.profile.ProfileActivity;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 
 /**

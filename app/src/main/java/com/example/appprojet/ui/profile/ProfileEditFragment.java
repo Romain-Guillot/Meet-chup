@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -89,7 +88,7 @@ public class ProfileEditFragment extends FormFragment {
             final LiveData<Boolean> loadingLive = isLoadingLives.get(i);
             loadingLive.observe(this, isLoading -> {
                 btn.setEnabled(!isLoading);
-                btn.setText(getString(isLoading ? R.string.auth_loading_btn : R.string.profile_edit_update_btn));
+                btn.setText(getString(isLoading ? R.string.loading_btn : R.string.profile_edit_update_btn));
             });
         }
 
