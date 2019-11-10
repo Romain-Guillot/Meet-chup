@@ -132,7 +132,7 @@ public class EventViewActivity extends ChildActivity {
                 .setTitle("No longer participate ?")
                 .setMessage("This event will no longer be available in your event list.")
                 .setNegativeButton("Cancel", null)
-                .setPositiveButton(getString(R.string.quit_event_btn), null)
+                .setPositiveButton(getString(R.string.quit_event_btn), null) // we define the listener below to override completely the button behavior
                 .create();
 
         dialog.setOnShowListener(dialogInterface -> {
@@ -140,8 +140,10 @@ public class EventViewActivity extends ChildActivity {
             button.setOnClickListener(v -> {
                 viewModel.requestQuitEvent();
                 viewModel.quitingRequestDone.observe(this, isQuitting -> {
-                    if (isQuitting)
+                    if (isQuitting) {
+                        dialogInterface.cancel();
                         finish();
+                    }
                 });
             });
             viewModel.requestQuitingIsLoading.observe(this, isLoading -> {
