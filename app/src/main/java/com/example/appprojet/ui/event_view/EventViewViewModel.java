@@ -44,6 +44,9 @@ public class EventViewViewModel extends AndroidViewModel {
     MutableLiveData<List<User>> eventParticipantsList = new MutableLiveData<>();
     MutableLiveData<List<Post>> eventPosts = new MutableLiveData<>();
 
+    MutableLiveData<Boolean> requestQuitingIsLoading = new MutableLiveData<>();
+    MutableLiveData<Boolean> quitingRequestDone = new MutableLiveData<>();
+
 
     public EventViewViewModel(Application application) {
         super(application);
@@ -145,5 +148,20 @@ public class EventViewViewModel extends AndroidViewModel {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    void requestQuitEvent() {
+        requestQuitingIsLoading.setValue(true);
+        eventsRepo.quitEvent(event.getId(), new Callback<Void>() {
+            public void onSucceed(Void result) {
+                requestQuitingIsLoading.setValue(false);
+                quitingRequestDone.setValue(true);
+            }
+            public void onFail(CallbackException exception) {
+                requestQuitingIsLoading.setValue(false);
+                quitingRequestDone.setValue(false);
+            }
+        });
     }
 }

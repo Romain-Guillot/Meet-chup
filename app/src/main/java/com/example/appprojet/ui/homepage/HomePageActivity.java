@@ -12,6 +12,7 @@ import com.example.appprojet.R;
 import com.example.appprojet.repositories.FirebaseAuthenticationRepository;
 import com.example.appprojet.repositories.IAuthenticationRepository;
 import com.example.appprojet.ui.authentication.AuthenticationActivity;
+import com.example.appprojet.ui.event_creation.EventCreationActivity;
 import com.example.appprojet.ui.event_view.EventViewActivity;
 import com.example.appprojet.ui.homepage.invitation.JoinBottomSheetFragment;
 import com.example.appprojet.ui.profile.ProfileActivity;
@@ -33,8 +34,18 @@ public class HomePageActivity extends AppCompatActivity {
         navigateToAuthenticationActivityIfUserIsNotLogged();
         setContentView(R.layout.activity_homepage);
 
+        // Event join bottom sheet fragment
         initJoinBottomSheetBehavior();
 
+        // Create event button navigation
+        findViewById(R.id.homepage_create_event_btn).setOnClickListener(v -> {
+            Intent intent = new Intent(this, EventCreationActivity.class);
+            startActivity(intent);
+        });
+
+
+        // -----------------------------------------------------------------------------------------
+        // tests
         Intent intent = new Intent(this, EventViewActivity.class);
 
         findViewById(R.id.event1).setOnClickListener(v -> {
@@ -46,6 +57,7 @@ public class HomePageActivity extends AppCompatActivity {
             intent.putExtra(EventViewActivity.EXTRA_EVENT_ID, "2");
             startActivity(intent);
         });
+
 
     }
 

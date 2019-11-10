@@ -1,16 +1,20 @@
 package com.example.appprojet.ui.event_view;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
@@ -123,11 +127,29 @@ public class EventViewActivity extends ChildActivity {
     }
 
     private void showQuitDialog() {
-        new MaterialAlertDialogBuilder(this)
+
+        AlertDialog dialog = new MaterialAlertDialogBuilder(this)
                 .setTitle("No longer participate ?")
                 .setMessage("This event will no longer be available in your event list.")
                 .setNegativeButton("Cancel", null)
-                .setPositiveButton("Yeah, remove me", null)
-                .show();
+                .setPositiveButton(getString(R.string.quit_event_btn), null)
+                .create();
+
+        dialog.setOnShowListener(dialogInterface -> {
+            Button button = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            button.setOnClickListener(v -> {
+                viewModel.requestQuitEvent();
+                viewModel.quitingRequestDone.observe(this, isQuitting -> {
+                    if (isQuitting)
+                        finish();
+                });
+            });
+            viewModel.requestQuitingIsLoading.observe(this, isLoading -> {
+                button.setEnabled(!isLoading);
+                button.setText(isLoading ? R.string.loading_btn : R.string.quit_event_btn);
+            });
+        });
+
+        dialog.show();
     }
 }

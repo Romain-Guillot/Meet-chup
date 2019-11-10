@@ -196,7 +196,7 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
         DocumentReference userDoc = firestore.collection(USERS_COL).document(user.getUid());
         DocumentReference eventDoc = firestore.collection(EVENT_COL).document(eventID);
         writeBatch.update(userDoc, new HashMap<String, Object>(){{put(USERS_FIELD_EVENTS, FieldValue.arrayRemove(eventID));}});
-        writeBatch.update(eventDoc, new HashMap<String, Object>(){{put(USERS_FIELD_EVENTS, FieldValue.arrayRemove(user.getUid()));}});
+        writeBatch.update(eventDoc, new HashMap<String, Object>(){{put(EVENT_FIELD_PARTICIPANTS, FieldValue.arrayRemove(user.getUid()));}});
         writeBatch.commit().addOnCompleteListener(task -> {
             if (task.isSuccessful()) callback.onSucceed(null);
             else callback.onFail(CallbackException.fromFirebaseException(task.getException()));

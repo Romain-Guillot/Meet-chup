@@ -122,16 +122,13 @@
     <style name="dialog_style" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <item name="shapeAppearanceOverlay">@style/DialogRoundedAppearance</item>
         <item name="materialAlertDialogTitleTextStyle">@style/dialog_title_style</item>
-        <item name="buttonBarPositiveButtonStyle">@style/dialog_positive_btn_style</item>
+        <item name="buttonBarPositiveButtonStyle">@style/ButtonTextStyle</item>
         <item name="buttonBarNegativeButtonStyle">@style/dialog_negative_btn_style</item>
     </style>
 
     <style name="dialog_negative_btn_style" parent="ButtonTextStyle">
         <item name="android:textColor">@color/disableColor</item>
-    </style>
-
-    <style name="dialog_positive_btn_style" parent="ButtonTextStyle">
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="rippleColor">@color/disableColorLight</item>
     </style>
 
     <style name="dialog_title_style" parent="MaterialAlertDialog.MaterialComponents.Title.Text">

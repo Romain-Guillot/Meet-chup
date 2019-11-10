@@ -85,5 +85,6 @@
     <string name="loading_btn">Loading …</string>
     <string name="join_event_btn">Join</string>
     <string name="google_web_client_id">147707161348-8sr2m5vtelitrtjdht93vdcv3ri87258.apps.googleusercontent.com</string>
+    <string name="quit_event_btn">Yeah, remove me</string>
 
 </resources>
