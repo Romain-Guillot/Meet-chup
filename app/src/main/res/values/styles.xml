@@ -29,6 +29,7 @@
         <item name="android:textSize">@dimen/text_size</item>
 
         <item name="materialAlertDialogTheme">@style/dialog_style</item>
+        <item name="bottomSheetDialogTheme">@style/BottomSheetDialogStyle</item>
     </style>
 
 
@@ -141,10 +142,25 @@
     <style name="DialogRoundedAppearance">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">@dimen/radius</item>
+
     </style>
 
 
+    <style name="BottomSheetDialogStyle" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetDialogStyle.Style</item>
+    </style>
 
+    <style name="BottomSheetDialogStyle.Style" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
+    </style>
+
+    <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/radius</item>
+        <item name="cornerSizeTopLeft">@dimen/radius</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
 
 </resources>
 
