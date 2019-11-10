@@ -21,6 +21,7 @@ import com.example.appprojet.R;
 import com.example.appprojet.ui.event_view.invitation.InvitationKeyActivity;
 import com.example.appprojet.utils.ChildActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 
 /**
@@ -113,10 +114,20 @@ public class EventViewActivity extends ChildActivity {
                 startActivity(invitIntent);
                 break;
             case R.id.event_view_quit_item :
+                showQuitDialog();
                 break;
             default:
                 return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    private void showQuitDialog() {
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("No longer participate ?")
+                .setMessage("This event will no longer be available in your event list.")
+                .setNegativeButton("Cancel", null)
+                .setPositiveButton("Yeah, remove me", null)
+                .show();
     }
 }

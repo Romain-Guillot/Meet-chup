@@ -28,6 +28,7 @@
 
         <item name="android:textSize">@dimen/text_size</item>
 
+        <item name="materialAlertDialogTheme">@style/dialog_style</item>
     </style>
 
 
@@ -115,6 +116,35 @@
         <item name="android:backgroundTint">@color/errorColor</item>
         <item name="android:textColor">#fff</item>
     </style>
+
+
+    <style name="dialog_style" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="shapeAppearanceOverlay">@style/DialogRoundedAppearance</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/dialog_title_style</item>
+        <item name="buttonBarPositiveButtonStyle">@style/dialog_positive_btn_style</item>
+        <item name="buttonBarNegativeButtonStyle">@style/dialog_negative_btn_style</item>
+    </style>
+
+    <style name="dialog_negative_btn_style" parent="ButtonTextStyle">
+        <item name="android:textColor">@color/disableColor</item>
+    </style>
+
+    <style name="dialog_positive_btn_style" parent="ButtonTextStyle">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="dialog_title_style" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textSize">@dimen/large_text</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DialogRoundedAppearance">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/radius</item>
+    </style>
+
+
+
 
 </resources>
 
