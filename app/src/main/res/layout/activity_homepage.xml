@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- This is a coordinator to display a top snackbar (see SnackbarFactory-->
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -14,6 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <!-- Join and create events buttons-->
             <LinearLayout
                 android:layout_marginTop="@dimen/activity_margin_vertical"
                 android:layout_marginBottom="@dimen/activity_margin_vertical"
@@ -28,14 +28,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/normal_spacing"
                     app:icon="@drawable/ic_link"
-                    android:text="Join"/>
+                    android:text="@string/join_event_btn"/>
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/homepage_create_event_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:icon="@drawable/ic_add"
-                    android:text="Create"/>
+                    android:text="@string/create_event_button"/>
             </LinearLayout>
+
+
+
 
             <Button
                 android:id="@+id/event1"
@@ -47,11 +50,7 @@
                 android:id="@+id/event2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sign out"/>
+                android:text="event 2"/>
         </LinearLayout>
-
     </ScrollView>
-
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

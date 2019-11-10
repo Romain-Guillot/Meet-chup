@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,42 +12,46 @@
         android:paddingTop="@dimen/activity_margin_vertical"
         android:paddingBottom="@dimen/activity_margin_vertical">
 
+        <!-- Invitation system description-->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/normal_spacing"
-            android:text="To share this event with other firends, you need to give them the invitation key below."/>
+            android:text="@string/invitation_description"/>
 
+        <!-- Invitation system warning description -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:layout_marginBottom="@dimen/block_spacing"
-            android:text="Everyone with this key will be able to join the event."/>
+            android:text="@string/invitation_warning_description"/>
 
+        <!-- Switcher to enable / disable the invitation key -->
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/event_invit_enablekey"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="Invitation key enable !"/>
+            android:text="@string/invitation_key_status_enable"/>
 
+        <!-- Text input for the key -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/event_invit_key_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Invitation key">
+            android:hint="@string/invitation_key_hint">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/event_invit_key_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Button to update the invitation key -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/event_invit_updatekey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Change the invitation key"/>
+            android:text="@string/invitation_update_key_button"/>
     </LinearLayout>
-
 </ScrollView>

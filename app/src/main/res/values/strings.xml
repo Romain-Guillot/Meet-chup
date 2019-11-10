@@ -86,5 +86,17 @@
     <string name="join_event_btn">Join</string>
     <string name="google_web_client_id">147707161348-8sr2m5vtelitrtjdht93vdcv3ri87258.apps.googleusercontent.com</string>
     <string name="quit_event_btn">Yeah, remove me</string>
+    <string name="invitation_description">To share this event with other firends, you need to give them the invitation key below.</string>
+    <string name="invitation_warning_description">Everyone with this key will be able to join the event.</string>
+    <string name="invitation_key_status_enable">Invitation key enable !</string>
+    <string name="invitation_key_status_disable">Invitation key enable !</string>
+    <string name="invitation_key_hint">Invitation key</string>
+    <string name="invitation_update_key_button">Change the invitation key</string>
+    <string name="join_event_help">Ask a participant for the event key invitation</string>
+    <string name="content_description_icon_info">icon info</string>
+    <string name="create_event_button">Create</string>
+    <string name="auth_social_method">Social authentication</string>
+    <string name="auth_classic_method">Classic authentication</string>
+
 
 </resources>

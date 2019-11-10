@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Main activity fragment (form) -->
     <fragment
         android:tag="main_fragment_invit"
         android:name="com.example.appprojet.ui.event_view.invitation.InvitationKeyFragment"

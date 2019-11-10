@@ -66,6 +66,7 @@ public class InvitationKeyFragment extends FormFragment {
             enableKeySwitch.setTrackTintList(ContextCompat.getColorStateList(getActivity(), colorLight));
             enableKeySwitch.setThumbTintList(ContextCompat.getColorStateList(getActivity(), color));
             enableKeySwitch.setTextColor(ContextCompat.getColorStateList(getActivity(), color));
+            enableKeySwitch.setText(isEnable ? R.string.invitation_key_status_enable : R.string.invitation_key_status_disable);
         });
 
         return view;

@@ -21,13 +21,14 @@
             android:layout_height="16dp"
             android:layout_marginEnd="@dimen/normal_spacing"
             android:src="@drawable/ic_info"
-            android:tint="@color/textColorLight" />
+            android:tint="@color/textColorLight"
+            android:contentDescription="@string/content_description_icon_info"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/textColorLight"
             android:textSize="@dimen/small_text"
-            android:text="Ask a participant for the event key invitation"/>
+            android:text="@string/join_event_help"/>
     </LinearLayout>
 
     <LinearLayout
@@ -41,7 +42,7 @@
             android:layout_height="wrap_content"
             app:boxBackgroundColor="@null"
             android:layout_weight="1"
-            android:hint="Invitation key">
+            android:hint="@string/invitation_key_hint">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/join_event_key_field"
                 android:paddingStart="0dp"
@@ -58,7 +59,4 @@
             android:layout_height="wrap_content"
             android:text="@string/join_event_btn"/>
     </LinearLayout>
-    
-
-
 </LinearLayout>

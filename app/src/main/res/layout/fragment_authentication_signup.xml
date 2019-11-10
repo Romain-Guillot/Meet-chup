@@ -10,7 +10,7 @@
         style="@style/SubtitleStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Social registration"/>
+        android:text="@string/auth_social_method"/>
 
     <!-- Providers auth fragment -->
     <fragment
@@ -24,7 +24,7 @@
         style="@style/SubtitleStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Classic registration"/>
+        android:text="@string/auth_classic_method"/>
 
 
     <!-- Email field -->
