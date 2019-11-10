@@ -53,13 +53,13 @@ public class ProfileEditFragment extends FormFragment {
         View view = inflater.inflate(R.layout.fragment_profile_edit, container, false);
 
         // init all text fields layout
-        TextInputLayout emailLayout = view.findViewById(R.id.edit_profile_email);
+        TextInputLayout emailLayout = view.findViewById(R.id.edit_profile_email_layout);
         setOnFieldChanged(emailLayout, viewModel.emailFormData);
-        TextInputLayout usernameLayout = view.findViewById(R.id.edit_profile_username);
+        TextInputLayout usernameLayout = view.findViewById(R.id.edit_profile_username_layout);
         setOnFieldChanged(usernameLayout, viewModel.usernameFormData);
-        TextInputLayout newPasswordLayout = view.findViewById(R.id.edit_profile_newpassword);
+        TextInputLayout newPasswordLayout = view.findViewById(R.id.edit_profile_newpassword_layout);
         setOnFieldChanged(newPasswordLayout, viewModel.newPasswordFormData);
-        TextInputLayout newPasswordConfirmLayout = view.findViewById(R.id.edit_profile_newpasswordconfirm);
+        TextInputLayout newPasswordConfirmLayout = view.findViewById(R.id.edit_profile_newpasswordconfirm_layout);
         setOnFieldChanged(newPasswordConfirmLayout, viewModel.newPasswordConfirmFormData);
 
         // init submits button, add click listeners

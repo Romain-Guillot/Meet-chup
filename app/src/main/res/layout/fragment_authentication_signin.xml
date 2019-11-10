@@ -34,6 +34,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/auth_email_hint">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/auth_signin_email_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"/>
@@ -47,6 +48,7 @@
         app:passwordToggleEnabled="true"
         android:hint="@string/auth_password_hint">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/auth_signin_password_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"/>

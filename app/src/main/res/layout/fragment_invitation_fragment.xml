@@ -35,11 +35,12 @@
             android:text="Invitation key enable !"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/event_invit_keyfield"
+            android:id="@+id/event_invit_key_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Invitation key">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/event_invit_key_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>

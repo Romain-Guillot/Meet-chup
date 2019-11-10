@@ -43,6 +43,7 @@
             android:layout_weight="1"
             android:hint="Invitation key">
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/join_event_key_field"
                 android:paddingStart="0dp"
                 android:paddingEnd="0dp"
                 android:layout_width="match_parent"

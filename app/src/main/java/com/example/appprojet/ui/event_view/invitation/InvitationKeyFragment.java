@@ -36,7 +36,7 @@ public class InvitationKeyFragment extends FormFragment {
         View view = inflater.inflate(R.layout.fragment_invitation_fragment, container, false);
 
         SwitchMaterial enableKeySwitch = view.findViewById(R.id.event_invit_enablekey);
-        TextInputLayout keyFieldLayout = view.findViewById(R.id.event_invit_keyfield);
+        TextInputLayout keyFieldLayout = view.findViewById(R.id.event_invit_key_layout);
         Button updateKeyButton = view.findViewById(R.id.event_invit_updatekey);
 
         init(
