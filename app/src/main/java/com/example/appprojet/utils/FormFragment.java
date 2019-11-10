@@ -46,7 +46,8 @@ public abstract class FormFragment extends Fragment {
      *  - formDataList: form data corresponding to the fields layout
      *      i.e. formDataList[i] refers to the input text included in the layout textInputLayoutList[i]
      */
-    protected void init(FormViewModel viewModel, List<TextInputLayout> textInputLayoutList, List<FormData> formDataList, Button submitButton, String submitText, String loadingText) {
+    protected void init(FormViewModel viewModel, List<TextInputLayout> textInputLayoutList, List<FormData> formDataList,
+                        Button submitButton, String submitText, String loadingText, String successMessage) {
         // throw an exception if the parameters of the view fragment is invalid
         if (textInputLayoutList.size() != formDataList.size() || submitButton == null)
             throw new RuntimeException("Wrong usage of the FormFragment");
@@ -76,15 +77,19 @@ public abstract class FormFragment extends Fragment {
             submitButton.setText(isLoading ? loadingText : submitText);
         });
 
-        // update the submit error text based on the error message (if any)
+        // Show the error snackbar if  error message is sent
         viewModel.errorLive.observe(this, error -> {
             if (error != null) {
                 String message = error.getContentIfNotHandled();
-                SnackbarFactory.showSnackbar(getActivity().findViewById(android.R.id.content), message);
+                SnackbarFactory.showErrorSnackbar(getActivity().findViewById(android.R.id.content), message);
             }
-
         });
 
+        // Show the success snackbar if success
+        viewModel.successLive.observe(this, success -> {
+            if (successMessage != null && success.getContentIfNotHandled())
+                SnackbarFactory.showSuccessSnackbar(getActivity().findViewById(android.R.id.content), successMessage);
+        });
 
 
     }

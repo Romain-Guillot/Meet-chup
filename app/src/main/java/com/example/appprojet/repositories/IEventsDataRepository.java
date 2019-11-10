@@ -16,13 +16,24 @@ public interface IEventsDataRepository {
 
     public void getEvent(String eventID, Callback<Event> callback);
 
-    public void joinEvent(String eventID, Callback<Event> callback);
 
     public void deleteEvent(String eventID, Callback<Void> callback);
 
-    public void updateEventInvitationKey(String eventID, String key, Callback<String> callback);
+    /** Update the invitation key of the event
+     *  The callback return the new key if success, an exception else */
+    void updateEventInvitationKey(String eventID, String key, Callback<String> callback);
 
-    public void removeEventInvitationKey(String eventID, Callback<Void> callback);
+    /** Remove the current invitation key of the event
+     *  Nothing returned if success, else an exception is returned  */
+    void removeEventInvitationKey(String eventID, Callback<Void> callback);
+
+    /** Add current user as participant of the event
+     *  Event ID returned if success, else an exception is returned */
+    void joinEvent(String invitationKey, Callback<String> callback);
+
+    /** Remove the user from the event
+     * Nothing returned if success, else an exception is returned */
+    void quitEvent(String eventID, Callback<Void> callback);
 
 
     public void loadEventPosts(String eventID, Callback<Event> callback);

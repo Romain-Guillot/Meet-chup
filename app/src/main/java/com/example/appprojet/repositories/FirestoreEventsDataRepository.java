@@ -9,9 +9,14 @@ import com.example.appprojet.utils.Location;
 import com.example.appprojet.models.Post;
 import com.example.appprojet.models.User;
 import com.example.appprojet.utils.Callback;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.firestore.WriteBatch;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,16 +26,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * Use only method with "status : done"
+ * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ */
 public class FirestoreEventsDataRepository implements IEventsDataRepository {
 
     private static FirestoreEventsDataRepository instance = null;
 
-    private IAuthenticationRepository authRepo;
+    private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firestore;
+
+    private final static String USERS_COL = "users";
+    private final static String USERS_FIELD_EVENTS = "events";
 
     private final static String EVENT_COL = "events";
     private final static String EVENT_FIELD_INVITKEY = "invitKey";
+    private final static String EVENT_FIELD_PARTICIPANTS = "participants";
 
 
     private Map<String, Event> fakeEvents = new HashMap<>();
@@ -40,7 +53,7 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
 
     private FirestoreEventsDataRepository() {
         firestore = FirebaseFirestore.getInstance();
-        authRepo = FirebaseAuthenticationRepository.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         fakeUsers.put("1", new User("Romain", "", ""));
         fakeUsers.put("2", new User("Alexis", "", ""));
         fakeUsers.put("3", new User("Corentin", "", ""));
@@ -91,40 +104,46 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
         }
     }
 
-
+    // DO NOT USE
     @Override
     public void getUserEvents(Callback<List<Event>> callback) {
         callback.onSucceed(new ArrayList<>(fakeEvents.values()));
     }
 
-
+    // DO NOT USE
     @Override
     public void createEvent(Event event, Callback<Event> callback) {
         callback.onSucceed(event);
     }
 
+    // DO NOT USE
     @Override
     public void getEvent(String event_id, Callback<Event> callback) {
         callback.onSucceed(fakeEvents.get(event_id));
+//        firestore.collection("").document("");
     }
 
 
-    public void joinEvent(String eventID, Callback<Event> callback) {
-
-    }
-
-    // DONE
+    /** @inheritDoc - Status : DONE
+     *  Look if a document with this key exists, if not the new key is set to the event */
     @Override
     public void updateEventInvitationKey(String eventID, String key, Callback<String> callback) {
-        firestore.collection(EVENT_COL).document(eventID)
-                .set(new HashMap<String, String>(){{put(EVENT_FIELD_INVITKEY, key);}}, SetOptions.merge())
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) callback.onSucceed(key);
-                    else callback.onFail(CallbackException.fromFirebaseException(task.getException()));
-                });
+        firestore.collection(EVENT_COL).whereEqualTo(EVENT_FIELD_INVITKEY, key).get().addOnCompleteListener(task1 -> {
+            if (task1.isSuccessful() && task1.getResult() != null && task1.getResult().getDocuments().size() >= 1 && !task1.getResult().getDocuments().get(0).getId().equals(eventID))  {
+                callback.onFail(new CallbackException(CallbackException.Type.INVITATION_KEY_COLLISION));
+            } else {
+                firestore.collection(EVENT_COL).document(eventID)
+                        .set(new HashMap<String, String>(){{put(EVENT_FIELD_INVITKEY, key);}}, SetOptions.merge())
+                        .addOnCompleteListener(task2 -> {
+                            if (task2.isSuccessful()) callback.onSucceed(key);
+                            else callback.onFail(CallbackException.fromFirebaseException(task2.getException()));
+                        });
+            }
+        });
     }
 
-    // DONE
+    /** @inheritDoc - Status : DONE
+     * Just delete the invitation field of the event */
     @Override
     public void removeEventInvitationKey(String eventID, Callback<Void> callback) {
         firestore.collection(EVENT_COL).document(eventID)
@@ -135,11 +154,63 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
                 });
     }
 
+    /** @inheritDoc - Status : DONE
+     * Get the correct event doc, add the user to it, add the event ID in the user event list */
+    @Override
+    public void joinEvent(String invitationKey, Callback<String> callback) {
+        FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (fbUser == null) {
+            callback.onFail(new CallbackException(CallbackException.Type.NO_LOGGED));
+            return ;
+        }
+        firestore.collection(EVENT_COL).whereEqualTo(EVENT_FIELD_INVITKEY, invitationKey).get().addOnCompleteListener(task1 -> {
+            if (task1.isSuccessful() && task1.getResult() != null && task1.getResult().getDocuments().size() == 1) {
+                DocumentSnapshot docEventSnap = task1.getResult().getDocuments().get(0);
+                String eventID = docEventSnap.getId();
+                String userID = fbUser.getUid();
+                WriteBatch writeBatch = firestore.batch();
+                DocumentReference eventDocRef = docEventSnap.getReference();
+                DocumentReference userDocRef = firestore.collection(USERS_COL).document(userID);
+                writeBatch.update(userDocRef, new HashMap<String, Object>(){{put(USERS_FIELD_EVENTS, FieldValue.arrayUnion(eventID));}});
+                writeBatch.update(eventDocRef, new HashMap<String, Object>(){{put(EVENT_FIELD_PARTICIPANTS, FieldValue.arrayUnion(userID));}});
+                writeBatch.commit().addOnCompleteListener(task2 -> {
+                    if (task2.isSuccessful())  callback.onSucceed(eventID);
+                    else callback.onFail(CallbackException.fromFirebaseException(task2.getException()));
+                });
+            } else {
+                callback.onFail(CallbackException.fromFirebaseException(task1.getException()));
+            }
+        });
+    }
+
+    /** @inheritDoc - Status : WIP
+     *  Update the user event list and the event user list */
+    @Override
+    public void quitEvent(String eventID, Callback<Void> callback) {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user == null) {
+            callback.onFail(new CallbackException(CallbackException.Type.NO_LOGGED));
+            return ;
+        }
+        WriteBatch writeBatch = firestore.batch();
+        DocumentReference userDoc = firestore.collection(USERS_COL).document(user.getUid());
+        DocumentReference eventDoc = firestore.collection(EVENT_COL).document(eventID);
+        writeBatch.update(userDoc, new HashMap<String, Object>(){{put(USERS_FIELD_EVENTS, FieldValue.arrayRemove(eventID));}});
+        writeBatch.update(eventDoc, new HashMap<String, Object>(){{put(USERS_FIELD_EVENTS, FieldValue.arrayRemove(user.getUid()));}});
+        writeBatch.commit().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) callback.onSucceed(null);
+            else callback.onFail(CallbackException.fromFirebaseException(task.getException()));
+        });
+    }
+
+
+    // DO NOT USE
     @Override
     public void deleteEvent(String eventID, Callback<Void> callback) {
 
     }
 
+    // DO NOT USE
     @Override
     public void loadEventPosts(String eventID, Callback<Event> callback) {
 //        List<Post> postsEvents = postByEventId.get(e());
@@ -147,27 +218,32 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
 //        callback.onSucceed(event);
     }
 
+    // DO NOT USE
     @Override
     public void loadEventToDoList(String eventID, Callback<Event> callback) {
 
     }
 
+    // DO NOT USE
     @Override
     public void getPost(String post_id, Callback<Post> callback) {
         Post post = fakePosts.get(post_id);
         callback.onSucceed(post);
     }
 
+    // DO NOT USE
     @Override
     public void addPost(String eventID, Post post, Callback<Post> callback) {
 
     }
 
+    // DO NOT USE
     @Override
     public void deletePost(String eventID, Post post, Callback<Boolean> callback) {
 
     }
 
+    // DO NOT USE
     @Override
     public void loadPostComments(Post post, Callback<Post> callback) {
         List<Comment> comments = Arrays.asList(

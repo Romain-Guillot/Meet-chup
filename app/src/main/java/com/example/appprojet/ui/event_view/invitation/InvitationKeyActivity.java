@@ -25,8 +25,5 @@ public class InvitationKeyActivity extends ChildActivity {
 
         InvitationKeyViewModel viewModel = ViewModelProviders.of(this).get(InvitationKeyViewModel.class);
         viewModel.init(eventKey);
-
-
-
     }
 }

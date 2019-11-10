@@ -51,7 +51,8 @@ public class CallbackException extends Exception {
                 return context.getString(R.string.error_network);
             case NO_LOGGED:
                 return context.getString(R.string.error_nologged);
-
+            case INVITATION_KEY_COLLISION:
+                return context.getString(R.string.error_invitation_key_collision);
             case UNKNOWN:
             case AUTH_UNKNOWN:
             default:
@@ -102,6 +103,9 @@ public class CallbackException extends Exception {
 
         /** When a re-authentication is required to perform an action*/
         RE_AUTH_REQUIRED,
+
+        /** When the user try a change the event key with an existing key*/
+        INVITATION_KEY_COLLISION,
 
         /** When the user try to perform an action that required to be logged but he is not */
         NO_LOGGED,

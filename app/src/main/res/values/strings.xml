@@ -61,6 +61,7 @@
     <string name="error_invalid_credentials">Email / password doesn\'t match</string>
     <string name="error_network">please check your network connection</string>
     <string name="error_nologged">You have to be logged to perform this action</string>
+    <string name="error_invitation_key_collision">You cannot choose this key</string>
 
 
     <!-- Validators error message -->

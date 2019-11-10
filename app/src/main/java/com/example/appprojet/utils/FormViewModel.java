@@ -25,7 +25,10 @@ public abstract class FormViewModel extends AndroidViewModel {
     protected final MutableLiveData<Boolean> isLoadingLive = new MutableLiveData<>(false);
 
     /** Error flag (when an error occurred) */
-    protected final MutableLiveData<SingleEvent<String>> errorLive = new MutableLiveData<>(null);
+    protected final MutableLiveData<SingleEvent<String>> errorLive = new MutableLiveData<>();
+
+    /** Event when submit succes */
+    protected  final MutableLiveData<SingleEvent<Boolean>> successLive = new MutableLiveData<>();
 
 
     protected FormViewModel(Application application) {
@@ -44,12 +47,14 @@ public abstract class FormViewModel extends AndroidViewModel {
         public void onSucceed(T result) {
             isLoadingLive.setValue(false);
             errorLive.setValue(null);
+            successLive.setValue(new SingleEvent<>(true));
         }
 
         @Override
         public void onFail(CallbackException e) {
             isLoadingLive.setValue(false);
             errorLive.setValue(new SingleEvent<>(e.getErrorMessage(getApplication().getApplicationContext())));
+            successLive.setValue(new SingleEvent<>(false));
         }
     }
 }

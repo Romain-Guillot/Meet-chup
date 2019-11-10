@@ -117,14 +117,14 @@ public class ProfileEditFragment extends FormFragment {
             if (errorMessage != null) {
                 String message = errorMessage.getContentIfNotHandled();
                 if (message != null)
-                    SnackbarFactory.showSnackbar(getActivity().findViewById(android.R.id.content), message);
+                    SnackbarFactory.showErrorSnackbar(getActivity().findViewById(android.R.id.content), message);
             }
         });
         viewModel.successLive.observe(this, successMessage -> {
             if (successMessage != null) {
                 String message = successMessage.getContentIfNotHandled();
                 if (message != null)
-                    SnackbarFactory.showSnackbar(getActivity().findViewById(android.R.id.content), message);
+                    SnackbarFactory.showSuccessSnackbar(getActivity().findViewById(android.R.id.content), message);
             }
         });
 

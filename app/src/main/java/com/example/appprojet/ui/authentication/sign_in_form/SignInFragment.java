@@ -57,7 +57,8 @@ public class SignInFragment extends FormFragment {
                 Arrays.asList(viewModel.emailLive, viewModel.passwordLive),
                 submitButton,
                 getString(R.string.auth_signin_btn),
-                getString(R.string.auth_loading_btn)
+                getString(R.string.auth_loading_btn),
+                null
         );
 
         return view;
