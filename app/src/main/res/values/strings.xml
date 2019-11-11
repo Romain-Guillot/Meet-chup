@@ -17,6 +17,8 @@
     <string name="auth_setup_username_hint">Username</string>
     <string name="auth_sign_in_with_provider">Continue with</string>
     <string name="auth_error_form">An error occurred, please check your information</string>
+    <string name="auth_social_method">Social authentication</string>
+    <string name="auth_classic_method">Classic authentication</string>
     <string name="default_username">Unknown</string>
     <string name="profile_button_content_description">Profile button</string>
     <string name="profile_updated_success">Your profile has been updated.</string>
@@ -61,6 +63,8 @@
     <string name="error_network">please check your network connection</string>
     <string name="error_nologged">You have to be logged to perform this action</string>
     <string name="error_invitation_key_collision">You cannot choose this key</string>
+    <string name="error_invitation_key_notfound">Invalid key</string>
+
 
 
     <!-- Validators error message -->
@@ -72,11 +76,18 @@
     <string name="validator_invitation_key">Invalid key, %1$d characters minimum</string>
 
 
-
-
+    <!-- Invitation system -->
+    <string name="join_event_help">Ask a participant for the event key invitation</string>
+    <string name="invitation_key_status_enable">Invitation key enable !</string>
+    <string name="invitation_key_status_disable">Invitation key disable !</string>
+    <string name="invitation_key_hint">Invitation key</string>
+    <string name="invitation_update_key_button">Change the invitation key</string>
+    <string name="invitation_description">To share this event with other firends, you need to give them the invitation key below.</string>
+    <string name="invitation_warning_description">Everyone with this key will be able to join the event.</string>
 
 
     <!-- Unclassified / temporary -->
+    <string name="google_web_client_id">147707161348-8sr2m5vtelitrtjdht93vdcv3ri87258.apps.googleusercontent.com</string>
     <string name="item_post_image_description">post image</string>
     <string name="event_empty_post_indicator">No post</string>
     <string name="event_add_new_post_btn_label">Add a new post</string>
@@ -84,19 +95,7 @@
     <string name="post_view_no_comments">No comments</string>
     <string name="loading_btn">Loading …</string>
     <string name="join_event_btn">Join</string>
-    <string name="google_web_client_id">147707161348-8sr2m5vtelitrtjdht93vdcv3ri87258.apps.googleusercontent.com</string>
     <string name="quit_event_btn">Yeah, remove me</string>
-    <string name="invitation_description">To share this event with other firends, you need to give them the invitation key below.</string>
-    <string name="invitation_warning_description">Everyone with this key will be able to join the event.</string>
-    <string name="invitation_key_status_enable">Invitation key enable !</string>
-    <string name="invitation_key_status_disable">Invitation key enable !</string>
-    <string name="invitation_key_hint">Invitation key</string>
-    <string name="invitation_update_key_button">Change the invitation key</string>
-    <string name="join_event_help">Ask a participant for the event key invitation</string>
     <string name="content_description_icon_info">icon info</string>
     <string name="create_event_button">Create</string>
-    <string name="auth_social_method">Social authentication</string>
-    <string name="auth_classic_method">Classic authentication</string>
-
-
 </resources>

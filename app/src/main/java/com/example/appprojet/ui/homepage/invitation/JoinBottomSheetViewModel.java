@@ -3,18 +3,25 @@ package com.example.appprojet.ui.homepage.invitation;
 import android.app.Application;
 
 
+import com.example.appprojet.R;
 import com.example.appprojet.repositories.FirestoreEventsDataRepository;
 import com.example.appprojet.repositories.IEventsDataRepository;
 import com.example.appprojet.utils.Callback;
 import com.example.appprojet.utils.CallbackException;
 import com.example.appprojet.utils.FormViewModel;
 import com.example.appprojet.utils.SingleEvent;
-import com.example.appprojet.utils.form_data_with_validators.FormData;
 
 
+/**
+ * {@link FormViewModel}
+ * Form view model to handle the join invitation form.
+ * The unique field is the invitation key, we simply call the repository when the user submit the
+ * form and the view model live data are updated according to the repo response
+ * (isLoadingLice, successLive, errorLive)
+ */
 public class JoinBottomSheetViewModel extends FormViewModel {
 
-    IEventsDataRepository eventsDataRepository;
+    private final IEventsDataRepository eventsDataRepository;
     String keyFormData = null;
 
     public JoinBottomSheetViewModel(Application application) {
@@ -39,11 +46,11 @@ public class JoinBottomSheetViewModel extends FormViewModel {
                 @Override
                 public void onFail(CallbackException exception) {
                     isLoadingLive.setValue(false);
-                    errorLive.setValue(new SingleEvent<>(exception.getErrorMessage(getApplication())));
+                    errorLive.setValue(new SingleEvent<>(getApplication().getString(R.string.error_invitation_key_notfound)));
                 }
             });
         } else {
-            errorLive.setValue(new SingleEvent<>("Invalid key"));
+            errorLive.setValue(new SingleEvent<>(getApplication().getString(R.string.error_invitation_key_notfound)));
         }
     }
 

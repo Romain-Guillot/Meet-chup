@@ -19,6 +19,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.Collections;
 
 
+/**
+ *
+ */
 public class InvitationKeyFragment extends FormFragment {
 
     private InvitationKeyViewModel viewModel;

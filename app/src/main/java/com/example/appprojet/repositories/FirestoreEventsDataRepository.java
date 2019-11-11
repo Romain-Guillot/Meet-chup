@@ -147,7 +147,7 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
     @Override
     public void removeEventInvitationKey(String eventID, Callback<Void> callback) {
         firestore.collection(EVENT_COL).document(eventID)
-                .set(new HashMap<String, Object>(){{put(EVENT_FIELD_INVITKEY, FieldValue.delete());}})
+                .set(new HashMap<String, Object>(){{put(EVENT_FIELD_INVITKEY, FieldValue.delete());}}, SetOptions.merge())
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) callback.onSucceed(null);
                     else callback.onFail(CallbackException.fromFirebaseException(task.getException()));
@@ -171,8 +171,8 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
                 WriteBatch writeBatch = firestore.batch();
                 DocumentReference eventDocRef = docEventSnap.getReference();
                 DocumentReference userDocRef = firestore.collection(USERS_COL).document(userID);
-                writeBatch.set(userDocRef, new HashMap<String, Object>(){{put(USERS_FIELD_EVENTS, FieldValue.arrayUnion(eventID));}});
-                writeBatch.set(eventDocRef, new HashMap<String, Object>(){{put(EVENT_FIELD_PARTICIPANTS, FieldValue.arrayUnion(userID));}});
+                writeBatch.set(userDocRef, new HashMap<String, Object>(){{put(USERS_FIELD_EVENTS, FieldValue.arrayUnion(eventID));}}, SetOptions.merge());
+                writeBatch.set(eventDocRef, new HashMap<String, Object>(){{put(EVENT_FIELD_PARTICIPANTS, FieldValue.arrayUnion(userID));}}, SetOptions.merge());
                 writeBatch.commit().addOnCompleteListener(task2 -> {
                     if (task2.isSuccessful())  callback.onSucceed(eventID);
                     else callback.onFail(CallbackException.fromFirebaseException(task2.getException()));
@@ -195,8 +195,8 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
         WriteBatch writeBatch = firestore.batch();
         DocumentReference userDoc = firestore.collection(USERS_COL).document(user.getUid());
         DocumentReference eventDoc = firestore.collection(EVENT_COL).document(eventID);
-        writeBatch.set(userDoc, new HashMap<String, Object>(){{put(USERS_FIELD_EVENTS, FieldValue.arrayRemove(eventID));}});
-        writeBatch.set(eventDoc, new HashMap<String, Object>(){{put(EVENT_FIELD_PARTICIPANTS, FieldValue.arrayRemove(user.getUid()));}});
+        writeBatch.set(userDoc, new HashMap<String, Object>(){{put(USERS_FIELD_EVENTS, FieldValue.arrayRemove(eventID));}}, SetOptions.merge());
+        writeBatch.set(eventDoc, new HashMap<String, Object>(){{put(EVENT_FIELD_PARTICIPANTS, FieldValue.arrayRemove(user.getUid()));}}, SetOptions.merge());
         writeBatch.commit().addOnCompleteListener(task -> {
             if (task.isSuccessful()) callback.onSucceed(null);
             else callback.onFail(CallbackException.fromFirebaseException(task.getException()));

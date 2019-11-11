@@ -23,6 +23,7 @@ import com.example.appprojet.ui.profile.ProfileActivity;
  *      - The AppBar with the application name, the menu ;
  *      - The buttons to create or join an event ;
  *      - The user list of events.
+ *      - The bottom sheet for joining an event
  */
 public class HomePageActivity extends AppCompatActivity {
 
@@ -57,8 +58,6 @@ public class HomePageActivity extends AppCompatActivity {
             intent.putExtra(EventViewActivity.EXTRA_EVENT_ID, "2");
             startActivity(intent);
         });
-
-
     }
 
     /** If I put the action bar in the onCreate the logo size will no be kept ...*/
@@ -68,6 +67,7 @@ public class HomePageActivity extends AppCompatActivity {
         setActionBar();
     }
 
+    /** Check if the user is logged, go to the authentication activity if not */
     public void navigateToAuthenticationActivityIfUserIsNotLogged() {
         IAuthenticationRepository authRepo = FirebaseAuthenticationRepository.getInstance();
         if (authRepo.getCurrentUser() == null) {
@@ -76,25 +76,25 @@ public class HomePageActivity extends AppCompatActivity {
         }
     }
 
+    /** Show the bottom sheet for joining an event */
+    public void initJoinBottomSheetBehavior() {
+        joinBottomSheetFragment = new JoinBottomSheetFragment();
+        findViewById(R.id.homepage_join_event_btn).setOnClickListener(v -> {
+            joinBottomSheetFragment.show(getSupportFragmentManager(), "join_bottom_sheet");
+        });
+    }
+
     /** Set the custom action bar title for the homepage */
     private void setActionBar() {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar == null)
             return ;
-
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionBar.setCustomView(R.layout.view_homepage_title);
         View profileBtn = actionBar.getCustomView().findViewById(R.id.profile_button);
         profileBtn.setOnClickListener(v -> {
             Intent profileIntent = new Intent(this, ProfileActivity.class);
             startActivity(profileIntent);
-        });
-    }
-
-    public void initJoinBottomSheetBehavior() {
-        joinBottomSheetFragment = new JoinBottomSheetFragment();
-        findViewById(R.id.homepage_join_event_btn).setOnClickListener(v -> {
-            joinBottomSheetFragment.show(getSupportFragmentManager(), "join_bottom_sheet");
         });
     }
 }

@@ -1,21 +1,15 @@
 package com.example.appprojet.ui.event_view;
 
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
-import android.widget.PopupMenu;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -24,6 +18,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.appprojet.R;
 import com.example.appprojet.ui.event_view.invitation.InvitationKeyActivity;
 import com.example.appprojet.utils.ChildActivity;
+import com.example.appprojet.utils.SnackbarFactory;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -127,7 +122,6 @@ public class EventViewActivity extends ChildActivity {
     }
 
     private void showQuitDialog() {
-
         AlertDialog dialog = new MaterialAlertDialogBuilder(this)
                 .setTitle("No longer participate ?")
                 .setMessage("This event will no longer be available in your event list.")
@@ -143,6 +137,8 @@ public class EventViewActivity extends ChildActivity {
                     if (isQuitting) {
                         dialogInterface.cancel();
                         finish();
+                    } else {
+                        SnackbarFactory.showSuccessSnackbar(findViewById(android.R.id.content), "An error occured");
                     }
                 });
             });

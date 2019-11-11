@@ -1,12 +1,9 @@
 package com.example.appprojet.ui.homepage.invitation;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +13,6 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.appprojet.R;
@@ -24,6 +20,16 @@ import com.example.appprojet.utils.SnackbarFactory;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textfield.TextInputLayout;
 
+/**
+ * This fragment holds the bottom sheet fragment that displays the text field to join an event with
+ * and invitation key.
+ *
+ * When the view is created, the fragment show the keyboard (and hide when the view is destroy)
+ *
+ * The process of the form is handled by the view model {@link JoinBottomSheetViewModel}
+ *
+ * Here we just update the submit button text according the the viewmodel live data.
+ */
 public class JoinBottomSheetFragment extends BottomSheetDialogFragment {
 
     private JoinBottomSheetViewModel viewModel;
@@ -53,9 +59,9 @@ public class JoinBottomSheetFragment extends BottomSheetDialogFragment {
             }
         });
 
-        submitButton.setOnClickListener(v -> {
-            viewModel.submitForm();
-        });
+        submitButton.setOnClickListener(v ->
+                viewModel.submitForm()
+        );
 
         viewModel.isLoadingLive.observe(this, isLoading -> {
             submitButton.setEnabled(!isLoading);
@@ -78,10 +84,6 @@ public class JoinBottomSheetFragment extends BottomSheetDialogFragment {
         return view;
     }
 
-    @Override
-    public void onDismiss(@NonNull DialogInterface dialog) {
-        super.onDismiss(dialog);
-    }
 
     @Override
     public void onDestroyView() {
@@ -89,26 +91,14 @@ public class JoinBottomSheetFragment extends BottomSheetDialogFragment {
         closeKeyboard();
     }
 
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
-        Log.e(">>>>>>>>>", "CREATE DIALOG");
-        return super.onCreateDialog(savedInstanceState);
-    }
-
-    @Override
-    public void show(@NonNull FragmentManager manager, @Nullable String tag) {
-        super.show(manager, tag);
-        Log.e(">>>>>>>>>", "SHOW");
-    }
-
-    public void showKeyboard(){
+    private void showKeyboard(){
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
-    public void closeKeyboard(){
+
+    private void closeKeyboard(){
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }

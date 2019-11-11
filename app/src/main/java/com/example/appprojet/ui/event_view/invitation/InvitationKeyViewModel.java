@@ -17,6 +17,9 @@ import com.example.appprojet.utils.form_data_with_validators.InvitationKeyValida
 import com.google.android.material.snackbar.Snackbar;
 
 
+/**
+ *
+ */
 public class InvitationKeyViewModel extends FormViewModel {
 
     private IEventsDataRepository eventsDataRepository;
