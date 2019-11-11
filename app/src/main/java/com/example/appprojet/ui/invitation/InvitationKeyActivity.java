@@ -1,4 +1,4 @@
-package com.example.appprojet.ui.event_view.invitation;
+package com.example.appprojet.ui.invitation;
 
 import android.content.Intent;
 import android.os.Bundle;

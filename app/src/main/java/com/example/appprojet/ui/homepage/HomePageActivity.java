@@ -14,7 +14,7 @@ import com.example.appprojet.repositories.IAuthenticationRepository;
 import com.example.appprojet.ui.authentication.AuthenticationActivity;
 import com.example.appprojet.ui.event_creation.EventCreationActivity;
 import com.example.appprojet.ui.event_view.EventViewActivity;
-import com.example.appprojet.ui.homepage.invitation.JoinBottomSheetFragment;
+import com.example.appprojet.ui.invitation.JoinBottomSheetFragment;
 import com.example.appprojet.ui.profile.ProfileActivity;
 
 

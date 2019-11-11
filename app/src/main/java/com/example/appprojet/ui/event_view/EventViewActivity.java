@@ -16,7 +16,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.appprojet.R;
-import com.example.appprojet.ui.event_view.invitation.InvitationKeyActivity;
+import com.example.appprojet.ui.invitation.InvitationKeyActivity;
 import com.example.appprojet.utils.ChildActivity;
 import com.example.appprojet.utils.SnackbarFactory;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

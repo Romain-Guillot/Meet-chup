@@ -1,4 +1,4 @@
-package com.example.appprojet.ui.homepage.invitation;
+package com.example.appprojet.ui.invitation;
 
 import android.app.Application;
 

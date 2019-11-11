@@ -1,4 +1,4 @@
-package com.example.appprojet.ui.event_view.invitation;
+package com.example.appprojet.ui.invitation;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,12 +9,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.appprojet.R;
 import com.example.appprojet.utils.FormFragment;
-import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Collections;
