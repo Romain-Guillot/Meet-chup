@@ -10,14 +10,29 @@ import com.example.appprojet.utils.Callback;
 
 
 /**
- * ViewModel associated with a [FormFragment] to handle the following form flags :
+ * ViewModel associated with a [FormFragment] to handle the following form flags and event :
  *  - isLoading when we wait a response from the repository
- *  - errorLive when an error occurred
+ *  - errorLive event when an error occurred
+ *  - success event when a success message is available
  *
  * When the FormViewModel is create, the authentication repository instance is set.
  *
  * When extending this class, submitForm and validate methods have to be implements.
  *
+ * The callback give to the repository set the correcting flags and event LiveData, if you want
+ * to add more operations when the callback succeeds of fails, do like that :
+ *
+ *      methodToRepo(arg1, arg2, new Callback<...> {
+ *         onSucceed(...) {
+ *             new SubmitCallback().onSucceeds()
+ *         }
+ *         onFails(...) {
+ *             new SubmitCallback().onFails()
+ *         }
+ *      });
+ *
+ * It's definitively not ideal but it's like call super method to update the super class (here the
+ * FormViewModel) but as is asynchronous is not that easy.
  */
 public abstract class FormViewModel extends AndroidViewModel {
 
@@ -35,7 +50,7 @@ public abstract class FormViewModel extends AndroidViewModel {
         super(application);
     }
 
-    /** Retrieve form data and send info to the authentication repository */
+    /** Retrieve form data and send info to the repository */
     protected abstract void submitForm();
 
     /** check if the data in the form is valid.  */

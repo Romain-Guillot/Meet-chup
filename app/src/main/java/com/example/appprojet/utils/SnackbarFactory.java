@@ -13,7 +13,20 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import com.example.appprojet.R;
 import com.google.android.material.snackbar.Snackbar;
 
+/**
+ * Utils class to show snackbar, all operations are static, so no need to create instances.
+ *
+ * Just call the appropriate function with your needs to show a Snackbar : There are 4 types of
+ * callback based on 2 parameters (severity and position) :
+ *  - ShowSuccessSnackbar (success, bottom)
+ *  - ShowErrorSnackbar (error, bottom)
+ *  - ShowTopSuccessSnackbar (success, top)  WARNING : view need to be a CoordinatorLayout !!!!
+ *  - ShowTopErrorSnackbar (error, top)      WARNING : view need to be a CoordinatorLayout !!!!
+ *
+ */
 public class SnackbarFactory {
+
+    private SnackbarFactory() {}
 
     public static void showSuccessSnackbar(View view, String text) {
         showSnackbar(view, text, R.color.successColor, false);
