@@ -1,5 +1,6 @@
 package com.example.appprojet.ui.event_view;
 
+import android.app.Activity;
 import android.app.Application;
 import android.location.Address;
 import android.location.Geocoder;
@@ -54,8 +55,8 @@ public class EventViewViewModel extends AndroidViewModel {
     }
 
 
-    public void initEventMetaData(String eventId) {
-        eventsRepo.getEvent( eventId, new Callback<Event>() {
+    public void initEventMetaData(Activity activity, String eventId) {
+        eventsRepo.getEvent(activity, eventId, new Callback<Event>() {
             @Override
             public void onSucceed(Event result) {
                 event = result;
@@ -94,17 +95,17 @@ public class EventViewViewModel extends AndroidViewModel {
 
 
     public void loadPosts() {
-        eventsRepo.loadEventPosts( event.getId(), new Callback<Event>() {
-            @Override
-            public void onSucceed(Event result) {
-                event = result;
-                setPostsLive();
-            }
-            @Override
-            public void onFail(CallbackException e) {
-
-            }
-        });
+//        eventsRepo.loadEventPosts( event.getId(), new Callback<Event>() {
+//            @Override
+//            public void onSucceed(Event result) {
+//                event = result;
+//                setPostsLive();
+//            }
+//            @Override
+//            public void onFail(CallbackException e) {
+//
+//            }
+//        });
     }
 
 

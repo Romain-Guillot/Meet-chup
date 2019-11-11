@@ -12,13 +12,14 @@ public class Event {
     private String id;
     private String title;
     private String description;
-    private List<User> participants;
-    private List<Post> posts;
     private Date dateCreated;
     private Date dateBegin;
     private Date dateEnd;
     private Location location;
     private String invitationKey;
+    private List<User> participants;
+    private List<Post> posts;
+
 
     public Event(String id, String title, String description, List<User> participants, Date dateBegin, Date dateEnd, Date dateCreated, Location location, String invitationKey){
         this.id = id;

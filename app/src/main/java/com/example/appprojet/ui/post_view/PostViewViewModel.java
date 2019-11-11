@@ -29,28 +29,28 @@ public class PostViewViewModel extends ViewModel {
 
 
     public void initPost(String id) {
-        eventRepo.getPost(id, new Callback<Post>() {
-            @Override
-            public void onSucceed(Post result) {
-                setPostLive(result);
-                eventRepo.loadPostComments(result, new Callback<Post>() {
-                    @Override
-                    public void onSucceed(Post result) {
-                        setCommentsLive(result);
-                    }
-
-                    @Override
-                    public void onFail(CallbackException e) {
-
-                    }
-                });
-            }
-
-            @Override
-            public void onFail(CallbackException e) {
-
-            }
-        });
+//        eventRepo.getPost(id, new Callback<Post>() {
+//            @Override
+//            public void onSucceed(Post result) {
+//                setPostLive(result);
+//                eventRepo.loadPostComments(result, new Callback<Post>() {
+//                    @Override
+//                    public void onSucceed(Post result) {
+//                        setCommentsLive(result);
+//                    }
+//
+//                    @Override
+//                    public void onFail(CallbackException e) {
+//
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onFail(CallbackException e) {
+//
+//            }
+//        });
 
     }
 

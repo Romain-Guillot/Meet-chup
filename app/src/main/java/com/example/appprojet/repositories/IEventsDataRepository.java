@@ -1,52 +1,73 @@
 package com.example.appprojet.repositories;
 
+import android.app.Activity;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
 
 import com.example.appprojet.models.Event;
 import com.example.appprojet.models.Post;
 import com.example.appprojet.utils.Callback;
+import com.example.appprojet.utils.Location;
 
+import java.util.Date;
 import java.util.List;
 
+/**
+ * As operations are asynchronous with the database, the callback system is used to notify client
+ * when the operation succeeds or fails : {@link Callback}
+ *
+ * IMPORTANT : Sometimes the functions require an activity as a parameter.That's because some
+ * function adds listeners on objects, so we have to delete these listeners when the client activity
+ * is no longer active and so and therefore no longer needs to listen these objects.
+ * These functions are generally READ operations (get..., all... in opposition to other types of
+ * operations : update..., delete..., create...)
+ */
 public interface IEventsDataRepository {
 
-    public void getUserEvents(Callback<List<Event>> callback);
+    /** Get all user events
+     *  If succeeds list of all events are returned (can be empty)
+     *  -> Every user event update will be notified through the callback*/
+    void allEvents(@NonNull Activity client, @NonNull Callback<List<Event>> callback);
 
+    /** Get the event corresponding to the ID
+     * The event is returned through the callback is it exists, else an exception is returned
+     * -> Every event update will be notified through the callback */
+    void getEvent(@NonNull Activity client, @NonNull String eventID, @NonNull Callback<Event> callback);
 
-    public void createEvent(Event event, Callback<Event> callback);
-
-    public void getEvent(String eventID, Callback<Event> callback);
-
-
-    public void deleteEvent(String eventID, Callback<Void> callback);
+    /** An event is created in the database
+     * The created event ID is returned through the callback */
+    void createEvent(@NonNull Event event, @NonNull Callback<String> callback);
 
     /** Update the invitation key of the event
-     *  The callback return the new key if success, an exception else */
-    void updateEventInvitationKey(String eventID, String key, Callback<String> callback);
+     *  The callback returns the new key if success, an exception else */
+    void updateEventInvitationKey(@NonNull String eventID, @NonNull String key, @NonNull Callback<String> callback);
 
     /** Remove the current invitation key of the event
      *  Nothing returned if success, else an exception is returned  */
-    void removeEventInvitationKey(String eventID, Callback<Void> callback);
+    void deleteEventInvitationKey(@NonNull String eventID, @NonNull Callback<Void> callback);
 
     /** Add current user as participant of the event
      *  Event ID returned if success, else an exception is returned */
-    void joinEvent(String invitationKey, Callback<String> callback);
+    void joinEvent(@NonNull String invitationKey, @NonNull Callback<String> callback);
 
     /** Remove the user from the event
      * Nothing returned if success, else an exception is returned */
-    void quitEvent(String eventID, Callback<Void> callback);
+    void quitEvent(@NonNull String eventID, @NonNull Callback<Void> callback);
 
 
-    public void loadEventPosts(String eventID, Callback<Event> callback);
-
-    public void loadEventToDoList(String eventID, Callback<Event> callback);
-
-
-    public void getPost(String post_id, Callback<Post> callback);
-
-    public void addPost(String eventID, Post post, Callback<Post> callback);
-
-    public void deletePost(String eventID,Post post, Callback<Boolean> callback);
-
-    public void loadPostComments(Post post, Callback<Post> callback);
+//    public void loadEventPosts(String eventID, Callback<Event> callback);
+//
+//    public void loadEventToDoList(String eventID, Callback<Event> callback);
+//
+//
+//    public void getPost(String post_id, Callback<Post> callback);
+//
+//    public void addPost(String eventID, Post post, Callback<Post> callback);
+//
+//    public void deletePost(String eventID,Post post, Callback<Boolean> callback);
+//
+//    public void loadPostComments(Post post, Callback<Post> callback);
 
 }

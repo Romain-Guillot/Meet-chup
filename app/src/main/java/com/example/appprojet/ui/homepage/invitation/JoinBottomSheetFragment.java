@@ -29,6 +29,10 @@ import com.google.android.material.textfield.TextInputLayout;
  * The process of the form is handled by the view model {@link JoinBottomSheetViewModel}
  *
  * Here we just update the submit button text according the the viewmodel live data.
+ *
+ * NOTE :   this fragment behavior is the FormFragment behavior {@link com.example.appprojet.utils.FormFragment}
+ *          but as the multiple inheritance is not possible, I cannot extends this fragment of the FormFragment sadly
+ *          Maybe transform the inheritance to association ...
  */
 public class JoinBottomSheetFragment extends BottomSheetDialogFragment {
 
@@ -46,11 +50,13 @@ public class JoinBottomSheetFragment extends BottomSheetDialogFragment {
         showKeyboard();
         View view = inflater.inflate(R.layout.fragment_join_event, container, false);
 
+        // Views init
         TextInputLayout invitKeyTextLayout = view.findViewById(R.id.join_event_key_layout);
         EditText editText = invitKeyTextLayout.getEditText();
         editText.requestFocus();
         Button submitButton = view.findViewById(R.id.join_event_btn);
 
+        // Update the view model when the user change the input field
         editText.addTextChangedListener(new TextWatcher() {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             public void afterTextChanged(Editable s) { }
@@ -59,21 +65,25 @@ public class JoinBottomSheetFragment extends BottomSheetDialogFragment {
             }
         });
 
+        // Request the view model to submit the form
         submitButton.setOnClickListener(v ->
                 viewModel.submitForm()
         );
 
+        // Update button is the submission is in progress
         viewModel.isLoadingLive.observe(this, isLoading -> {
             submitButton.setEnabled(!isLoading);
             submitButton.setText(isLoading ? R.string.loading_btn : R.string.join_event_btn);
         });
 
+        // Show the error, if any
         viewModel.errorLive.observe(this, error -> {
             String message = error.getContentIfNotHandled();
             if (message != null)
                 SnackbarFactory.showTopErrorSnackbar(getActivity().findViewById(R.id.container), message);
         });
 
+        // Show the success message, if any
         viewModel.successLive.observe(this, success -> {
             if (success.getContentIfNotHandled() != null) {
                 SnackbarFactory.showTopSuccessSnackbar(getActivity().findViewById(R.id.container), "Event added !");

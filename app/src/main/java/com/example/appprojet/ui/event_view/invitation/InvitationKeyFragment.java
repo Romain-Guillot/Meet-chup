@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,7 +21,16 @@ import java.util.Collections;
 
 
 /**
+ * FormFragment that holds the form to see / remove / update the event invitation key
+ * All business logic is handled by the InvitationKeyViewModel {@link InvitationKeyViewModel}
  *
+ * Here, we initialize the FormFragment with the input field, the form view model, and other
+ * configuration data.
+ *
+ * So the input field is handled with the FormFragment and the FormViewModel
+ * {@link com.example.appprojet.utils.FormViewModel}
+ *
+ * In addition, the form add a switcher to
  */
 public class InvitationKeyFragment extends FormFragment {
 
@@ -38,10 +48,13 @@ public class InvitationKeyFragment extends FormFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_invitation_fragment, container, false);
 
-        SwitchMaterial enableKeySwitch = view.findViewById(R.id.event_invit_enablekey);
+        // View init
+        Button disableKeyBtn = view.findViewById(R.id.event_invit_disable);
         TextInputLayout keyFieldLayout = view.findViewById(R.id.event_invit_key_layout);
         Button updateKeyButton = view.findViewById(R.id.event_invit_updatekey);
+        TextView keyStatus = view.findViewById(R.id.event_invit_status);
 
+        // Init the FormFragment with the form configuration
         init(
                 viewModel,
                 Collections.singletonList(keyFieldLayout),
@@ -52,24 +65,22 @@ public class InvitationKeyFragment extends FormFragment {
                 "Key updated !"
         );
 
-        enableKeySwitch.setOnCheckedChangeListener( (v, isChecked) -> {
-            if (!isChecked)
-                viewModel.removeInvitationKey();
+        // Listener on the disable button
+        disableKeyBtn.setOnClickListener( v -> {
+            viewModel.removeInvitationKey();
         });
 
+        // Observe when the event key is updated
         viewModel.updateKeyEvent.observe(this, update -> {
             if (update.getContentIfNotHandled())
                 keyFieldLayout.getEditText().setText(viewModel.eventKeyFieldLive.getValue());
         });
 
+        // Change the UI according the key status
         viewModel.keyEnabledLive.observe(this, isEnable -> {
-            enableKeySwitch.setChecked(isEnable);
-            int color = isEnable ? R.color.successColor : R.color.errorColor;
-            int colorLight = isEnable ? R.color.successColorLight : R.color.errorColorLight;
-            enableKeySwitch.setTrackTintList(ContextCompat.getColorStateList(getActivity(), colorLight));
-            enableKeySwitch.setThumbTintList(ContextCompat.getColorStateList(getActivity(), color));
-            enableKeySwitch.setTextColor(ContextCompat.getColorStateList(getActivity(), color));
-            enableKeySwitch.setText(isEnable ? R.string.invitation_key_status_enable : R.string.invitation_key_status_disable);
+            disableKeyBtn.setVisibility( isEnable ? View.VISIBLE : View.GONE);
+            keyStatus.setTextColor(getResources().getColor(isEnable ? R.color.successColor : R.color.errorColor));
+            keyStatus.setText(isEnable ? R.string.invitation_key_status_enable : R.string.invitation_key_status_disable);
         });
 
         return view;

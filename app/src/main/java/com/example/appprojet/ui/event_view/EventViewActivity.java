@@ -83,7 +83,7 @@ public class EventViewActivity extends ChildActivity {
         eventId = intent.getStringExtra(EXTRA_EVENT_ID);
 
         viewModel = ViewModelProviders.of(this).get(EventViewViewModel.class);
-        viewModel.initEventMetaData(eventId);
+        viewModel.initEventMetaData(this, eventId);
 
         viewModel.eventTitleLive.observe(this, event -> {
                 if (actionBar != null)

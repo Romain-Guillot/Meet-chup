@@ -1,5 +1,6 @@
 package com.example.appprojet.ui.event_view.invitation;
 
+import android.app.Activity;
 import android.app.Application;
 
 import androidx.lifecycle.MutableLiveData;
@@ -11,14 +12,14 @@ import com.example.appprojet.utils.Callback;
 import com.example.appprojet.utils.CallbackException;
 import com.example.appprojet.utils.FormViewModel;
 import com.example.appprojet.utils.SingleEvent;
-import com.example.appprojet.utils.SnackbarFactory;
 import com.example.appprojet.utils.form_data_with_validators.FormData;
 import com.example.appprojet.utils.form_data_with_validators.InvitationKeyValidator;
-import com.google.android.material.snackbar.Snackbar;
 
 
 /**
- *
+ * FormViewModel {@link FormViewModel} that handled the loading, error and success management
+ * Here, we implement the submit button behavior (ask the event repo for deleting or updating
+ * the invitation key event)
  */
 public class InvitationKeyViewModel extends FormViewModel {
 
@@ -36,10 +37,13 @@ public class InvitationKeyViewModel extends FormViewModel {
         eventsDataRepository = FirestoreEventsDataRepository.getInstance();
     }
 
-
-    void init(String eventID) {
+    /**
+     * Listen for the event, each event modification will be notify through the callback
+     * according the documentation of the event repo {@link IEventsDataRepository}
+     */
+    void init(Activity activity, String eventID) {
         this.eventID = eventID;
-        eventsDataRepository.getEvent(eventID, new Callback<Event>() {
+        eventsDataRepository.getEvent(activity, eventID, new Callback<Event>() {
             public void onSucceed(Event result) {
                 keyEnabledLive.setValue(result.getInvitationKey() != null);
                 eventKeyFieldLive.setValue(result.getInvitationKey());
@@ -78,8 +82,11 @@ public class InvitationKeyViewModel extends FormViewModel {
         return eventKeyFieldLive.isValid();
     }
 
+    /**
+     * Request for removing the invitation key
+     */
     void removeInvitationKey() {
-        eventsDataRepository.removeEventInvitationKey(eventID, new Callback<Void>() {
+        eventsDataRepository.deleteEventInvitationKey(eventID, new Callback<Void>() {
             public void onSucceed(Void result) {
                 keyEnabledLive.setValue(false);
                 eventKeyFieldLive.setValue(null);

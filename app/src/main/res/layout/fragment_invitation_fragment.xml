@@ -27,13 +27,15 @@
             android:layout_marginBottom="@dimen/block_spacing"
             android:text="@string/invitation_warning_description"/>
 
-        <!-- Switcher to enable / disable the invitation key -->
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/event_invit_enablekey"
+        <!-- Invitation key status -->
+        <TextView
+            android:id="@+id/event_invit_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
+            android:paddingBottom="@dimen/normal_spacing"
             android:text="@string/invitation_key_status_enable"/>
+
 
         <!-- Text input for the key -->
         <com.google.android.material.textfield.TextInputLayout
@@ -47,11 +49,25 @@
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Button to update the invitation key -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/event_invit_updatekey"
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/invitation_update_key_button"/>
+            android:orientation="horizontal">
+            <!-- Button to update the invitation key -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/event_invit_updatekey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/invitation_update_key_button"/>
+            <!-- Button to disable the invitation key -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/event_invit_disable"
+                style="@style/DangerButtonTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/normal_spacing"
+                android:text="@string/event_key_disable_btn"/>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

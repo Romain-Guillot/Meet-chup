@@ -83,6 +83,12 @@
         <item name="rippleColor">@color/colorPrimaryLight</item>
     </style>
 
+    <style name="DangerButtonTextStyle" parent="ButtonTextStyle">
+        <item name="backgroundTint">#00ffffff</item>
+        <item name="android:textColor">@color/errorColor</item>
+        <item name="rippleColor">@color/errorColorLight</item>
+    </style>
+
     <style name="DangerButton" parent="ButtonStyle">
         <item name="backgroundTint">@color/errorColor</item>
         <item name="android:textColor">#fff</item>
