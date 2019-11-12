@@ -22,11 +22,16 @@ public class BasicValidator implements Validator<String> {
 
     @Override
     public boolean isValid(String value) {
-        return value != null && !value.isEmpty();
+        return value != null && value.length() >= minLength && value.length() <= maxLength;
+    }
+
+    @Override
+    public boolean isValid(String value, boolean required) {
+        return value == null || (value.length() >= minLength && value.length() <= maxLength);
     }
 
     @Override
     public String errorMessage(Context context) {
-        return context.getString(R.string.validator_basic);
+        return context.getString(R.string.validator_basic, minLength, maxLength);
     }
 }

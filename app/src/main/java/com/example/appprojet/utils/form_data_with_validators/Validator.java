@@ -15,5 +15,7 @@ public interface Validator<T> {
 
     boolean isValid(T value);
 
+    boolean isValid(T value, boolean required);
+
     String errorMessage(Context context);
 }

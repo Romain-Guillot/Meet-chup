@@ -25,6 +25,11 @@ public class PasswordConfirmationValidator implements Validator<String> {
     }
 
     @Override
+    public boolean isValid(String value, boolean required) {
+        return value == null || value.equals(originalPassword.getValue());
+    }
+
+    @Override
     public String errorMessage(Context context) {
         return context.getString(R.string.validator_password_confirm);
     }

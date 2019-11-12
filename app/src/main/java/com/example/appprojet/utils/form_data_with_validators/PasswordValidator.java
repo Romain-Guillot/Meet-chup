@@ -26,6 +26,11 @@ public class PasswordValidator implements Validator<String> {
     }
 
     @Override
+    public boolean isValid(String value, boolean required) {
+        return value != null || value.length() >= minLength;
+    }
+
+    @Override
     public String errorMessage(Context context) {
         return context.getString(R.string.validator_password, minLength);
     }

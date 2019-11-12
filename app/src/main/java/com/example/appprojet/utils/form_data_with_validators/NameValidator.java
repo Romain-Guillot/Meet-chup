@@ -24,6 +24,11 @@ public class NameValidator implements Validator<String> {
     }
 
     @Override
+    public boolean isValid(String value, boolean required) {
+        return false;  // deprecated, not implemented
+    }
+
+    @Override
     public String errorMessage(Context context) {
         return context.getString(R.string.validator_username, minLength, maxLength);
     }

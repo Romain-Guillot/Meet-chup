@@ -26,6 +26,11 @@ public class EmailValidator implements Validator<String> {
     }
 
     @Override
+    public boolean isValid(String value, boolean required) {
+        return value == null || regex.matcher(value).matches();
+    }
+
+    @Override
     public String errorMessage(Context context) {
         return context.getString(R.string.validator_email);
     }

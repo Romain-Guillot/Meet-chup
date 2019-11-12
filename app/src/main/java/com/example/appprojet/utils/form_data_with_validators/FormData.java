@@ -12,21 +12,24 @@ import android.content.Context;
 public class FormData<T> {
 
     private T value;
-    private final Validator validator;
+    private final Validator<T> validator;
 
 
-    public FormData(Validator validator, T initialValue) {
+    public FormData(Validator<T> validator, T initialValue) {
         this.validator  = validator;
         this.value = initialValue;
     }
 
-    public FormData(Validator validator) {
+    public FormData(Validator<T> validator) {
         this(validator, null);
     }
 
     /** Return true if the data is valid (good formatting, etc.) */
     public boolean isValid() {
         return validator.isValid(value);
+    }
+    public boolean isValid(boolean required) {
+        return validator.isValid(value, required);
     }
 
     public T getValue() {
