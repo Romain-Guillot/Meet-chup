@@ -12,14 +12,16 @@ public class Event {
     private String id;
     private String title;
     private String description;
-    private List<User> participants;
-    private List<Post> posts;
     private Date dateCreated;
     private Date dateBegin;
     private Date dateEnd;
     private Location location;
+    private String invitationKey;
+    private List<User> participants;
+    private List<Post> posts;
 
-    public Event(String id, String title, String description, List<User> participants, Date dateBegin, Date dateEnd, Date dateCreated, Location location){
+
+    public Event(String id, String title, String description, List<User> participants, Date dateBegin, Date dateEnd, Date dateCreated, Location location, String invitationKey){
         this.id = id;
         this.title = title;
         this.description = description;
@@ -28,6 +30,7 @@ public class Event {
         this.dateCreated = dateCreated;
         this.participants = participants;
         this.location = location;
+        this.invitationKey = invitationKey;
         this.posts = null;
     }
 
@@ -65,5 +68,9 @@ public class Event {
 
     public Location getLocation() {
         return location;
+    }
+
+    public String getInvitationKey() {
+        return invitationKey;
     }
 }

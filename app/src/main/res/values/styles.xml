@@ -5,7 +5,11 @@
     <dimen name="activity_margin_vertical">16dp</dimen>
     <dimen name="normal_spacing">10dp</dimen>
     <dimen name="radius">7dp</dimen>
+    <dimen name="bottom_sheet_margin">20dp</dimen>
 
+    <dimen name="small_text">13sp</dimen>
+    <dimen name="text_size">15sp</dimen>
+    <dimen name="button_text_size">14sp</dimen>
     <dimen name="large_text">20sp</dimen>
 
 
@@ -19,7 +23,13 @@
         <item name="textInputStyle">@style/AppInputTextStyle</item>
 
         <item name="android:textColor">@color/textColor</item>
+<!--        <item name="buttonStyle">@style/ButtonStyle</item>-->
+        <item name="materialButtonStyle">@style/ButtonStyle</item>
 
+        <item name="android:textSize">@dimen/text_size</item>
+
+        <item name="materialAlertDialogTheme">@style/dialog_style</item>
+        <item name="bottomSheetDialogTheme">@style/BottomSheetDialogStyle</item>
     </style>
 
 
@@ -54,6 +64,42 @@
         <item name="cornerSize">@dimen/radius</item>
     </style>
 
+    <style name="ButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="backgroundTint">@color/colorPrimaryLight</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="cornerRadius">@dimen/radius</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="iconTint">@color/colorPrimary</item>
+        <item name="iconSize">16dp</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+    </style>
+
+    <style name="ButtonTextStyle" parent="ButtonStyle">
+        <item name="backgroundTint">#00ffffff</item>
+        <item name="rippleColor">@color/colorPrimaryLight</item>
+    </style>
+
+    <style name="DangerButtonTextStyle" parent="ButtonTextStyle">
+        <item name="backgroundTint">#00ffffff</item>
+        <item name="android:textColor">@color/errorColor</item>
+        <item name="rippleColor">@color/errorColorLight</item>
+    </style>
+
+    <style name="DangerButton" parent="ButtonStyle">
+        <item name="backgroundTint">@color/errorColor</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="FloatingActionStyle" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+        <item name="android:layout_margin">16dp</item>
+        <item name="backgroundTint">@color/colorPrimary</item>
+        <item name="android:strokeWidth">0</item>
+    </style>
+
 
     <style name="SubtitleStyle">
         <item name="android:textSize">16sp</item>
@@ -69,13 +115,54 @@
     </style>
 
     <style name="success_box" parent="info_box">
-        <item name="android:backgroundTint">@color/successColor</item>
+        <item name="android:backgroundTint">@color/infoColor</item>
         <item name="android:textColor">#fff</item>
     </style>
 
     <style name="error_box" parent="info_box">
         <item name="android:backgroundTint">@color/errorColor</item>
         <item name="android:textColor">#fff</item>
+    </style>
+
+
+    <style name="dialog_style" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="shapeAppearanceOverlay">@style/DialogRoundedAppearance</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/dialog_title_style</item>
+        <item name="buttonBarPositiveButtonStyle">@style/ButtonTextStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/dialog_negative_btn_style</item>
+    </style>
+
+    <style name="dialog_negative_btn_style" parent="ButtonTextStyle">
+        <item name="android:textColor">@color/disableColor</item>
+        <item name="rippleColor">@color/disableColorLight</item>
+    </style>
+
+    <style name="dialog_title_style" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textSize">@dimen/large_text</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DialogRoundedAppearance">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/radius</item>
+
+    </style>
+
+
+    <style name="BottomSheetDialogStyle" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetDialogStyle.Style</item>
+    </style>
+
+    <style name="BottomSheetDialogStyle.Style" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
+    </style>
+
+    <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/radius</item>
+        <item name="cornerSizeTopLeft">@dimen/radius</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 
 </resources>

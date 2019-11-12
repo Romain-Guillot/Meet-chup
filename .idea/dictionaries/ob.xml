@@ -7,12 +7,15 @@
       <w>firebase</w>
       <w>firestore</w>
       <w>fredoka</w>
+      <w>invit</w>
       <w>newpassword</w>
       <w>newpasswordconfirm</w>
       <w>signin</w>
       <w>signout</w>
       <w>signup</w>
+      <w>snackbar</w>
       <w>textview</w>
+      <w>updatekey</w>
       <w>viewmodel</w>
       <w>zaifman</w>
     </words>

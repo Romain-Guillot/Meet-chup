@@ -7,7 +7,7 @@
         <item name="colorPrimary">#fff</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorOnPrimary">#272727</item>
-        <item name="colorSurface">@color/colorPrimaryLight</item>
+        <item name="colorSurface">@color/colorSurfaceOnPrimary</item>
         <item name="android:navigationBarColor">@color/colorPrimary</item>
 
         <item name="android:windowBackground">@color/colorPrimary</item>
@@ -38,7 +38,7 @@
 
 
     <style name="AuthInputTextStyle" parent="AppInputTextStyle">
-        <item name="boxBackgroundColor">@color/colorPrimaryLight</item>
+        <item name="boxBackgroundColor">@color/colorSurfaceOnPrimary</item>
         <item name="passwordToggleTint">#fff</item>
         <item name="errorTextColor">#fff</item>
         <item name="errorIconTint">@color/error_icon_color</item>

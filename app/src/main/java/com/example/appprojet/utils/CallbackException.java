@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 
 /**
@@ -51,7 +52,8 @@ public class CallbackException extends Exception {
                 return context.getString(R.string.error_network);
             case NO_LOGGED:
                 return context.getString(R.string.error_nologged);
-
+            case INVITATION_KEY_COLLISION:
+                return context.getString(R.string.error_invitation_key_collision);
             case UNKNOWN:
             case AUTH_UNKNOWN:
             default:
@@ -78,9 +80,16 @@ public class CallbackException extends Exception {
             return new CallbackException(Type.AUTH_EMAIL_COLLISION);
         if (e instanceof FirebaseAuthException)
             return new CallbackException(Type.AUTH_UNKNOWN);
+        if (e instanceof FirebaseFirestoreException) {
+            switch (((FirebaseFirestoreException) e).getCode()) {
+                default:
+                    return new CallbackException(Type.UNKNOWN);
+            }
+        }
 
         return new CallbackException(Type.UNKNOWN);
     }
+
 
     /** Types of errors */
     public enum Type {
@@ -101,6 +110,9 @@ public class CallbackException extends Exception {
 
         /** When a re-authentication is required to perform an action*/
         RE_AUTH_REQUIRED,
+
+        /** When the user try a change the event key with an existing key*/
+        INVITATION_KEY_COLLISION,
 
         /** When the user try to perform an action that required to be logged but he is not */
         NO_LOGGED,

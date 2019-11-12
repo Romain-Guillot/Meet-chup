@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -48,13 +49,16 @@ public class SignInFragment extends FormFragment {
         TextInputLayout emailLayout = view.findViewById(R.id.auth_signin_email_layout);
         TextInputLayout passwordLayout = view.findViewById(R.id.auth_signin_password_layout);
 
+        Button submitButton = view.findViewById(R.id.form_submit_btn);
+
         init(
-                view,
                 viewModel,
                 Arrays.asList(emailLayout, passwordLayout),
                 Arrays.asList(viewModel.emailLive, viewModel.passwordLive),
+                submitButton,
                 getString(R.string.auth_signin_btn),
-                getString(R.string.auth_loading_btn)
+                getString(R.string.loading_btn),
+                null
         );
 
         return view;

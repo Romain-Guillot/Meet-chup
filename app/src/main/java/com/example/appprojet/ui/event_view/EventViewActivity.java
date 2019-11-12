@@ -1,20 +1,26 @@
 package com.example.appprojet.ui.event_view;
 
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.appprojet.R;
+import com.example.appprojet.ui.invitation.InvitationKeyActivity;
 import com.example.appprojet.utils.ChildActivity;
+import com.example.appprojet.utils.SnackbarFactory;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 
 /**
@@ -65,6 +71,7 @@ public class EventViewActivity extends ChildActivity {
     public static final String EXTRA_EVENT_ID = "com.example.appprojet.event_id";
 
     EventViewViewModel viewModel;
+    String eventId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,10 +80,10 @@ public class EventViewActivity extends ChildActivity {
 
 
         Intent intent = getIntent();
-        String event_id = intent.getStringExtra(EXTRA_EVENT_ID);
+        eventId = intent.getStringExtra(EXTRA_EVENT_ID);
 
         viewModel = ViewModelProviders.of(this).get(EventViewViewModel.class);
-        viewModel.initEventMetaData(event_id);
+        viewModel.initEventMetaData(this, eventId);
 
         viewModel.eventTitleLive.observe(this, event -> {
                 if (actionBar != null)
@@ -87,5 +94,60 @@ public class EventViewActivity extends ChildActivity {
         NavController navController = Navigation.findNavController(this, R.id.event_view_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.event_view_menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.event_view_share_event_item :
+                Intent invitIntent = new Intent(this, InvitationKeyActivity.class);
+                invitIntent.putExtra(InvitationKeyActivity.EXTRA_EVENT_ID, eventId);
+                startActivity(invitIntent);
+                break;
+            case R.id.event_view_quit_item :
+                showQuitDialog();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
+    private void showQuitDialog() {
+        AlertDialog dialog = new MaterialAlertDialogBuilder(this)
+                .setTitle("No longer participate ?")
+                .setMessage("This event will no longer be available in your event list.")
+                .setNegativeButton("Cancel", null)
+                .setPositiveButton(getString(R.string.quit_event_btn), null) // we define the listener below to override completely the button behavior
+                .create();
+
+        dialog.setOnShowListener(dialogInterface -> {
+            Button button = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            button.setOnClickListener(v -> {
+                viewModel.requestQuitEvent();
+                viewModel.quitingRequestDone.observe(this, isQuitting -> {
+                    if (isQuitting) {
+                        dialogInterface.cancel();
+                        finish();
+                    } else {
+                        SnackbarFactory.showSuccessSnackbar(findViewById(android.R.id.content), "An error occured");
+                    }
+                });
+            });
+            viewModel.requestQuitingIsLoading.observe(this, isLoading -> {
+                button.setEnabled(!isLoading);
+                button.setText(isLoading ? R.string.loading_btn : R.string.quit_event_btn);
+            });
+        });
+
+        dialog.show();
     }
 }

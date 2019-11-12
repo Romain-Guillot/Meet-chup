@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="@dimen/bottom_sheet_margin"
+    android:paddingEnd="@dimen/bottom_sheet_margin"
+    android:paddingTop="@dimen/bottom_sheet_margin"
+    android:paddingBottom="0dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        tools:ignore="UseCompoundDrawables">
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="@dimen/normal_spacing"
+            android:src="@drawable/ic_info"
+            android:tint="@color/textColorLight"
+            android:contentDescription="@string/content_description_icon_info"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorLight"
+            android:textSize="@dimen/small_text"
+            android:text="@string/join_event_help"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/join_event_key_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:boxBackgroundColor="@null"
+            android:layout_weight="1"
+            android:hint="@string/invitation_key_hint">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/join_event_key_field"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/ButtonTextStyle"
+            android:id="@+id/join_event_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/join_event_btn"/>
+    </LinearLayout>
+</LinearLayout>

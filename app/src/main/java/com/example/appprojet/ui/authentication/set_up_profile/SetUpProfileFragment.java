@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,14 +47,16 @@ public class SetUpProfileFragment extends FormFragment {
         View view = inflater.inflate(R.layout.fragment_authentication_setup, container, false);
 
         TextInputLayout nameLayout = view.findViewById(R.id.auth_setup_name_layout);
+        Button submitButton = view.findViewById(R.id.form_submit_btn);
 
         init(
-                view,
                 viewModel,
                 Collections.singletonList(nameLayout),
                 Collections.singletonList(viewModel.nameLive),
+                submitButton,
                 getString(R.string.auth_set_up_btn),
-                getString(R.string.auth_loading_btn)
+                getString(R.string.loading_btn),
+                null
         );
 
         // Notify the authentication activity that the authentication process is done.

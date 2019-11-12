@@ -1,5 +1,6 @@
 package com.example.appprojet.ui.event_view;
 
+import android.app.Activity;
 import android.app.Application;
 import android.location.Address;
 import android.location.Geocoder;
@@ -44,6 +45,9 @@ public class EventViewViewModel extends AndroidViewModel {
     MutableLiveData<List<User>> eventParticipantsList = new MutableLiveData<>();
     MutableLiveData<List<Post>> eventPosts = new MutableLiveData<>();
 
+    MutableLiveData<Boolean> requestQuitingIsLoading = new MutableLiveData<>();
+    MutableLiveData<Boolean> quitingRequestDone = new MutableLiveData<>();
+
 
     public EventViewViewModel(Application application) {
         super(application);
@@ -51,8 +55,8 @@ public class EventViewViewModel extends AndroidViewModel {
     }
 
 
-    public void initEventMetaData(String eventId) {
-        eventsRepo.getEvent( eventId, new Callback<Event>() {
+    public void initEventMetaData(Activity activity, String eventId) {
+        eventsRepo.getEvent(activity, eventId, new Callback<Event>() {
             @Override
             public void onSucceed(Event result) {
                 event = result;
@@ -91,17 +95,17 @@ public class EventViewViewModel extends AndroidViewModel {
 
 
     public void loadPosts() {
-        eventsRepo.loadEventPosts( event, new Callback<Event>() {
-            @Override
-            public void onSucceed(Event result) {
-                event = result;
-                setPostsLive();
-            }
-            @Override
-            public void onFail(CallbackException e) {
-
-            }
-        });
+//        eventsRepo.loadEventPosts( event.getId(), new Callback<Event>() {
+//            @Override
+//            public void onSucceed(Event result) {
+//                event = result;
+//                setPostsLive();
+//            }
+//            @Override
+//            public void onFail(CallbackException e) {
+//
+//            }
+//        });
     }
 
 
@@ -145,5 +149,20 @@ public class EventViewViewModel extends AndroidViewModel {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    void requestQuitEvent() {
+        requestQuitingIsLoading.setValue(true);
+        eventsRepo.quitEvent(event.getId(), new Callback<Void>() {
+            public void onSucceed(Void result) {
+                requestQuitingIsLoading.setValue(false);
+                quitingRequestDone.setValue(true);
+            }
+            public void onFail(CallbackException exception) {
+                requestQuitingIsLoading.setValue(false);
+                quitingRequestDone.setValue(false);
+            }
+        });
     }
 }

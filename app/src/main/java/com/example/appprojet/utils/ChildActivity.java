@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 /**
  * Activity with the back button in the action bar to go back
  * Extends your activities from this Activity if you want an ActionBar with the back button
+ *
+ * Don't forget to call super.onOptionsItemSelected if you add a menu
  */
 public abstract class ChildActivity extends AppCompatActivity {
 

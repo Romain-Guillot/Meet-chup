@@ -43,7 +43,7 @@ public class SignUpViewModel extends FormViewModel {
             isLoadingLive.setValue(true);
             String email = emailLive.getValue();
             String password = passwordLive.getValue();
-            authenticationRepository.classicSignUp(email, password, submitCallback);
+            authenticationRepository.classicSignUp(email, password, new SubmitCallback<>());
         }
     }
 

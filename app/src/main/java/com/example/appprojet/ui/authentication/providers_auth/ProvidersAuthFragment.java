@@ -2,7 +2,6 @@ package com.example.appprojet.ui.authentication.providers_auth;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
@@ -78,7 +77,7 @@ public class ProvidersAuthFragment extends Fragment {
         SpannableStringBuilder str = new SpannableStringBuilder(buttonText);
         str.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), providerTextSuffix.length(), buttonText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        String signInLoadingText = getString(R.string.auth_loading_btn);
+        String signInLoadingText = getString(R.string.loading_btn);
         viewModel.googleIsLoading.observe(this, isLoading -> {
             googleSignInButton.setText(isLoading ? signInLoadingText : str);
             googleSignInButton.setEnabled(!isLoading);

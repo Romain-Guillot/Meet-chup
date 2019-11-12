@@ -6,16 +6,11 @@
     android:layout_height="match_parent"
     android:gravity="center">
 
-    <!-- Error view -->
-    <TextView
-        android:id="@+id/form_error_textview"
-        style="@style/error_box"/>
-
     <TextView
         style="@style/SubtitleStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Social registration"/>
+        android:text="@string/auth_social_method"/>
 
     <!-- Providers auth fragment -->
     <fragment
@@ -29,7 +24,7 @@
         style="@style/SubtitleStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Classic registration"/>
+        android:text="@string/auth_classic_method"/>
 
 
     <!-- Email field -->
@@ -39,6 +34,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/auth_email_hint">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/auth_signup_email_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"/>
@@ -52,6 +48,7 @@
         app:passwordToggleEnabled="true"
         android:hint="@string/auth_password_hint">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/auth_signup_password_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"/>
@@ -65,6 +62,7 @@
         app:passwordToggleEnabled="true"
         android:hint="@string/auth_password_confirm_hint">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/auth_signup_password_confirm_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"/>

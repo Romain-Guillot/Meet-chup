@@ -11,6 +11,7 @@ import com.example.appprojet.repositories.FirebaseAuthenticationRepository;
 import com.example.appprojet.repositories.IAuthenticationRepository;
 import com.example.appprojet.utils.Callback;
 import com.example.appprojet.utils.CallbackException;
+import com.example.appprojet.utils.SingleEvent;
 import com.example.appprojet.utils.form_data_with_validators.EmailValidator;
 import com.example.appprojet.utils.form_data_with_validators.FormData;
 import com.example.appprojet.utils.form_data_with_validators.NameValidator;
@@ -33,8 +34,8 @@ public class ProfileEditViewModel extends AndroidViewModel {
 
     private final IAuthenticationRepository authRepo;
 
-    final MutableLiveData<String> errorLive = new MutableLiveData<>(null);
-    final MutableLiveData<String> successLive = new MutableLiveData<>(null);
+    final MutableLiveData<SingleEvent<String>> errorLive = new MutableLiveData<>();
+    final MutableLiveData<SingleEvent<String>> successLive = new MutableLiveData<>(null);
 
     final FormData emailFormData = new FormData(new EmailValidator());
     final MutableLiveData<Boolean> emailFormIsLoading = new MutableLiveData<>(false);
@@ -97,7 +98,7 @@ public class ProfileEditViewModel extends AndroidViewModel {
 
             @Override
             public void onFail(CallbackException exception) {
-                errorLive.setValue(exception.getErrorMessage(getApplication()));
+                errorLive.setValue(new SingleEvent<>(exception.getErrorMessage(getApplication())));
             }
         });
     }
@@ -113,13 +114,13 @@ public class ProfileEditViewModel extends AndroidViewModel {
         @Override
         public void onSucceed(User result) {
             loadingLiveData.setValue(false);
-            successLive.setValue(getApplication().getString(R.string.profile_updated_success));
+            successLive.setValue(new SingleEvent<>(getApplication().getString(R.string.profile_updated_success)));
         }
 
         @Override
         public void onFail(CallbackException exception) {
             loadingLiveData.setValue(false);
-            errorLive.setValue(exception.getErrorMessage(getApplication()));
+            errorLive.setValue(new SingleEvent<>(exception.getErrorMessage(getApplication())));
         }
     }
 }

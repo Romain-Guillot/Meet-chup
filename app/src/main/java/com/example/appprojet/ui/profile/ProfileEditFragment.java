@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.appprojet.R;
 import com.example.appprojet.ui.authentication.AuthenticationActivity;
 import com.example.appprojet.utils.FormFragment;
+import com.example.appprojet.utils.SnackbarFactory;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -53,13 +53,13 @@ public class ProfileEditFragment extends FormFragment {
         View view = inflater.inflate(R.layout.fragment_profile_edit, container, false);
 
         // init all text fields layout
-        TextInputLayout emailLayout = view.findViewById(R.id.edit_profile_email);
+        TextInputLayout emailLayout = view.findViewById(R.id.edit_profile_email_layout);
         setOnFieldChanged(emailLayout, viewModel.emailFormData);
-        TextInputLayout usernameLayout = view.findViewById(R.id.edit_profile_username);
+        TextInputLayout usernameLayout = view.findViewById(R.id.edit_profile_username_layout);
         setOnFieldChanged(usernameLayout, viewModel.usernameFormData);
-        TextInputLayout newPasswordLayout = view.findViewById(R.id.edit_profile_newpassword);
+        TextInputLayout newPasswordLayout = view.findViewById(R.id.edit_profile_newpassword_layout);
         setOnFieldChanged(newPasswordLayout, viewModel.newPasswordFormData);
-        TextInputLayout newPasswordConfirmLayout = view.findViewById(R.id.edit_profile_newpasswordconfirm);
+        TextInputLayout newPasswordConfirmLayout = view.findViewById(R.id.edit_profile_newpasswordconfirm_layout);
         setOnFieldChanged(newPasswordConfirmLayout, viewModel.newPasswordConfirmFormData);
 
         // init submits button, add click listeners
@@ -88,7 +88,7 @@ public class ProfileEditFragment extends FormFragment {
             final LiveData<Boolean> loadingLive = isLoadingLives.get(i);
             loadingLive.observe(this, isLoading -> {
                 btn.setEnabled(!isLoading);
-                btn.setText(getString(isLoading ? R.string.auth_loading_btn : R.string.profile_edit_update_btn));
+                btn.setText(getString(isLoading ? R.string.loading_btn : R.string.profile_edit_update_btn));
             });
         }
 
@@ -112,15 +112,19 @@ public class ProfileEditFragment extends FormFragment {
         });
 
         // Set error or info messages if any
-        TextView errorView = view.findViewById(R.id.form_error_textview);
-        TextView successView = view.findViewById(R.id.form_success_textview);
         viewModel.errorLive.observe(this, errorMessage -> {
-            errorView.setVisibility(errorMessage != null ? View.VISIBLE : View.GONE);
-            errorView.setText(errorMessage);
+            if (errorMessage != null) {
+                String message = errorMessage.getContentIfNotHandled();
+                if (message != null)
+                    SnackbarFactory.showErrorSnackbar(getActivity().findViewById(android.R.id.content), message);
+            }
         });
         viewModel.successLive.observe(this, successMessage -> {
-            successView.setVisibility(successMessage != null ? View.VISIBLE : View.GONE);
-            successView.setText(successMessage);
+            if (successMessage != null) {
+                String message = successMessage.getContentIfNotHandled();
+                if (message != null)
+                    SnackbarFactory.showSuccessSnackbar(getActivity().findViewById(android.R.id.content), message);
+            }
         });
 
         return view;

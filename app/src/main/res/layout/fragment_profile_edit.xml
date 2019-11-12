@@ -5,18 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Text view to display an error message -->
-    <TextView
-        android:id="@+id/form_error_textview"
-        android:layout_marginBottom="@dimen/block_spacing"
-        style="@style/error_box"/>
-
-    <!-- Text view to display an info message-->
-    <TextView
-        android:id="@+id/form_success_textview"
-        android:layout_marginBottom="@dimen/block_spacing"
-        style="@style/success_box"/>
-
 
     <!-- UPDATE EMAIL -->
     <TextView
@@ -27,11 +15,12 @@
         android:text="@string/profile_edit_mail_label"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_profile_email"
+        android:id="@+id/edit_profile_email_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/auth_email_hint">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_profile_email_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -51,11 +40,12 @@
         android:text="@string/profile_edit_name_label"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_profile_username"
+        android:id="@+id/edit_profile_username_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/auth_setup_username_hint">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_profile_username_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -74,25 +64,27 @@
         android:text="@string/profile_edit_password_label"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_profile_newpassword"
+        android:id="@+id/edit_profile_newpassword_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/normal_spacing"
         app:passwordToggleEnabled="true"
         android:hint="@string/auth_password_hint">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_profile_newpassword_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edit_profile_newpasswordconfirm"
+        android:id="@+id/edit_profile_newpasswordconfirm_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:passwordToggleEnabled="true"
         android:hint="@string/auth_password_confirm_hint">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_profile_newpasswordconfirm_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"/>
@@ -122,7 +114,7 @@
         android:id="@+id/profile_edit_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:backgroundTint="@color/errorColor"
+        style="@style/DangerButton"
         android:text="@string/profile_edit_delete_btn"/>
 
 

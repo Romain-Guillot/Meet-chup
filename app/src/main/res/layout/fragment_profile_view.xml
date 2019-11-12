@@ -32,6 +32,7 @@
 
         <!-- Sign out button-->
         <com.google.android.material.button.MaterialButton
+            style="@style/ButtonStyle"
             android:id="@+id/profile_sign_out"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

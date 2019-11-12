@@ -2,6 +2,7 @@ package com.example.appprojet.ui.authentication.sign_in_form;
 
 import android.app.Application;
 
+import com.example.appprojet.models.User;
 import com.example.appprojet.repositories.FirebaseAuthenticationRepository;
 import com.example.appprojet.repositories.IAuthenticationRepository;
 import com.example.appprojet.utils.FormViewModel;
@@ -38,7 +39,7 @@ public class SignInViewModel extends FormViewModel {
             isLoadingLive.setValue(true);
             String email = emailLive.getValue();
             String password = passwordLive.getValue();
-            authenticationRepository.classicSignIn(email, password, submitCallback);
+            authenticationRepository.classicSignIn(email, password, new SubmitCallback<>());
         }
     }
 

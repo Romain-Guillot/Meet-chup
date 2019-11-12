@@ -8,8 +8,8 @@ Dans le cadre d'un projet de développement d’applications mobiles, nous propo
 - [x] **Gestion du profil utilisateur :** *Connexion ; Inscription ; Renseignement du profil (*username*) ; Visualisation du compte utilisateur ; Modification du compte utilisateur*
 - [ ] **Visualisation des événements de l'utilisateur (homepage) :** *Liste des événements auxquels l'utilisateur participe*
 - [ ] **Création d'un nouvel événement**
-- [ ] **Gestion des participants d'un événement :** *Invitation à rejoindre un événement ; Suppression de sa participation au sein d'un événement*
-- [ ] **Fil d'actualité d'un événement :** *Fil d'actualité de tous les posts publiés sur l'événement*
+- [ ] **Gestion des participants d'un événement :** *Rejoindre un événement grâce à une clé d'invitation ; Visualisation et modification de la clé d'invitation d'un événement ; Suppression de sa participation au sein d'un événement*
+- [ ] **Fil d'actualité d'un événement :** *Informations sur l'événement ; Fil d'actualité de tous les posts publiés sur l'événement*
 - [ ] **Galerie d'un événement :** *Galerie photos et vidéos de tous les posts de l'événement sous forme de grille*
 - [ ] **Publication de post sur l'événément**
 - [ ] **Visualisation de post**

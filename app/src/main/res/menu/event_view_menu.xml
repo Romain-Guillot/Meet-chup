@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/event_view_share_event_item"
+        android:title="Share this event !"
+        app:showAsAction="never"
+        android:orderInCategory="0"/>
+
+    <item
+        android:id="@+id/event_view_quit_item"
+        android:title="Quit this event"
+        app:showAsAction="never"
+        android:orderInCategory="0"/>
+
+</menu>
