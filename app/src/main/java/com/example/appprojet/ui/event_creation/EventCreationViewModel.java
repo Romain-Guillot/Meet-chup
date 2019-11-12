@@ -12,7 +12,9 @@ import com.example.appprojet.utils.CallbackException;
 import com.example.appprojet.utils.FormViewModel;
 import com.example.appprojet.utils.Location;
 import com.example.appprojet.utils.form_data_with_validators.BasicValidator;
+import com.example.appprojet.utils.form_data_with_validators.DateValidator;
 import com.example.appprojet.utils.form_data_with_validators.FormData;
+import com.example.appprojet.utils.form_data_with_validators.LocationValidator;
 
 import java.util.Date;
 
@@ -22,12 +24,12 @@ public class EventCreationViewModel extends FormViewModel {
 
     FormData<String> titleField = new FormData<>(new BasicValidator());
     FormData<String> descriptionField = new FormData<>(new BasicValidator());
-    FormData<Date> beginDate = new FormData<>(null);
-    FormData<Date> endDate = new FormData<>(null);
-    FormData<Location> location = new FormData<>(null);
+    FormData<Date> beginDate = new FormData<>(new DateValidator());
+    FormData<Date> endDate = new FormData<>(new DateValidator());
+    FormData<Location> location = new FormData<>(new LocationValidator());
 
 
-    protected EventCreationViewModel(Application application) {
+    public EventCreationViewModel(Application application) {
         super(application);
         eventRepo = FirestoreEventsDataRepository.getInstance();
     }

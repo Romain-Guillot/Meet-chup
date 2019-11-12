@@ -11,17 +11,23 @@ import android.content.Context;
  */
 public class FormData<T> {
 
+    private FormType type;
     private T value;
     private final Validator<T> validator;
 
 
-    public FormData(Validator<T> validator, T initialValue) {
+    public FormData(Validator<T> validator, FormType type, T initialValue) {
         this.validator  = validator;
+        this.type = type == null ? FormType.TEXT : type;
         this.value = initialValue;
     }
 
+    public FormData(Validator<T> validator, FormType type) {
+        this(validator, type, null);
+    }
+
     public FormData(Validator<T> validator) {
-        this(validator, null);
+        this(validator, FormType.TEXT);
     }
 
     /** Return true if the data is valid (good formatting, etc.) */
@@ -43,4 +49,10 @@ public class FormData<T> {
     public String getError(Context context) {
         return validator.errorMessage(context);
     }
+
+    public FormType getType() {
+        return type;
+    }
+
+    public enum FormType {TEXT, DATE, LOCATION}
 }

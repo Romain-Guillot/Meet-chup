@@ -14,9 +14,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.appprojet.R;
 import com.example.appprojet.utils.form_data_with_validators.FormData;
+import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -46,17 +49,31 @@ public abstract class FormFragment extends Fragment {
      *  - formDataList: form data corresponding to the fields layout
      *      i.e. formDataList[i] refers to the input text included in the layout textInputLayoutList[i]
      */
-    protected void init(FormViewModel viewModel, List<TextInputLayout> textInputLayoutList, List<FormData> formDataList,
+    protected void init(FormViewModel viewModel, List<View> textInputLayoutList, List<FormData> formDataList,
                         Button submitButton, String submitText, String loadingText, String successMessage) {
         // throw an exception if the parameters of the view fragment is invalid
         if (textInputLayoutList.size() != formDataList.size() || submitButton == null)
             throw new RuntimeException("Wrong usage of the FormFragment");
 
         // link all form edit texts with the live data
-        Iterator<TextInputLayout> textInputLayoutsIterator = textInputLayoutList.iterator();
+        Iterator<View> textInputLayoutsIterator = textInputLayoutList.iterator();
         Iterator<FormData> formLiveDataIterator = formDataList.iterator();
         while (textInputLayoutsIterator.hasNext() && formLiveDataIterator.hasNext()) {
-            setOnFieldChanged(textInputLayoutsIterator.next(), formLiveDataIterator.next());
+            FormData formData = formLiveDataIterator.next();
+            View layout = textInputLayoutsIterator.next();
+            switch (formData.getType()) {
+                case TEXT:
+                    setOnFieldChanged((TextInputLayout) layout, formData);
+                    break;
+                case DATE:
+                    setOnDateChange((Button) layout, formData);
+                    break;
+                case LOCATION:
+                    setOnLocationChange((Button) layout, formData);
+                    break;
+                default:
+                    Log.e(">>>>>>>>", "Unsupported form type");
+            }
         }
 
         // handle the submit button
@@ -64,10 +81,12 @@ public abstract class FormFragment extends Fragment {
         // -> update the field layouts errors to indicate the bad formatting errors
         submitButton.setOnClickListener(v -> {
             viewModel.submitForm();
-            Iterator<TextInputLayout> _textInputLayoutsIterator = textInputLayoutList.iterator();
+            Iterator<View> _textInputLayoutsIterator = textInputLayoutList.iterator();
             Iterator<FormData> _formLiveDataIterator = formDataList.iterator();
             while (_textInputLayoutsIterator.hasNext() && _formLiveDataIterator.hasNext()) {
-                setLayoutFieldError(_textInputLayoutsIterator.next(),  _formLiveDataIterator.next());
+                FormData formData = _formLiveDataIterator.next();
+                View layout = _textInputLayoutsIterator.next();
+                setLayoutFieldError((TextInputLayout) layout, formData);
             }
         });
 
@@ -99,7 +118,7 @@ public abstract class FormFragment extends Fragment {
      * the edit text content changed.
      * We also set the layout edit text error (if any) when we unfocused the edit text
      */
-    protected void setOnFieldChanged(TextInputLayout editTextLayout, FormData editTextData) {
+    protected void setOnFieldChanged(TextInputLayout editTextLayout, FormData<String> editTextData) {
         EditText editText = editTextLayout.getEditText();
 
         if (editText == null)
@@ -125,6 +144,19 @@ public abstract class FormFragment extends Fragment {
     /** Set the error indicator of the layout is the formData is not valid*/
     protected void setLayoutFieldError(TextInputLayout layout, FormData formData) {
         layout.setError(!formData.isValid() ? formData.getError(getContext()) : null);
+    }
+
+    protected void setOnDateChange(Button button, FormData<Date> dateFormData) {
+        button.setOnClickListener(v -> {
+            MaterialDatePicker datePicker = MaterialDatePicker.Builder.datePicker().build();
+            datePicker.show(getFragmentManager(), "tag");
+        });
+    }
+
+    protected void setOnLocationChange(Button button, FormData<Location> locationFormData) {
+        button.setOnClickListener(v -> {
+
+        });
     }
 
 
