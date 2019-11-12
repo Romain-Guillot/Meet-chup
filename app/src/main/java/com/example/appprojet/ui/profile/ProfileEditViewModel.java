@@ -37,14 +37,14 @@ public class ProfileEditViewModel extends AndroidViewModel {
     final MutableLiveData<SingleEvent<String>> errorLive = new MutableLiveData<>();
     final MutableLiveData<SingleEvent<String>> successLive = new MutableLiveData<>(null);
 
-    final FormData emailFormData = new FormData(new EmailValidator());
+    final FormData<String> emailFormData = new FormData<>(new EmailValidator());
     final MutableLiveData<Boolean> emailFormIsLoading = new MutableLiveData<>(false);
 
-    final FormData newPasswordFormData = new FormData(new PasswordValidator());
-    final FormData newPasswordConfirmFormData = new FormData(new PasswordConfirmationValidator(newPasswordFormData));
+    final FormData<String> newPasswordFormData = new FormData<>(new PasswordValidator());
+    final FormData<String> newPasswordConfirmFormData = new FormData<>(new PasswordConfirmationValidator(newPasswordFormData));
     final MutableLiveData<Boolean> newPasswordFormIsLoading = new MutableLiveData<>(false);
 
-    final FormData usernameFormData = new FormData(new BasicValidator(IAuthenticationRepository.NAME_MIN_LENGTH, IAuthenticationRepository.NAME_MAX_LENGTH));
+    final FormData<String> usernameFormData = new FormData<>(new BasicValidator(IAuthenticationRepository.NAME_MIN_LENGTH, IAuthenticationRepository.NAME_MAX_LENGTH));
     final MutableLiveData<Boolean> usernameFormIsLoading = new MutableLiveData<>(false);
 
     final MutableLiveData<Boolean> isDeleted = new MutableLiveData<>();

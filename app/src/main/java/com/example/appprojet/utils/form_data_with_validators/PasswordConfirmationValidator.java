@@ -12,10 +12,10 @@ import com.example.appprojet.R;
  */
 public class PasswordConfirmationValidator implements Validator<String> {
 
-    private final FormData originalPassword;
+    private final FormData<String> originalPassword;
 
 
-    public PasswordConfirmationValidator(FormData originalPassword) {
+    public PasswordConfirmationValidator(FormData<String> originalPassword) {
         this.originalPassword = originalPassword;
     }
 

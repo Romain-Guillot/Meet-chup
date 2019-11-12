@@ -25,8 +25,8 @@ import com.example.appprojet.utils.form_data_with_validators.FormData;
 public class SignInViewModel extends FormViewModel {
 
     private final IAuthenticationRepository authenticationRepository;
-    final FormData emailLive = new FormData(new BasicValidator());
-    final FormData passwordLive = new FormData(new BasicValidator());
+    final FormData<String> emailLive = new FormData<>(new BasicValidator());
+    final FormData<String> passwordLive = new FormData<>(new BasicValidator());
 
     public SignInViewModel(Application application) {
         super(application);

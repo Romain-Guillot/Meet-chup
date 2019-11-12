@@ -31,7 +31,7 @@ import com.example.appprojet.utils.Callback;
 public class SetUpProfileViewModel extends FormViewModel {
 
     private final IAuthenticationRepository authenticationRepository;
-    final FormData nameLive = new FormData(new BasicValidator(IAuthenticationRepository.NAME_MIN_LENGTH, IAuthenticationRepository.NAME_MAX_LENGTH));
+    final FormData<String> nameLive = new FormData<>(new BasicValidator(IAuthenticationRepository.NAME_MIN_LENGTH, IAuthenticationRepository.NAME_MAX_LENGTH));
     final MutableLiveData<Boolean> isFinish = new MutableLiveData<>(false);
 
 
