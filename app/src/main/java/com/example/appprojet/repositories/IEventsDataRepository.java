@@ -26,6 +26,9 @@ import java.util.List;
  */
 public interface IEventsDataRepository {
 
+    int INVITATION_KEY_MIN_LENGTH = 8;
+    int INVITATION_KEY_MAX_LENGTH = 20;
+
     /** Get all user events
      *  If succeeds list of all events are returned (can be empty)
      *  -> Every user event update will be notified through the callback*/

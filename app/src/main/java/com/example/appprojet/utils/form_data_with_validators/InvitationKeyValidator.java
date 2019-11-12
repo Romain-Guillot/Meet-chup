@@ -5,7 +5,12 @@ import android.content.Context;
 
 import com.example.appprojet.R;
 
-public class InvitationKeyValidator implements Validator {
+/**
+ * Deprecated, instead use a basic validator {@link BasicValidator} (min length and max length are
+ * defined by the repos, it's cleaner)
+ */
+@Deprecated
+public class InvitationKeyValidator implements Validator<String> {
 
     public static int minLength = 8;
 

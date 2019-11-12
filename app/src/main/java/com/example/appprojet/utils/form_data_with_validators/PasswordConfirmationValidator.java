@@ -10,7 +10,7 @@ import com.example.appprojet.R;
  * constructor)
  * See {@link Validator}
  */
-public class PasswordConfirmationValidator implements Validator {
+public class PasswordConfirmationValidator implements Validator<String> {
 
     private final FormData originalPassword;
 

@@ -9,8 +9,8 @@ import com.example.appprojet.repositories.FirebaseAuthenticationRepository;
 import com.example.appprojet.repositories.IAuthenticationRepository;
 import com.example.appprojet.utils.CallbackException;
 import com.example.appprojet.utils.FormViewModel;
+import com.example.appprojet.utils.form_data_with_validators.BasicValidator;
 import com.example.appprojet.utils.form_data_with_validators.FormData;
-import com.example.appprojet.utils.form_data_with_validators.NameValidator;
 import com.example.appprojet.utils.Callback;
 
 
@@ -31,7 +31,7 @@ import com.example.appprojet.utils.Callback;
 public class SetUpProfileViewModel extends FormViewModel {
 
     private final IAuthenticationRepository authenticationRepository;
-    final FormData nameLive = new FormData(new NameValidator());
+    final FormData nameLive = new FormData(new BasicValidator(IAuthenticationRepository.NAME_MIN_LENGTH, IAuthenticationRepository.NAME_MAX_LENGTH));
     final MutableLiveData<Boolean> isFinish = new MutableLiveData<>(false);
 
 

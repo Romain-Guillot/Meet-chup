@@ -8,8 +8,12 @@ import com.example.appprojet.R;
 /**
  * Basic validator for username (min and max length)
  * See {@link Validator}
+ *
+ * Deprecated, instead use a basic validator {@link BasicValidator} (min length and max length are
+ * defined by the repos, it's cleaner)
  */
-public class NameValidator implements Validator {
+@Deprecated
+public class NameValidator implements Validator<String> {
 
     private final int minLength = 6;
     private final int maxLength = 20;

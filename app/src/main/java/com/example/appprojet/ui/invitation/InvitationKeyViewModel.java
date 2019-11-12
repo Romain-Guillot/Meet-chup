@@ -12,8 +12,8 @@ import com.example.appprojet.utils.Callback;
 import com.example.appprojet.utils.CallbackException;
 import com.example.appprojet.utils.FormViewModel;
 import com.example.appprojet.utils.SingleEvent;
+import com.example.appprojet.utils.form_data_with_validators.BasicValidator;
 import com.example.appprojet.utils.form_data_with_validators.FormData;
-import com.example.appprojet.utils.form_data_with_validators.InvitationKeyValidator;
 
 
 /**
@@ -27,7 +27,7 @@ public class InvitationKeyViewModel extends FormViewModel {
     private String eventID;
 
     final MutableLiveData<Boolean> keyEnabledLive = new MutableLiveData<>(false);
-    final FormData eventKeyFieldLive = new FormData(new InvitationKeyValidator());
+    final FormData eventKeyFieldLive = new FormData(new BasicValidator(IEventsDataRepository.INVITATION_KEY_MIN_LENGTH, IEventsDataRepository.INVITATION_KEY_MAX_LENGTH));
 
     final MutableLiveData<SingleEvent<Boolean>> updateKeyEvent = new MutableLiveData<>();
 

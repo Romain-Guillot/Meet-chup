@@ -9,7 +9,7 @@ import com.example.appprojet.R;
  * Password validator (min length), weak passwords are checked server-side
  * See {@link Validator}
  */
-public class PasswordValidator implements Validator {
+public class PasswordValidator implements Validator<String> {
 
     private int minLength = 6;
 

@@ -12,9 +12,9 @@ import com.example.appprojet.repositories.IAuthenticationRepository;
 import com.example.appprojet.utils.Callback;
 import com.example.appprojet.utils.CallbackException;
 import com.example.appprojet.utils.SingleEvent;
+import com.example.appprojet.utils.form_data_with_validators.BasicValidator;
 import com.example.appprojet.utils.form_data_with_validators.EmailValidator;
 import com.example.appprojet.utils.form_data_with_validators.FormData;
-import com.example.appprojet.utils.form_data_with_validators.NameValidator;
 import com.example.appprojet.utils.form_data_with_validators.PasswordConfirmationValidator;
 import com.example.appprojet.utils.form_data_with_validators.PasswordValidator;
 
@@ -44,7 +44,7 @@ public class ProfileEditViewModel extends AndroidViewModel {
     final FormData newPasswordConfirmFormData = new FormData(new PasswordConfirmationValidator(newPasswordFormData));
     final MutableLiveData<Boolean> newPasswordFormIsLoading = new MutableLiveData<>(false);
 
-    final FormData usernameFormData = new FormData(new NameValidator());
+    final FormData usernameFormData = new FormData(new BasicValidator(IAuthenticationRepository.NAME_MIN_LENGTH, IAuthenticationRepository.NAME_MAX_LENGTH));
     final MutableLiveData<Boolean> usernameFormIsLoading = new MutableLiveData<>(false);
 
     final MutableLiveData<Boolean> isDeleted = new MutableLiveData<>();

@@ -9,13 +9,13 @@ import android.content.Context;
  * It holds the input data, and have a Validator to check if the data inside the text field is
  * 'valid' or note.
  */
-public class FormData {
+public class FormData<T> {
 
-    private String value;
+    private T value;
     private final Validator validator;
 
 
-    public FormData(Validator validator, String initialValue) {
+    public FormData(Validator validator, T initialValue) {
         this.validator  = validator;
         this.value = initialValue;
     }
@@ -29,11 +29,11 @@ public class FormData {
         return validator.isValid(value);
     }
 
-    public String getValue() {
+    public T getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(T value) {
         this.value = value;
     }
 
