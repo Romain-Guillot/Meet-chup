@@ -66,7 +66,6 @@
     <string name="error_invitation_key_notfound">Invalid key</string>
 
 
-
     <!-- Validators error message -->
     <string name="validator_basic">Must be comprise between %1$d and %2$d characters</string>
     <string name="validator_basic_no_max">At least %1$d characters required</string>

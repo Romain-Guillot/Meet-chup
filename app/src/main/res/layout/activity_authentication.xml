@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:gravity="center"
+        android:orientation="vertical"
         android:paddingStart="@dimen/activity_auth_margin_horizontal"
-        android:paddingEnd="@dimen/activity_auth_margin_horizontal"
         android:paddingTop="@dimen/activity_auth_margin_vertical"
+        android:paddingEnd="@dimen/activity_auth_margin_horizontal"
         android:paddingBottom="@dimen/activity_auth_margin_vertical">
 
         <!-- Application name -->
         <TextView
             style="@style/AuthAppTitle"
-            android:text="@string/app_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="@string/app_name" />
 
         <!-- Switch form container (switch between sign in and sign up form -->
-        <com.google.android.flexbox.FlexboxLayout
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_marginTop="@dimen/block_spacing"
+        <com.google.android.flexbox.FlexboxLayout xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/auth_switch_form_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:flexWrap="wrap"
+            android:layout_marginTop="@dimen/block_spacing"
+            app:alignContent="stretch"
             app:alignItems="center"
-            app:alignContent="stretch">
+            app:flexWrap="wrap">
+
             <TextView
                 android:id="@+id/auth_switch_form_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/auth_switch_form_btn"
                 style="@style/AuthenticationFlatButton"
@@ -45,6 +46,6 @@
         <FrameLayout
             android:id="@+id/auth_main_fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </LinearLayout>
 </ScrollView>

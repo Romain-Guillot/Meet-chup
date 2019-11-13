@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
 
     <!-- UPDATE EMAIL -->
@@ -12,24 +12,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
-        android:text="@string/profile_edit_mail_label"/>
+        android:text="@string/profile_edit_mail_label" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_profile_email_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/auth_email_hint">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_profile_email_field"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/profile_edit_submit_email"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
+        android:layout_height="wrap_content" />
 
 
     <!-- UPDATE USERNAME -->
@@ -37,23 +37,24 @@
         style="@style/SubtitleStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/profile_edit_name_label"/>
+        android:text="@string/profile_edit_name_label" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_profile_username_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/auth_setup_username_hint">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_profile_username_field"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/profile_edit_submit_username"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 
     <!-- UPDATE PASSWORD -->
@@ -61,39 +62,41 @@
         style="@style/SubtitleStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/profile_edit_password_label"/>
+        android:text="@string/profile_edit_password_label" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_profile_newpassword_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/auth_password_hint"
         android:paddingBottom="@dimen/normal_spacing"
-        app:passwordToggleEnabled="true"
-        android:hint="@string/auth_password_hint">
+        app:passwordToggleEnabled="true">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_profile_newpassword_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_profile_newpasswordconfirm_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:passwordToggleEnabled="true"
-        android:hint="@string/auth_password_confirm_hint">
+        android:hint="@string/auth_password_confirm_hint"
+        app:passwordToggleEnabled="true">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_profile_newpasswordconfirm_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/profile_edit_submit_password"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 
     <!-- DELETE YOUR ACCOUNT -->
@@ -101,21 +104,21 @@
         style="@style/SubtitleStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/profile_edit_delete_label"/>
-    
+        android:text="@string/profile_edit_delete_label" />
+
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/profile_edit_delete_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:checked="false"
-        android:text="@string/profile_edit_delete_verification"/>
+        android:text="@string/profile_edit_delete_verification" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/profile_edit_delete"
+        style="@style/DangerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/DangerButton"
-        android:text="@string/profile_edit_delete_btn"/>
+        android:text="@string/profile_edit_delete_btn" />
 
 
 </LinearLayout>

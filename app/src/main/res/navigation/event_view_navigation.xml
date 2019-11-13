@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/event_view_navigation_feed"
-        android:name="com.example.appprojet.ui.event_view.FeedFragment"
+        android:name="com.progmobile.meetchup.ui.event_view.FeedFragment"
         tools:layout="@layout/fragment_event_view_feed" />
 
     <fragment
         android:id="@+id/event_view_navigation_album"
-        android:name="com.example.appprojet.ui.event_view.AlbumFragment"
+        android:name="com.progmobile.meetchup.ui.event_view.AlbumFragment"
         tools:layout="@layout/fragment_event_view_album" />
 
     <fragment
         android:id="@+id/event_view_navigation_todo"
-        android:name="com.example.appprojet.ui.event_view.ToDoFragment"
+        android:name="com.progmobile.meetchup.ui.event_view.ToDoFragment"
         tools:layout="@layout/fragment_event_view_todo" />
 
 </navigation>
