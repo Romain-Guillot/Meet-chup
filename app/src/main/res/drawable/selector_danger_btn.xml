@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_enabled="false" android:drawable="@color/colorPrimary" />
-    <item android:state_enabled="true" android:drawable="@color/infoColor"/>
+    <item android:drawable="@color/colorPrimary" android:state_enabled="false" />
+    <item android:drawable="@color/infoColor" android:state_enabled="true" />
 </selector>

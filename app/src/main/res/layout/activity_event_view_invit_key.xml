@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <!-- Main activity fragment (form) -->
     <fragment
-        android:tag="main_fragment_invit"
         android:name="com.progmobile.meetchup.ui.invitation.InvitationKeyFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:tag="main_fragment_invit" />
 
 </LinearLayout>
