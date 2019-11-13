@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/post_view_fragment"
-        android:name="com.example.appprojet.ui.post_view.PostViewFragment"
+        android:name="com.progmobile.meetchup.ui.post_view.PostViewFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

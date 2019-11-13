@@ -7,7 +7,7 @@
     <!-- Main activity fragment (form) -->
     <fragment
         android:tag="main_fragment_invit"
-        android:name="com.example.appprojet.ui.invitation.InvitationKeyFragment"
+        android:name="com.progmobile.meetchup.ui.invitation.InvitationKeyFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
