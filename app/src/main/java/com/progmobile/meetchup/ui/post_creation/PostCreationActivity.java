@@ -9,7 +9,6 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.VideoView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,21 +19,19 @@ public class PostCreationActivity extends AppCompatActivity {
 
     final static int GALLERY_REQUEST_CODE = 1;
     private ImageView imageView;
-    private VideoView videoView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_creation);
         imageView = findViewById(R.id.post_image);
-        videoView = findViewById(R.id.post_video);
 
-        final Button button = findViewById(R.id.post_media_button);
+        final Button button = findViewById(R.id.add_document_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*, video/*");
+                intent.setType("image/*");
                 startActivityForResult(intent, GALLERY_REQUEST_CODE);
             }
         });
@@ -45,17 +42,26 @@ public class PostCreationActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_OK && requestCode == GALLERY_REQUEST_CODE) {
+            // Get the URI of the file selected from the intent
             Uri selectedMedia = data.getData();
             String mimeType = computeMimeType(selectedMedia);
 
+            // Probably useless
             if (mimeType.startsWith("image")) {
                 imageView.setImageURI(selectedMedia);
-            } else if (mimeType.startsWith("video")) {
-                videoView.setVideoURI(selectedMedia);
             }
         }
     }
 
+    // Probably useless
+
+    /**
+     * Compute the mime type of a given file from its URI
+     *
+     * @param uri the URI of the file
+     * @return the type of the file in this format : "[type]/[extansion]". For instance,
+     * it could return "image/png"
+     */
     public String computeMimeType(Uri uri) {
         String mimeType;
 
