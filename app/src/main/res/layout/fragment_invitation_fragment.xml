@@ -8,8 +8,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingStart="@dimen/activity_margin_horizontal"
-        android:paddingEnd="@dimen/activity_margin_horizontal"
         android:paddingTop="@dimen/activity_margin_vertical"
+        android:paddingEnd="@dimen/activity_margin_horizontal"
         android:paddingBottom="@dimen/activity_margin_vertical">
 
         <!-- Invitation system description-->
@@ -17,24 +17,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/normal_spacing"
-            android:text="@string/invitation_description"/>
+            android:text="@string/invitation_description" />
 
         <!-- Invitation system warning description -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:layout_marginBottom="@dimen/block_spacing"
-            android:text="@string/invitation_warning_description"/>
+            android:text="@string/invitation_warning_description"
+            android:textStyle="bold" />
 
         <!-- Invitation key status -->
         <TextView
             android:id="@+id/event_invit_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:paddingBottom="@dimen/normal_spacing"
-            android:text="@string/invitation_key_status_enable"/>
+            android:text="@string/invitation_key_status_enable"
+            android:textStyle="bold" />
 
 
         <!-- Text input for the key -->
@@ -43,6 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/invitation_key_hint">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/event_invit_key_field"
                 android:layout_width="match_parent"
@@ -59,7 +60,7 @@
                 android:id="@+id/event_invit_updatekey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/invitation_update_key_button"/>
+                android:text="@string/invitation_update_key_button" />
             <!-- Button to disable the invitation key -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/event_invit_disable"
@@ -67,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/normal_spacing"
-                android:text="@string/event_key_disable_btn"/>
+                android:text="@string/event_key_disable_btn" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

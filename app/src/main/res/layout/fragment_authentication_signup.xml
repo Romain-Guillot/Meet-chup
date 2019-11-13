@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="vertical">
 
     <TextView
         style="@style/SubtitleStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/auth_social_method"/>
+        android:text="@string/auth_social_method" />
 
     <!-- Providers auth fragment -->
     <fragment
         android:id="@+id/sign_in_providers"
-        android:name="com.example.appprojet.ui.authentication.providers_auth.ProvidersAuthFragment"
+        android:name="com.progmobile.meetchup.ui.authentication.providers_auth.ProvidersAuthFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 
     <TextView
         style="@style/SubtitleStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/auth_classic_method"/>
+        android:text="@string/auth_classic_method" />
 
 
     <!-- Email field -->
@@ -33,11 +33,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/auth_email_hint">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/auth_signup_email_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Password field -->
@@ -45,13 +46,14 @@
         android:id="@+id/auth_signup_password_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:passwordToggleEnabled="true"
-        android:hint="@string/auth_password_hint">
+        android:hint="@string/auth_password_hint"
+        app:passwordToggleEnabled="true">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/auth_signup_password_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Confirm password field -->
@@ -59,21 +61,22 @@
         android:id="@+id/auth_signup_password_confirm_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:passwordToggleEnabled="true"
-        android:hint="@string/auth_password_confirm_hint">
+        android:hint="@string/auth_password_confirm_hint"
+        app:passwordToggleEnabled="true">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/auth_signup_password_confirm_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Submit button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/form_submit_btn"
+        style="@style/AuthenticationFlatButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/AuthenticationFlatButton"
-        android:text="@string/auth_signup_btn"/>
+        android:text="@string/auth_signup_btn" />
 
 </LinearLayout>

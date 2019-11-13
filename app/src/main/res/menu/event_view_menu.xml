@@ -4,14 +4,14 @@
 
     <item
         android:id="@+id/event_view_share_event_item"
+        android:orderInCategory="0"
         android:title="Share this event !"
-        app:showAsAction="never"
-        android:orderInCategory="0"/>
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/event_view_quit_item"
+        android:orderInCategory="0"
         android:title="Quit this event"
-        app:showAsAction="never"
-        android:orderInCategory="0"/>
+        app:showAsAction="never" />
 
 </menu>

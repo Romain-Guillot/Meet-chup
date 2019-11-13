@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
-
+    android:gravity="center"
+    android:orientation="vertical">
 
 
     <!--Username field -->
@@ -13,18 +12,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/auth_setup_username_hint">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/auth_setup_name_field"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Submit button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/form_submit_btn"
+        style="@style/AuthenticationFlatButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/AuthenticationFlatButton"
-        android:text="@string/auth_set_up_btn"/>
+        android:text="@string/auth_set_up_btn" />
 
 </LinearLayout>
