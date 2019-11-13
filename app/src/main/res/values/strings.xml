@@ -81,7 +81,7 @@
     <string name="invitation_key_status_disable">Invitation key disable !</string>
     <string name="invitation_key_hint">Invitation key</string>
     <string name="invitation_update_key_button">Change the invitation key</string>
-    <string name="invitation_description">To share this event with other firends, you need to give them the invitation key below.</string>
+    <string name="invitation_description">To share this event with other friends, you need to give them the invitation key below.</string>
     <string name="invitation_warning_description">Everyone with this key will be able to join the event.</string>
 
 
@@ -90,6 +90,9 @@
     <string name="item_post_image_description">post image</string>
     <string name="event_empty_post_indicator">No post</string>
     <string name="event_add_new_post_btn_label">Add a new post</string>
+    <string name="post_description_hint_text">Enter the description of you post here</string>
+    <string name="add_document_btn">+</string>
+    <string name="send_post_btn">✓</string>
     <string name="event_participants_add_label">add</string>
     <string name="post_view_no_comments">No comments</string>
     <string name="loading_btn">Loading …</string>
