@@ -10,10 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.ui.authentication.AuthenticationActivity;
 import com.progmobile.meetchup.utils.FormFragment;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Collections;
 
@@ -21,10 +21,10 @@ import java.util.Collections;
 /**
  * Subclass of FormFragment to handle the set up profile form.
  * See the FormFragment documentation to more details.
- *
+ * <p>
  * This fragment retrieve the SetUpProfileViewModel associated.
  * It also init the form following fields layout ...
- *  - username
+ * - username
  * ... and init the FormFragment with these layouts and the FormData associated in the
  * SetUpProfileViewModel.
  */

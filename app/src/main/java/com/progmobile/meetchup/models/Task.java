@@ -7,7 +7,7 @@ public class Task {
     private String name;
     private List<User> userList;
 
-    public Task(String id, String name, List<User> userList){
+    public Task(String id, String name, List<User> userList) {
         this.name = name;
         this.userList = userList;
     }

@@ -21,13 +21,13 @@ import com.progmobile.meetchup.ui.authentication.AuthenticationActivity;
 
 /**
  * Fragment to display the user information :
- *  - profile picture
- *  - username
- *  - email address
- *
+ * - profile picture
+ * - username
+ * - email address
+ * <p>
  * It simply retrieve the ProfileViewModel and set the user information in the corresponding views.
  * There is also a button to sign out.
- *
+ * <p>
  * TODO : when user is not connected, display another view
  */
 public class ProfileViewFragment extends Fragment {
@@ -69,7 +69,9 @@ public class ProfileViewFragment extends Fragment {
     }
 
 
-    /** Create the menu in the action bar with the edit item, see the activity for the process */
+    /**
+     * Create the menu in the action bar with the edit item, see the activity for the process
+     */
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.profile_view_menu, menu);

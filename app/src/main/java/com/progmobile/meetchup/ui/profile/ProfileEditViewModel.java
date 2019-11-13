@@ -21,33 +21,28 @@ import com.progmobile.meetchup.utils.form_data_with_validators.PasswordValidator
 
 /**
  * View model to handle process of ProfileViewFragment to update profile.
- *
+ * <p>
  * There are one FormData for each field and on is loading state Live data for each form, there are
  * 3 forms :
- *  - email
- *  - username
- *  - password
- *
+ * - email
+ * - username
+ * - password
+ * <p>
  * The fragment ask the repo to perform actions and update Live Data according the responses.
  */
 public class ProfileEditViewModel extends AndroidViewModel {
 
-    private final IAuthenticationRepository authRepo;
-
     final MutableLiveData<SingleEvent<String>> errorLive = new MutableLiveData<>();
     final MutableLiveData<SingleEvent<String>> successLive = new MutableLiveData<>(null);
-
     final FormData emailFormData = new FormData(new EmailValidator());
     final MutableLiveData<Boolean> emailFormIsLoading = new MutableLiveData<>(false);
-
     final FormData newPasswordFormData = new FormData(new PasswordValidator());
     final FormData newPasswordConfirmFormData = new FormData(new PasswordConfirmationValidator(newPasswordFormData));
     final MutableLiveData<Boolean> newPasswordFormIsLoading = new MutableLiveData<>(false);
-
     final FormData usernameFormData = new FormData(new NameValidator());
     final MutableLiveData<Boolean> usernameFormIsLoading = new MutableLiveData<>(false);
-
     final MutableLiveData<Boolean> isDeleted = new MutableLiveData<>();
+    private final IAuthenticationRepository authRepo;
 
 
     public ProfileEditViewModel(Application application) {

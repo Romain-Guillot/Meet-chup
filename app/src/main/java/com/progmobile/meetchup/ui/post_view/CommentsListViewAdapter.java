@@ -19,21 +19,9 @@ public class CommentsListViewAdapter extends RecyclerView.Adapter<CommentsListVi
 
     List<Comment> comments;
 
-    public static class CommentViewHolder extends RecyclerView.ViewHolder {
-        TextView userView;
-        TextView commentView;
-        CommentViewHolder(View itemView) {
-            super(itemView);
-            this.userView = itemView.findViewById(R.id.item_comment_user);
-            this.commentView = itemView.findViewById(R.id.item_comment_comment);
-        }
-    }
-
-
     public CommentsListViewAdapter(List<Comment> comments) {
         this.comments = comments;
     }
-
 
     @NonNull
     @Override
@@ -44,7 +32,6 @@ public class CommentsListViewAdapter extends RecyclerView.Adapter<CommentsListVi
         CommentsListViewAdapter.CommentViewHolder holder = new CommentsListViewAdapter.CommentViewHolder(commentView);
         return holder;
     }
-
 
     @Override
     public void onBindViewHolder(@NonNull CommentsListViewAdapter.CommentViewHolder holder, int position) {
@@ -61,10 +48,20 @@ public class CommentsListViewAdapter extends RecyclerView.Adapter<CommentsListVi
         }
     }
 
-
     @Override
     public int getItemCount() {
         return comments.size();
+    }
+
+    public static class CommentViewHolder extends RecyclerView.ViewHolder {
+        TextView userView;
+        TextView commentView;
+
+        CommentViewHolder(View itemView) {
+            super(itemView);
+            this.userView = itemView.findViewById(R.id.item_comment_user);
+            this.commentView = itemView.findViewById(R.id.item_comment_comment);
+        }
     }
 
 

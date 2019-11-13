@@ -2,9 +2,9 @@ package com.progmobile.meetchup.repositories;
 
 import androidx.lifecycle.LiveData;
 
+import com.google.firebase.auth.AuthCredential;
 import com.progmobile.meetchup.models.User;
 import com.progmobile.meetchup.utils.Callback;
-import com.google.firebase.auth.AuthCredential;
 
 
 /**

@@ -14,34 +14,31 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.progmobile.meetchup.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-
+import com.progmobile.meetchup.R;
 
 
 /**
  * Fragment to handle the sign in with the following providers :
- *  Google, Facebook, Twitter
- *
+ * Google, Facebook, Twitter
+ * <p>
  * It handles the sign in buttons and the processes to do when the user click on them. When a
  * connection is ready, the fragment request the connection to the ProvidersAuthViewModel.
- *
+ * <p>
  * TODO: Facebook sign in
  * TODO: Twitter sign in
  */
 public class ProvidersAuthFragment extends Fragment {
 
-    private ProvidersAuthViewModel viewModel;
-
     private static final int GOOGLE_SIGN_IN = 1;
+    private ProvidersAuthViewModel viewModel;
 //    private static final int FACEBOOK_SIGN_IN = 2;
 //    private static final int TWITTER_SIGN_IN = 3;
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,7 +89,7 @@ public class ProvidersAuthFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
-            case GOOGLE_SIGN_IN :
+            case GOOGLE_SIGN_IN:
                 Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
                 try {
                     GoogleSignInAccount googleSignInAccount = task.getResult(ApiException.class);

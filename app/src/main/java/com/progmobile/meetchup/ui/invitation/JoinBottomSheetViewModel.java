@@ -2,7 +2,6 @@ package com.progmobile.meetchup.ui.invitation;
 
 import android.app.Application;
 
-
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.repositories.FirestoreEventsDataRepository;
 import com.progmobile.meetchup.repositories.IEventsDataRepository;

@@ -4,7 +4,6 @@ package com.progmobile.meetchup.models;
 import com.progmobile.meetchup.utils.Location;
 
 import java.util.Date;
-
 import java.util.List;
 
 
@@ -21,7 +20,7 @@ public class Event {
     private List<Post> posts;
 
 
-    public Event(String id, String title, String description, List<User> participants, Date dateBegin, Date dateEnd, Date dateCreated, Location location, String invitationKey){
+    public Event(String id, String title, String description, List<User> participants, Date dateBegin, Date dateEnd, Date dateCreated, Location location, String invitationKey) {
         this.id = id;
         this.title = title;
         this.description = description;

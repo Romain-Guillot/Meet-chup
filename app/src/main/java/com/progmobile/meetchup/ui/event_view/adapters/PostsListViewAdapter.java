@@ -27,23 +27,9 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
 
     List<Post> posts;
 
-    public static class PostViewHolder extends RecyclerView.ViewHolder {
-        TextView descriptionView;
-        ImageView imageView;
-        TextView userView;
-        PostViewHolder(View itemView) {
-            super(itemView);
-            this.descriptionView = itemView.findViewById(R.id.item_post_description);
-            this.imageView = itemView.findViewById(R.id.item_post_image);
-            this.userView = itemView.findViewById(R.id.item_post_user);
-        }
-    }
-
-
     public PostsListViewAdapter(List<Post> posts) {
         this.posts = posts;
     }
-
 
     @NonNull
     @Override
@@ -54,7 +40,6 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
         PostViewHolder holder = new PostViewHolder(postView);
         return holder;
     }
-
 
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
@@ -81,10 +66,22 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
         });
     }
 
-
     @Override
     public int getItemCount() {
         return posts.size();
+    }
+
+    public static class PostViewHolder extends RecyclerView.ViewHolder {
+        TextView descriptionView;
+        ImageView imageView;
+        TextView userView;
+
+        PostViewHolder(View itemView) {
+            super(itemView);
+            this.descriptionView = itemView.findViewById(R.id.item_post_description);
+            this.imageView = itemView.findViewById(R.id.item_post_image);
+            this.userView = itemView.findViewById(R.id.item_post_user);
+        }
     }
 
 }

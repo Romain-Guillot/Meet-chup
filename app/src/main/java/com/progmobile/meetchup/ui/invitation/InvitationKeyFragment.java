@@ -11,9 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.utils.FormFragment;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Collections;
 
@@ -21,13 +21,13 @@ import java.util.Collections;
 /**
  * FormFragment that holds the form to see / remove / update the event invitation key
  * All business logic is handled by the InvitationKeyViewModel {@link InvitationKeyViewModel}
- *
+ * <p>
  * Here, we initialize the FormFragment with the input field, the form view model, and other
  * configuration data.
- *
+ * <p>
  * So the input field is handled with the FormFragment and the FormViewModel
  * {@link com.progmobile.meetchup.utils.FormViewModel}
- *
+ * <p>
  * In addition, the form add a switcher to
  */
 public class InvitationKeyFragment extends FormFragment {
@@ -64,7 +64,7 @@ public class InvitationKeyFragment extends FormFragment {
         );
 
         // Listener on the disable button
-        disableKeyBtn.setOnClickListener( v -> {
+        disableKeyBtn.setOnClickListener(v -> {
             viewModel.removeInvitationKey();
         });
 
@@ -76,7 +76,7 @@ public class InvitationKeyFragment extends FormFragment {
 
         // Change the UI according the key status
         viewModel.keyEnabledLive.observe(this, isEnable -> {
-            disableKeyBtn.setVisibility( isEnable ? View.VISIBLE : View.GONE);
+            disableKeyBtn.setVisibility(isEnable ? View.VISIBLE : View.GONE);
             keyStatus.setTextColor(getResources().getColor(isEnable ? R.color.successColor : R.color.errorColor));
             keyStatus.setText(isEnable ? R.string.invitation_key_status_enable : R.string.invitation_key_status_disable);
         });

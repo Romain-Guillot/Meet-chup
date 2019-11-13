@@ -23,13 +23,11 @@ import com.progmobile.meetchup.utils.form_data_with_validators.InvitationKeyVali
  */
 public class InvitationKeyViewModel extends FormViewModel {
 
-    private IEventsDataRepository eventsDataRepository;
-    private String eventID;
-
     final MutableLiveData<Boolean> keyEnabledLive = new MutableLiveData<>(false);
     final FormData eventKeyFieldLive = new FormData(new InvitationKeyValidator());
-
     final MutableLiveData<SingleEvent<Boolean>> updateKeyEvent = new MutableLiveData<>();
+    private IEventsDataRepository eventsDataRepository;
+    private String eventID;
 
 
     public InvitationKeyViewModel(Application application) {
@@ -69,7 +67,10 @@ public class InvitationKeyViewModel extends FormViewModel {
                     new SubmitCallback<>().onSucceed(result);
                     keyEnabledLive.setValue(true);
                 }
-                public void onFail(CallbackException e) { new SubmitCallback<>().onFail(e); }
+
+                public void onFail(CallbackException e) {
+                    new SubmitCallback<>().onFail(e);
+                }
             });
         }
     }
@@ -92,7 +93,10 @@ public class InvitationKeyViewModel extends FormViewModel {
                 eventKeyFieldLive.setValue(null);
                 updateKeyEvent.setValue(new SingleEvent<>(true));
             }
-            public void onFail(CallbackException exception) { keyEnabledLive.setValue(true); }
+
+            public void onFail(CallbackException exception) {
+                keyEnabledLive.setValue(true);
+            }
         });
     }
 

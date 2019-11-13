@@ -20,7 +20,10 @@ public class ModelSerializer {
         } catch (Exception e) {
             return null;
         }
-        try { invitationKey = (String) data.get(FirestoreEventsDataRepository.EVENT_FIELD_INVITKEY);}catch (Exception e){}
+        try {
+            invitationKey = (String) data.get(FirestoreEventsDataRepository.EVENT_FIELD_INVITKEY);
+        } catch (Exception e) {
+        }
 
         return new Event(id, title, null, null, null, null, null, null, invitationKey);
     }

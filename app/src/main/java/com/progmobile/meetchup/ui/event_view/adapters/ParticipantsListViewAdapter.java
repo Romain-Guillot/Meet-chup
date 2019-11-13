@@ -18,14 +18,6 @@ public class ParticipantsListViewAdapter extends RecyclerView.Adapter<Participan
 
     private List<User> participants;
 
-    public static class ParticipantViewHolder extends RecyclerView.ViewHolder{
-        public TextView userName;
-        public ParticipantViewHolder(TextView userName) {
-            super(userName);
-            this.userName = userName;
-        }
-    }
-
     public ParticipantsListViewAdapter(List<User> participants) {
         this.participants = participants;
     }
@@ -46,6 +38,15 @@ public class ParticipantsListViewAdapter extends RecyclerView.Adapter<Participan
     @Override
     public int getItemCount() {
         return this.participants.size();
+    }
+
+    public static class ParticipantViewHolder extends RecyclerView.ViewHolder {
+        public TextView userName;
+
+        public ParticipantViewHolder(TextView userName) {
+            super(userName);
+            this.userName = userName;
+        }
     }
 
 }

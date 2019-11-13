@@ -56,7 +56,7 @@ public class PostViewFragment extends Fragment {
         });
 
         viewModel.postCommentsLive.observe(this, comments -> {
-            if(comments.isEmpty()){
+            if (comments.isEmpty()) {
                 emptyCommentsContainer.setVisibility(View.VISIBLE);
                 commentsView.setVisibility(View.GONE);
             } else {

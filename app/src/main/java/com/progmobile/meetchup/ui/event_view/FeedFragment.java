@@ -15,11 +15,11 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.ui.event_view.adapters.ParticipantsListViewAdapter;
 import com.progmobile.meetchup.ui.event_view.adapters.PostsListViewAdapter;
 import com.progmobile.meetchup.ui.post_creation.PostCreationActivity;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 /**

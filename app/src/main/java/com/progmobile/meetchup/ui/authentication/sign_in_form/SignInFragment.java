@@ -10,9 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.utils.FormFragment;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Arrays;
 
@@ -20,11 +20,11 @@ import java.util.Arrays;
 /**
  * Subclass of FormFragment to handle the sign-in form.
  * See the FormFragment documentation to more details.
- *
+ * <p>
  * This fragment retrieve the following SignInViewModel associated.
  * It also init the form fields layout ...
- *  - email
- *  - password
+ * - email
+ * - password
  * ... and init the FormFragment with these layouts and the FormData associated in the
  * SignInViewModel.
  */

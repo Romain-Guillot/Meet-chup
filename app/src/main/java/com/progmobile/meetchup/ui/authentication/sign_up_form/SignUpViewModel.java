@@ -15,21 +15,21 @@ import com.progmobile.meetchup.utils.form_data_with_validators.PasswordValidator
  * ViewModel that extends the FormViewModel to handle the sign up form data and communicate with the
  * authentication repository.
  * See the FormViewModel documentation for more details.
- *
+ * <p>
  * There are three form data :
- *  - the email form data
- *  - the password form data
- *  - the password confirmation data
- *
+ * - the email form data
+ * - the password form data
+ * - the password confirmation data
+ * <p>
  * Note: the data validation is performed by Validator instances that are directly given to the form
  * data when creating them.
  */
 public class SignUpViewModel extends FormViewModel {
 
-    private final IAuthenticationRepository authenticationRepository;
     final FormData emailLive = new FormData(new EmailValidator());
     final FormData passwordLive = new FormData(new PasswordValidator());
     final FormData passwordConfirmLive = new FormData(new PasswordConfirmationValidator(passwordLive));
+    private final IAuthenticationRepository authenticationRepository;
 
 
     public SignUpViewModel(Application application) {

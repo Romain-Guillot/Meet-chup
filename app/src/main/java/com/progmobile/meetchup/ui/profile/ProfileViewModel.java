@@ -11,17 +11,16 @@ import com.progmobile.meetchup.repositories.IAuthenticationRepository;
 
 /**
  * View model to handle the profile business logic, very basic, there are :
- *  - the user live data to get the logged user
- *  - the editMode live data to know if we currently in edition mode
- *
+ * - the user live data to get the logged user
+ * - the editMode live data to know if we currently in edition mode
+ * <p>
  * The user is retrieve when the viewmodel is built.
  */
 public class ProfileViewModel extends ViewModel {
 
-    private final IAuthenticationRepository authRepo;
-
     final LiveData<User> user;
     final MutableLiveData<Boolean> editMode = new MutableLiveData<>(false);
+    private final IAuthenticationRepository authRepo;
 
     public ProfileViewModel() {
         authRepo = FirebaseAuthenticationRepository.getInstance();

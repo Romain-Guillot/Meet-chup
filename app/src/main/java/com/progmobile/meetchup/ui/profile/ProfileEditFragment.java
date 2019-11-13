@@ -3,7 +3,6 @@ package com.progmobile.meetchup.ui.profile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -13,12 +12,12 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.android.material.textfield.TextInputLayout;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.ui.authentication.AuthenticationActivity;
 import com.progmobile.meetchup.utils.FormFragment;
 import com.progmobile.meetchup.utils.SnackbarFactory;
-import com.google.android.material.switchmaterial.SwitchMaterial;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,14 +25,14 @@ import java.util.List;
 
 /**
  * Fragment with text fields to edit user profile information :
- *  - email
- *  - name
- *  - password
- *  - (a button) to delete its account
- *
+ * - email
+ * - name
+ * - password
+ * - (a button) to delete its account
+ * <p>
  * It's clearly not the best code, but it works and nothing wrong or bad, it's just redundant with
  * all the text fields. It can be improve.
- *
+ * <p>
  * See the edit view model to know more about this fragment business logic
  * {@link ProfileEditViewModel}
  */
@@ -83,7 +82,7 @@ public class ProfileEditFragment extends FormFragment {
         // Listen for loading status and update submits button accordingly
         List<Button> submitBtnList = Arrays.asList(emailSubmitBtn, usernameSubmitBtn, newPasswordSubmitBtn);
         List<LiveData<Boolean>> isLoadingLives = Arrays.asList(viewModel.emailFormIsLoading, viewModel.usernameFormIsLoading, viewModel.newPasswordFormIsLoading);
-        for (int i = 0 ; i < submitBtnList.size(); i++) {
+        for (int i = 0; i < submitBtnList.size(); i++) {
             final Button btn = submitBtnList.get(i);
             final LiveData<Boolean> loadingLive = isLoadingLives.get(i);
             loadingLive.observe(this, isLoading -> {
@@ -93,13 +92,13 @@ public class ProfileEditFragment extends FormFragment {
         }
 
         // Delete account button
-        Button deleteBtn =  view.findViewById(R.id.profile_edit_delete);
+        Button deleteBtn = view.findViewById(R.id.profile_edit_delete);
         SwitchMaterial deleteConfirmSwitch = view.findViewById(R.id.profile_edit_delete_confirm);
         deleteBtn.setEnabled(deleteConfirmSwitch.isChecked());
         deleteConfirmSwitch.setOnCheckedChangeListener((v, isChecked) ->
                 deleteBtn.setEnabled(isChecked)
         );
-       deleteBtn.setOnClickListener(v -> {
+        deleteBtn.setOnClickListener(v -> {
             if (deleteConfirmSwitch.isChecked())
                 viewModel.deleteAccount();
         });

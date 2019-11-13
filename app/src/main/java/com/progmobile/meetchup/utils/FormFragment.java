@@ -9,8 +9,8 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.progmobile.meetchup.utils.form_data_with_validators.FormData;
 import com.google.android.material.textfield.TextInputLayout;
+import com.progmobile.meetchup.utils.form_data_with_validators.FormData;
 
 import java.util.Iterator;
 import java.util.List;
@@ -18,28 +18,28 @@ import java.util.List;
 
 /**
  * Handle form UI, the business logic is handle by a FormViewModel associated.
- *
+ * <p>
  * To init the fragment call the init method with the required parameters. The method will make the
  * links between the form text fields and the fragment form data that holds the form
  * data.
- *
+ * <p>
  * It also initialize the listener on the submit button to notify the view model to process
  * the form. Finally, the init method observe the FormViewModel errorLive and isLoadingLive flags to
  * update to UI accordingly.
- *
+ * <p>
  * See the FormViewModel for more details about the form process.
  */
 public abstract class FormFragment extends Fragment {
 
     /**
      * main function, refer to the class documentation
-     *
+     * <p>
      * Required the following parameters :
-     *  - viewModel: the fragment view model
-     *  - the submit button
-     *  - textInputLayoutList: all form fields layouts
-     *  - formDataList: form data corresponding to the fields layout
-     *      i.e. formDataList[i] refers to the input text included in the layout textInputLayoutList[i]
+     * - viewModel: the fragment view model
+     * - the submit button
+     * - textInputLayoutList: all form fields layouts
+     * - formDataList: form data corresponding to the fields layout
+     * i.e. formDataList[i] refers to the input text included in the layout textInputLayoutList[i]
      */
     protected void init(FormViewModel viewModel, List<TextInputLayout> textInputLayoutList, List<FormData> formDataList,
                         Button submitButton, String submitText, String loadingText, String successMessage) {
@@ -62,7 +62,7 @@ public abstract class FormFragment extends Fragment {
             Iterator<TextInputLayout> _textInputLayoutsIterator = textInputLayoutList.iterator();
             Iterator<FormData> _formLiveDataIterator = formDataList.iterator();
             while (_textInputLayoutsIterator.hasNext() && _formLiveDataIterator.hasNext()) {
-                setLayoutFieldError(_textInputLayoutsIterator.next(),  _formLiveDataIterator.next());
+                setLayoutFieldError(_textInputLayoutsIterator.next(), _formLiveDataIterator.next());
             }
         });
 
@@ -103,8 +103,14 @@ public abstract class FormFragment extends Fragment {
         editText.setText(editTextData.getValue());
 
         editText.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 editTextData.setValue(s.toString());
@@ -117,7 +123,9 @@ public abstract class FormFragment extends Fragment {
         });
     }
 
-    /** Set the error indicator of the layout is the formData is not valid*/
+    /**
+     * Set the error indicator of the layout is the formData is not valid
+     */
     protected void setLayoutFieldError(TextInputLayout layout, FormData formData) {
         layout.setError(!formData.isValid() ? formData.getError(getContext()) : null);
     }

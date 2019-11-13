@@ -22,44 +22,44 @@ import com.progmobile.meetchup.ui.homepage.HomePageActivity;
 /**
  * This activity holds fragments used to process the authentication in the app, including the
  * following authentication steps :
- *  - the sign in
- *  - the sign up
- *  - the profile information set up (for example the username)
- *
+ * - the sign in
+ * - the sign up
+ * - the profile information set up (for example the username)
+ * <p>
  * =================================================================================================
- *
+ * <p>
  * When the authentication process finished, the activity is destroyed (finish method) so the
  * the top activity of the stack is displayed. So, if there is no other activity in the stack, the
  * application will be destroyed after the authentication process.
- *
+ * <p>
  * Basically, this application handle the navigation between the three main authentication fragments
- *  - SignInFragment (that contains a ProvidersAuthFragment)
- *  - SignUpFragment (that contains a ProvidersAuthFragment)
- *  - SetUpProfileFragment
- *
+ * - SignInFragment (that contains a ProvidersAuthFragment)
+ * - SignUpFragment (that contains a ProvidersAuthFragment)
+ * - SetUpProfileFragment
+ * <p>
  * To achieve the navigation between the sign in, the sign up and the set up fragments, the current
  * form state is handled by an AuthenticationViewModel instance. This activity observes the current
  * form state and update the UI in accordingly.
- *
+ * <p>
  * To change the form state between the sign in form and the sign up form, there is a button in
  * this activity to switch these forms. Of course, if the current form state is the user information
  * set up, this button is not displayed. When the user click on this button, the view model form
  * state is updated (and as the activity listen the current form state, the UI is also updated by
  * transitivity)
- *
+ * <p>
  * To achieve the navigation between the sign in or the sign up form and the set up form, the
  * activity view model listen the authentication state thanks to the current application
  * IAuthenticationRepository. When the user is logged in (and so the authentication repo notify its
  * listeners), depending on whether it is a new user, either the set up fragment is display or the
  * activity is destroyed (as the authentication process is finished).
- *
+ * <p>
  * If the current form is the user information set up, then, the only way to finish this activity
  * is to retrieve the activity view model thanks to the obtainViewModel method, and to call the
  * finish method. This activity listen the isFinish flag boolean, and destroyed the activity when
  * it set to true.
- *
+ * <p>
  * =================================================================================================
- *
+ * <p>
  * Known bugs: none
  */
 public class AuthenticationActivity extends AppCompatActivity {
@@ -70,6 +70,12 @@ public class AuthenticationActivity extends AppCompatActivity {
     private TextView switchFormLabel;
     private Button switchFormBtn;
 
+    /**
+     * Return the activity view model
+     */
+    public static AuthenticationViewModel obtainViewModel(FragmentActivity activity) {
+        return ViewModelProviders.of(activity).get(AuthenticationViewModel.class);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,7 +97,7 @@ public class AuthenticationActivity extends AppCompatActivity {
 
         // We notify the view model that the user wants to switch forms
         switchFormBtn.setOnClickListener(v ->
-            viewModel.switchSignInSignUpForm()
+                viewModel.switchSignInSignUpForm()
         );
 
         // we listen the finish flag and we destroyed the activity when this flags is set to true
@@ -99,18 +105,21 @@ public class AuthenticationActivity extends AppCompatActivity {
             onBackPressed();
         });
 
-            // *   - if it's a new user (first connexion) -> we update the current form state to the set up form
-              //  *   - else -> we call the finish method to end the process
+        // *   - if it's a new user (first connexion) -> we update the current form state to the set up form
+        //  *   - else -> we call the finish method to end the process
         viewModel.userLive.observe(this, user -> {
             System.err.println("OKKKKKKKKKKK");
             if (user != null) {
-                if (user.isFirstLogIn()) viewModel.currentFormTypeLive.setValue(AuthenticationViewModel.FormType.SETUP);
+                if (user.isFirstLogIn())
+                    viewModel.currentFormTypeLive.setValue(AuthenticationViewModel.FormType.SETUP);
                 else viewModel.finish();
             }
         });
     }
 
-    /** Replace the main activity fragment depending on the formType */
+    /**
+     * Replace the main activity fragment depending on the formType
+     */
     private void setAppropriateFragment(AuthenticationViewModel.FormType formType) {
         Fragment fragment;
         switch (formType) {
@@ -131,8 +140,8 @@ public class AuthenticationActivity extends AppCompatActivity {
 
     /**
      * Update the activity views depending on the formType :
-     *  - set up : switch controls are removed
-     *  - sign in or sign up : update controls texts to switch forms
+     * - set up : switch controls are removed
+     * - sign in or sign up : update controls texts to switch forms
      */
     private void updateUI(AuthenticationViewModel.FormType formType) {
         switch (formType) {
@@ -152,12 +161,6 @@ public class AuthenticationActivity extends AppCompatActivity {
         }
     }
 
-    /** Return the activity view model */
-    public static AuthenticationViewModel obtainViewModel(FragmentActivity activity) {
-        return ViewModelProviders.of(activity).get(AuthenticationViewModel.class);
-    }
-
-
     /**
      * we override the back navigation
      * - we disable it if the authentication process is not finished
@@ -170,7 +173,7 @@ public class AuthenticationActivity extends AppCompatActivity {
             if (!isTaskRoot())
                 super.onBackPressed();
             else
-                startActivity(new Intent(this,HomePageActivity.class));
+                startActivity(new Intent(this, HomePageActivity.class));
         }
     }
 }

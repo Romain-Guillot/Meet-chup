@@ -13,12 +13,10 @@ import java.util.List;
 
 public class PostViewViewModel extends ViewModel {
 
-    private IEventsDataRepository eventRepo;
-
     MutableLiveData<String> postDescriptionLive = new MutableLiveData<>();
     MutableLiveData<String> postImageLive = new MutableLiveData<>();
     MutableLiveData<List> postCommentsLive = new MutableLiveData<>();
-
+    private IEventsDataRepository eventRepo;
 
 
     public PostViewViewModel() {
@@ -51,7 +49,6 @@ public class PostViewViewModel extends ViewModel {
 //        });
 
     }
-
 
 
     private void setPostLive(Post post) {

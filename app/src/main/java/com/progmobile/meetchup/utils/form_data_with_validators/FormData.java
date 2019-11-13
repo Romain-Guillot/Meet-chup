@@ -5,18 +5,18 @@ import android.content.Context;
 
 /**
  * Text input field data
- *
+ * <p>
  * It holds the input data, and have a Validator to check if the data inside the text field is
  * 'valid' or note.
  */
 public class FormData {
 
-    private String value;
     private final Validator validator;
+    private String value;
 
 
     public FormData(Validator validator, String initialValue) {
-        this.validator  = validator;
+        this.validator = validator;
         this.value = initialValue;
     }
 
@@ -24,7 +24,9 @@ public class FormData {
         this(validator, null);
     }
 
-    /** Return true if the data is valid (good formatting, etc.) */
+    /**
+     * Return true if the data is valid (good formatting, etc.)
+     */
     public boolean isValid() {
         return validator.isValid(value);
     }

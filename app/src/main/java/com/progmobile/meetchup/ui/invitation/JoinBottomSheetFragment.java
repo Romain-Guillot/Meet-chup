@@ -15,24 +15,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.progmobile.meetchup.R;
-import com.progmobile.meetchup.utils.SnackbarFactory;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textfield.TextInputLayout;
+import com.progmobile.meetchup.R;
+import com.progmobile.meetchup.utils.SnackbarFactory;
 
 /**
  * This fragment holds the bottom sheet fragment that displays the text field to join an event with
  * and invitation key.
- *
+ * <p>
  * When the view is created, the fragment show the keyboard (and hide when the view is destroy)
- *
+ * <p>
  * The process of the form is handled by the view model {@link JoinBottomSheetViewModel}
- *
+ * <p>
  * Here we just update the submit button text according the the viewmodel live data.
- *
+ * <p>
  * NOTE :   this fragment behavior is the FormFragment behavior {@link com.progmobile.meetchup.utils.FormFragment}
- *          but as the multiple inheritance is not possible, I cannot extends this fragment of the FormFragment sadly
- *          Maybe transform the inheritance to association ...
+ * but as the multiple inheritance is not possible, I cannot extends this fragment of the FormFragment sadly
+ * Maybe transform the inheritance to association ...
  */
 public class JoinBottomSheetFragment extends BottomSheetDialogFragment {
 
@@ -58,8 +58,12 @@ public class JoinBottomSheetFragment extends BottomSheetDialogFragment {
 
         // Update the view model when the user change the input field
         editText.addTextChangedListener(new TextWatcher() {
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-            public void afterTextChanged(Editable s) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void afterTextChanged(Editable s) {
+            }
+
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 viewModel.keyFormData = s.toString();
             }
@@ -102,13 +106,13 @@ public class JoinBottomSheetFragment extends BottomSheetDialogFragment {
     }
 
 
-    private void showKeyboard(){
+    private void showKeyboard() {
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
 
-    private void closeKeyboard(){
+    private void closeKeyboard() {
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }

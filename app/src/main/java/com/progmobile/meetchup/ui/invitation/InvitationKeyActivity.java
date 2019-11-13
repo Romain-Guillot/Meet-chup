@@ -13,7 +13,7 @@ import com.progmobile.meetchup.utils.ChildActivity;
 /**
  * This activity holds the main fragment : {@link InvitationKeyFragment}
  * It also initializes the view model with the event ID (see INTENT COMMUNICATION below)
- *
+ * <p>
  * ## INTENT COMMUNICATION
  * The intent extra string is the event ID and the extra name has to be [EXTRA_EVENT_ID].
  */

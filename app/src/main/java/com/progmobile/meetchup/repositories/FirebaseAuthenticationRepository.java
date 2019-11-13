@@ -4,9 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.progmobile.meetchup.models.User;
-import com.progmobile.meetchup.utils.Callback;
-import com.progmobile.meetchup.utils.CallbackException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -16,6 +13,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
+import com.progmobile.meetchup.models.User;
+import com.progmobile.meetchup.utils.Callback;
+import com.progmobile.meetchup.utils.CallbackException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -94,7 +94,7 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
         FirebaseUser fbUser = firebaseAuth.getCurrentUser();
         if (fbUser == null) {
             callback.onFail(new CallbackException(CallbackException.Type.NO_LOGGED));
-            return ;
+            return;
         }
 
         fbUser.updateEmail(email).addOnCompleteListener(task -> {
@@ -113,7 +113,7 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
         FirebaseUser fbUser = firebaseAuth.getCurrentUser();
         if (fbUser == null) {
             callback.onFail(new CallbackException(CallbackException.Type.NO_LOGGED));
-            return ;
+            return;
         }
         fbUser.updatePassword(newPassword).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -160,11 +160,11 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
         FirebaseUser fbUser = firebaseAuth.getCurrentUser();
         if (fbUser != null) {
             fbUser.delete().addOnCompleteListener(task -> {
-               if (task.isSuccessful()) {
-                   callback.onSucceed(null);
-                   setUser();
-               }
-               else callback.onFail(CallbackException.fromFirebaseException(task.getException()));
+                if (task.isSuccessful()) {
+                    callback.onSucceed(null);
+                    setUser();
+                } else
+                    callback.onFail(CallbackException.fromFirebaseException(task.getException()));
             });
         } else {
             callback.onFail(new CallbackException(CallbackException.Type.NO_LOGGED));
@@ -189,8 +189,9 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
                         if (documentSnapshot != null && documentSnapshot.exists())
                             name = (String) documentSnapshot.getData().get("name");
                     }
-                } catch (Exception ee) { }
-               user.setValue(new User(fbUser.getUid(), name, email, firstLogin));
+                } catch (Exception ee) {
+                }
+                user.setValue(new User(fbUser.getUid(), name, email, firstLogin));
             });
         } else {
             this.user.setValue(null);
@@ -209,6 +210,9 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
         return localPart;
     }
 
+    private DocumentReference getUserDocument(String uid) {
+        return firestore.collection("users").document(uid);
+    }
 
     private class OnSignComplete implements OnCompleteListener<AuthResult> {
 
@@ -228,9 +232,5 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
                 callback.onFail(CallbackException.fromFirebaseException(task.getException()));
             }
         }
-    }
-
-    private DocumentReference getUserDocument(String uid) {
-        return firestore.collection("users").document(uid);
     }
 }

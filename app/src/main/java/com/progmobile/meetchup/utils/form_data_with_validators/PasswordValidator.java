@@ -13,7 +13,8 @@ public class PasswordValidator implements Validator {
 
     private int minLength = 6;
 
-    public PasswordValidator() { }
+    public PasswordValidator() {
+    }
 
     public PasswordValidator(int minLength) {
         this();

@@ -20,10 +20,10 @@ import com.progmobile.meetchup.ui.profile.ProfileActivity;
 
 /**
  * Handle the application homepage with :
- *      - The AppBar with the application name, the menu ;
- *      - The buttons to create or join an event ;
- *      - The user list of events.
- *      - The bottom sheet for joining an event
+ * - The AppBar with the application name, the menu ;
+ * - The buttons to create or join an event ;
+ * - The user list of events.
+ * - The bottom sheet for joining an event
  */
 public class HomePageActivity extends AppCompatActivity {
 
@@ -60,23 +60,29 @@ public class HomePageActivity extends AppCompatActivity {
         });
     }
 
-    /** If I put the action bar in the onCreate the logo size will no be kept ...*/
+    /**
+     * If I put the action bar in the onCreate the logo size will no be kept ...
+     */
     @Override
     protected void onResume() {
         super.onResume();
         setActionBar();
     }
 
-    /** Check if the user is logged, go to the authentication activity if not */
+    /**
+     * Check if the user is logged, go to the authentication activity if not
+     */
     public void navigateToAuthenticationActivityIfUserIsNotLogged() {
         IAuthenticationRepository authRepo = FirebaseAuthenticationRepository.getInstance();
         if (authRepo.getCurrentUser() == null) {
-            Intent authActivityIntent =  new Intent(this, AuthenticationActivity.class);
+            Intent authActivityIntent = new Intent(this, AuthenticationActivity.class);
             startActivity(authActivityIntent);
         }
     }
 
-    /** Show the bottom sheet for joining an event */
+    /**
+     * Show the bottom sheet for joining an event
+     */
     public void initJoinBottomSheetBehavior() {
         joinBottomSheetFragment = new JoinBottomSheetFragment();
         findViewById(R.id.homepage_join_event_btn).setOnClickListener(v -> {
@@ -84,11 +90,13 @@ public class HomePageActivity extends AppCompatActivity {
         });
     }
 
-    /** Set the custom action bar title for the homepage */
+    /**
+     * Set the custom action bar title for the homepage
+     */
     private void setActionBar() {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar == null)
-            return ;
+            return;
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionBar.setCustomView(R.layout.view_homepage_title);
         View profileBtn = actionBar.getCustomView().findViewById(R.id.profile_button);
