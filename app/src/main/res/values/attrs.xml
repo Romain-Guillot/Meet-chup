@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DateFormLayout">
+        <attr name="text" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="TextFormLayout">
+        <attr name="hint" format="string" />
+        <attr name="password" format="boolean" />
+    </declare-styleable>
+</resources>

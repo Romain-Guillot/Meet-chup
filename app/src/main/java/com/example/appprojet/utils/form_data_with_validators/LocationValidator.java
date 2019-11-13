@@ -12,7 +12,7 @@ public class LocationValidator implements Validator<Location> {
 
     @Override
     public boolean isValid(Location value, boolean required) {
-        return false;
+        return true;
     }
 
     @Override

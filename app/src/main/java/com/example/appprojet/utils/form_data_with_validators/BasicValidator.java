@@ -32,6 +32,10 @@ public class BasicValidator implements Validator<String> {
 
     @Override
     public String errorMessage(Context context) {
-        return context.getString(R.string.validator_basic, minLength, maxLength);
+        if (maxLength != Integer.MAX_VALUE)
+            return context.getString(R.string.validator_basic, minLength, maxLength);
+        if (minLength == 0)
+            return context.getString(R.string.validator_basic_not_empty);
+        return context.getString(R.string.validator_basic_no_max, minLength);
     }
 }

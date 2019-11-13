@@ -54,29 +54,29 @@ public class ProfileEditFragment extends FormFragment {
 
         // init all text fields layout
         TextInputLayout emailLayout = view.findViewById(R.id.edit_profile_email_layout);
-        setOnFieldChanged(emailLayout, viewModel.emailFormData);
+//        setOnFieldChanged(emailLayout, viewModel.emailFormData);  TODO
         TextInputLayout usernameLayout = view.findViewById(R.id.edit_profile_username_layout);
-        setOnFieldChanged(usernameLayout, viewModel.usernameFormData);
+//        setOnFieldChanged(usernameLayout, viewModel.usernameFormData);TODO
         TextInputLayout newPasswordLayout = view.findViewById(R.id.edit_profile_newpassword_layout);
-        setOnFieldChanged(newPasswordLayout, viewModel.newPasswordFormData);
+//        setOnFieldChanged(newPasswordLayout, viewModel.newPasswordFormData);TODO
         TextInputLayout newPasswordConfirmLayout = view.findViewById(R.id.edit_profile_newpasswordconfirm_layout);
-        setOnFieldChanged(newPasswordConfirmLayout, viewModel.newPasswordConfirmFormData);
+//        setOnFieldChanged(newPasswordConfirmLayout, viewModel.newPasswordConfirmFormData);TODO
 
         // init submits button, add click listeners
         Button emailSubmitBtn = view.findViewById(R.id.profile_edit_submit_email);
         Button usernameSubmitBtn = view.findViewById(R.id.profile_edit_submit_username);
         Button newPasswordSubmitBtn = view.findViewById(R.id.profile_edit_submit_password);
         emailSubmitBtn.setOnClickListener(v -> {
-            setLayoutFieldError(emailLayout, viewModel.emailFormData);
+            // setLayoutFieldError(emailLayout, viewModel.emailFormData); TODO
             viewModel.submitEmailForm();
         });
         usernameSubmitBtn.setOnClickListener(v -> {
-            setLayoutFieldError(usernameLayout, viewModel.usernameFormData);
+//            setLayoutFieldError(usernameLayout, viewModel.usernameFormData); TODO
             viewModel.submitUsernameForm();
         });
         newPasswordSubmitBtn.setOnClickListener(v -> {
-            setLayoutFieldError(newPasswordLayout, viewModel.newPasswordFormData);
-            setLayoutFieldError(newPasswordConfirmLayout, viewModel.newPasswordConfirmFormData);
+//            setLayoutFieldError(newPasswordLayout, viewModel.newPasswordFormData); TODO
+//            setLayoutFieldError(newPasswordConfirmLayout, viewModel.newPasswordConfirmFormData); TODO
             viewModel.submitNewPasswordForm();
         });
 

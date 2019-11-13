@@ -13,7 +13,7 @@ public class FormData<T> {
 
     private FormType type;
     private T value;
-    private final Validator<T> validator;
+    private Validator<T> validator;
 
 
     public FormData(Validator<T> validator, FormType type, T initialValue) {
@@ -52,6 +52,10 @@ public class FormData<T> {
 
     public FormType getType() {
         return type;
+    }
+
+    public void setValidator(Validator<T> validator) {
+        this.validator = validator;
     }
 
     public enum FormType {TEXT, DATE, LOCATION}

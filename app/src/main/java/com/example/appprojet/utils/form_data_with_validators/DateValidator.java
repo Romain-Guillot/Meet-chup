@@ -14,7 +14,7 @@ public class DateValidator implements Validator<Date> {
 
     @Override
     public boolean isValid(Date value, boolean required) {
-        return false;
+        return true;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.example.appprojet.ui.event_creation;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.ViewModel;
 
@@ -11,6 +12,7 @@ import com.example.appprojet.utils.Callback;
 import com.example.appprojet.utils.CallbackException;
 import com.example.appprojet.utils.FormViewModel;
 import com.example.appprojet.utils.Location;
+import com.example.appprojet.utils.SingleEvent;
 import com.example.appprojet.utils.form_data_with_validators.BasicValidator;
 import com.example.appprojet.utils.form_data_with_validators.DateValidator;
 import com.example.appprojet.utils.form_data_with_validators.FormData;
@@ -24,9 +26,9 @@ public class EventCreationViewModel extends FormViewModel {
 
     FormData<String> titleField = new FormData<>(new BasicValidator());
     FormData<String> descriptionField = new FormData<>(new BasicValidator());
-    FormData<Date> beginDate = new FormData<>(new DateValidator());
-    FormData<Date> endDate = new FormData<>(new DateValidator());
-    FormData<Location> location = new FormData<>(new LocationValidator());
+    FormData<Date> beginDate = new FormData<>(new DateValidator(), FormData.FormType.DATE);
+    FormData<Date> endDate = new FormData<>(new DateValidator(), FormData.FormType.DATE);
+    FormData<Location> location = new FormData<>(new LocationValidator(), FormData.FormType.LOCATION);
 
 
     public EventCreationViewModel(Application application) {
@@ -45,6 +47,8 @@ public class EventCreationViewModel extends FormViewModel {
                     null, beginDate.getValue(), endDate.getValue(), null,
                     location.getValue(), null);
             eventRepo.createEvent(event, new SubmitCallback<>());
+        } else {
+            errorLive.setValue(new SingleEvent<>("Invalid form"));
         }
     }
 

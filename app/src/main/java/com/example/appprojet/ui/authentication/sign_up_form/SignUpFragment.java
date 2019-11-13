@@ -53,15 +53,15 @@ public class SignUpFragment extends FormFragment {
 
         Button submitButton = view.findViewById(R.id.form_submit_btn);
 
-        init(
-                viewModel,
-                Arrays.asList(emailLayout, passwordLayout, passwordConfirmLayout),
-                Arrays.asList(viewModel.emailLive, viewModel.passwordLive, viewModel.passwordConfirmLive),
-                submitButton,
-                getString(R.string.auth_signup_btn),
-                getString(R.string.loading_btn),
-                null
-        );
+//        init(
+//                viewModel,
+//                Arrays.asList(emailLayout, passwordLayout, passwordConfirmLayout),
+//                Arrays.asList(viewModel.emailLive, viewModel.passwordLive, viewModel.passwordConfirmLive),
+//                submitButton,
+//                getString(R.string.auth_signup_btn),
+//                getString(R.string.loading_btn),
+//                null
+//        );TODO
 
         return view;
     }

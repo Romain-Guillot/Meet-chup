@@ -112,7 +112,13 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
      * */
     @Override
     public void createEvent(@NonNull Event event, @NonNull Callback<String> callback) {
-
+        firestore.collection(EVENT_COL).add(event).addOnCompleteListener(t -> {
+           if (t.isSuccessful() && t.getResult() != null) {
+                callback.onSucceed(t.getResult().getId());
+           } else {
+               callback.onFail(CallbackException.fromFirebaseException(t.getException()));
+           }
+        });
     }
 
     /** @inheritDoc - Status : DONE

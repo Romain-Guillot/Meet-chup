@@ -50,16 +50,16 @@ public class SignInFragment extends FormFragment {
         TextInputLayout passwordLayout = view.findViewById(R.id.auth_signin_password_layout);
 
         Button submitButton = view.findViewById(R.id.form_submit_btn);
-
-        init(
-                viewModel,
-                Arrays.asList(emailLayout, passwordLayout),
-                Arrays.asList(viewModel.emailLive, viewModel.passwordLive),
-                submitButton,
-                getString(R.string.auth_signin_btn),
-                getString(R.string.loading_btn),
-                null
-        );
+//
+//        init(
+//                viewModel,
+//                Arrays.asList(emailLayout, passwordLayout),
+//                Arrays.asList(viewModel.emailLive, viewModel.passwordLive),
+//                submitButton,
+//                getString(R.string.auth_signin_btn),
+//                getString(R.string.loading_btn),
+//                null
+//        );TODO
 
         return view;
     }

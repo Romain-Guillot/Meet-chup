@@ -68,7 +68,9 @@
 
 
     <!-- Validators error message -->
-    <string name="validator_basic">Must be comprise between 1$d and %2$d characters</string>
+    <string name="validator_basic">Must be comprise between %1$d and %2$d characters</string>
+    <string name="validator_basic_no_max">At least %1$d characters required</string>
+    <string name="validator_basic_not_empty">Cannot be empty</string>
     <string name="validator_email">Invalid email format</string>
     <string name="validator_password">Invalid password, %1$d characters minimum</string>
     <string name="validator_password_confirm">Passwords doesn\'t match</string>

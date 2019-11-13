@@ -49,15 +49,15 @@ public class SetUpProfileFragment extends FormFragment {
         TextInputLayout nameLayout = view.findViewById(R.id.auth_setup_name_layout);
         Button submitButton = view.findViewById(R.id.form_submit_btn);
 
-        init(
-                viewModel,
-                Collections.singletonList(nameLayout),
-                Collections.singletonList(viewModel.nameLive),
-                submitButton,
-                getString(R.string.auth_set_up_btn),
-                getString(R.string.loading_btn),
-                null
-        );
+//        init(
+//                viewModel,
+//                Collections.singletonList(nameLayout),
+//                Collections.singletonList(viewModel.nameLive),
+//                submitButton,
+//                getString(R.string.auth_set_up_btn),
+//                getString(R.string.loading_btn),
+//                null
+//        );TODO
 
         // Notify the authentication activity that the authentication process is done.
         viewModel.isFinish.observe(this, isFinish -> {

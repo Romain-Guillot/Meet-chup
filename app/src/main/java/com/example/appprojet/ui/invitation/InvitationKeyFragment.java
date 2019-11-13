@@ -53,15 +53,15 @@ public class InvitationKeyFragment extends FormFragment {
         TextView keyStatus = view.findViewById(R.id.event_invit_status);
 
         // Init the FormFragment with the form configuration
-        init(
-                viewModel,
-                Collections.singletonList(keyFieldLayout),
-                Collections.singletonList(viewModel.eventKeyFieldLive),
-                updateKeyButton,
-                "Update invitation key",
-                "Loading...",
-                "Key updated !"
-        );
+//        init(
+//                viewModel,
+//                Collections.singletonList(keyFieldLayout),
+//                Collections.singletonList(viewModel.eventKeyFieldLive),
+//                updateKeyButton,
+//                "Update invitation key",
+//                "Loading...",
+//                "Key updated !"
+//        );//TODO
 
         // Listener on the disable button
         disableKeyBtn.setOnClickListener( v -> {
