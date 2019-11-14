@@ -11,32 +11,30 @@ import android.content.Context;
  */
 public class FormData<T> {
 
-    private FormType type;
     private T value;
     private Validator<T> validator;
+    private boolean required;
 
 
-    public FormData(Validator<T> validator, FormType type, T initialValue) {
+    public FormData(Validator<T> validator, T initialValue, boolean required) {
         this.validator  = validator;
-        this.type = type == null ? FormType.TEXT : type;
         this.value = initialValue;
+        this.required = required;
     }
 
-    public FormData(Validator<T> validator, FormType type) {
-        this(validator, type, null);
+    public FormData(Validator<T> validator, boolean required) {
+        this(validator, null, required);
     }
 
     public FormData(Validator<T> validator) {
-        this(validator, FormType.TEXT);
+        this(validator, null, true);
     }
+
 
     /**
      * Return true if the data is valid (good formatting, etc.)
      */
     public boolean isValid() {
-        return validator.isValid(value);
-    }
-    public boolean isValid(boolean required) {
         return validator.isValid(value, required);
     }
 
@@ -52,13 +50,8 @@ public class FormData<T> {
         return validator.errorMessage(context);
     }
 
-    public FormType getType() {
-        return type;
-    }
-
     public void setValidator(Validator<T> validator) {
         this.validator = validator;
     }
 
-    public enum FormType {TEXT, DATE, LOCATION}
 }

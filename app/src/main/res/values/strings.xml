@@ -100,4 +100,7 @@
     <string name="content_description_icon_info">icon info</string>
     <string name="create_event_button">Create</string>
     <string name="event_key_disable_btn">Disable</string>
+    <string name="invalid_form">Invalid form, please check your date</string>
+    <string name="invitation_update_key_btn">Update invitation key</string>
+    <string name="invitation_key_update_form_success">Key updated !</string>
 </resources>

@@ -9,13 +9,15 @@
         android:id="@+id/event_creation_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:hint="Title"/>
+        app:hint="Title"
+        app:inputType="singleLine"/>
 
     <com.progmobile.meetchup.utils.form_views.TextFormLayout
         android:id="@+id/event_creation_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:hint="Description"/>
+        app:hint="Description"
+        app:inputType="text"/>
 
     <com.progmobile.meetchup.utils.form_views.DateFormLayout
         android:id="@+id/event_creation_begindate"

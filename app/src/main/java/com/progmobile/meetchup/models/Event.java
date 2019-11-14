@@ -1,17 +1,18 @@
 package com.progmobile.meetchup.models;
 
 
+import com.google.firebase.firestore.Exclude;
 import com.progmobile.meetchup.utils.Location;
 
 import java.util.Date;
 import java.util.List;
 
 
-public class Event {
-    private String id;
+public class Event extends Model{
+
     private String title;
     private String description;
-    private Date dateCreated;
+
     private Date dateBegin;
     private Date dateEnd;
     private Location location;
@@ -21,20 +22,15 @@ public class Event {
 
 
     public Event(String id, String title, String description, List<User> participants, Date dateBegin, Date dateEnd, Date dateCreated, Location location, String invitationKey) {
-        this.id = id;
+        super(id, dateCreated);
         this.title = title;
         this.description = description;
         this.dateBegin = dateBegin;
         this.dateEnd = dateEnd;
-        this.dateCreated = dateCreated;
         this.participants = participants;
         this.location = location;
         this.invitationKey = invitationKey;
         this.posts = null;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getTitle() {

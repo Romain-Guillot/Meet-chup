@@ -57,7 +57,6 @@ public class ProfileViewFragment extends Fragment {
 
         // update UI profile information
         viewModel.user.observe(this, user -> {
-            Log.e(">>>>>>>>>>>>>>>>>>", "OK");
             if (user != null) {
                 String name = user.getName();
                 usernameView.setText(name != null ? name : getString(R.string.default_username));

@@ -26,6 +26,7 @@ public class PasswordConfirmationValidator implements Validator<String> {
 
     @Override
     public boolean isValid(String value, boolean required) {
+        if (required) return isValid(value);
         return value == null || value.equals(originalPassword.getValue());
     }
 

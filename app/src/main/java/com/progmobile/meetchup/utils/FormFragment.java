@@ -6,6 +6,10 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.progmobile.meetchup.utils.form_views.FormLayout;
+
+import java.util.List;
+
 
 /**
  * Handle form UI, the business logic is handle by a FormViewModel associated.
@@ -32,9 +36,11 @@ public abstract class FormFragment extends Fragment {
      * - formDataList: form data corresponding to the fields layout
      * i.e. formDataList[i] refers to the input text included in the layout textInputLayoutList[i]
      */
-    protected void init(FormViewModel viewModel, Button submitButton, String submitText, String loadingText, String successMessage) {
+    protected void init(FormViewModel viewModel, List<FormLayout> layouts, Button submitButton, String submitText, String loadingText, String successMessage) {
 
         submitButton.setOnClickListener(v -> {
+            for (FormLayout layout : layouts)
+                layout.setLayoutError();
             viewModel.submitForm();
         });
 

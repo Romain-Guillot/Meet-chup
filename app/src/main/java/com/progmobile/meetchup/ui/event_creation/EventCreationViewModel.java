@@ -20,11 +20,11 @@ public class EventCreationViewModel extends FormViewModel {
 
     private IEventsDataRepository eventRepo;
 
-    FormData<String> titleField = new FormData<>(new BasicValidator());
-    FormData<String> descriptionField = new FormData<>(new BasicValidator());
-    FormData<Date> beginDate = new FormData<>(new DateValidator(), FormData.FormType.DATE);
-    FormData<Date> endDate = new FormData<>(new DateValidator(), FormData.FormType.DATE);
-    FormData<Location> location = new FormData<>(new LocationValidator(), FormData.FormType.LOCATION);
+    FormData<String> titleField = new FormData<>(new BasicValidator(IEventsDataRepository.EVENT_TITLE_MIN_LENGTH, IEventsDataRepository.EVENT_TITLE_MAX_LENGTH));
+    FormData<String> descriptionField = new FormData<>(new BasicValidator(), false);
+    FormData<Date> beginDate = new FormData<>(new DateValidator(), false);
+    FormData<Date> endDate = new FormData<>(new DateValidator(), false);
+    FormData<Location> location = new FormData<>(new LocationValidator(), false);
 
 
     public EventCreationViewModel(Application application) {
@@ -37,7 +37,6 @@ public class EventCreationViewModel extends FormViewModel {
      */
     @Override
     protected void submitForm() {
-
         if (validate()) {
             Event event = new Event(null, titleField.getValue(), descriptionField.getValue(),
                     null, beginDate.getValue(), endDate.getValue(), null,
@@ -53,6 +52,6 @@ public class EventCreationViewModel extends FormViewModel {
      */
     @Override
     protected boolean validate() {
-        return titleField.isValid() && descriptionField.isValid(false) && beginDate.isValid(false) && endDate.isValid(false) && location.isValid(false);
+        return titleField.isValid() && descriptionField.isValid() && beginDate.isValid() && endDate.isValid() && location.isValid();
     }
 }

@@ -23,6 +23,8 @@ public interface IEventsDataRepository {
 
     int INVITATION_KEY_MIN_LENGTH = 8;
     int INVITATION_KEY_MAX_LENGTH = 20;
+    int EVENT_TITLE_MIN_LENGTH = 6;
+    int EVENT_TITLE_MAX_LENGTH = 50;
 
 
     /**

@@ -70,7 +70,6 @@ public abstract class FormViewModel extends AndroidViewModel {
         @Override
         public void onSucceed(T result) {
             isLoadingLive.setValue(false);
-            errorLive.setValue(null);
             successLive.setValue(new SingleEvent<>(true));
         }
 
@@ -78,7 +77,6 @@ public abstract class FormViewModel extends AndroidViewModel {
         public void onFail(CallbackException e) {
             isLoadingLive.setValue(false);
             errorLive.setValue(new SingleEvent<>(e.getErrorMessage(getApplication().getApplicationContext())));
-            successLive.setValue(new SingleEvent<>(false));
         }
     }
 }

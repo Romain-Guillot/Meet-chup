@@ -19,4 +19,5 @@
         style="@style/ButtonTextStyle"
         app:iconSize="16dp"
         app:icon="@drawable/ic_delete"/>
+
 </LinearLayout>

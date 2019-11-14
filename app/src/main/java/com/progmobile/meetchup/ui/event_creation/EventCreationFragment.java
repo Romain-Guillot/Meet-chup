@@ -10,9 +10,14 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 
 
+import com.progmobile.meetchup.utils.form_views.DateFormLayout;
 import com.progmobile.meetchup.utils.form_views.FormLayout;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.utils.FormFragment;
+import com.progmobile.meetchup.utils.form_views.TextFormLayout;
+
+import java.util.Arrays;
+import java.util.List;
 
 
 public class EventCreationFragment extends FormFragment {
@@ -33,16 +38,21 @@ public class EventCreationFragment extends FormFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event_creation_form, container, false);
 
-        ((FormLayout) view.findViewById(R.id.event_creation_title))
-                .bindFormData(viewModel.titleField);
-        ((FormLayout) view.findViewById(R.id.event_creation_description))
-                .bindFormData(viewModel.descriptionField);
-        ((FormLayout) view.findViewById(R.id.event_creation_begindate))
-                .bindFormData(viewModel.beginDate);
-        ((FormLayout) view.findViewById(R.id.event_creation_enddate))
-                .bindFormData(viewModel.endDate);
+        TextFormLayout titleLayout = view.findViewById(R.id.event_creation_title);
+        titleLayout.bindFormData(viewModel.titleField);
+        TextFormLayout descriptionLayout = view.findViewById(R.id.event_creation_description);
+        descriptionLayout.bindFormData(viewModel.descriptionField);
+        DateFormLayout beginDateLayout = view.findViewById(R.id.event_creation_begindate);
+        beginDateLayout.bindFormData(viewModel.beginDate);
+        DateFormLayout endDateLayout = view.findViewById(R.id.event_creation_enddate);
+        endDateLayout.bindFormData(viewModel.endDate);
 
-        init(viewModel, view.findViewById(R.id.event_creation_submit), "Create", "Loading ...", "Event created");
+        init(viewModel,
+                Arrays.asList(titleLayout, descriptionLayout, beginDateLayout, endDateLayout),
+                view.findViewById(R.id.event_creation_submit),
+                "Create",
+                "Loading ...",
+                "Event created");
 
         return view;
     }

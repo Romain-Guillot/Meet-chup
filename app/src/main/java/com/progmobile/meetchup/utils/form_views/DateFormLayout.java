@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.button.MaterialButton;
 import com.progmobile.meetchup.R;
+import com.progmobile.meetchup.utils.form_data_with_validators.FormData;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -77,5 +78,20 @@ public class DateFormLayout extends FormLayout<Date> {
         pickerButton.setIconTint(getResources().getColorStateList(value == null ? R.color.textColor : R.color.colorPrimary));
         pickerButton.setTextColor(getResources().getColor(value == null ? R.color.textColor : R.color.colorPrimary));
         removeButton.setVisibility(value == null ? INVISIBLE : VISIBLE);
+    }
+
+    @Override
+    public void bindFormData(FormData<Date> formData) {
+        super.bindFormData(formData);
+        setValue(formData.getValue());
+    }
+
+    @Override
+    public void setLayoutError() {
+        // nothing, no error management
+    }
+
+    public void setDate(Date date) {
+        setValue(date);
     }
 }

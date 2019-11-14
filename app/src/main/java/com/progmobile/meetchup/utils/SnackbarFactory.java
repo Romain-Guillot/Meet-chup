@@ -54,6 +54,7 @@ public class SnackbarFactory {
         snackbar.setBackgroundTint(view.getResources().getColor(color));
         TextView snackbarActionTextView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
         snackbarActionTextView.setTypeface(snackbarActionTextView.getTypeface(), Typeface.BOLD);
+        snackbarActionTextView.setTextColor(view.getResources().getColor(android.R.color.white));
         if (top) {
             final ViewGroup.LayoutParams params = snackbar.getView().getLayoutParams();
             if (params instanceof CoordinatorLayout.LayoutParams)

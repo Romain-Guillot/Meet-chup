@@ -37,7 +37,7 @@ public abstract class FormLayout<T> extends FrameLayout {
         notifyListeners();
     }
 
-    public void bindFormData(FormData formData) {
+    public void bindFormData(FormData<T> formData) {
         this.formData = formData;
     }
 
@@ -60,6 +60,8 @@ public abstract class FormLayout<T> extends FrameLayout {
     public interface OnFieldChangeListener<T> {
         void onChange(T newDate);
     }
+
+    public abstract void setLayoutError();
 
 
 }

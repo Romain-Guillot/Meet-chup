@@ -1,10 +1,15 @@
 package com.progmobile.meetchup.utils.form_views;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
+import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 
 import androidx.annotation.Nullable;
@@ -39,7 +44,34 @@ public class TextFormLayout extends FormLayout<String> {
         try {
             String hint = a.getString(R.styleable.TextFormLayout_hint);
             layout.setHint(hint);
+
+            int inputType = a.getInteger(R.styleable.TextFormLayout_inputType, 0);
+            switch (inputType) {
+                case 0 : // text
+                    layout.setEndIconMode(TextInputLayout.END_ICON_NONE);
+                    editText.setInputType(InputType.TYPE_CLASS_TEXT);
+                    break;
+                case 1: // password
+                    ColorStateList colorTint = a.getColorStateList(R.styleable.TextFormLayout_colorTint);
+                    if (colorTint != null)
+                        layout.setEndIconTintList(colorTint);
+                    break;
+                case 2: // email
+                    layout.setEndIconMode(TextInputLayout.END_ICON_NONE);
+                    editText.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                    break;
+                case 3: // singleLine
+                    layout.setEndIconMode(TextInputLayout.END_ICON_NONE);
+                    editText.setInputType(InputType.TYPE_CLASS_TEXT);
+                    editText.setSingleLine(true);
+                    break;
+            }
         } finally { a.recycle(); }
+    }
+
+    @Override
+    void setValue(String value) {
+        super.setValue(value);
     }
 
     private void setOnTextFieldChange() {
@@ -54,14 +86,25 @@ public class TextFormLayout extends FormLayout<String> {
         });
 
         editText.setOnFocusChangeListener((view, hasFocus) -> {
-            if (!hasFocus) setLayoutFieldError(layout, formData);
+            if (!hasFocus) setLayoutError();
             else layout.setError(null);
         });
     }
 
+    @Override
+    public void bindFormData(FormData<String> formData) {
+        super.bindFormData(formData);
+        editText.setText(formData.getValue());
+    }
+
     /** Set the error indicator of the layout is the formData is not valid*/
-    protected void setLayoutFieldError(TextInputLayout layout, FormData formData) {
+    @Override
+    public void setLayoutError() {
         if (formData != null)
             layout.setError(!formData.isValid() ? formData.getError(getContext()) : null);
+    }
+
+    public void setText(String text) {
+        editText.setText(text);
     }
 }

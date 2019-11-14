@@ -14,6 +14,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.ui.authentication.AuthenticationActivity;
 import com.progmobile.meetchup.utils.FormFragment;
+import com.progmobile.meetchup.utils.form_views.TextFormLayout;
 
 import java.util.Collections;
 
@@ -46,18 +47,19 @@ public class SetUpProfileFragment extends FormFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_authentication_setup, container, false);
 
-        TextInputLayout nameLayout = view.findViewById(R.id.auth_setup_name_layout);
+        TextFormLayout nameLayout = view.findViewById(R.id.auth_setup_name_layout);
+        nameLayout.bindFormData(viewModel.nameLive);
+
         Button submitButton = view.findViewById(R.id.form_submit_btn);
 
-//        init(
-//                viewModel,
-//                Collections.singletonList(nameLayout),
-//                Collections.singletonList(viewModel.nameLive),
-//                submitButton,
-//                getString(R.string.auth_set_up_btn),
-//                getString(R.string.loading_btn),
-//                null
-//        );TODO
+        init(
+                viewModel,
+                Collections.singletonList(nameLayout),
+                submitButton,
+                getString(R.string.auth_set_up_btn),
+                getString(R.string.loading_btn),
+                null
+        );
 
         // Notify the authentication activity that the authentication process is done.
         viewModel.isFinish.observe(this, isFinish -> {

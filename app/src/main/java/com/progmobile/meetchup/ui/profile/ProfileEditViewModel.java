@@ -62,13 +62,9 @@ public class ProfileEditViewModel extends AndroidViewModel {
         }
     }
 
-    private void resetInfoLiveData() {
-        errorLive.setValue(null);
-        successLive.setValue(null);
-    }
+
 
     void submitEmailForm() {
-        resetInfoLiveData();
         if (emailFormData.isValid()) {
             emailFormIsLoading.setValue(true);
             authRepo.updateEmail(emailFormData.getValue(), new UpdateCallBack(emailFormIsLoading));
@@ -76,7 +72,6 @@ public class ProfileEditViewModel extends AndroidViewModel {
     }
 
     void submitNewPasswordForm() {
-        resetInfoLiveData();
         if (newPasswordFormData.isValid() && newPasswordConfirmFormData.isValid()) {
             newPasswordFormIsLoading.setValue(true);
             authRepo.updatePassword(newPasswordConfirmFormData.getValue(), new UpdateCallBack(newPasswordFormIsLoading));
@@ -84,7 +79,6 @@ public class ProfileEditViewModel extends AndroidViewModel {
     }
 
     void submitUsernameForm() {
-        resetInfoLiveData();
         if (usernameFormData.isValid()) {
             usernameFormIsLoading.setValue(true);
             authRepo.updateName(usernameFormData.getValue(), new UpdateCallBack(usernameFormIsLoading));

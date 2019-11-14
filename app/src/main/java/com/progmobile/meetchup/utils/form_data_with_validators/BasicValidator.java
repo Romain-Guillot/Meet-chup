@@ -10,7 +10,7 @@ import com.progmobile.meetchup.R;
  */
 public class BasicValidator implements Validator<String> {
 
-    private int minLength = 0;
+    private int minLength = 1;
     private int maxLength = Integer.MAX_VALUE;
 
     public BasicValidator() {}
@@ -27,14 +27,15 @@ public class BasicValidator implements Validator<String> {
 
     @Override
     public boolean isValid(String value, boolean required) {
-        return value == null || (value.length() >= minLength && value.length() <= maxLength);
+        if (required) return isValid(value);
+        return value == null || value.isEmpty() || (value.length() >= minLength && value.length() <= maxLength);
     }
 
     @Override
     public String errorMessage(Context context) {
         if (maxLength != Integer.MAX_VALUE)
             return context.getString(R.string.validator_basic, minLength, maxLength);
-        if (minLength == 0)
+        if (minLength == 1)
             return context.getString(R.string.validator_basic_not_empty);
         return context.getString(R.string.validator_basic_no_max, minLength);
     }

@@ -18,6 +18,8 @@ import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.ui.authentication.AuthenticationActivity;
 import com.progmobile.meetchup.utils.FormFragment;
 import com.progmobile.meetchup.utils.SnackbarFactory;
+import com.progmobile.meetchup.utils.form_views.FormLayout;
+import com.progmobile.meetchup.utils.form_views.TextFormLayout;
 
 import java.util.Arrays;
 import java.util.List;
@@ -52,30 +54,30 @@ public class ProfileEditFragment extends FormFragment {
         View view = inflater.inflate(R.layout.fragment_profile_edit, container, false);
 
         // init all text fields layout
-        TextInputLayout emailLayout = view.findViewById(R.id.edit_profile_email_layout);
-//        setOnFieldChanged(emailLayout, viewModel.emailFormData);  TODO
-        TextInputLayout usernameLayout = view.findViewById(R.id.edit_profile_username_layout);
-//        setOnFieldChanged(usernameLayout, viewModel.usernameFormData);TODO
-        TextInputLayout newPasswordLayout = view.findViewById(R.id.edit_profile_newpassword_layout);
-//        setOnFieldChanged(newPasswordLayout, viewModel.newPasswordFormData);TODO
-        TextInputLayout newPasswordConfirmLayout = view.findViewById(R.id.edit_profile_newpasswordconfirm_layout);
-//        setOnFieldChanged(newPasswordConfirmLayout, viewModel.newPasswordConfirmFormData);TODO
+        TextFormLayout emailLayout =  view.findViewById(R.id.edit_profile_email_layout);
+        emailLayout.bindFormData(viewModel.emailFormData);
+        TextFormLayout usernameLayout = view.findViewById(R.id.edit_profile_username_layout);
+        usernameLayout.bindFormData(viewModel.usernameFormData);
+        TextFormLayout passwordLayout = view.findViewById(R.id.edit_profile_newpassword_layout);
+        passwordLayout.bindFormData(viewModel.newPasswordFormData);
+        TextFormLayout passwordConfirmLayout = view.findViewById(R.id.edit_profile_newpasswordconfirm_layout);
+        passwordConfirmLayout.bindFormData(viewModel.newPasswordConfirmFormData);
 
         // init submits button, add click listeners
         Button emailSubmitBtn = view.findViewById(R.id.profile_edit_submit_email);
         Button usernameSubmitBtn = view.findViewById(R.id.profile_edit_submit_username);
         Button newPasswordSubmitBtn = view.findViewById(R.id.profile_edit_submit_password);
         emailSubmitBtn.setOnClickListener(v -> {
-            // setLayoutFieldError(emailLayout, viewModel.emailFormData); TODO
+            emailLayout.setLayoutError();
             viewModel.submitEmailForm();
         });
         usernameSubmitBtn.setOnClickListener(v -> {
-//            setLayoutFieldError(usernameLayout, viewModel.usernameFormData); TODO
+            usernameLayout.setLayoutError();
             viewModel.submitUsernameForm();
         });
         newPasswordSubmitBtn.setOnClickListener(v -> {
-//            setLayoutFieldError(newPasswordLayout, viewModel.newPasswordFormData); TODO
-//            setLayoutFieldError(newPasswordConfirmLayout, viewModel.newPasswordConfirmFormData); TODO
+            passwordLayout.setLayoutError();
+            passwordConfirmLayout.setLayoutError();
             viewModel.submitNewPasswordForm();
         });
 

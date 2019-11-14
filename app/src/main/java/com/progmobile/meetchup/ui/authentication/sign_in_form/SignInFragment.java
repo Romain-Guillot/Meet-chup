@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.google.android.material.textfield.TextInputLayout;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.utils.FormFragment;
+import com.progmobile.meetchup.utils.form_views.TextFormLayout;
 
 import java.util.Arrays;
 
@@ -46,20 +47,21 @@ public class SignInFragment extends FormFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_authentication_signin, container, false);
 
-        TextInputLayout emailLayout = view.findViewById(R.id.auth_signin_email_layout);
-        TextInputLayout passwordLayout = view.findViewById(R.id.auth_signin_password_layout);
+        TextFormLayout emailLayout = view.findViewById(R.id.auth_signin_email_layout);
+        emailLayout.bindFormData(viewModel.emailLive);
+        TextFormLayout passwordLayout = view.findViewById(R.id.auth_signin_password_layout);
+        passwordLayout.bindFormData(viewModel.passwordLive);
 
         Button submitButton = view.findViewById(R.id.form_submit_btn);
-//
-//        init(
-//                viewModel,
-//                Arrays.asList(emailLayout, passwordLayout),
-//                Arrays.asList(viewModel.emailLive, viewModel.passwordLive),
-//                submitButton,
-//                getString(R.string.auth_signin_btn),
-//                getString(R.string.loading_btn),
-//                null
-//        );TODO
+
+        init(
+                viewModel,
+                Arrays.asList(emailLayout, passwordLayout),
+                submitButton,
+                getString(R.string.auth_signin_btn),
+                getString(R.string.loading_btn),
+                null
+        );
 
         return view;
     }

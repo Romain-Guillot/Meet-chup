@@ -2,9 +2,11 @@ package com.progmobile.meetchup.ui.authentication.sign_in_form;
 
 import android.app.Application;
 
+import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.repositories.FirebaseAuthenticationRepository;
 import com.progmobile.meetchup.repositories.IAuthenticationRepository;
 import com.progmobile.meetchup.utils.FormViewModel;
+import com.progmobile.meetchup.utils.SingleEvent;
 import com.progmobile.meetchup.utils.form_data_with_validators.BasicValidator;
 import com.progmobile.meetchup.utils.form_data_with_validators.FormData;
 
@@ -41,6 +43,8 @@ public class SignInViewModel extends FormViewModel {
             String email = emailLive.getValue();
             String password = passwordLive.getValue();
             authenticationRepository.classicSignIn(email, password, new SubmitCallback<>());
+        } else {
+            errorLive.setValue(new SingleEvent<>(getApplication().getString(R.string.invalid_form)));
         }
     }
 

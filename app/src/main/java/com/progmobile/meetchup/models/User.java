@@ -42,10 +42,6 @@ public class User {
         this.email = email;
     }
 
-    public String getId() {
-        return id;
-    }
-
     public boolean isFirstLogIn() {
         return isFirstLogIn;
     }
