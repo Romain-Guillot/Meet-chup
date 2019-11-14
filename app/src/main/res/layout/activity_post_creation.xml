@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/post_fragment"
-        android:name="com.example.appprojet.ui.post_creation.PostCreationFragment"
+        android:name="com.progmobile.meetchup.ui.post_creation.PostCreationFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

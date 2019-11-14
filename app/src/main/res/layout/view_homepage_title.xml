@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="horizontal">
 
     <!-- Icon to open the user profile information-->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/profile_button"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        app:icon="@drawable/ic_user"
-        app:iconTint="@null"
-        app:iconSize="40dp"
-        app:backgroundTint="#00ffffff"
-        android:padding="5dp"
-        app:iconPadding="0dp"
-        android:minWidth="0dp"
-        app:cornerRadius="999dp"
         android:layout_marginEnd="@dimen/normal_spacing"
-        android:contentDescription="@string/profile_button_content_description"/>
+        android:contentDescription="@string/profile_button_content_description"
+        android:minWidth="0dp"
+        android:padding="5dp"
+        app:backgroundTint="#00ffffff"
+        app:cornerRadius="999dp"
+        app:icon="@drawable/ic_user"
+        app:iconPadding="0dp"
+        app:iconSize="40dp"
+        app:iconTint="@null" />
 
     <!-- App name -->
     <TextView
+        style="@style/HomepageActionBarTitleTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        style="@style/HomepageActionBarTitleTextStyle"
-        android:text="@string/app_name"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:text="@string/app_name" />
 </LinearLayout>
