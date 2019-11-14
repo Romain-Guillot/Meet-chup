@@ -33,11 +33,11 @@
         android:layout_marginBottom="@dimen/normal_spacing"
         app:text="End date"/>
 
-    <com.google.android.material.button.MaterialButton
+    <com.progmobile.meetchup.utils.form_views.LocationFormLayout
         android:id="@+id/event_creation_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Location"/>
+        app:text="Location"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/event_creation_submit"

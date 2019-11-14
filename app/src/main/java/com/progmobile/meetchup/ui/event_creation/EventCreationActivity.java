@@ -9,6 +9,19 @@ import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.utils.ChildActivity;
 
 
+/**
+ * <h1>EventCreationActivity</h1>
+ *
+ * <p>Activity to display the event creation form</p>
+ *
+ *
+ * <h2>INTENT COMMUNICATION</h2>
+ * <p>No extra data required.</p>
+ *
+ *
+ * <h2>BUGS</h2>
+ * <p>None</p>
+ */
 public class EventCreationActivity extends ChildActivity {
 
     @Override

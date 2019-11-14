@@ -13,12 +13,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
-import com.google.android.material.textfield.TextInputLayout;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.ui.authentication.AuthenticationActivity;
 import com.progmobile.meetchup.utils.FormFragment;
 import com.progmobile.meetchup.utils.SnackbarFactory;
-import com.progmobile.meetchup.utils.form_views.FormLayout;
 import com.progmobile.meetchup.utils.form_views.TextFormLayout;
 
 import java.util.Arrays;
@@ -27,6 +25,7 @@ import java.util.List;
 
 /**
  * <p>Fragment with text fields to edit user profile information :</p>
+ *
  * <ul>
  *     <li>email</li>
  *     <li>name</li>

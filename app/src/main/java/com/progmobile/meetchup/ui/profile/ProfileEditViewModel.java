@@ -1,11 +1,8 @@
 package com.progmobile.meetchup.ui.profile;
 
-import android.app.Activity;
 import android.app.Application;
 
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 
@@ -25,15 +22,17 @@ import com.progmobile.meetchup.utils.form_data_with_validators.PasswordValidator
 
 
 /**
- * View model to handle process of ProfileViewFragment to update profile.
- * <p>
- * There are one FormData for each field and on is loading state Live data for each form, there are
- * 3 forms :
- * - email
- * - username
- * - password
- * <p>
- * The fragment ask the repo to perform actions and update Live Data according the responses.
+ * <p>View model to handle process of ProfileViewFragment to update profile.</p>
+ *
+ * <p>There are one FormData for each field and on is loading state Live data for each form, there
+ * are 3 forms :</p>
+ * <ul>
+ *     <li>email</li>
+ *     <li>username</li>
+ *     <li>password</li>
+ * </ul>
+ *
+ * <p>The fragment ask the repo to perform actions and update Live Data according the responses.</p>
  */
 public class ProfileEditViewModel extends AndroidViewModel {
 

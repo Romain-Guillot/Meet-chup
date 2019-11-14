@@ -14,9 +14,12 @@ import com.progmobile.meetchup.utils.SingleEvent;
 import com.progmobile.meetchup.utils.form_data_with_validators.BasicValidator;
 import com.progmobile.meetchup.utils.form_data_with_validators.FormData;
 
-import java.util.Calendar;
 import java.util.Date;
 
+
+/**
+ *
+ */
 public class EventCreationViewModel extends FormViewModel {
 
     private IEventsDataRepository eventRepo;

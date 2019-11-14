@@ -27,6 +27,7 @@ public abstract class FormLayout<T> extends FrameLayout {
 
     }
 
+    @Nullable
     T getValue() {
         return this.formData == null ? null : formData.getValue();
     }

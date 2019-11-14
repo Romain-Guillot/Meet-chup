@@ -130,20 +130,20 @@ public class EventViewViewModel extends AndroidViewModel {
 
 
     private String getAddressLocalisation(Location localisation) {
-        Geocoder geocoder = new Geocoder(this.getApplication().getApplicationContext());
-        try {
-            List<Address> addresses = geocoder.getFromLocation(localisation.getLatitude(), localisation.getLongitude(), 1);
-            if (addresses.size() >= 1) {
-                Address a = addresses.get(0);
-                String address = "";
-                if (a.getLocality() != null) address += a.getLocality();
-                if (a.getCountryName() != null)
-                    address += ((address.isEmpty() ? "" : ", ") + a.getCountryName());
-                if (!address.isEmpty()) return address;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        Geocoder geocoder = new Geocoder(this.getApplication().getApplicationContext());
+//        try {
+//            List<Address> addresses = geocoder.getFromLocation(localisation.getLatitude(), localisation.getLongitude(), 1);
+//            if (addresses.size() >= 1) {
+//                Address a = addresses.get(0);
+//                String address = "";
+//                if (a.getLocality() != null) address += a.getLocality();
+//                if (a.getCountryName() != null)
+//                    address += ((address.isEmpty() ? "" : ", ") + a.getCountryName());
+//                if (!address.isEmpty()) return address;
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         return null;
     }
 

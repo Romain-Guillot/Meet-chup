@@ -12,11 +12,15 @@ import androidx.lifecycle.ViewModelProviders;
 import com.progmobile.meetchup.utils.form_views.DateFormLayout;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.utils.FormFragment;
+import com.progmobile.meetchup.utils.form_views.LocationFormLayout;
 import com.progmobile.meetchup.utils.form_views.TextFormLayout;
 
 import java.util.Arrays;
 
 
+/**
+ *
+ */
 public class EventCreationFragment extends FormFragment {
 
     private EventCreationViewModel viewModel;
@@ -43,9 +47,11 @@ public class EventCreationFragment extends FormFragment {
         beginDateLayout.bindFormData(viewModel.beginDate);
         DateFormLayout endDateLayout = view.findViewById(R.id.event_creation_enddate);
         endDateLayout.bindFormData(viewModel.endDate);
+        LocationFormLayout locationLayout = view.findViewById(R.id.event_creation_location);
+        locationLayout.bindFormData(viewModel.location);
 
         init(viewModel,
-                Arrays.asList(titleLayout, descriptionLayout, beginDateLayout, endDateLayout),
+                Arrays.asList(titleLayout, descriptionLayout, beginDateLayout, endDateLayout, locationLayout),
                 view.findViewById(R.id.event_creation_submit),
                 "Create",
                 "Loading ...",

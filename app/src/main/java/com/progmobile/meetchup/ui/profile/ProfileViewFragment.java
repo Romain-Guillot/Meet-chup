@@ -2,7 +2,6 @@ package com.progmobile.meetchup.ui.profile;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -42,6 +41,7 @@ public class ProfileViewFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile_view, container, false);
+
         ProfileViewModel viewModel = ViewModelProviders.of(getActivity()).get(ProfileViewModel.class);
 
         TextView usernameView = view.findViewById(R.id.profile_view_user_name);
