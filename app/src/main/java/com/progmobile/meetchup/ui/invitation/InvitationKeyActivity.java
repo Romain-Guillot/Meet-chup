@@ -21,6 +21,8 @@ public class InvitationKeyActivity extends ChildActivity {
 
     public static final String EXTRA_EVENT_ID = "com.progmobile.meetchup.event_id";
 
+    private String eventID;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,12 +31,16 @@ public class InvitationKeyActivity extends ChildActivity {
 
         // Retrieve the src intent
         Intent srcIntent = getIntent();
-        String eventKey = srcIntent.getStringExtra(EXTRA_EVENT_ID);
-        if (eventKey == null)
+        eventID = srcIntent.getStringExtra(EXTRA_EVENT_ID);
+        if (eventID == null)
             throw new RuntimeException("Event ID missing");
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         // Init the view model
         InvitationKeyViewModel viewModel = ViewModelProviders.of(this).get(InvitationKeyViewModel.class);
-        viewModel.init(this, eventKey);
+        viewModel.init(this, eventID);
     }
 }
