@@ -94,12 +94,18 @@
         <item name="android:textColor">#fff</item>
     </style>
 
-    <style name="FloatingActionStyle" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+    <style name="ExtendedFloatingActionStyle" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="android:layout_margin">16dp</item>
         <item name="backgroundTint">@color/colorPrimary</item>
         <item name="android:strokeWidth">0</item>
     </style>
 
+    <style name="FloatingActionStyle" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="android:layout_margin">16dp</item>
+        <item name="tint">#fff</item>
+        <item name="backgroundTint">@color/colorPrimary</item>
+        <item name="android:strokeWidth">0</item>
+    </style>
 
     <style name="SubtitleStyle">
         <item name="android:textSize">16sp</item>

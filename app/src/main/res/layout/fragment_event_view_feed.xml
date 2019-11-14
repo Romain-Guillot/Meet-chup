@@ -7,7 +7,7 @@
     <!-- Floating action button to add a post to the event -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/feed_add_post_fab"
-        style="@style/FloatingActionStyle"
+        style="@style/ExtendedFloatingActionStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
