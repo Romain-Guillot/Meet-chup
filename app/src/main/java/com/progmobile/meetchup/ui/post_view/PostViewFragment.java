@@ -42,7 +42,7 @@ public class PostViewFragment extends Fragment {
 
         descriptionView = view.findViewById(R.id.post_view_description);
         imageView = view.findViewById(R.id.post_view_image);
-        this.commentsView = view.findViewById(R.id.post_comments);
+        commentsView = view.findViewById(R.id.post_comments);
         commentsView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         emptyCommentsContainer = view.findViewById(R.id.post_empty_comments);
 

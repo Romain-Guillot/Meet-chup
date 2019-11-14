@@ -98,4 +98,5 @@
     <string name="content_description_icon_info">icon info</string>
     <string name="create_event_button">Create</string>
     <string name="event_key_disable_btn">Disable</string>
+    <string name="user_empty_events_indicator">No events</string>
 </resources>

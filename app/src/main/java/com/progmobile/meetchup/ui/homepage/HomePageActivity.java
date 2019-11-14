@@ -7,13 +7,13 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.repositories.FirebaseAuthenticationRepository;
 import com.progmobile.meetchup.repositories.IAuthenticationRepository;
 import com.progmobile.meetchup.ui.authentication.AuthenticationActivity;
 import com.progmobile.meetchup.ui.event_creation.EventCreationActivity;
-import com.progmobile.meetchup.ui.event_view.EventViewActivity;
 import com.progmobile.meetchup.ui.invitation.JoinBottomSheetFragment;
 import com.progmobile.meetchup.ui.profile.ProfileActivity;
 
@@ -43,21 +43,13 @@ public class HomePageActivity extends AppCompatActivity {
             Intent intent = new Intent(this, EventCreationActivity.class);
             startActivity(intent);
         });
+    }
 
-
-        // -----------------------------------------------------------------------------------------
-        // tests
-        Intent intent = new Intent(this, EventViewActivity.class);
-
-        findViewById(R.id.event1).setOnClickListener(v -> {
-            intent.putExtra(EventViewActivity.EXTRA_EVENT_ID, "1");
-            startActivity(intent);
-        });
-
-        findViewById(R.id.event2).setOnClickListener(v -> {
-            intent.putExtra(EventViewActivity.EXTRA_EVENT_ID, "2");
-            startActivity(intent);
-        });
+    @Override
+    protected void onStart() {
+        super.onStart();
+        HomepageViewModel viewModel = ViewModelProviders.of(this).get(HomepageViewModel.class);
+        viewModel.init(this);
     }
 
     /**
