@@ -24,7 +24,7 @@ public class EventsListViewAdapter extends RecyclerView.Adapter<EventsListViewAd
         void onItemClick(Event event);
     }
 
-    private DateFormat dateFormat = DateFormat.getDateInstance();
+    private static DateFormat dateFormat = DateFormat.getDateInstance();
 
     List<Event> events;
     OnItemClickListener listener;
@@ -34,17 +34,44 @@ public class EventsListViewAdapter extends RecyclerView.Adapter<EventsListViewAd
         TextView dateBeginView;
         TextView durationView;
         View eventView;
+        Context context;
 
-        EventViewHolder(View itemView) {
+        EventViewHolder(View itemView, Context context) {
             super(itemView);
             this.titleView = itemView.findViewById(R.id.item_event_title);
             this.dateBeginView = itemView.findViewById(R.id.item_event_begin_date);
             this.durationView = itemView.findViewById(R.id.item_event_duration);
             this.eventView = itemView;
+            this.context = context;
         }
 
         public void bind(final Event event, final OnItemClickListener listener){
             eventView.setOnClickListener(v -> listener.onItemClick(event));
+            Date dateBegin = event.getDateBegin();
+            Date dateEnd = event.getDateEnd();
+            String title = event.getTitle();
+            if (title != null)
+                titleView.setText(title);
+            if (dateBegin != null)
+                dateBeginView.setText(dateFormat.format(dateBegin));
+            if (dateBegin != null && dateEnd != null){
+                durationView.setText(getDurationBetweenDate(dateBegin, dateEnd));
+            }
+        }
+
+        private String getDurationBetweenDate(Date d1, Date d2) {
+            long diff = d2.getTime() - d1.getTime(); // milliseconds
+            int days = (int) Math.floor(diff / (1000.*60*60*24)); // to seconds -> to minutes -> to hours -> to days
+            int weeks = (int) Math.floor(days / 7.);
+            int daysAfterLastWeek = days - Math.round(7 * weeks);
+
+            String duration = "";
+            if (weeks >= 1)
+                duration += context.getResources().getQuantityString(R.plurals.week_label, weeks, weeks);
+            if (daysAfterLastWeek >= 1)
+                duration += ((duration.isEmpty() ? "" : ", ") +  context.getResources().getQuantityString(R.plurals.day_label, daysAfterLastWeek, daysAfterLastWeek));
+
+            return duration;
         }
     }
 
@@ -59,27 +86,14 @@ public class EventsListViewAdapter extends RecyclerView.Adapter<EventsListViewAd
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View eventView = inflater.inflate(R.layout.item_event, parent, false);
-        EventsListViewAdapter.EventViewHolder holder = new EventsListViewAdapter.EventViewHolder(eventView);
+        EventsListViewAdapter.EventViewHolder holder = new EventsListViewAdapter.EventViewHolder(eventView, context);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull EventsListViewAdapter.EventViewHolder holder, int position) {
         Event event = events.get(position);
-
         holder.bind(event, listener);
-        Date dateBegin = event.getDateBegin();
-        Date dateEnd = event.getDateEnd();
-        String title = event.getTitle();
-        if (title != null)
-            holder.titleView.setText(title);
-        if (dateBegin != null)
-            holder.dateBeginView.setText(dateFormat.format(dateBegin));
-        if (dateBegin != null && dateEnd != null){
-            long duration = dateEnd.getTime() - dateBegin.getTime();
-            long days = duration/1000/60/60/24;
-            holder.durationView.setText(days + " days");
-        }
     }
 
     @Override
