@@ -9,15 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 
-
 import com.progmobile.meetchup.utils.form_views.DateFormLayout;
-import com.progmobile.meetchup.utils.form_views.FormLayout;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.utils.FormFragment;
 import com.progmobile.meetchup.utils.form_views.TextFormLayout;
 
 import java.util.Arrays;
-import java.util.List;
 
 
 public class EventCreationFragment extends FormFragment {

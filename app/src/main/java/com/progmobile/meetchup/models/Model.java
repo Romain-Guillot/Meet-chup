@@ -18,7 +18,6 @@ public class Model {
         return id;
     }
 
-    @Exclude
     public Date getDateCreated() {
         return dateCreated;
     }

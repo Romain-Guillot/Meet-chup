@@ -14,6 +14,7 @@ import com.progmobile.meetchup.utils.SingleEvent;
 import com.progmobile.meetchup.utils.form_data_with_validators.BasicValidator;
 import com.progmobile.meetchup.utils.form_data_with_validators.FormData;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class EventCreationViewModel extends FormViewModel {
@@ -38,8 +39,9 @@ public class EventCreationViewModel extends FormViewModel {
     @Override
     protected void submitForm() {
         if (validate()) {
+            Date now = new Date();
             Event event = new Event(null, titleField.getValue(), descriptionField.getValue(),
-                    null, beginDate.getValue(), endDate.getValue(), null,
+                    null, beginDate.getValue(), endDate.getValue(), now,
                     location.getValue(), null);
             eventRepo.createEvent(event, new SubmitCallback<>());
         } else {
