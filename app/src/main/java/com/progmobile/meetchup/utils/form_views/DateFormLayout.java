@@ -27,6 +27,8 @@ public class DateFormLayout extends DialogFormLayout<Date> {
     @Override
     void showDialog() {
         final Calendar c = Calendar.getInstance();
+        if (getValue() != null)
+            c.setTime(getValue());
         int mYear = c.get(Calendar.YEAR); // current year
         int mMonth = c.get(Calendar.MONTH); // current month
         int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
