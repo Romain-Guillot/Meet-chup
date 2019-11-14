@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.appprojet.R;
 import com.example.appprojet.repositories.FirebaseAuthenticationRepository;
@@ -44,10 +45,12 @@ public class HomePageActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        HomepageViewModel viewModel = ViewModelProviders.of(this).get(HomepageViewModel.class);
+        viewModel.init(this);
 
         // -----------------------------------------------------------------------------------------
         // tests
-        Intent intent = new Intent(this, EventViewActivity.class);
+        /*Intent intent = new Intent(this, EventViewActivity.class);
 
         findViewById(R.id.event1).setOnClickListener(v -> {
             intent.putExtra(EventViewActivity.EXTRA_EVENT_ID, "1");
@@ -57,7 +60,7 @@ public class HomePageActivity extends AppCompatActivity {
         findViewById(R.id.event2).setOnClickListener(v -> {
             intent.putExtra(EventViewActivity.EXTRA_EVENT_ID, "2");
             startActivity(intent);
-        });
+        });*/
     }
 
     /** If I put the action bar in the onCreate the logo size will no be kept ...*/

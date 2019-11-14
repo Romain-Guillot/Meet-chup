@@ -47,6 +47,8 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
     public final static String EVENT_FIELD_INVITKEY = "invitKey";
     public final static String EVENT_FIELD_PARTICIPANTS = "participants";
     public final static String EVENT_FIELD_TITLE = "title";
+    public final static String EVENT_FIELD_DATE_BEGIN = "dateBegin";
+    public final static String EVENT_FIELD_DATE_END = "dateEnd";
 
 
     private FirestoreEventsDataRepository() {
@@ -69,29 +71,30 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
     * */
     @Override
     public void allEvents(@NonNull Activity client, @NonNull Callback<List<Event>> callback) {
-//        FirebaseUser fbUser = firebaseAuth.getCurrentUser();
-//        if (fbUser == null) {
-//            callback.onFail(new CallbackException(CallbackException.Type.NO_LOGGED)); return ;
-//        }
-//        firestore.collection(USERS_COL).document(fbUser.getUid()).addSnapshotListener(client, (documentSnapshot, e1) -> {
-//            if (e1 != null) { callback.onFail(CallbackException.fromFirebaseException(e1));return ; }
-//            try {
-//                List<String> eventIDs = (List<String>) documentSnapshot.getData().get(USERS_FIELD_EVENTS);
-//                List<Event> events = new ArrayList<>();
-//                for (String id : eventIDs) {
-//                    firestore.collection(EVENT_COL).document(id).get().addOnCompleteListener(task -> {
-//                        try {
-//                            if (task.isSuccessful()) {
-//                                Event event = serializer.dezerializeEvent(task.getResult().getId(), task.getResult().getData());
-//                                if (event != null) {
-//                                    events.add(event);
-//                                }
-//                            }
-//                        } catch (Exception e3) {}
-//                    });
-//                }
-//            } catch (Exception e2) { callback.onSucceed(new ArrayList<>()); }
-//        });
+        FirebaseUser fbUser = firebaseAuth.getCurrentUser();
+        if (fbUser == null) {
+            callback.onFail(new CallbackException(CallbackException.Type.NO_LOGGED)); return ;
+        }
+        firestore.collection(USERS_COL).document(fbUser.getUid()).addSnapshotListener(client, (documentSnapshot, e1) -> {
+            if (e1 != null) { callback.onFail(CallbackException.fromFirebaseException(e1));return ; }
+            try {
+                List<String> eventIDs = (List<String>) documentSnapshot.getData().get(USERS_FIELD_EVENTS);
+                List<Event> events = new ArrayList<>();
+                for (String id : eventIDs) {
+                    firestore.collection(EVENT_COL).document(id).get().addOnCompleteListener(task -> {
+                        try {
+                            if (task.isSuccessful()) {
+                                Event event = serializer.dezerializeEvent(task.getResult().getId(), task.getResult().getData());
+                                if (event != null) {
+                                    events.add(event);
+                                }
+                                callback.onSucceed(events);
+                            }
+                        } catch (Exception e3) {}
+                    });
+                }
+            } catch (Exception e2) { callback.onSucceed(new ArrayList<>()); }
+        });
     }
 
     /** @inheritDoc - Status : DONE
