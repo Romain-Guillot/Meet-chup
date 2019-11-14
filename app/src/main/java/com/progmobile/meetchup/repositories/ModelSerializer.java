@@ -1,8 +1,6 @@
-package com.example.appprojet.repositories;
+package com.progmobile.meetchup.repositories;
 
-import android.util.Log;
-
-import com.example.appprojet.models.Event;
+import com.progmobile.meetchup.models.Event;
 
 import java.util.Date;
 import java.util.Map;

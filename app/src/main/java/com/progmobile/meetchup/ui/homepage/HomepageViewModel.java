@@ -1,16 +1,15 @@
 package com.progmobile.meetchup.ui.homepage;
 
 import android.app.Activity;
-import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.appprojet.models.Event;
-import com.example.appprojet.repositories.FirestoreEventsDataRepository;
-import com.example.appprojet.repositories.IEventsDataRepository;
-import com.example.appprojet.utils.Callback;
-import com.example.appprojet.utils.CallbackException;
+import com.progmobile.meetchup.models.Event;
+import com.progmobile.meetchup.repositories.FirestoreEventsDataRepository;
+import com.progmobile.meetchup.repositories.IEventsDataRepository;
+import com.progmobile.meetchup.utils.Callback;
+import com.progmobile.meetchup.utils.CallbackException;
 
 import java.util.List;
 

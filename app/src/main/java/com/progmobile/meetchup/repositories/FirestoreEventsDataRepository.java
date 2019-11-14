@@ -1,17 +1,13 @@
-package com.example.appprojet.repositories;
+package com.progmobile.meetchup.repositories;
 
 
 import android.app.Activity;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-import com.example.appprojet.models.Event;
-import com.example.appprojet.utils.CallbackException;
-import com.example.appprojet.utils.Location;
-import com.example.appprojet.utils.Callback;
+import com.progmobile.meetchup.models.Event;
+import com.progmobile.meetchup.utils.CallbackException;
+import com.progmobile.meetchup.utils.Callback;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -22,10 +18,8 @@ import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.firestore.WriteBatch;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

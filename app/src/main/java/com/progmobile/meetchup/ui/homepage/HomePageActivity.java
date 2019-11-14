@@ -14,7 +14,6 @@ import com.progmobile.meetchup.repositories.FirebaseAuthenticationRepository;
 import com.progmobile.meetchup.repositories.IAuthenticationRepository;
 import com.progmobile.meetchup.ui.authentication.AuthenticationActivity;
 import com.progmobile.meetchup.ui.event_creation.EventCreationActivity;
-import com.progmobile.meetchup.ui.event_view.EventViewActivity;
 import com.progmobile.meetchup.ui.invitation.JoinBottomSheetFragment;
 import com.progmobile.meetchup.ui.profile.ProfileActivity;
 

@@ -14,9 +14,9 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appprojet.R;
-import com.example.appprojet.models.Event;
-import com.example.appprojet.ui.event_view.EventViewActivity;
+import com.progmobile.meetchup.R;
+import com.progmobile.meetchup.models.Event;
+import com.progmobile.meetchup.ui.event_view.EventViewActivity;
 
 
 /**

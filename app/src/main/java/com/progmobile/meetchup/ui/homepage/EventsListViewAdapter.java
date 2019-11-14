@@ -1,18 +1,16 @@
-package com.example.appprojet.ui.homepage;
+package com.progmobile.meetchup.ui.homepage;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.appprojet.R;
-import com.example.appprojet.models.Event;
+import com.progmobile.meetchup.R;
+import com.progmobile.meetchup.models.Event;
 
 import java.text.DateFormat;
 import java.util.Date;
