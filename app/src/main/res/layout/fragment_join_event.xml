@@ -2,61 +2,65 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingStart="@dimen/bottom_sheet_margin"
-    android:paddingEnd="@dimen/bottom_sheet_margin"
     android:paddingTop="@dimen/bottom_sheet_margin"
+    android:paddingEnd="@dimen/bottom_sheet_margin"
     android:paddingBottom="0dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         tools:ignore="UseCompoundDrawables">
+
         <ImageView
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_marginEnd="@dimen/normal_spacing"
+            android:contentDescription="@string/content_description_icon_info"
             android:src="@drawable/ic_info"
-            android:tint="@color/textColorLight"
-            android:contentDescription="@string/content_description_icon_info"/>
+            android:tint="@color/textColorLight" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/join_event_help"
             android:textColor="@color/textColorLight"
-            android:textSize="@dimen/small_text"
-            android:text="@string/join_event_help"/>
+            android:textSize="@dimen/small_text" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/join_event_key_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:boxBackgroundColor="@null"
             android:layout_weight="1"
-            android:hint="@string/invitation_key_hint">
+            android:hint="@string/invitation_key_hint"
+            app:boxBackgroundColor="@null">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/join_event_key_field"
-                android:paddingStart="0dp"
-                android:paddingEnd="0dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"/>
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
+                android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            style="@style/ButtonTextStyle"
             android:id="@+id/join_event_btn"
+            style="@style/ButtonTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/join_event_btn"/>
+            android:text="@string/join_event_btn" />
     </LinearLayout>
 </LinearLayout>

@@ -23,7 +23,7 @@
         <item name="textInputStyle">@style/AppInputTextStyle</item>
 
         <item name="android:textColor">@color/textColor</item>
-<!--        <item name="buttonStyle">@style/ButtonStyle</item>-->
+        <!--        <item name="buttonStyle">@style/ButtonStyle</item>-->
         <item name="materialButtonStyle">@style/ButtonStyle</item>
 
         <item name="android:textSize">@dimen/text_size</item>
@@ -33,14 +33,13 @@
     </style>
 
 
-
     <style name="ActionBarStyle" parent="@style/Widget.MaterialComponents.ActionBar.Primary">
         <item name="background">@color/backgroundColor</item>
         <item name="elevation">0dp</item>
         <item name="titleTextStyle">@style/_ActionBarTitleTextStyle</item>
     </style>
 
-    <style name="_ActionBarTitleTextStyle"  parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+    <style name="_ActionBarTitleTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">17sp</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -52,10 +51,11 @@
     </style>
 
 
-
     <style name="AppInputTextStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="boxStrokeWidth">0dp</item>
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MyApp.TextInputLayout.Rounded</item>
+        <item name="shapeAppearanceOverlay">
+            @style/ShapeAppearanceOverlay.MyApp.TextInputLayout.Rounded
+        </item>
         <item name="boxStrokeWidthFocused">0dp</item>
     </style>
 
