@@ -1,9 +1,11 @@
 package com.progmobile.meetchup.ui.homepage;
 
 import android.content.Context;
+import android.service.autofill.VisibilitySetterAction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -50,11 +52,16 @@ public class EventsListViewAdapter extends RecyclerView.Adapter<EventsListViewAd
             String title = event.getTitle();
             if (title != null)
                 titleView.setText(title);
+
+            ImageView dateBeginIcon = itemView.findViewById(R.id.item_event_begin_date_icon);
             if (dateBegin != null)
                 dateBeginView.setText(dateFormat.format(dateBegin));
-            if (dateBegin != null && dateEnd != null){
+            dateBeginIcon.setVisibility(dateBegin == null ? View.GONE : View.VISIBLE);
+
+            ImageView durationIcon = itemView.findViewById(R.id.item_event_duration_icon);
+            if (dateBegin != null && dateEnd != null)
                 durationView.setText(getDurationBetweenDate(dateBegin, dateEnd));
-            }
+            durationIcon.setVisibility(dateBegin != null && dateEnd != null ? View.VISIBLE : View.GONE);
         }
 
         private String getDurationBetweenDate(Date d1, Date d2) {
