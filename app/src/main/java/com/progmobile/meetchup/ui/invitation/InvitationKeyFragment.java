@@ -20,16 +20,16 @@ import java.util.Collections;
 
 
 /**
- * FormFragment that holds the form to see / remove / update the event invitation key
- * All business logic is handled by the InvitationKeyViewModel {@link InvitationKeyViewModel}
- * <p>
- * Here, we initialize the FormFragment with the input field, the form view model, and other
- * configuration data.
- * <p>
- * So the input field is handled with the FormFragment and the FormViewModel
- * {@link com.progmobile.meetchup.utils.FormViewModel}
- * <p>
- * In addition, the form add a switcher to
+ * <p>FormFragment that holds the form to see / remove / update the event invitation key
+ * All business logic is handled by the InvitationKeyViewModel {@link InvitationKeyViewModel}</p>
+ *
+ * <p>Here, we initialize the FormFragment with the input field, the form view model, and other
+ * configuration data.</p>
+ *
+ * <p>So the input field is handled with the FormFragment and the FormViewModel
+ * {@link com.progmobile.meetchup.utils.FormViewModel}</p>
+ *
+ * <p>In addition, the form add a button to remove the current invitation key (if any)</p>
  */
 public class InvitationKeyFragment extends FormFragment {
 

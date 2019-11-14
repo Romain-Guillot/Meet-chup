@@ -21,18 +21,18 @@ import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.utils.SnackbarFactory;
 
 /**
- * This fragment holds the bottom sheet fragment that displays the text field to join an event with
- * and invitation key.
- * <p>
- * When the view is created, the fragment show the keyboard (and hide when the view is destroy)
- * <p>
- * The process of the form is handled by the view model {@link JoinBottomSheetViewModel}
- * <p>
- * Here we just update the submit button text according the the viewmodel live data.
- * <p>
- * NOTE :   this fragment behavior is the FormFragment behavior {@link com.progmobile.meetchup.utils.FormFragment}
+ * <p>This fragment holds the bottom sheet fragment that displays the text field to join an event with
+ * and invitation key.</p>
+ *
+ * <p>When the view is created, the fragment show the keyboard (and hide when the view is destroy)</p>
+ *
+ * <p>The process of the form is handled by the view model {@link JoinBottomSheetViewModel}</p>
+ *
+ * <p>Here we just update the submit button text according the the viewmodel live data.</p>
+ *
+ * <p>NOTE :   this fragment behavior is the FormFragment behavior {@link com.progmobile.meetchup.utils.FormFragment}
  * but as the multiple inheritance is not possible, I cannot extends this fragment of the FormFragment sadly
- * Maybe transform the inheritance to association ...
+ * Maybe transform the inheritance to association ...</p>
  */
 public class JoinBottomSheetFragment extends BottomSheetDialogFragment {
 
@@ -41,14 +41,16 @@ public class JoinBottomSheetFragment extends BottomSheetDialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getActivity() == null)
+            throw new RuntimeException("Illegal use of the JoinBottomSheetFragment");
         viewModel = ViewModelProviders.of(getActivity()).get(JoinBottomSheetViewModel.class);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        showKeyboard();
         View view = inflater.inflate(R.layout.fragment_join_event, container, false);
+        showKeyboard();
 
         // Views init
         TextInputLayout invitKeyTextLayout = view.findViewById(R.id.join_event_key_layout);
@@ -98,13 +100,11 @@ public class JoinBottomSheetFragment extends BottomSheetDialogFragment {
         return view;
     }
 
-
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onPause() {
+        super.onPause();
         closeKeyboard();
     }
-
 
     private void showKeyboard() {
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
