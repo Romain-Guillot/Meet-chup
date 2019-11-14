@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 
 import com.progmobile.meetchup.R;
 
