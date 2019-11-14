@@ -12,11 +12,11 @@ import com.progmobile.meetchup.utils.SingleEvent;
 
 
 /**
- * {@link FormViewModel}
+ * <p>{@link FormViewModel}<br>
  * Form view model to handle the join invitation form.
  * The unique field is the invitation key, we simply call the repository when the user submit the
  * form and the view model live data are updated according to the repo response
- * (isLoadingLice, successLive, errorLive)
+ * (isLoadingLice, successLive, errorLive)</p>
  */
 public class JoinBottomSheetViewModel extends FormViewModel {
 

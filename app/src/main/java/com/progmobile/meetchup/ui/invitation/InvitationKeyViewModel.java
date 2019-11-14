@@ -20,9 +20,9 @@ import com.progmobile.meetchup.utils.form_data_with_validators.FormData;
 
 
 /**
- * FormViewModel {@link FormViewModel} that handled the loading, error and success management
+ * <p>FormViewModel {@link FormViewModel} that handled the loading, error and success management
  * Here, we implement the submit button behavior (ask the event repo for deleting or updating
- * the invitation key event)
+ * the invitation key event)</p>
  */
 public class InvitationKeyViewModel extends FormViewModel {
 

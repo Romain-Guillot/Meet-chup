@@ -1,8 +1,11 @@
 package com.progmobile.meetchup.ui.profile;
 
+import android.app.Activity;
 import android.app.Application;
 
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 
@@ -55,6 +58,10 @@ public class ProfileEditViewModel extends AndroidViewModel {
     public ProfileEditViewModel(Application application) {
         super(application);
         authRepo = FirebaseAuthenticationRepository.getInstance();
+
+    }
+
+    void init() {
         User user = authRepo.getCurrentUser();
         if (user != null) {
             emailFormData.setValue(user.getEmail());
