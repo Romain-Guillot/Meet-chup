@@ -94,7 +94,7 @@
         <item name="android:textColor">#fff</item>
     </style>
 
-    <style name="FloatingActionStyle" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
+    <style name="FloatingActionStyle" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="android:layout_margin">16dp</item>
         <item name="backgroundTint">@color/colorPrimary</item>
         <item name="android:strokeWidth">0</item>

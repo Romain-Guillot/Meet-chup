@@ -23,6 +23,7 @@
             android:layout_width="16dp"
             android:layout_height="match_parent"
             android:tint="@color/textColorLight"
+            android:layout_marginEnd="@dimen/normal_spacing"
             android:src="@drawable/ic_calendar"/>
 
         <TextView
@@ -35,12 +36,15 @@
             android:layout_width="16dp"
             android:layout_height="match_parent"
             android:tint="@color/textColorLight"
-            android:src="@drawable/ic_duration"/>
+            android:src="@drawable/ic_duration"
+            android:layout_marginEnd="@dimen/normal_spacing"
+            android:layout_marginStart="@dimen/block_spacing"/>
 
         <TextView
             android:id="@+id/item_event_duration"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorLight"/>
 
     </LinearLayout>
 

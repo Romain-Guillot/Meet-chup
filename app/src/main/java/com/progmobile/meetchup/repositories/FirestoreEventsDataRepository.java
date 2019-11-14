@@ -2,6 +2,7 @@ package com.progmobile.meetchup.repositories;
 
 
 import android.app.Activity;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -74,6 +75,7 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
             try {
                 List<String> eventIDs = (List<String>) documentSnapshot.getData().get(USERS_FIELD_EVENTS);
                 List<Event> events = new ArrayList<>();
+                Log.e(">>>>>>>>>", eventIDs.size()+"");
                 if (eventIDs.isEmpty()) {
                     callback.onSucceed(events);
                     return ;
@@ -86,9 +88,9 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
                                 if (event != null) {
                                     events.add(event);
                                 }
-                                callback.onSucceed(events);
                             }
-                        } catch (Exception e3) {}
+                        } catch (Exception e3) {
+                        } finally {callback.onSucceed(events);}
                     });
                 }
             } catch (Exception e2) { callback.onSucceed(new ArrayList<>()); }
