@@ -1,5 +1,6 @@
 package com.example.appprojet.ui.homepage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appprojet.R;
+import com.example.appprojet.models.Event;
+import com.example.appprojet.ui.event_view.EventViewActivity;
 
 
 /**
@@ -37,7 +40,7 @@ public class EventsListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_homepage_events_list, container, false);
-
+        Intent intent = new Intent(getActivity(), EventViewActivity.class);
         eventsView = view.findViewById(R.id.user_events);
         eventsView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         emptyEventsContainer = view.findViewById(R.id.empty_event_list);
@@ -49,7 +52,12 @@ public class EventsListFragment extends Fragment {
             } else {
                 emptyEventsContainer.setVisibility(View.GONE);
                 eventsView.setVisibility(View.VISIBLE);
-                eventsView.setAdapter(new EventsListViewAdapter(events));
+                eventsView.setAdapter(new EventsListViewAdapter(events, new EventsListViewAdapter.OnItemClickListener() {
+                    @Override public void onItemClick(Event event) {
+                        intent.putExtra(EventViewActivity.EXTRA_EVENT_ID, event.getId());
+                        startActivity(intent);
+                    }
+                }));
             }
         });
 
