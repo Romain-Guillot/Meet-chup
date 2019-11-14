@@ -108,6 +108,10 @@
         <item name="android:layout_marginBottom">@dimen/normal_spacing</item>
     </style>
 
+    <style name="SubtitleStyle.Item" parent="SubtitleStyle">
+        <item name="android:layout_marginTop">0dp</item>
+    </style>
+
     <style name="info_box">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>

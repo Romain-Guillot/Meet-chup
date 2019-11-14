@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,10 +41,14 @@ public class EventsListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_homepage_events_list, container, false);
+
         Intent intent = new Intent(getActivity(), EventViewActivity.class);
         eventsView = view.findViewById(R.id.user_events);
         eventsView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         emptyEventsContainer = view.findViewById(R.id.empty_event_list);
+
+        DividerItemDecoration divider = new DividerItemDecoration(getContext(), RecyclerView.VERTICAL);
+        eventsView.addItemDecoration(divider);
 
         viewModel.userEventsLive.observe(this, events -> {
             if(events.isEmpty()){
