@@ -18,7 +18,7 @@ Dans le cadre d'un projet de développement d’applications mobiles, nous propo
 - [ ] Gestion de l'organisation d'un événement (to-do list avec système d'attribution des tâches)
 - [ ] Système de commentaire sur les post (ajout, visualisation, suppression)
 - [ ] Notification d'arrivée (physique) sur le lieu de l'événement
-- [ ] Identification des personnes sur les photos
+- [ ] Notification des participants lors d'un nouveau post
 
 
 ## Divers
