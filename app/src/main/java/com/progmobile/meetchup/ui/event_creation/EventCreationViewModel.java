@@ -47,7 +47,8 @@ public class EventCreationViewModel extends FormViewModel {
      */
     @Override
     protected void submitForm() {
-        if (validate()) {
+        if (validate() && eventCreated.getValue() == null && (isLoadingLive.getValue() == null || !isLoadingLive.getValue())) {
+            isLoadingLive.setValue(true);
             Date now = new Date();
             Event event = new Event(null, titleField.getValue(), descriptionField.getValue(),
                     null, beginDate.getValue(), endDate.getValue(), now,
@@ -55,8 +56,8 @@ public class EventCreationViewModel extends FormViewModel {
             eventRepo.createEvent(event, new Callback<String>() {
                 @Override
                 public void onSucceed(String result) {
-                    new SubmitCallback<>().onSucceed(result);
                     eventCreated.setValue(result);
+                    new SubmitCallback<>().onSucceed(result);
                 }
 
                 @Override

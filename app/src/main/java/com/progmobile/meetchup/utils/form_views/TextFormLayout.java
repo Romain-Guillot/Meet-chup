@@ -49,7 +49,7 @@ public class TextFormLayout extends FormLayout<String> {
             switch (inputType) {
                 case 0 : // text
                     layout.setEndIconMode(TextInputLayout.END_ICON_NONE);
-                    editText.setInputType(InputType.TYPE_CLASS_TEXT);
+                    editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
                     break;
                 case 1: // password
                     ColorStateList colorTint = a.getColorStateList(R.styleable.TextFormLayout_colorTint);
@@ -62,7 +62,7 @@ public class TextFormLayout extends FormLayout<String> {
                     break;
                 case 3: // singleLine
                     layout.setEndIconMode(TextInputLayout.END_ICON_NONE);
-                    editText.setInputType(InputType.TYPE_CLASS_TEXT);
+                    editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
                     editText.setSingleLine(true);
                     break;
             }

@@ -19,6 +19,7 @@ import com.progmobile.meetchup.utils.form_data_with_validators.FormData;
 public class LocationFormLayout extends DialogFormLayout<Location> {
 
     MaterialAlertDialogBuilder builder;
+    AlertDialog dialog;
 
     public LocationFormLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -47,8 +48,14 @@ public class LocationFormLayout extends DialogFormLayout<Location> {
                 .setNegativeButton("Cancel", (dialog, id) -> {
                         dialog.cancel();
                 });
-        AlertDialog dialog = builder.create();
+        dialog  = builder.create();
         dialog.show();
+    }
+
+    @Override
+    public void dismiss() {
+        if (dialog != null && dialog.isShowing())
+            dialog.dismiss();
     }
 
 

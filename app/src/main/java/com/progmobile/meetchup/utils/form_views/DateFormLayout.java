@@ -18,6 +18,7 @@ import java.util.Date;
 public class DateFormLayout extends DialogFormLayout<Date> {
 
     final DateFormat dateFormat = DateFormat.getDateInstance();
+    DatePickerDialog datePickerDialog;
 
     public DateFormLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -33,12 +34,18 @@ public class DateFormLayout extends DialogFormLayout<Date> {
         int mYear = c.get(Calendar.YEAR); // current year
         int mMonth = c.get(Calendar.MONTH); // current month
         int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
-        DatePickerDialog datePickerDialog;
+
         datePickerDialog = new DatePickerDialog(getContext(), (view, year, monthOfYear, dayOfMonth) -> {
             c.set(year, monthOfYear, dayOfMonth);
             setValue(c.getTime());
         }, mYear, mMonth, mDay);
         datePickerDialog.show();
+    }
+
+    @Override
+    public void dismiss() {
+        if (datePickerDialog != null && datePickerDialog.isShowing())
+            datePickerDialog.dismiss();
     }
 
 

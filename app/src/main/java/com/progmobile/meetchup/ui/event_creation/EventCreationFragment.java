@@ -25,6 +25,10 @@ public class EventCreationFragment extends FormFragment {
 
     private EventCreationViewModel viewModel;
 
+    DateFormLayout beginDateLayout;
+    DateFormLayout endDateLayout;
+    LocationFormLayout locationLayout;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,11 +47,11 @@ public class EventCreationFragment extends FormFragment {
         titleLayout.bindFormData(viewModel.titleField);
         TextFormLayout descriptionLayout = view.findViewById(R.id.event_creation_description);
         descriptionLayout.bindFormData(viewModel.descriptionField);
-        DateFormLayout beginDateLayout = view.findViewById(R.id.event_creation_begindate);
+        beginDateLayout = view.findViewById(R.id.event_creation_begindate);
         beginDateLayout.bindFormData(viewModel.beginDate);
-        DateFormLayout endDateLayout = view.findViewById(R.id.event_creation_enddate);
+        endDateLayout = view.findViewById(R.id.event_creation_enddate);
         endDateLayout.bindFormData(viewModel.endDate);
-        LocationFormLayout locationLayout = view.findViewById(R.id.event_creation_location);
+        locationLayout = view.findViewById(R.id.event_creation_location);
         locationLayout.bindFormData(viewModel.location);
 
         init(viewModel,
@@ -58,5 +62,13 @@ public class EventCreationFragment extends FormFragment {
                 "Event created");
 
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        beginDateLayout.dismiss();
+        endDateLayout.dismiss();
+        locationLayout.dismiss();
     }
 }

@@ -2,6 +2,7 @@ package com.progmobile.meetchup.utils.form_views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.Button;
@@ -70,5 +71,7 @@ public abstract class DialogFormLayout<T> extends FormLayout<T> {
     }
 
     abstract void showDialog();
+
+    public abstract void dismiss();
 
 }
