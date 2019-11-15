@@ -35,6 +35,7 @@ public class EventCreationActivity extends ChildActivity {
         setContentView(R.layout.acrivity_event_creation);
 
         EventCreationViewModel viewModel = ViewModelProviders.of(this).get(EventCreationViewModel.class);
+        // when the event is created we launch the event view activity to see it
         viewModel.eventCreated.observe(this, successEvent -> {
             if (successEvent != null) {
                 Intent goToEvent = new Intent(this, EventViewActivity.class);

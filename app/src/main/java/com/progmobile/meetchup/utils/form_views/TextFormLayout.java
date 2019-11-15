@@ -11,6 +11,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.Nullable;
 
@@ -49,7 +50,6 @@ public class TextFormLayout extends FormLayout<String> {
             switch (inputType) {
                 case 0 : // text
                     layout.setEndIconMode(TextInputLayout.END_ICON_NONE);
-                    editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
                     break;
                 case 1: // password
                     ColorStateList colorTint = a.getColorStateList(R.styleable.TextFormLayout_colorTint);

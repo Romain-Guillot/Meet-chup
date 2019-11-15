@@ -19,15 +19,18 @@ import java.util.Arrays;
 
 
 /**
+ * <p>Holds the form, as others forms, it is a subclass of FromFragment {@link FormFragment}</p>
  *
+ * <p>Here, we just bind the form's TextFormLayout {@link TextFormLayout} with the viewmodel's
+ * FormDate {@link com.progmobile.meetchup.utils.form_data_with_validators.FormData}</p>
  */
 public class EventCreationFragment extends FormFragment {
 
     private EventCreationViewModel viewModel;
 
-    DateFormLayout beginDateLayout;
-    DateFormLayout endDateLayout;
-    LocationFormLayout locationLayout;
+    private DateFormLayout beginDateLayout;
+    private DateFormLayout endDateLayout;
+    private LocationFormLayout locationLayout;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,13 +60,16 @@ public class EventCreationFragment extends FormFragment {
         init(viewModel,
                 Arrays.asList(titleLayout, descriptionLayout, beginDateLayout, endDateLayout, locationLayout),
                 view.findViewById(R.id.event_creation_submit),
-                "Create",
-                "Loading ...",
-                "Event created");
+                getString(R.string.create_event_button),
+                getString(R.string.loading_btn),
+                getString(R.string.create_event_success));
 
         return view;
     }
 
+    /**
+     * We dismissed all dialog when the activity is in paused to prevent memory leaks
+     */
     @Override
     public void onPause() {
         super.onPause();

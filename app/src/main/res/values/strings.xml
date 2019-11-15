@@ -104,4 +104,5 @@
     <string name="invitation_update_key_btn">Update invitation key</string>
     <string name="invitation_key_update_form_success">Key updated !</string>
     <string name="user_empty_events_indicator">No events</string>
+    <string name="create_event_success">Event created !</string>
 </resources>
