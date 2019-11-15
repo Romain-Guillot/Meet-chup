@@ -1,48 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.progmobile.meetchup.utils.form_views.TextFormLayout
-        android:id="@+id/event_creation_title"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:hint="Title"
-        app:inputType="singleLine"/>
+        app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-    <com.progmobile.meetchup.utils.form_views.TextFormLayout
-        android:id="@+id/event_creation_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:hint="Description"
-        app:inputType="text"/>
+            android:orientation="vertical">
 
-    <com.progmobile.meetchup.utils.form_views.DateFormLayout
-        android:id="@+id/event_creation_begindate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/normal_spacing"
-        app:text="Begin date"/>
+            <com.progmobile.meetchup.utils.form_views.TextFormLayout
+                android:id="@+id/event_creation_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hint="Title"
+                app:inputType="singleLine"/>
 
-    <com.progmobile.meetchup.utils.form_views.DateFormLayout
-        android:id="@+id/event_creation_enddate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/normal_spacing"
-        app:text="End date"/>
+            <com.progmobile.meetchup.utils.form_views.TextFormLayout
+                android:id="@+id/event_creation_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hint="Description"
+                app:inputType="text"/>
 
-    <com.progmobile.meetchup.utils.form_views.LocationFormLayout
-        android:id="@+id/event_creation_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:text="Location"/>
+            <com.progmobile.meetchup.utils.form_views.DateFormLayout
+                android:id="@+id/event_creation_begindate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/normal_spacing"
+                app:text="Begin date"/>
 
-    <com.google.android.material.button.MaterialButton
+            <com.progmobile.meetchup.utils.form_views.DateFormLayout
+                android:id="@+id/event_creation_enddate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/normal_spacing"
+                app:text="End date"/>
+
+            <com.progmobile.meetchup.utils.form_views.LocationFormLayout
+                android:id="@+id/event_creation_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:text="Location"/>
+        </LinearLayout>
+    </ScrollView>
+
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/event_creation_submit"
+        style="@style/ExpandedFABStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create"/>
+        app:icon="@drawable/ic_add"
+        android:text="Create"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

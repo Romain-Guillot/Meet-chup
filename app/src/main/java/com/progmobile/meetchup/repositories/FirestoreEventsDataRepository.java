@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.progmobile.meetchup.models.Event;
+import com.progmobile.meetchup.models.User;
 import com.progmobile.meetchup.utils.CallbackException;
 import com.progmobile.meetchup.utils.Callback;
 import com.google.firebase.auth.FirebaseAuth;
@@ -104,7 +105,7 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
             if (e != null || documentSnapshot == null && !documentSnapshot.exists()) {
                 callback.onFail(CallbackException.fromFirebaseException(e)); return ;
             }
-            Event event = serializer.dezerializeEvent(documentSnapshot.getId(), documentSnapshot.getData());
+            Event event = documentSnapshot.toObject(Event.class);
             if (event != null) callback.onSucceed(event);
             else callback.onFail(new CallbackException());
         }));
@@ -114,9 +115,21 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
      * */
     @Override
     public void createEvent(@NonNull Event event, @NonNull Callback<String> callback) {
-        firestore.collection(EVENT_COL).add(event).addOnCompleteListener(t -> {
-           if (t.isSuccessful() && t.getResult() != null) {
-                callback.onSucceed(t.getResult().getId());
+        FirebaseUser fbUser = firebaseAuth.getCurrentUser();
+        if (fbUser == null) {
+            callback.onFail(new CallbackException(CallbackException.Type.NO_LOGGED));
+            return ;
+        }
+        event.addParticipant(new User(firebaseAuth.getUid(), null, null));
+
+        WriteBatch batch = firestore.batch();
+        DocumentReference docUser = firestore.collection(USERS_COL).document(fbUser.getUid());
+        DocumentReference docEvent = firestore.collection(EVENT_COL).document(); // auto generated ID
+        batch.set(docUser, new HashMap<String, Object>(){{put(USERS_FIELD_EVENTS, FieldValue.arrayUnion(docEvent.getId()));}}, SetOptions.merge());
+        batch.set(docEvent, event);
+        batch.commit().addOnCompleteListener(t -> {
+           if (t.isSuccessful()) {
+                callback.onSucceed(docEvent.getId());
            } else {
                callback.onFail(CallbackException.fromFirebaseException(t.getException()));
            }

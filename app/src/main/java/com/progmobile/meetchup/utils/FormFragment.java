@@ -54,13 +54,14 @@ public abstract class FormFragment extends Fragment {
         viewModel.errorLive.observe(this, error -> {
             if (error != null) {
                 String message = error.getContentIfNotHandled();
-                SnackbarFactory.showErrorSnackbar(getActivity().findViewById(android.R.id.content), message);
+                if (message != null)
+                    SnackbarFactory.showErrorSnackbar(getActivity().findViewById(android.R.id.content), message);
             }
         });
 
         // Show the success snackbar if success
         viewModel.successLive.observe(this, success -> {
-            if (successMessage != null && success.getContentIfNotHandled())
+            if (successMessage != null && success != null && success.getContentIfNotHandled() != null)
                 SnackbarFactory.showSuccessSnackbar(getActivity().findViewById(android.R.id.content), successMessage);
         });
     }

@@ -4,6 +4,7 @@ package com.progmobile.meetchup.models;
 import com.google.firebase.firestore.Exclude;
 import com.progmobile.meetchup.utils.Location;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,9 @@ public class Event extends Model{
     private List<User> participants;
     private List<Post> posts;
 
+    public Event() {
+        super();
+    }
 
     public Event(String id, String title, String description, List<User> participants, Date dateBegin, Date dateEnd, Date dateCreated, Location location, String invitationKey) {
         super(id, dateCreated);
@@ -57,6 +61,20 @@ public class Event extends Model{
         this.posts = posts;
     }
 
+    public List<String> getParticipantsID() {
+        List<String> participantsID = new ArrayList<>();
+        for (User p : participants)
+            participantsID.add(p.getId());
+        return participantsID;
+    }
+
+    public void addParticipant(User user) {
+        if (participants == null)
+            participants = new ArrayList<>();
+        this.participants.add(user);
+    }
+
+    @Exclude
     public List<User> getParticipants() {
         return participants;
     }

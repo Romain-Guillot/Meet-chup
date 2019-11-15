@@ -18,6 +18,10 @@ public abstract class Model implements Comparable<Model> {
      */
     protected Date dateCreated;
 
+    public Model() {
+
+    }
+
     public Model(String id, Date dateCreated) {
         this.id = id;
         this.dateCreated = dateCreated;
