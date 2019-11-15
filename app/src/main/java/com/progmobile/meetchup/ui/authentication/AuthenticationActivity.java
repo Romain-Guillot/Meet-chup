@@ -101,9 +101,12 @@ public class AuthenticationActivity extends AppCompatActivity {
         );
 
         // we listen the finish flag and we destroyed the activity when this flags is set to true
-        viewModel.isFinish.observe(this, b ->
-            onBackPressed()
-        );
+        viewModel.isFinish.observe(this, b -> {
+            if (b) {
+                startActivity(new Intent(this, HomePageActivity.class));
+                finish();
+            }
+        });
 
         // *   - if it's a new user (first connexion) -> we update the current form state to the set up form
         //  *   - else -> we call the finish method to end the process

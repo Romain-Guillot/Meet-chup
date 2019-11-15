@@ -1,11 +1,14 @@
 package com.progmobile.meetchup.ui.event_creation;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProviders;
 
 
 import com.progmobile.meetchup.R;
+import com.progmobile.meetchup.ui.event_view.EventViewActivity;
 import com.progmobile.meetchup.utils.ChildActivity;
 
 
@@ -14,6 +17,7 @@ import com.progmobile.meetchup.utils.ChildActivity;
  *
  * <p>Activity to display the event creation form</p>
  *
+ * <p>When the event is create, we start the EventViewActivity to see the fragment</p>
  *
  * <h2>INTENT COMMUNICATION</h2>
  * <p>No extra data required.</p>
@@ -29,6 +33,16 @@ public class EventCreationActivity extends ChildActivity {
         super.onCreate(savedInstanceState);
         setActionBarTitle("New event");
         setContentView(R.layout.acrivity_event_creation);
+
+        EventCreationViewModel viewModel = ViewModelProviders.of(this).get(EventCreationViewModel.class);
+        viewModel.eventCreated.observe(this, successEvent -> {
+            if (successEvent != null) {
+                Intent goToEvent = new Intent(this, EventViewActivity.class);
+                goToEvent.putExtra(EventViewActivity.EXTRA_EVENT_ID, successEvent);
+                startActivity(goToEvent);
+                finish();
+            }
+        });
     }
 
 }

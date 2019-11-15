@@ -12,6 +12,7 @@ public class Location {
     private Double longitude = null;
     private Double latitude = null;
 
+    public Location(){}
 
     // create and initialize a point with given name and
     // (latitude, longitude) specified in degrees

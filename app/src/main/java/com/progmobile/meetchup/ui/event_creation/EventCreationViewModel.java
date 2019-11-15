@@ -3,6 +3,10 @@ package com.progmobile.meetchup.ui.event_creation;
 import android.app.Application;
 
 
+import androidx.lifecycle.MutableLiveData;
+
+import com.progmobile.meetchup.utils.Callback;
+import com.progmobile.meetchup.utils.CallbackException;
 import com.progmobile.meetchup.utils.form_data_with_validators.DateValidator;
 import com.progmobile.meetchup.utils.form_data_with_validators.LocationValidator;
 import com.progmobile.meetchup.models.Event;
@@ -23,6 +27,8 @@ import java.util.Date;
 public class EventCreationViewModel extends FormViewModel {
 
     private IEventsDataRepository eventRepo;
+
+    MutableLiveData<String> eventCreated = new MutableLiveData<>();
 
     FormData<String> titleField = new FormData<>(new BasicValidator(IEventsDataRepository.EVENT_TITLE_MIN_LENGTH, IEventsDataRepository.EVENT_TITLE_MAX_LENGTH));
     FormData<String> descriptionField = new FormData<>(new BasicValidator(), false);
@@ -46,7 +52,18 @@ public class EventCreationViewModel extends FormViewModel {
             Event event = new Event(null, titleField.getValue(), descriptionField.getValue(),
                     null, beginDate.getValue(), endDate.getValue(), now,
                     location.getValue(), null);
-            eventRepo.createEvent(event, new SubmitCallback<>());
+            eventRepo.createEvent(event, new Callback<String>() {
+                @Override
+                public void onSucceed(String result) {
+                    new SubmitCallback<>().onSucceed(result);
+                    eventCreated.setValue(result);
+                }
+
+                @Override
+                public void onFail(CallbackException exception) {
+                    new SubmitCallback<>().onFail(exception);
+                }
+            });
         } else {
             errorLive.setValue(new SingleEvent<>("Invalid form"));
         }

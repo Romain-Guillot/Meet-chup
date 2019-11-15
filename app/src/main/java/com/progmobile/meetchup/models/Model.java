@@ -32,6 +32,10 @@ public abstract class Model implements Comparable<Model> {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public Date getDateCreated() {
         return dateCreated;
     }
