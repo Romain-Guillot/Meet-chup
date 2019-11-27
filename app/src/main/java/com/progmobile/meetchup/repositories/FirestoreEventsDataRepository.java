@@ -20,6 +20,7 @@ import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.firestore.WriteBatch;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -78,9 +79,10 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
                         try {
                             if (task.isSuccessful()) {
                                 Event event = task.getResult().toObject(Event.class);
-                                event.setId(task.getResult().getId());
                                 if (event != null) {
+                                    event.setId(task.getResult().getId());
                                     events.add(event);
+                                    Collections.sort(events);
                                 }
                             }
                         } catch (Exception e3) {
