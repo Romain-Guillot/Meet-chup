@@ -2,14 +2,11 @@ package com.progmobile.meetchup.ui.event_creation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 
 
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.ui.event_view.EventViewActivity;
 import com.progmobile.meetchup.utils.ChildActivity;
@@ -44,10 +41,10 @@ public class EventCreationActivity extends ChildActivity {
         String eventID = srcIntent.getStringExtra(EXTRA_EVENT_ID);
 
         if (eventID != null) {
-            setActionBarTitle("Modify event");
+            setActionBarTitle(getString(R.string.modify_event_title));
             viewModel.setExistingEvent(this, eventID);
         } else {
-            setActionBarTitle("New event");
+            setActionBarTitle(getString(R.string.create_event_title));
         }
 
 

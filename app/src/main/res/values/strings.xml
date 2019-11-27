@@ -86,6 +86,13 @@
     <string name="invitation_description">To share this event with other firends, you need to give them the invitation key below.</string>
     <string name="invitation_warning_description">Everyone with this key will be able to join the event.</string>
 
+    <!-- Event creation / modification -->
+    <string name="create_event_success">Event created !</string>
+    <string name="menu_event_modify">Modify event</string>
+    <string name="modify_event_button">Modify</string>
+    <string name="create_event_button">Create</string>
+    <string name="create_event_title">Create event</string>
+    <string name="modify_event_title">Modify event</string>
 
     <!-- Unclassified / temporary -->
     <string name="google_web_client_id">147707161348-8sr2m5vtelitrtjdht93vdcv3ri87258.apps.googleusercontent.com</string>
@@ -98,15 +105,12 @@
     <string name="join_event_btn">Join</string>
     <string name="quit_event_btn">Yeah, remove me</string>
     <string name="content_description_icon_info">icon info</string>
-    <string name="create_event_button">Create</string>
     <string name="event_key_disable_btn">Disable</string>
-    <string name="invalid_form">Invalid form, please check your date</string>
+    <string name="invalid_form">Invalid form, please check your data</string>
     <string name="invitation_update_key_btn">Update invitation key</string>
     <string name="invitation_key_update_form_success">Key updated !</string>
     <string name="user_empty_events_indicator">No events</string>
-    <string name="create_event_success">Event created !</string>
     <string name="menu_event_share">Share this event !</string>
     <string name="menu_event_quit">Quit this event</string>
-    <string name="menu_event_modify">Modify event</string>
-    <string name="modify_event_button">Modify</string>
+
 </resources>

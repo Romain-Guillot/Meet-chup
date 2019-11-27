@@ -46,6 +46,7 @@ public class JoinBottomSheetFragment extends BottomSheetDialogFragment {
         viewModel = ViewModelProviders.of(getActivity()).get(JoinBottomSheetViewModel.class);
     }
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

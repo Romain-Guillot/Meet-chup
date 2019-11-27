@@ -6,6 +6,7 @@ import android.app.Application;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.utils.Callback;
 import com.progmobile.meetchup.utils.CallbackException;
 import com.progmobile.meetchup.utils.form_data_with_validators.DateValidator;
@@ -23,21 +24,20 @@ import java.util.Date;
 
 
 /**
- *
+ * FormViewModel to handle form business logic
  */
 public class EventCreationViewModel extends FormViewModel {
 
-    private IEventsDataRepository eventRepo;
+    private final IEventsDataRepository eventRepo;
 
-    MutableLiveData<String> eventCreated = new MutableLiveData<>();
+   final MutableLiveData<String> eventCreated = new MutableLiveData<>();
     String eventID = null;
-    Event event = null;
 
-    FormData<String> titleField = new FormData<>(new BasicValidator(IEventsDataRepository.EVENT_TITLE_MIN_LENGTH, IEventsDataRepository.EVENT_TITLE_MAX_LENGTH));
-    FormData<String> descriptionField = new FormData<>(new BasicValidator(), false);
-    FormData<Date> beginDate = new FormData<>(new DateValidator(), false);
-    FormData<Date> endDate = new FormData<>(new DateValidator(), false);
-    FormData<Location> location = new FormData<>(new LocationValidator(), false);
+    final FormData<String> titleField = new FormData<>(new BasicValidator(IEventsDataRepository.EVENT_TITLE_MIN_LENGTH, IEventsDataRepository.EVENT_TITLE_MAX_LENGTH));
+    final FormData<String> descriptionField = new FormData<>(new BasicValidator(), false);
+    final FormData<Date> beginDate = new FormData<>(new DateValidator(), false);
+    final FormData<Date> endDate = new FormData<>(new DateValidator(), false);
+    final FormData<Location> location = new FormData<>(new LocationValidator(), false);
 
 
     public EventCreationViewModel(Application application) {
@@ -55,7 +55,6 @@ public class EventCreationViewModel extends FormViewModel {
                 endDate.setValue(result.getDateEnd());
                 location.setValue(result.getLocation());
                 updateKeyEvent.setValue(new SingleEvent<>(true));
-                event = result;
             }
 
             public void onFail(CallbackException exception) { }
@@ -91,7 +90,7 @@ public class EventCreationViewModel extends FormViewModel {
                 eventRepo.createEvent(event, callback);
             }
         } else {
-            errorLive.setValue(new SingleEvent<>("Invalid form"));
+            errorLive.setValue(new SingleEvent<>(getApplication().getString(R.string.invalid_form)));
         }
     }
 
