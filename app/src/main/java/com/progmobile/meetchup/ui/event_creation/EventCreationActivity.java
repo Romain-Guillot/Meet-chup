@@ -2,11 +2,14 @@ package com.progmobile.meetchup.ui.event_creation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.ui.event_view.EventViewActivity;
 import com.progmobile.meetchup.utils.ChildActivity;
@@ -28,19 +31,34 @@ import com.progmobile.meetchup.utils.ChildActivity;
  */
 public class EventCreationActivity extends ChildActivity {
 
+    public static final String EXTRA_EVENT_ID = "com.progmobile.meetchup.appprojet.event_id";
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setActionBarTitle("New event");
         setContentView(R.layout.acrivity_event_creation);
 
         EventCreationViewModel viewModel = ViewModelProviders.of(this).get(EventCreationViewModel.class);
+        Intent srcIntent = getIntent();
+        String eventID = srcIntent.getStringExtra(EXTRA_EVENT_ID);
+
+        if (eventID != null) {
+            setActionBarTitle("Modify event");
+            viewModel.setExistingEvent(this, eventID);
+        } else {
+            setActionBarTitle("New event");
+        }
+
+
         // when the event is created we launch the event view activity to see it
         viewModel.eventCreated.observe(this, successEvent -> {
             if (successEvent != null) {
-                Intent goToEvent = new Intent(this, EventViewActivity.class);
-                goToEvent.putExtra(EventViewActivity.EXTRA_EVENT_ID, successEvent);
-                startActivity(goToEvent);
+                if (viewModel.eventID == null) {
+                    Intent goToEvent = new Intent(this, EventViewActivity.class);
+                    goToEvent.putExtra(EventViewActivity.EXTRA_EVENT_ID, successEvent);
+                    startActivity(goToEvent);
+                }
                 finish();
             }
         });

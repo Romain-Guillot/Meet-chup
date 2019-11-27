@@ -105,4 +105,8 @@
     <string name="invitation_key_update_form_success">Key updated !</string>
     <string name="user_empty_events_indicator">No events</string>
     <string name="create_event_success">Event created !</string>
+    <string name="menu_event_share">Share this event !</string>
+    <string name="menu_event_quit">Quit this event</string>
+    <string name="menu_event_modify">Modify event</string>
+    <string name="modify_event_button">Modify</string>
 </resources>

@@ -53,10 +53,6 @@ public abstract class FormLayout<T> extends FrameLayout {
         }
     }
 
-    public void addOnDateChangeListener(OnFieldChangeListener listener) {
-        this.listeners.add(listener);
-    }
-
 
     public interface OnFieldChangeListener<T> {
         void onChange(T newDate);
@@ -64,5 +60,7 @@ public abstract class FormLayout<T> extends FrameLayout {
 
     public abstract void setLayoutError();
 
+
+    public abstract void forceUpdate();
 
 }

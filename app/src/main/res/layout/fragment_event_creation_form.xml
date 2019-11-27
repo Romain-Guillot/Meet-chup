@@ -50,14 +50,12 @@
         </LinearLayout>
     </ScrollView>
 
-
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/event_creation_submit"
         style="@style/ExpandedFABStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:icon="@drawable/ic_add"
-        android:text="Create"
+        app:icon="@drawable/ic_validate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
 

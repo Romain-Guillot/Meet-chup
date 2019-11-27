@@ -28,7 +28,7 @@ public class InvitationKeyViewModel extends FormViewModel {
 
     final MutableLiveData<Boolean> keyEnabledLive = new MutableLiveData<>(false);
     final FormData<String> eventKeyFieldLive = new FormData<>(new BasicValidator(IEventsDataRepository.INVITATION_KEY_MIN_LENGTH, IEventsDataRepository.INVITATION_KEY_MAX_LENGTH));
-    final MutableLiveData<SingleEvent<Boolean>> updateKeyEvent = new MutableLiveData<>();
+
     private IEventsDataRepository eventsDataRepository;
     private String eventID;
 

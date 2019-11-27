@@ -72,11 +72,6 @@ public class InvitationKeyFragment extends FormFragment {
             viewModel.removeInvitationKey()
         );
 
-        // Observe when the event key is updated
-        viewModel.updateKeyEvent.observe(this, update -> {
-            if (update.getContentIfNotHandled())
-                keyFieldLayout.setText(viewModel.eventKeyFieldLive.getValue());
-        });
 
         // Change the UI according the key status
         viewModel.keyEnabledLive.observe(this, isEnable -> {

@@ -18,6 +18,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.progmobile.meetchup.R;
+import com.progmobile.meetchup.ui.event_creation.EventCreationActivity;
 import com.progmobile.meetchup.ui.invitation.InvitationKeyActivity;
 import com.progmobile.meetchup.utils.ChildActivity;
 import com.progmobile.meetchup.utils.SnackbarFactory;
@@ -115,6 +116,10 @@ public class EventViewActivity extends ChildActivity {
             case R.id.event_view_quit_item:
                 showQuitDialog();
                 break;
+            case R.id.event_view_modify_item :
+                Intent modifyIntent = new Intent(this, EventCreationActivity.class);
+                modifyIntent.putExtra(EventCreationActivity.EXTRA_EVENT_ID, eventId);
+                startActivity(modifyIntent);
             default:
                 return super.onOptionsItemSelected(item);
         }

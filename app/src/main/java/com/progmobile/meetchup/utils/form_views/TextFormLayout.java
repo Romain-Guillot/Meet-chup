@@ -50,6 +50,7 @@ public class TextFormLayout extends FormLayout<String> {
             switch (inputType) {
                 case 0 : // text
                     layout.setEndIconMode(TextInputLayout.END_ICON_NONE);
+                    editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
                     break;
                 case 1: // password
                     ColorStateList colorTint = a.getColorStateList(R.styleable.TextFormLayout_colorTint);
@@ -102,6 +103,11 @@ public class TextFormLayout extends FormLayout<String> {
     public void setLayoutError() {
         if (formData != null)
             layout.setError(!formData.isValid() ? formData.getError(getContext()) : null);
+    }
+
+    @Override
+    public void forceUpdate() {
+        setText(getValue());
     }
 
     public void setText(String text) {

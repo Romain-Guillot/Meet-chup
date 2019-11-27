@@ -64,6 +64,13 @@ public abstract class FormFragment extends Fragment {
             if (successMessage != null && success != null && success.getContentIfNotHandled() != null)
                 SnackbarFactory.showSuccessSnackbar(getActivity().findViewById(android.R.id.content), successMessage);
         });
+
+        // Observe when the event key is updated
+        viewModel.updateKeyEvent.observe(this, update -> {
+            if (update.getContentIfNotHandled())
+                for (FormLayout layout : layouts)
+                    layout.forceUpdate();
+        });
     }
 
 

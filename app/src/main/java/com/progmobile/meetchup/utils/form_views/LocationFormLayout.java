@@ -65,6 +65,11 @@ public class LocationFormLayout extends DialogFormLayout<Location> {
         pickerButton.setText(value == null ? defaultText : value.getLocation());
     }
 
+    @Override
+    public void forceUpdate() {
+        setLocation(getValue());
+    }
+
     public void setLocation(Location location) {
         setValue(location);
     }

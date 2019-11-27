@@ -40,6 +40,10 @@ public abstract class Model implements Comparable<Model> {
         return dateCreated;
     }
 
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
     @Override
     public int compareTo(Model o) {
         return o.dateCreated.compareTo(this.dateCreated);

@@ -48,6 +48,11 @@ public abstract class FormViewModel extends AndroidViewModel {
      */
     public final MutableLiveData<SingleEvent<Boolean>> successLive = new MutableLiveData<>();
 
+    /**
+     * Event to force field content update
+     */
+    public final MutableLiveData<SingleEvent<Boolean>> updateKeyEvent = new MutableLiveData<>();
+
 
     protected FormViewModel(Application application) {
         super(application);

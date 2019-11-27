@@ -1,5 +1,6 @@
 package com.progmobile.meetchup.ui.event_creation;
 
+import android.app.Activity;
 import android.app.Application;
 
 
@@ -29,6 +30,8 @@ public class EventCreationViewModel extends FormViewModel {
     private IEventsDataRepository eventRepo;
 
     MutableLiveData<String> eventCreated = new MutableLiveData<>();
+    String eventID = null;
+    Event event = null;
 
     FormData<String> titleField = new FormData<>(new BasicValidator(IEventsDataRepository.EVENT_TITLE_MIN_LENGTH, IEventsDataRepository.EVENT_TITLE_MAX_LENGTH));
     FormData<String> descriptionField = new FormData<>(new BasicValidator(), false);
@@ -42,6 +45,23 @@ public class EventCreationViewModel extends FormViewModel {
         eventRepo = FirestoreEventsDataRepository.getInstance();
     }
 
+    protected void setExistingEvent(Activity observer, String eventID) {
+        this.eventID = eventID;
+        eventRepo.getEvent(observer, eventID, new Callback<Event>() {
+            public void onSucceed(Event result) {
+                titleField.setValue(result.getTitle());
+                descriptionField.setValue(result.getDescription());
+                beginDate.setValue(result.getDateBegin());
+                endDate.setValue(result.getDateEnd());
+                location.setValue(result.getLocation());
+                updateKeyEvent.setValue(new SingleEvent<>(true));
+                event = result;
+            }
+
+            public void onFail(CallbackException exception) { }
+        });
+    }
+
     /**
      * Retrieve form data and send info to the repository
      */
@@ -49,22 +69,27 @@ public class EventCreationViewModel extends FormViewModel {
     protected void submitForm() {
         if (validate() && eventCreated.getValue() == null && (isLoadingLive.getValue() == null || !isLoadingLive.getValue())) {
             isLoadingLive.setValue(true);
-            Date now = new Date();
-            Event event = new Event(null, titleField.getValue(), descriptionField.getValue(),
-                    null, beginDate.getValue(), endDate.getValue(), now,
-                    location.getValue(), null);
-            eventRepo.createEvent(event, new Callback<String>() {
-                @Override
+
+            Callback<String> callback = new Callback<String>() {
                 public void onSucceed(String result) {
                     eventCreated.setValue(result);
                     new SubmitCallback<>().onSucceed(result);
                 }
-
-                @Override
                 public void onFail(CallbackException exception) {
                     new SubmitCallback<>().onFail(exception);
                 }
-            });
+            };
+
+            Date now = new Date();
+            Event event = new Event(null, titleField.getValue(), descriptionField.getValue(),
+                    null, beginDate.getValue(), endDate.getValue(), now,
+                    location.getValue(), null);
+
+            if (eventID != null) {
+                eventRepo.updateEvent(eventID, event, callback);
+            } else {
+                eventRepo.createEvent(event, callback);
+            }
         } else {
             errorLive.setValue(new SingleEvent<>("Invalid form"));
         }

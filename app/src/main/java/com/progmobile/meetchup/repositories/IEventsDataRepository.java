@@ -71,6 +71,12 @@ public interface IEventsDataRepository {
      */
     void quitEvent(@NonNull String eventID, @NonNull Callback<Void> callback);
 
+    /**
+     * Update event
+     * The updated event ID is returned through the callback if succes
+     */
+    void updateEvent(@NonNull String eventID, @NonNull Event event, Callback<String> callback);
+
 
 //    public void loadEventPosts(String eventID, Callback<Event> callback);
 //

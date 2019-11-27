@@ -55,6 +55,10 @@ public class DateFormLayout extends DialogFormLayout<Date> {
         pickerButton.setText(value == null ? defaultText : dateFormat.format(value));
     }
 
+    @Override
+    public void forceUpdate() {
+        setDate(getValue());
+    }
 
 
     public void setDate(Date date) {

@@ -2,7 +2,6 @@ package com.progmobile.meetchup.repositories;
 
 
 import android.app.Activity;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -23,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -191,7 +191,7 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
         });
     }
 
-    /** @inheritDoc - Status : WIP
+    /** @inheritDoc - Status : DONE
      *  Update the user event list and the event user list */
     @Override
     public void quitEvent(@NonNull String eventID, @NonNull Callback<Void> callback) {
@@ -206,6 +206,29 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
         writeBatch.set(eventDoc, new HashMap<String, Object>(){{put(Event.EVENT_FIELD_PARTICIPANTS, FieldValue.arrayRemove(user.getUid()));}}, SetOptions.merge());
         writeBatch.commit().addOnCompleteListener(task -> {
             if (task.isSuccessful()) callback.onSucceed(null);
+            else callback.onFail(CallbackException.fromFirebaseException(task.getException()));
+        });
+    }
+
+    /**
+     * @inheritDoc - Status : DONE
+     * Just update (with merge) the event doc
+     */
+    @Override
+    public void updateEvent(@NonNull String eventID, @NonNull Event event, Callback<String> callback) {
+        FirebaseUser fbUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (fbUser == null) {
+            callback.onFail(new CallbackException(CallbackException.Type.NO_LOGGED));return ;
+        }
+        Map<String, Object> updateMap = new HashMap<String, Object>(){{
+            put(Event.EVENT_FIELD_TITLE, event.getTitle());
+            put(Event.EVENT_FIELD_DATE_BEGIN, event.getDateBegin());
+            put(Event.EVENT_FIELD_DATE_END, event.getDateEnd());
+            put(Event.EVENT_FIELD_LOCATION, event.getLocation());
+            put(Event.EVENT_FIELD_DESCRIPTION, event.getDescription());
+        }};
+        firestore.collection(EVENT_COL).document(eventID).set(updateMap, SetOptions.merge()).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) callback.onSucceed(eventID);
             else callback.onFail(CallbackException.fromFirebaseException(task.getException()));
         });
     }
