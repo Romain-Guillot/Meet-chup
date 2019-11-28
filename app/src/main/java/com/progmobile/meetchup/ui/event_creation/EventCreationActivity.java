@@ -2,6 +2,7 @@ package com.progmobile.meetchup.ui.event_creation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
@@ -51,11 +52,16 @@ public class EventCreationActivity extends ChildActivity {
         // when the event is created we launch the event view activity to see it
         viewModel.eventCreated.observe(this, successEvent -> {
             if (successEvent != null) {
+                try {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                } catch (Exception e) { }
                 if (viewModel.eventID == null) {
                     Intent goToEvent = new Intent(this, EventViewActivity.class);
                     goToEvent.putExtra(EventViewActivity.EXTRA_EVENT_ID, successEvent);
                     goToEvent.putExtra(EventViewActivity.EXTRA_EVENT_FIRST_CREATION, true);
                     startActivity(goToEvent);
+
                 }
                 finish();
             }

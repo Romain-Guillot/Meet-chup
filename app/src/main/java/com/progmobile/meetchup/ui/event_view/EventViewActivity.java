@@ -118,6 +118,7 @@ public class EventViewActivity extends ChildActivity {
             showNewEventDialog();
     }
 
+
     @Override
     protected void onStop() {
         super.onStop();
