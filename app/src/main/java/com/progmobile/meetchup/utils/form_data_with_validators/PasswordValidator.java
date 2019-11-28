@@ -9,7 +9,7 @@ import com.progmobile.meetchup.R;
  * Password validator (min length), weak passwords are checked server-side
  * See {@link Validator}
  */
-public class PasswordValidator implements Validator {
+public class PasswordValidator implements Validator<String> {
 
     private int minLength = 6;
 
@@ -24,6 +24,12 @@ public class PasswordValidator implements Validator {
     @Override
     public boolean isValid(String value) {
         return value != null && value.length() >= minLength;
+    }
+
+    @Override
+    public boolean isValid(String value, boolean required) {
+        if (required) return isValid(value);
+        return value != null || value.length() >= minLength;
     }
 
     @Override

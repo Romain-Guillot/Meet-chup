@@ -9,7 +9,7 @@
     <color name="backgroundColor">#fff</color>
 
     <color name="disableColor">#7E7E7E</color>
-    <color name="disableColorLight">#B6B6B6</color>
+    <color name="disableColorLight">#D8D8D8</color>
 
     <color name="errorColor">#f23333</color>
     <color name="errorColorLight">#F88D8D</color>

@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical">
 
-
     <!--Username field -->
-    <com.google.android.material.textfield.TextInputLayout
+    <com.progmobile.meetchup.utils.form_views.TextFormLayout
         android:id="@+id/auth_setup_name_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/auth_setup_username_hint">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/auth_setup_name_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:hint="@string/auth_setup_username_hint"
+        app:inputType="singleLine"/>
 
     <!-- Submit button -->
     <com.google.android.material.button.MaterialButton

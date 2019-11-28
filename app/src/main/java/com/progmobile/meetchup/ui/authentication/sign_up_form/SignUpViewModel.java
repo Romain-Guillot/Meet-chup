@@ -26,10 +26,11 @@ import com.progmobile.meetchup.utils.form_data_with_validators.PasswordValidator
  */
 public class SignUpViewModel extends FormViewModel {
 
-    final FormData emailLive = new FormData(new EmailValidator());
-    final FormData passwordLive = new FormData(new PasswordValidator());
-    final FormData passwordConfirmLive = new FormData(new PasswordConfirmationValidator(passwordLive));
     private final IAuthenticationRepository authenticationRepository;
+
+    final FormData<String> emailLive = new FormData<>(new EmailValidator());
+    final FormData<String> passwordLive = new FormData<>(new PasswordValidator());
+    final FormData<String> passwordConfirmLive = new FormData<>(new PasswordConfirmationValidator(passwordLive));
 
 
     public SignUpViewModel(Application application) {

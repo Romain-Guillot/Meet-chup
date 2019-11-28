@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  * (Mail::RFC822::Address: regexp-based address validation)
  * See {@link Validator}
  */
-public class EmailValidator implements Validator {
+public class EmailValidator implements Validator<String> {
 
     @SuppressWarnings({"Annotator"})
     private final Pattern regex = Pattern.compile(
@@ -23,6 +23,12 @@ public class EmailValidator implements Validator {
     @Override
     public boolean isValid(String value) {
         return value != null && !value.isEmpty() && regex.matcher(value).matches();
+    }
+
+    @Override
+    public boolean isValid(String value, boolean required) {
+        if (required) return isValid(value);
+        return value == null || regex.matcher(value).matches();
     }
 
     @Override

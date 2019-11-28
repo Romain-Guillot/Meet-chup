@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.progmobile.meetchup.R;
 
+
 public class PostCreationActivity extends AppCompatActivity {
 
     final static int GALLERY_REQUEST_CODE = 1;

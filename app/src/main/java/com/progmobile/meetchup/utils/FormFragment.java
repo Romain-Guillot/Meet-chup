@@ -1,18 +1,13 @@
 package com.progmobile.meetchup.utils;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.textfield.TextInputLayout;
-import com.progmobile.meetchup.utils.form_data_with_validators.FormData;
+import com.progmobile.meetchup.utils.form_views.FormLayout;
 
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -41,29 +36,12 @@ public abstract class FormFragment extends Fragment {
      * - formDataList: form data corresponding to the fields layout
      * i.e. formDataList[i] refers to the input text included in the layout textInputLayoutList[i]
      */
-    protected void init(FormViewModel viewModel, List<TextInputLayout> textInputLayoutList, List<FormData> formDataList,
-                        Button submitButton, String submitText, String loadingText, String successMessage) {
-        // throw an exception if the parameters of the view fragment is invalid
-        if (textInputLayoutList.size() != formDataList.size() || submitButton == null)
-            throw new RuntimeException("Wrong usage of the FormFragment");
+    protected void init(FormViewModel viewModel, List<FormLayout> layouts, Button submitButton, String submitText, String loadingText, String successMessage) {
 
-        // link all form edit texts with the live data
-        Iterator<TextInputLayout> textInputLayoutsIterator = textInputLayoutList.iterator();
-        Iterator<FormData> formLiveDataIterator = formDataList.iterator();
-        while (textInputLayoutsIterator.hasNext() && formLiveDataIterator.hasNext()) {
-            setOnFieldChanged(textInputLayoutsIterator.next(), formLiveDataIterator.next());
-        }
-
-        // handle the submit button
-        // -> notify the view model to process the form
-        // -> update the field layouts errors to indicate the bad formatting errors
         submitButton.setOnClickListener(v -> {
+            for (FormLayout layout : layouts)
+                layout.setLayoutError();
             viewModel.submitForm();
-            Iterator<TextInputLayout> _textInputLayoutsIterator = textInputLayoutList.iterator();
-            Iterator<FormData> _formLiveDataIterator = formDataList.iterator();
-            while (_textInputLayoutsIterator.hasNext() && _formLiveDataIterator.hasNext()) {
-                setLayoutFieldError(_textInputLayoutsIterator.next(), _formLiveDataIterator.next());
-            }
         });
 
         // update the submit button based on the loading form status
@@ -76,58 +54,23 @@ public abstract class FormFragment extends Fragment {
         viewModel.errorLive.observe(this, error -> {
             if (error != null) {
                 String message = error.getContentIfNotHandled();
-                SnackbarFactory.showErrorSnackbar(getActivity().findViewById(android.R.id.content), message);
+                if (message != null)
+                    SnackbarFactory.showErrorSnackbar(getActivity().findViewById(android.R.id.content), message);
             }
         });
 
         // Show the success snackbar if success
         viewModel.successLive.observe(this, success -> {
-            if (successMessage != null && success.getContentIfNotHandled())
+            if (successMessage != null && success != null && success.getContentIfNotHandled() != null)
                 SnackbarFactory.showSuccessSnackbar(getActivity().findViewById(android.R.id.content), successMessage);
         });
 
-
-    }
-
-    /**
-     * Add listeners to the editTextLayout edit text to change the corresponding editTextData when
-     * the edit text content changed.
-     * We also set the layout edit text error (if any) when we unfocused the edit text
-     */
-    protected void setOnFieldChanged(TextInputLayout editTextLayout, FormData editTextData) {
-        EditText editText = editTextLayout.getEditText();
-
-        if (editText == null)
-            throw new RuntimeException("No edit text attached to the text input layout");
-
-        editText.setText(editTextData.getValue());
-
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                editTextData.setValue(s.toString());
-            }
+        // Observe when the event key is updated
+        viewModel.updateKeyEvent.observe(this, update -> {
+            if (update.getContentIfNotHandled())
+                for (FormLayout layout : layouts)
+                    layout.forceUpdate();
         });
-
-        editText.setOnFocusChangeListener((view, hasFocus) -> {
-            if (!hasFocus) setLayoutFieldError(editTextLayout, editTextData);
-            else editTextLayout.setError(null);
-        });
-    }
-
-    /**
-     * Set the error indicator of the layout is the formData is not valid
-     */
-    protected void setLayoutFieldError(TextInputLayout layout, FormData formData) {
-        layout.setError(!formData.isValid() ? formData.getError(getContext()) : null);
     }
 
 

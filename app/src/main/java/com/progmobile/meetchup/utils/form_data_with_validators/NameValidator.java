@@ -8,8 +8,12 @@ import com.progmobile.meetchup.R;
 /**
  * Basic validator for username (min and max length)
  * See {@link Validator}
+ *
+ * Deprecated, instead use a basic validator {@link BasicValidator} (min length and max length are
+ * defined by the repos, it's cleaner)
  */
-public class NameValidator implements Validator {
+@Deprecated
+public class NameValidator implements Validator<String> {
 
     private final int minLength = 6;
     private final int maxLength = 20;
@@ -17,6 +21,11 @@ public class NameValidator implements Validator {
     @Override
     public boolean isValid(String value) {
         return value != null && value.length() >= minLength && value.length() <= maxLength;
+    }
+
+    @Override
+    public boolean isValid(String value, boolean required) {
+        return false;  // deprecated, not implemented
     }
 
     @Override

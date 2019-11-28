@@ -49,9 +49,9 @@ public class CallbackException extends Exception {
             return new CallbackException(Type.NETWORK_ERROR);
         if (e instanceof FirebaseAuthWeakPasswordException)
             return new CallbackException(Type.AUTH_WEAK_PASSWORD);
-        if (e instanceof FirebaseAuthInvalidCredentialsException)
+        if (e instanceof FirebaseAuthInvalidCredentialsException || e instanceof FirebaseAuthInvalidUserException)
             return new CallbackException(Type.AUTH_INVALID_CREDENTIAL);
-        if (e instanceof FirebaseAuthInvalidUserException || e instanceof FirebaseAuthRecentLoginRequiredException)
+        if ( e instanceof FirebaseAuthRecentLoginRequiredException)
             return new CallbackException(Type.RE_AUTH_REQUIRED);
         if (e instanceof FirebaseAuthUserCollisionException)
             return new CallbackException(Type.AUTH_EMAIL_COLLISION);

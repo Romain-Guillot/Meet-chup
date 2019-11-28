@@ -10,6 +10,7 @@ import com.progmobile.meetchup.repositories.IAuthenticationRepository;
 import com.progmobile.meetchup.utils.Callback;
 import com.progmobile.meetchup.utils.CallbackException;
 import com.progmobile.meetchup.utils.FormViewModel;
+import com.progmobile.meetchup.utils.form_data_with_validators.BasicValidator;
 import com.progmobile.meetchup.utils.form_data_with_validators.FormData;
 import com.progmobile.meetchup.utils.form_data_with_validators.NameValidator;
 
@@ -30,9 +31,11 @@ import com.progmobile.meetchup.utils.form_data_with_validators.NameValidator;
  */
 public class SetUpProfileViewModel extends FormViewModel {
 
-    final FormData nameLive = new FormData(new NameValidator());
-    final MutableLiveData<Boolean> isFinish = new MutableLiveData<>(false);
+
     private final IAuthenticationRepository authenticationRepository;
+
+    final FormData<String> nameLive = new FormData<>(new BasicValidator(IAuthenticationRepository.NAME_MIN_LENGTH, IAuthenticationRepository.NAME_MAX_LENGTH));
+    final MutableLiveData<Boolean> isFinish = new MutableLiveData<>(false);
 
 
     public SetUpProfileViewModel(Application application) {

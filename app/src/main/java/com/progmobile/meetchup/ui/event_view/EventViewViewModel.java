@@ -16,6 +16,7 @@ import com.progmobile.meetchup.repositories.FirestoreEventsDataRepository;
 import com.progmobile.meetchup.repositories.IEventsDataRepository;
 import com.progmobile.meetchup.utils.Callback;
 import com.progmobile.meetchup.utils.CallbackException;
+import com.progmobile.meetchup.utils.DurationUtils;
 import com.progmobile.meetchup.utils.Location;
 
 import java.io.IOException;
@@ -73,7 +74,7 @@ public class EventViewViewModel extends AndroidViewModel {
 
         Date dateEnd = event.getDateEnd();
         if (dateBegin != null && dateEnd != null)
-            eventDurationLive.setValue(getDurationBetweenDate(dateBegin, dateEnd));
+            eventDurationLive.setValue(DurationUtils.getDurationBetweenDate(getApplication(), dateBegin, dateEnd));
 
         String description = event.getDescription();
         if (description != null)
@@ -113,37 +114,21 @@ public class EventViewViewModel extends AndroidViewModel {
     }
 
 
-    private String getDurationBetweenDate(Date d1, Date d2) {
-        long diff = d2.getTime() - d1.getTime(); // milliseconds
-        int days = (int) Math.round(diff / (1000. * 60 * 60 * 24)); // to seconds -> to minutes -> to hours -> to days
-        int weeks = (int) Math.round(days / 7.);
-        int daysAfterLastWeek = days - Math.round(7 * weeks);
-
-        String duration = "";
-        if (weeks >= 1)
-            duration += getApplication().getResources().getQuantityString(R.plurals.week_label, weeks, weeks);
-        if (daysAfterLastWeek >= 1)
-            duration += ((duration.isEmpty() ? "" : ", ") + getApplication().getResources().getQuantityString(R.plurals.day_label, daysAfterLastWeek, daysAfterLastWeek));
-
-        return duration;
-    }
-
-
     private String getAddressLocalisation(Location localisation) {
-        Geocoder geocoder = new Geocoder(this.getApplication().getApplicationContext());
-        try {
-            List<Address> addresses = geocoder.getFromLocation(localisation.getLatitude(), localisation.getLongitude(), 1);
-            if (addresses.size() >= 1) {
-                Address a = addresses.get(0);
-                String address = "";
-                if (a.getLocality() != null) address += a.getLocality();
-                if (a.getCountryName() != null)
-                    address += ((address.isEmpty() ? "" : ", ") + a.getCountryName());
-                if (!address.isEmpty()) return address;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        Geocoder geocoder = new Geocoder(this.getApplication().getApplicationContext());
+//        try {
+//            List<Address> addresses = geocoder.getFromLocation(localisation.getLatitude(), localisation.getLongitude(), 1);
+//            if (addresses.size() >= 1) {
+//                Address a = addresses.get(0);
+//                String address = "";
+//                if (a.getLocality() != null) address += a.getLocality();
+//                if (a.getCountryName() != null)
+//                    address += ((address.isEmpty() ? "" : ", ") + a.getCountryName());
+//                if (!address.isEmpty()) return address;
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         return null;
     }
 

@@ -21,6 +21,12 @@ import java.util.List;
  */
 public interface IEventsDataRepository {
 
+    int INVITATION_KEY_MIN_LENGTH = 8;
+    int INVITATION_KEY_MAX_LENGTH = 20;
+    int EVENT_TITLE_MIN_LENGTH = 6;
+    int EVENT_TITLE_MAX_LENGTH = 50;
+
+
     /**
      * Get all user events
      * If succeeds list of all events are returned (can be empty)
@@ -64,6 +70,12 @@ public interface IEventsDataRepository {
      * Nothing returned if success, else an exception is returned
      */
     void quitEvent(@NonNull String eventID, @NonNull Callback<Void> callback);
+
+    /**
+     * Update event
+     * The updated event ID is returned through the callback if succes
+     */
+    void updateEvent(@NonNull String eventID, @NonNull Event event, Callback<String> callback);
 
 
 //    public void loadEventPosts(String eventID, Callback<Event> callback);

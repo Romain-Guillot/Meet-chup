@@ -3,16 +3,15 @@ package com.progmobile.meetchup.models;
 import java.util.Date;
 import java.util.List;
 
-public class Post {
-    private String id;
+public class Post extends Model {
     private User user;
     private Date date;
     private String description;
     private Document document;
     private List<Comment> commentsList;
 
-    public Post(String id, User user, Date date, String description, Document document) {
-        this.id = id;
+    public Post(String id, User user, Date date, String description, Document document, Date dateCreated) {
+        super(id, dateCreated);
         this.user = user;
         this.date = date;
         this.description = description;
@@ -20,9 +19,6 @@ public class Post {
         this.commentsList = null;
     }
 
-    public String getId() {
-        return id;
-    }
 
     public User getUser() {
         return user;

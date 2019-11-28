@@ -11,9 +11,11 @@ import android.content.Context;
  * <p>
  * NOTE : IT IS ONLY CLIENT VERIFICATION, THAT DOESN'T REMOVE SERVER-SIDE VERIFICATIONS
  */
-public interface Validator {
+public interface Validator<T> {
 
-    boolean isValid(String value);
+    boolean isValid(T value);
+
+    boolean isValid(T value, boolean required);
 
     String errorMessage(Context context);
 }

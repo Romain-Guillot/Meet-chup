@@ -5,13 +5,19 @@
     <item
         android:id="@+id/event_view_share_event_item"
         android:orderInCategory="0"
-        android:title="Share this event !"
+        android:title="@string/menu_event_share"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/event_view_quit_item"
         android:orderInCategory="0"
-        android:title="Quit this event"
+        android:title="@string/menu_event_quit"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/event_view_modify_item"
+        android:orderInCategory="0"
+        android:title="@string/menu_event_modify"
+        app:showAsAction="never"/>
 
 </menu>
