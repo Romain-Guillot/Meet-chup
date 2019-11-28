@@ -84,7 +84,6 @@ public class EventViewActivity extends ChildActivity {
         eventId = intent.getStringExtra(EXTRA_EVENT_ID);
 
         viewModel = ViewModelProviders.of(this).get(EventViewViewModel.class);
-        viewModel.initEventMetaData(this, eventId);
 
         viewModel.eventTitleLive.observe(this, event -> {
             if (actionBar != null)
@@ -94,7 +93,12 @@ public class EventViewActivity extends ChildActivity {
         BottomNavigationView navView = findViewById(R.id.event_nav_view);
         NavController navController = Navigation.findNavController(this, R.id.event_view_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        viewModel.initEventMetaData(this, eventId);
     }
 
     @Override
