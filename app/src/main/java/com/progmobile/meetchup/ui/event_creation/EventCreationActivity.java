@@ -54,6 +54,7 @@ public class EventCreationActivity extends ChildActivity {
                 if (viewModel.eventID == null) {
                     Intent goToEvent = new Intent(this, EventViewActivity.class);
                     goToEvent.putExtra(EventViewActivity.EXTRA_EVENT_ID, successEvent);
+                    goToEvent.putExtra(EventViewActivity.EXTRA_EVENT_FIRST_CREATION, true);
                     startActivity(goToEvent);
                 }
                 finish();

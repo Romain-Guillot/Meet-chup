@@ -1,6 +1,7 @@
 package com.progmobile.meetchup.ui.event_view;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProviders;
@@ -70,18 +72,30 @@ import com.progmobile.meetchup.utils.SnackbarFactory;
 public class EventViewActivity extends ChildActivity {
 
     public static final String EXTRA_EVENT_ID = "com.progmobile.meetchup.appprojet.event_id";
+    public static final String EXTRA_EVENT_FIRST_CREATION = "com.progmobile.meetchup.appprojet.firstcreation";
+
+    private static final String STATE_FIRST_CREATION_DISMISSED = "creation_dialog_dismissed";
 
     EventViewViewModel viewModel;
     String eventId;
+
+    AlertDialog firstCreationDialog = null;
+    AlertDialog quitDialog = null;
+
+    boolean userDismissedFirstCreationDialog = false;
+    boolean isFirstCreation = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_view);
 
+        if (savedInstanceState != null)
+            userDismissedFirstCreationDialog = savedInstanceState.getBoolean(STATE_FIRST_CREATION_DISMISSED, false);
 
         Intent intent = getIntent();
         eventId = intent.getStringExtra(EXTRA_EVENT_ID);
+        isFirstCreation = intent.getBooleanExtra(EXTRA_EVENT_FIRST_CREATION , false);
 
         viewModel = ViewModelProviders.of(this).get(EventViewViewModel.class);
 
@@ -99,6 +113,24 @@ public class EventViewActivity extends ChildActivity {
     protected void onStart() {
         super.onStart();
         viewModel.initEventMetaData(this, eventId);
+
+        if (isFirstCreation && !userDismissedFirstCreationDialog)
+            showNewEventDialog();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (firstCreationDialog != null && firstCreationDialog.isShowing())
+            firstCreationDialog.dismiss();
+        if (quitDialog != null && quitDialog.isShowing())
+            quitDialog.dismiss();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putBoolean(STATE_FIRST_CREATION_DISMISSED, userDismissedFirstCreationDialog);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -131,15 +163,15 @@ public class EventViewActivity extends ChildActivity {
     }
 
     private void showQuitDialog() {
-        AlertDialog dialog = new MaterialAlertDialogBuilder(this)
+        quitDialog = new MaterialAlertDialogBuilder(this)
                 .setTitle("No longer participate ?")
                 .setMessage("This event will no longer be available in your event list.")
                 .setNegativeButton("Cancel", null)
                 .setPositiveButton(getString(R.string.quit_event_btn), null) // we define the listener below to override completely the button behavior
                 .create();
 
-        dialog.setOnShowListener(dialogInterface -> {
-            Button button = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        quitDialog.setOnShowListener(dialogInterface -> {
+            Button button = quitDialog.getButton(AlertDialog.BUTTON_POSITIVE);
             button.setOnClickListener(v -> {
                 viewModel.requestQuitEvent();
                 viewModel.quitingRequestDone.observe(this, isQuitting -> {
@@ -156,7 +188,20 @@ public class EventViewActivity extends ChildActivity {
                 button.setText(isLoading ? R.string.loading_btn : R.string.quit_event_btn);
             });
         });
+        quitDialog.show();
+    }
 
-        dialog.show();
+    private void showNewEventDialog() {
+        firstCreationDialog = new MaterialAlertDialogBuilder(this)
+                .setTitle("Share the event with your friends ?")
+                .setMessage("Invite the participants to share your photos and videos together !")
+                .setNegativeButton("Not now", ((dialog, which) -> userDismissedFirstCreationDialog = true))
+                .setPositiveButton(getString(R.string.share_event_button_first_creation), (dialog, which) -> {
+                    userDismissedFirstCreationDialog = true;
+                    Intent intent = new Intent(this, InvitationKeyActivity.class);
+                    intent.putExtra(InvitationKeyActivity.EXTRA_EVENT_ID, eventId);
+                    startActivity(intent);
+                })
+                .show();
     }
 }
