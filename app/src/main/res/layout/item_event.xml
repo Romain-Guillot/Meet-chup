@@ -13,41 +13,9 @@
         android:layout_height="match_parent"
         style="@style/SubtitleStyle.Item"/>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_gravity="left"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/item_event_begin_date_icon"
-            android:layout_width="16dp"
-            android:layout_height="match_parent"
-            android:tint="@color/textColorLight"
-            android:layout_marginEnd="@dimen/normal_spacing"
-            android:src="@drawable/ic_calendar"/>
-
-        <TextView
-            android:id="@+id/item_event_begin_date"
-            android:textColor="@color/textColorLight"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <ImageView
-            android:id="@+id/item_event_duration_icon"
-            android:layout_width="16dp"
-            android:layout_height="match_parent"
-            android:tint="@color/textColorLight"
-            android:src="@drawable/ic_duration"
-            android:layout_marginEnd="@dimen/normal_spacing"
-            android:layout_marginStart="@dimen/block_spacing"/>
-
-        <TextView
-            android:id="@+id/item_event_duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/textColorLight"/>
-
-    </LinearLayout>
+    <com.progmobile.meetchup.utils.views.EventMetaData
+        android:id="@+id/item_event_metadata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

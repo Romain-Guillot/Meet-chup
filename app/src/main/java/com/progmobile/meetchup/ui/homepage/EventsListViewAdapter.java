@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.models.Event;
 import com.progmobile.meetchup.utils.DurationUtils;
+import com.progmobile.meetchup.utils.views.EventMetaData;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -32,37 +33,27 @@ public class EventsListViewAdapter extends RecyclerView.Adapter<EventsListViewAd
 
     public static class EventViewHolder extends RecyclerView.ViewHolder {
         TextView titleView;
-        TextView dateBeginView;
-        TextView durationView;
+        EventMetaData metaDataView;
         View eventView;
         Context context;
 
         EventViewHolder(View itemView, Context context) {
             super(itemView);
             this.titleView = itemView.findViewById(R.id.item_event_title);
-            this.dateBeginView = itemView.findViewById(R.id.item_event_begin_date);
-            this.durationView = itemView.findViewById(R.id.item_event_duration);
+            this.metaDataView = itemView.findViewById(R.id.item_event_metadata);
+
             this.eventView = itemView;
             this.context = context;
         }
 
         public void bind(final Event event, final OnItemClickListener listener){
             eventView.setOnClickListener(v -> listener.onItemClick(event));
-            Date dateBegin = event.getDateBegin();
-            Date dateEnd = event.getDateEnd();
+
             String title = event.getTitle();
             if (title != null)
                 titleView.setText(title);
 
-            ImageView dateBeginIcon = itemView.findViewById(R.id.item_event_begin_date_icon);
-            if (dateBegin != null)
-                dateBeginView.setText(dateFormat.format(dateBegin));
-            dateBeginIcon.setVisibility(dateBegin == null ? View.GONE : View.VISIBLE);
-
-            ImageView durationIcon = itemView.findViewById(R.id.item_event_duration_icon);
-            if (dateBegin != null && dateEnd != null)
-                durationView.setText(DurationUtils.getDurationBetweenDate(context, dateBegin, dateEnd));
-            durationIcon.setVisibility(dateBegin != null && dateEnd != null ? View.VISIBLE : View.GONE);
+            metaDataView.setMetaData(event);
         }
 
 

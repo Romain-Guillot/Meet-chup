@@ -21,6 +21,7 @@ import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.ui.event_view.adapters.ParticipantsListViewAdapter;
 import com.progmobile.meetchup.ui.event_view.adapters.PostsListViewAdapter;
 import com.progmobile.meetchup.ui.post_creation.PostCreationActivity;
+import com.progmobile.meetchup.utils.views.EventMetaData;
 
 
 /**
@@ -32,11 +33,7 @@ public class FeedFragment extends Fragment {
 
     private EventViewViewModel viewModel;
 
-    private TextView beginDateView;
-    private TextView durationView;
-    private RecyclerView participantsView;
-    private TextView descriptionView;
-    private TextView localisationView;
+    private EventMetaData eventMetaData;
     private RecyclerView postsView;
     private ViewGroup emptyPostsContainer;
 
@@ -58,36 +55,17 @@ public class FeedFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event_view_feed, container, false);
 
-        this.beginDateView = view.findViewById(R.id.event_begin_date);
-        this.durationView = view.findViewById(R.id.event_duration);
-        this.descriptionView = view.findViewById(R.id.event_description);
-        this.localisationView = view.findViewById(R.id.event_localisation);
-        this.participantsView = view.findViewById(R.id.event_participants_list);
-        participantsView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
-        this.postsView = view.findViewById(R.id.event_posts);
+        eventMetaData = view.findViewById(R.id.event_feed_metadata);
+
+        postsView = view.findViewById(R.id.event_posts);
         postsView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
-        this.emptyPostsContainer = view.findViewById(R.id.event_empty_posts);
+        emptyPostsContainer = view.findViewById(R.id.event_empty_posts);
 
 
-        viewModel.eventBeginDateLive.observe(this, begin ->
-                beginDateView.setText(begin)
-        );
-
-        viewModel.eventDurationLive.observe(this, duration ->
-                durationView.setText(duration)
-        );
-
-        viewModel.eventDescriptionLive.observe(this, description ->
-                descriptionView.setText(description)
-        );
-
-        viewModel.eventLocationLive.observe(this, localisation ->
-                localisationView.setText(localisation)
-        );
-
-        viewModel.eventParticipantsList.observe(this, participants ->
-                participantsView.setAdapter(new ParticipantsListViewAdapter(participants))
-        );
+        viewModel.eventMetaData.observe(this, event -> {
+            if (event != null)
+                eventMetaData.setMetaData(event);
+        });
 
         viewModel.eventPosts.observe(this, posts -> {
             if (posts.isEmpty()) {

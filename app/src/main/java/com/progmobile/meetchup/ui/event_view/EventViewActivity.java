@@ -99,9 +99,9 @@ public class EventViewActivity extends ChildActivity {
 
         viewModel = ViewModelProviders.of(this).get(EventViewViewModel.class);
 
-        viewModel.eventTitleLive.observe(this, event -> {
-            if (actionBar != null)
-                actionBar.setTitle(event);
+        viewModel.eventMetaData.observe(this, event -> {
+            if (actionBar != null && event.getTitle() != null)
+                actionBar.setTitle(event.getTitle());
         });
 
         BottomNavigationView navView = findViewById(R.id.event_nav_view);
