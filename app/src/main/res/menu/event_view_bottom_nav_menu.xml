@@ -3,13 +3,16 @@
 
     <item
         android:id="@+id/event_view_navigation_feed"
-        android:title="@string/event_nav_feed" />
+        android:title="@string/event_nav_feed"
+        android:icon="@drawable/ic_home"/>
 
     <item
         android:id="@+id/event_view_navigation_album"
-        android:title="@string/event_nav_album" />
+        android:title="@string/event_nav_album"
+        android:icon="@drawable/ic_gallery"/>
 
     <item
         android:id="@+id/event_view_navigation_todo"
-        android:title="@string/event_nav_todo" />
+        android:title="@string/event_nav_todo"
+        android:icon="@drawable/ic_todo" />
 </menu>
