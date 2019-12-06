@@ -1,4 +1,4 @@
-# UQAC_Mobile_Projet
+# Meet'chup
 
 Dans le cadre d'un projet de développement d’applications mobiles, nous proposons une application de partage de souvenir à travers la création et l’organisation d'événements, mais surtout à travers le partage de photos et la mise en commun des souvenirs des personnes ayant participé à l'événement. Finalement, l’utilisateur de l’application pourra avoir des propositions d’événements dépendamment de sa position et des possibilités qu’il y aura autour de lui. 
 
