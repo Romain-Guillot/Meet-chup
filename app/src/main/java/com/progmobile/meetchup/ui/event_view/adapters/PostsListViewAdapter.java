@@ -59,8 +59,12 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
 
         public void bind(Post post) {
             String description = post.getDescription();
-            if (description != null)
+            if (description != null) {
+                descriptionView.setVisibility(View.VISIBLE);
                 descriptionView.setText(post.getDescription());
+            } else {
+                descriptionView.setVisibility(View.GONE);
+            }
 
 
             String docURL = post.getDocUrl();
