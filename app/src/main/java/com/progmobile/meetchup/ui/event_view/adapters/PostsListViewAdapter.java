@@ -2,6 +2,8 @@ package com.progmobile.meetchup.ui.event_view.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.progmobile.meetchup.R;
-import com.progmobile.meetchup.models.Document;
 import com.progmobile.meetchup.models.Post;
 import com.progmobile.meetchup.models.User;
+import com.progmobile.meetchup.repositories.FirebaseStorageRepository;
+import com.progmobile.meetchup.repositories.IStorageRepository;
 import com.progmobile.meetchup.ui.post_view.PostViewActivity;
+import com.progmobile.meetchup.utils.Callback;
+import com.progmobile.meetchup.utils.CallbackException;
 import com.progmobile.meetchup.utils.DownloadImage;
 
 import java.util.List;
@@ -26,10 +31,12 @@ import java.util.List;
  */
 public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdapter.PostViewHolder> {
 
-    List<Post> posts;
+    private static IStorageRepository storageRepository;
+    private List<Post> posts;
 
     public PostsListViewAdapter(List<Post> posts) {
         this.posts = posts;
+        storageRepository = FirebaseStorageRepository.getInstance();
     }
 
     public static class PostViewHolder extends RecyclerView.ViewHolder {
@@ -51,9 +58,17 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
             if (description != null)
                 descriptionView.setText(post.getDescription());
 
-            Document document = post.getDocument();
-            if (document != null) {
-                new DownloadImage(imageView).execute(document.getUrl());
+            String docURL = post.getDocUrl();
+            if (docURL != null) {
+                PostsListViewAdapter.storageRepository.getData(docURL, new Callback<byte[]>() {
+                    public void onSucceed(byte[] result) {
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(result, 0, result.length);
+                        imageView.setImageBitmap(bitmap);
+                    }
+                    public void onFail(CallbackException exception) {
+
+                    }
+                });
             }
 
             User user = post.getUser();

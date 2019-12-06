@@ -11,15 +11,17 @@ public class Post extends Model {
     private User user;
     private Date date;
     private String description;
-    private Document document;
+    private String docURL;
+    private String docMimeType;
     private List<Comment> commentsList;
 
-    public Post(String id, User user, Date date, String description, Document document, Date dateCreated) {
+    public Post(String id, User user, Date date, String description, String docURL, String docMimeType, Date dateCreated) {
         super(id, dateCreated);
         this.user = user;
         this.date = date;
         this.description = description;
-        this.document = document;
+        this.docURL = docURL;
+        this.docMimeType = docMimeType;
         this.commentsList = null;
     }
 
@@ -40,8 +42,12 @@ public class Post extends Model {
         return description;
     }
 
-    public Document getDocument() {
-        return document;
+    public String getDocUrl() {
+        return docURL;
+    }
+
+    public String getDocMimeType() {
+        return docMimeType;
     }
 
     public List<Comment> getCommentsList() {

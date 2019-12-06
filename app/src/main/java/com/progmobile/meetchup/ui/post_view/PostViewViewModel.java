@@ -56,7 +56,7 @@ public class PostViewViewModel extends ViewModel {
             Log.d(">>>>>>>>>>>>>>>", "Post null");
         } else {
             postDescriptionLive.setValue(post.getDescription());
-            postImageLive.setValue(post.getDocument().getUrl());
+//            postImageLive.setValue(post.getDocument().getUrl());
         }
     }
 

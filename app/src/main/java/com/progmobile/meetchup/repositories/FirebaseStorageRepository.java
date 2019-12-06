@@ -10,6 +10,7 @@ public class FirebaseStorageRepository implements IStorageRepository {
 
     public static FirebaseStorageRepository instance = null;
 
+    private static long MAX_SIZE = 1024 * 1024;
     private FirebaseStorage storage;
 
     private FirebaseStorageRepository() {
@@ -27,8 +28,7 @@ public class FirebaseStorageRepository implements IStorageRepository {
     @Override
     public void getData(String url, Callback<byte[]> callback) {
         StorageReference imageRef = storage.getReferenceFromUrl(url);
-        final long ONE_MEGABYTE = 1024 * 1024;
-        imageRef.getBytes(ONE_MEGABYTE).addOnCompleteListener(task -> {
+        imageRef.getBytes(MAX_SIZE).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 callback.onFail(CallbackException.fromFirebaseException(task.getException()));
             } else {
