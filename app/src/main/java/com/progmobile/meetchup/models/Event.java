@@ -111,8 +111,6 @@ public class Event extends Model{
     @Override
     public int compareTo(Model o) {
         if (o.dateCreated == null && dateCreated == null) return ((Event) o).title.compareTo(title);
-        if (o.dateCreated == null) return -1;
-        if (dateCreated == null) return 1;
         return super.compareTo(o);
     }
 }

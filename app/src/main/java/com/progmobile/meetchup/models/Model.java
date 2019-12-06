@@ -46,6 +46,8 @@ public abstract class Model implements Comparable<Model> {
 
     @Override
     public int compareTo(Model o) {
+        if (o.dateCreated == null) return -1;
+        if (dateCreated == null) return 1;
         return o.dateCreated.compareTo(this.dateCreated);
     }
 }

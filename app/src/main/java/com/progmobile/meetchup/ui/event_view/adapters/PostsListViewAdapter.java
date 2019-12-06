@@ -58,10 +58,12 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
             if (description != null)
                 descriptionView.setText(post.getDescription());
 
+            imageView.setVisibility(View.GONE);
             String docURL = post.getDocUrl();
             if (docURL != null) {
                 PostsListViewAdapter.storageRepository.getData(docURL, new Callback<byte[]>() {
                     public void onSucceed(byte[] result) {
+                        imageView.setVisibility(View.VISIBLE);
                         Bitmap bitmap = BitmapFactory.decodeByteArray(result, 0, result.length);
                         imageView.setImageBitmap(bitmap);
                     }

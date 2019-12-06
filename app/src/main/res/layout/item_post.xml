@@ -13,16 +13,16 @@
         android:layout_height="wrap_content"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/item_post_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <ImageView
         android:id="@+id/item_post_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/item_post_image_description" />
 
+    <TextView
+        android:id="@+id/item_post_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
