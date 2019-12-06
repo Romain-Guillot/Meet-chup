@@ -29,9 +29,7 @@ import com.progmobile.meetchup.utils.views.EventMetaData;
 
 
 /**
- * TODO 1: Post contextual menu on long-click
- * TODO 2: Add participant button click listener
- * TODO 3: Loading indication while data loading (meta-data, posts and post documents)
+ *
  */
 public class FeedFragment extends Fragment {
 

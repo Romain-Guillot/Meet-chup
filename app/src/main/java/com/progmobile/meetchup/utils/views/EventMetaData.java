@@ -25,9 +25,11 @@ public class EventMetaData extends FrameLayout {
     private TextView textDateBegin;
     private ImageView iconDuration;
     private TextView textDuration;
+    private ImageView iconLocation;
+    private TextView textLocation;
     // description
     // participants
-    // location
+
 
     public EventMetaData(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -39,13 +41,17 @@ public class EventMetaData extends FrameLayout {
         textDateBegin = findViewById(R.id.view_event_metadata_begin_date);
         iconDuration = findViewById(R.id.view_event_metadata_duration_icon);
         textDuration = findViewById(R.id.view_event_metadata_duration);
+        iconLocation = findViewById(R.id.view_event_metadata_location_icon);
+        textLocation = findViewById(R.id.view_event_metadata_location);
+
     }
 
     public void setMetaData(Event event) {
         Date dateBegin = event.getDateBegin();
         Date dateEnd = event.getDateEnd();
-        String title = event.getTitle();
-
+        String location = null;
+        if (event.getLocation() != null)
+            location = event.getLocation().getLocation();
 
         if (dateBegin != null)
             textDateBegin.setText(dateFormat.format(dateBegin));
@@ -54,5 +60,9 @@ public class EventMetaData extends FrameLayout {
         if (dateBegin != null && dateEnd != null)
             textDuration.setText(DurationUtils.getDurationBetweenDate(getContext(), dateBegin, dateEnd));
         iconDuration.setVisibility(dateBegin != null && dateEnd != null ? View.VISIBLE : View.GONE);
+
+        if (location != null)
+            textLocation.setText(location);
+        findViewById(R.id.view_event_location_container).setVisibility(location == null ? View.GONE : View.VISIBLE);
     }
 }
