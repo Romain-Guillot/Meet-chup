@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -52,7 +53,8 @@ public class FeedFragment extends Fragment {
         postsView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         emptyPostsContainer = view.findViewById(R.id.event_empty_posts);
 
-
+        DividerItemDecoration divider = new DividerItemDecoration(getContext(), RecyclerView.VERTICAL);
+        postsView.addItemDecoration(divider);
 
 
         FloatingActionButton addPostFAB = view.findViewById(R.id.feed_add_post_fab);

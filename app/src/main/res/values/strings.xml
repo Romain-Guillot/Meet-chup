@@ -113,5 +113,6 @@
     <string name="menu_event_share">Share this event !</string>
     <string name="menu_event_quit">Quit this event</string>
     <string name="share_event_button_first_creation">Share the event !</string>
+    <string name="unknown_user">Unknown user</string>
 
 </resources>

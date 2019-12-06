@@ -23,6 +23,10 @@ public class Post extends Model {
         this.commentsList = null;
     }
 
+    public Post() {
+        super();
+    }
+
 
     public User getUser() {
         return user;

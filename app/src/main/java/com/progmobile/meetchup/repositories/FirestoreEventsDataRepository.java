@@ -252,8 +252,9 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
                 try {
                     Post p = docSnap.toObject(Post.class);
                     posts.add(p);
-                } catch (Exception e2) {}
+                } catch (Exception e2) {e2.printStackTrace();}
             }
+            Collections.sort(posts);
             callback.onSucceed(posts);
         });
     }
