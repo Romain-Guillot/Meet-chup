@@ -6,40 +6,46 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <!-- Join and create events buttons-->
+        android:orientation="vertical"
+        android:overScrollMode="never">
         <LinearLayout
-            android:layout_marginTop="@dimen/activity_margin_vertical"
-            android:layout_marginBottom="@dimen/block_spacing"
-            android:layout_marginStart="@dimen/activity_margin_horizontal"
-            android:layout_marginEnd="@dimen/activity_margin_horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/homepage_join_event_btn"
-                android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!-- Join and create events buttons-->
+            <LinearLayout
+                android:layout_marginTop="@dimen/activity_margin_vertical"
+                android:layout_marginBottom="@dimen/block_spacing"
+                android:layout_marginStart="@dimen/activity_margin_horizontal"
+                android:layout_marginEnd="@dimen/activity_margin_horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/normal_spacing"
-                app:icon="@drawable/ic_link"
-                android:text="@string/join_event_btn"/>
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/homepage_create_event_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:icon="@drawable/ic_add"
-                android:text="@string/create_event_button"/>
+                android:orientation="horizontal">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/homepage_join_event_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/normal_spacing"
+                    app:icon="@drawable/ic_link"
+                    android:text="@string/join_event_btn"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/homepage_create_event_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/ic_add"
+                    android:text="@string/create_event_button"/>
+            </LinearLayout>
+
+            <fragment
+                android:id="@+id/event_list_fragment"
+                android:name="com.progmobile.meetchup.ui.homepage.EventsListFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-        <fragment
-            android:id="@+id/event_list_fragment"
-            android:name="com.progmobile.meetchup.ui.homepage.EventsListFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-    </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
