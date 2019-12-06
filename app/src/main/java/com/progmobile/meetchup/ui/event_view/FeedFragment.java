@@ -20,9 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.progmobile.meetchup.R;
+import com.progmobile.meetchup.models.Post;
 import com.progmobile.meetchup.ui.event_view.adapters.ParticipantsListViewAdapter;
 import com.progmobile.meetchup.ui.event_view.adapters.PostsListViewAdapter;
 import com.progmobile.meetchup.ui.post_creation.PostCreationActivity;
+import com.progmobile.meetchup.ui.post_view.PostViewActivity;
 import com.progmobile.meetchup.utils.views.EventMetaData;
 
 
@@ -88,7 +90,11 @@ public class FeedFragment extends Fragment {
             } else {
                 emptyPostsContainer.setVisibility(View.GONE);
                 postsView.setVisibility(View.VISIBLE);
-                postsView.setAdapter(new PostsListViewAdapter(posts));
+                postsView.setAdapter(new PostsListViewAdapter(posts, post -> {
+                    Intent intent = new Intent(getActivity(), PostViewActivity.class);
+                    intent.putExtra(PostViewActivity.EXTRA_POST_ID, post.getId());
+                    startActivity(intent);
+                }));
             }
         });
     }

@@ -251,6 +251,7 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
             for (QueryDocumentSnapshot docSnap : docsSnap) {
                 try {
                     Post p = docSnap.toObject(Post.class);
+                    p.setId(docSnap.getId());
                     String userID = p.getUserID();
                     System.err.println(userID);
                     if (userID != null) {

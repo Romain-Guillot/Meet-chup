@@ -16,10 +16,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.progmobile.meetchup.R;
+import com.progmobile.meetchup.models.Event;
 import com.progmobile.meetchup.models.Post;
 import com.progmobile.meetchup.models.User;
 import com.progmobile.meetchup.repositories.FirebaseStorageRepository;
 import com.progmobile.meetchup.repositories.IStorageRepository;
+import com.progmobile.meetchup.ui.homepage.EventsListViewAdapter;
 import com.progmobile.meetchup.ui.post_view.PostViewActivity;
 import com.progmobile.meetchup.utils.Callback;
 import com.progmobile.meetchup.utils.CallbackException;
@@ -35,13 +37,18 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
 
     private static IStorageRepository storageRepository;
     private List<Post> posts;
+    private OnItemClickListener listener;
 
-    public PostsListViewAdapter(List<Post> posts) {
+
+
+    public PostsListViewAdapter(List<Post> posts, OnItemClickListener clickListener) {
         this.posts = posts;
+        this.listener = clickListener;
         storageRepository = FirebaseStorageRepository.getInstance();
     }
 
     public static class PostViewHolder extends RecyclerView.ViewHolder {
+        View view;
         TextView descriptionView;
         ImageView imageView;
         TextView userView;
@@ -50,6 +57,7 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
 
         PostViewHolder(View itemView) {
             super(itemView);
+            this.view = itemView;
             this.descriptionView = itemView.findViewById(R.id.item_post_description);
             this.imageView = itemView.findViewById(R.id.item_post_image);
             this.userView = itemView.findViewById(R.id.item_post_user);
@@ -57,7 +65,9 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
             context = itemView.getContext();
         }
 
-        public void bind(Post post) {
+        public void bind(Post post, final OnItemClickListener listener) {
+            view.setOnClickListener(v -> listener.onItemClick(post));
+
             String description = post.getDescription();
             if (description != null) {
                 descriptionView.setVisibility(View.VISIBLE);
@@ -96,11 +106,7 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
                 userView.setText(name);
             }
 
-            itemView.setOnClickListener(v -> {
-                Intent intent = new Intent(itemView.getContext(), PostViewActivity.class);
-                intent.putExtra(PostViewActivity.EXTRA_POST_ID, post.getId());
-                itemView.getContext().startActivity(intent);
-            });
+
         }
     }
 
@@ -117,7 +123,7 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         Post post = posts.get(position);
-        holder.bind(post);
+        holder.bind(post, listener);
     }
 
     @Override
@@ -125,4 +131,8 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
         return posts.size();
     }
 
+
+    public interface OnItemClickListener{
+        void onItemClick(Post post);
+    }
 }
