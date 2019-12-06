@@ -274,5 +274,36 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
         });
     }
 
+    @Override
+    public ListenerRegistration getPost(@NonNull String event_id, @NonNull String post_id, Callback<Post> callback) {
+        FirebaseUser fbUsr = FirebaseAuth.getInstance().getCurrentUser();
+        if (fbUsr == null) {
+            callback.onFail(new CallbackException(CallbackException.Type.NO_LOGGED)); return null;
+        }
+        return firestore.collection(Event.EVENT_COL).document(event_id).collection(Post.POST_COL).document(post_id).addSnapshotListener((docSnap, e) -> {
+            if (e != null) {
+                callback.onFail(CallbackException.fromFirebaseException(e));
+            } else {
+                try {
+                    Post post = docSnap.toObject(Post.class);
+                    post.setId(docSnap.getId());
+                    String userID = post.getUserID();
+                    System.err.println(userID);
+                    if (userID != null) {
+                        firestore.collection(User.USERS_COL).document(post.getUserID()).get().addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Map<String, Object> data = task.getResult().getData();
+                                post.setUser(new User(userID, (String)data.get(User.USER_NAME_FIELD), null));
+                            }
+                            callback.onSucceed(post);
+                        });
+                    } else {
+                        callback.onSucceed(post);
+                    }
+                } catch (Exception e2) {e2.printStackTrace();}
+            }
+        });
+    }
+
 
 }

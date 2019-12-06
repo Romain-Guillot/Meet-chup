@@ -93,6 +93,7 @@ public class FeedFragment extends Fragment {
                 postsView.setAdapter(new PostsListViewAdapter(posts, post -> {
                     Intent intent = new Intent(getActivity(), PostViewActivity.class);
                     intent.putExtra(PostViewActivity.EXTRA_POST_ID, post.getId());
+                    intent.putExtra(PostViewActivity.EXTRA_EVENT_ID, viewModel.eventID);
                     startActivity(intent);
                 }));
             }
@@ -100,9 +101,10 @@ public class FeedFragment extends Fragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        postListeners.remove();
+    public void onStop() {
+        super.onStop();
+        if( postListeners != null)
+            postListeners.remove();
     }
 
     private void launchCreationPostActivity() {

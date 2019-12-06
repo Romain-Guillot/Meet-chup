@@ -55,7 +55,7 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
         ProgressBar loadingView;
         Context context;
 
-        PostViewHolder(View itemView) {
+        public PostViewHolder(View itemView) {
             super(itemView);
             this.view = itemView;
             this.descriptionView = itemView.findViewById(R.id.item_post_description);
@@ -66,7 +66,15 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
         }
 
         public void bind(Post post, final OnItemClickListener listener) {
-            view.setOnClickListener(v -> listener.onItemClick(post));
+            if (listener != null)
+                view.setOnClickListener(v -> listener.onItemClick(post));
+
+            if (post == null) {
+                loadingView.setVisibility(View.GONE);
+                imageView.getLayoutParams().height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, context.getResources().getDisplayMetrics());
+                imageView.setImageDrawable(context.getDrawable(R.drawable.ic_error_image));
+                return ;
+            }
 
             String description = post.getDescription();
             if (description != null) {

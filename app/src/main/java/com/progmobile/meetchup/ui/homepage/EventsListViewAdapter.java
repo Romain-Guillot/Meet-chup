@@ -55,8 +55,6 @@ public class EventsListViewAdapter extends RecyclerView.Adapter<EventsListViewAd
 
             metaDataView.setMetaData(event);
         }
-
-
     }
 
     public EventsListViewAdapter(List<Event> events, OnItemClickListener listener) {

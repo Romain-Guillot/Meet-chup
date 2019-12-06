@@ -85,10 +85,8 @@ public interface IEventsDataRepository {
      */
     ListenerRegistration allPosts(@NonNull String eventID, Callback<List<Post>> callback);
 
-//    public void loadEventToDoList(String eventID, Callback<Event> callback);
-//
-//
-//    public void getPost(String post_id, Callback<Post> callback);
+
+    ListenerRegistration getPost(@NonNull String event_id, @NonNull String post_id, Callback<Post> callback);
 //
 //    public void addPost(String eventID, Post post, Callback<Post> callback);
 //
