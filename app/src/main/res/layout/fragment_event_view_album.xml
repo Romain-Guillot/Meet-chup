@@ -28,16 +28,6 @@
             android:orientation="vertical"
             >
 
-            <!-- Event metadata -->
-            <com.progmobile.meetchup.utils.views.EventMetaData
-                android:id="@+id/event_album_metadata"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/block_spacing"
-                android:layout_marginStart="@dimen/activity_margin_horizontal"
-                android:layout_marginEnd="@dimen/activity_margin_horizontal"/>
-
-
             <!-- Event posts feed -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/event_album"

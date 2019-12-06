@@ -32,7 +32,6 @@ public class AlbumFragment extends Fragment {
 
     private EventViewViewModel viewModel;
 
-    private EventMetaData eventMetaData;
     private RecyclerView photosView;
     private ViewGroup emptyPhotosContainer;
 
@@ -48,7 +47,6 @@ public class AlbumFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event_view_album, container, false);
 
-        eventMetaData = view.findViewById(R.id.event_album_metadata);
 
         photosView = view.findViewById(R.id.event_album);
         photosView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
@@ -69,11 +67,6 @@ public class AlbumFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        viewModel.eventMetaData.observe(this, event -> {
-            if (event != null)
-                eventMetaData.setMetaData(event);
-        });
 
         viewModel.eventPosts.observe(this, posts -> {
             posts = PreprocessListPosts(posts);

@@ -19,6 +19,7 @@ import com.progmobile.meetchup.repositories.FirebaseStorageRepository;
 import com.progmobile.meetchup.repositories.IStorageRepository;
 import com.progmobile.meetchup.utils.Callback;
 import com.progmobile.meetchup.utils.CallbackException;
+import com.progmobile.meetchup.utils.Icon;
 
 import java.util.List;
 
@@ -36,16 +37,16 @@ public class PhotosListViewAdapter extends RecyclerView.Adapter<PhotosListViewAd
 
     public static class PhotoViewHolder extends RecyclerView.ViewHolder {
         View view;
-        ImageView imageView;
+        Icon imageView;
         ProgressBar loadingView;
         Context context;
+
 
         public PhotoViewHolder(View itemView) {
             super(itemView);
             this.view = itemView;
             this.imageView = itemView.findViewById(R.id.item_photo_image);
             this.loadingView = itemView.findViewById(R.id.item_photo_loading);
-            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+itemView);
             context = itemView.getContext();
         }
 

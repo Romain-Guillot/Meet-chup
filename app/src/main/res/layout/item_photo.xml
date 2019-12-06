@@ -5,13 +5,13 @@
     android:orientation="vertical"
     >
 
-    <ImageView
+    <com.progmobile.meetchup.utils.Icon
         android:id="@+id/item_photo_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:adjustViewBounds="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
         android:contentDescription="@string/item_post_image_description"
-        android:layout_marginBottom="@dimen/normal_spacing"/>
+        android:layout_margin="2dp"/>
 
     <ProgressBar
         android:visibility="gone"
