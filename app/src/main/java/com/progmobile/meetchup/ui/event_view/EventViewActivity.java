@@ -98,6 +98,7 @@ public class EventViewActivity extends ChildActivity {
         isFirstCreation = intent.getBooleanExtra(EXTRA_EVENT_FIRST_CREATION , false);
 
         viewModel = ViewModelProviders.of(this).get(EventViewViewModel.class);
+        viewModel.setEventID(eventId);
 
         viewModel.eventMetaData.observe(this, event -> {
             if (actionBar != null && event.getTitle() != null)
@@ -112,7 +113,7 @@ public class EventViewActivity extends ChildActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        viewModel.initEventMetaData(this, eventId);
+        viewModel.initEventMetaData(this);
 
         if (isFirstCreation && !userDismissedFirstCreationDialog)
             showNewEventDialog();

@@ -8,6 +8,7 @@ import android.location.Geocoder;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.firebase.firestore.ListenerRegistration;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.models.Event;
 import com.progmobile.meetchup.models.Post;
@@ -31,6 +32,7 @@ import java.util.List;
  */
 public class EventViewViewModel extends AndroidViewModel {
 
+    String eventID = null;
     MutableLiveData<Event> eventMetaData = new MutableLiveData<>();
     MutableLiveData<List<Post>> eventPosts = new MutableLiveData<>();
     MutableLiveData<Boolean> requestQuitingIsLoading = new MutableLiveData<>();
@@ -44,8 +46,12 @@ public class EventViewViewModel extends AndroidViewModel {
     }
 
 
-    public void initEventMetaData(Activity activity, String eventId) {
-        eventsRepo.getEvent(activity, eventId, new Callback<Event>() {
+    public void setEventID(String eventID) {
+        this.eventID = eventID;
+    }
+
+    public void initEventMetaData(Activity activity) {
+        eventsRepo.getEvent(activity, eventID, new Callback<Event>() {
             public void onSucceed(Event result) {
                 eventMetaData.setValue(result);
             }
@@ -57,8 +63,16 @@ public class EventViewViewModel extends AndroidViewModel {
     }
 
 
-    public void loadPosts() {
+    public ListenerRegistration loadPosts() {
+        return eventsRepo.allPosts(eventID, new Callback<List<Post>>() {
+            public void onSucceed(List<Post> result) {
+                eventPosts.setValue(result);
+            }
 
+            public void onFail(CallbackException exception) {
+
+            }
+        });
     }
 
 

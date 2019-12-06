@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import androidx.annotation.NonNull;
 
+import com.google.firebase.firestore.ListenerRegistration;
 import com.progmobile.meetchup.models.Event;
 import com.progmobile.meetchup.models.Post;
 import com.progmobile.meetchup.utils.Callback;
@@ -82,7 +83,7 @@ public interface IEventsDataRepository {
      * Get list of posts
      * The list is returned through the callback if success
      */
-    void allPosts(@NonNull Activity client, @NonNull String eventID, Callback<List<Post>> callback);
+    ListenerRegistration allPosts(@NonNull String eventID, Callback<List<Post>> callback);
 
 //    public void loadEventToDoList(String eventID, Callback<Event> callback);
 //

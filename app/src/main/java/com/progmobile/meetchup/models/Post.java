@@ -3,6 +3,7 @@ package com.progmobile.meetchup.models;
 import java.util.Date;
 import java.util.List;
 
+
 public class Post extends Model {
 
     public static final String POST_COL = "posts";

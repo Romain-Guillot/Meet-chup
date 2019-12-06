@@ -5,6 +5,7 @@ import android.app.Activity;
 
 import androidx.annotation.NonNull;
 
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.progmobile.meetchup.models.Event;
 import com.progmobile.meetchup.models.Post;
@@ -238,12 +239,12 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
      * The list is returned through the callback if success
      */
     @Override
-    public void allPosts(@NonNull Activity client, @NonNull String eventID, Callback<List<Post>> callback) {
+    public ListenerRegistration allPosts(@NonNull String eventID, Callback<List<Post>> callback) {
         FirebaseUser fbUsr = FirebaseAuth.getInstance().getCurrentUser();
         if (fbUsr == null) {
-            callback.onFail(new CallbackException(CallbackException.Type.NO_LOGGED)); return;
+            callback.onFail(new CallbackException(CallbackException.Type.NO_LOGGED)); return null;
         }
-        firestore.collection(Event.EVENT_COL).document(eventID).collection(Post.POST_COL).addSnapshotListener(client, (docsSnap, e) -> {
+        return firestore.collection(Event.EVENT_COL).document(eventID).collection(Post.POST_COL).addSnapshotListener((docsSnap, e) -> {
             if (e != null || docsSnap == null) {
                 callback.onFail(CallbackException.fromFirebaseException(e)); return ; }
             List<Post> posts = new ArrayList<>();

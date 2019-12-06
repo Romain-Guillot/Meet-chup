@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.ui.event_view.adapters.ParticipantsListViewAdapter;
 import com.progmobile.meetchup.ui.event_view.adapters.PostsListViewAdapter;
@@ -37,17 +38,7 @@ public class FeedFragment extends Fragment {
     private RecyclerView postsView;
     private ViewGroup emptyPostsContainer;
 
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (getActivity() == null)
-            throw new RuntimeException("Unexpected fragment creation");
-
-        viewModel = ViewModelProviders.of(getActivity()).get(EventViewViewModel.class);
-        viewModel.loadPosts();
-    }
+    private ListenerRegistration postListeners;
 
 
     @Nullable
@@ -61,6 +52,27 @@ public class FeedFragment extends Fragment {
         postsView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         emptyPostsContainer = view.findViewById(R.id.event_empty_posts);
 
+
+
+
+        FloatingActionButton addPostFAB = view.findViewById(R.id.feed_add_post_fab);
+        addPostFAB.setOnClickListener(v ->
+                launchCreationPostActivity()
+        );
+
+        Button addPostButton = view.findViewById(R.id.event_empty_posts_add_btn);
+        addPostButton.setOnClickListener(v ->
+                launchCreationPostActivity()
+        );
+        return view;
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        viewModel = ViewModelProviders.of(getActivity()).get(EventViewViewModel.class);
+        postListeners = viewModel.loadPosts();
 
         viewModel.eventMetaData.observe(this, event -> {
             if (event != null)
@@ -77,20 +89,13 @@ public class FeedFragment extends Fragment {
                 postsView.setAdapter(new PostsListViewAdapter(posts));
             }
         });
-
-        FloatingActionButton addPostFAB = view.findViewById(R.id.feed_add_post_fab);
-        addPostFAB.setOnClickListener(v ->
-                launchCreationPostActivity()
-        );
-
-        Button addPostButton = view.findViewById(R.id.event_empty_posts_add_btn);
-        addPostButton.setOnClickListener(v ->
-                launchCreationPostActivity()
-        );
-
-        return view;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        postListeners.remove();
+    }
 
     private void launchCreationPostActivity() {
         Intent intent = new Intent(getActivity(), PostCreationActivity.class);

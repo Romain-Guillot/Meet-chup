@@ -2,7 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/activity_margin_horizontal"
+    android:layout_marginEnd="@dimen/activity_margin_horizontal">
 
     <!-- Floating action button to add a post to the event -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -30,8 +32,6 @@
             <!-- Begin date and event duration -->
             <com.progmobile.meetchup.utils.views.EventMetaData
                 android:id="@+id/event_feed_metadata"
-                android:layout_marginStart="@dimen/activity_margin_horizontal"
-                android:layout_marginEnd="@dimen/activity_margin_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
