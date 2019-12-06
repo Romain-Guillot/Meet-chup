@@ -42,6 +42,13 @@ public class FeedFragment extends Fragment {
     private ListenerRegistration postListeners;
 
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewModel = ViewModelProviders.of(getActivity()).get(EventViewViewModel.class);
+        postListeners = viewModel.loadPosts();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -73,8 +80,6 @@ public class FeedFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        viewModel = ViewModelProviders.of(getActivity()).get(EventViewViewModel.class);
-        postListeners = viewModel.loadPosts();
 
         viewModel.eventMetaData.observe(this, event -> {
             if (event != null)
@@ -99,8 +104,8 @@ public class FeedFragment extends Fragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onDestroy() {
+        super.onDestroy();
         if( postListeners != null)
             postListeners.remove();
     }

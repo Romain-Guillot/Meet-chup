@@ -61,12 +61,12 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
     /** @inheritDoc - Status : IN PROGRESS !!!!!!
     * */
     @Override
-    public void allEvents(@NonNull Activity client, @NonNull Callback<List<Event>> callback) {
+    public ListenerRegistration allEvents( @NonNull Callback<List<Event>> callback) {
         FirebaseUser fbUser = firebaseAuth.getCurrentUser();
         if (fbUser == null) {
-            callback.onFail(new CallbackException(CallbackException.Type.NO_LOGGED)); return ;
+            callback.onFail(new CallbackException(CallbackException.Type.NO_LOGGED)); return null;
         }
-        firestore.collection(User.USERS_COL).document(fbUser.getUid()).addSnapshotListener(client, (documentSnapshot, e1) -> {
+        return firestore.collection(User.USERS_COL).document(fbUser.getUid()).addSnapshotListener((documentSnapshot, e1) -> {
             if (e1 != null) { callback.onFail(CallbackException.fromFirebaseException(e1));return ; }
             try {
                 List<String> eventIDs = (List<String>) documentSnapshot.getData().get(User.USERS_FIELD_EVENTS);

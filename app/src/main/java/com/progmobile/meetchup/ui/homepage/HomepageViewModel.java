@@ -5,6 +5,7 @@ import android.app.Activity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.google.firebase.firestore.ListenerRegistration;
 import com.progmobile.meetchup.models.Event;
 import com.progmobile.meetchup.repositories.FirestoreEventsDataRepository;
 import com.progmobile.meetchup.repositories.IEventsDataRepository;
@@ -23,8 +24,8 @@ public class HomepageViewModel extends ViewModel {
         eventRepo = FirestoreEventsDataRepository.getInstance();
     }
 
-    void init(Activity activity) {
-        eventRepo.allEvents(activity, new Callback<List<Event>>() {
+    ListenerRegistration init() {
+        return eventRepo.allEvents(new Callback<List<Event>>() {
             public void onSucceed(List<Event> result) {
                 userEventsLive.setValue(result);
             }

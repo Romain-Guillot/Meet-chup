@@ -34,7 +34,7 @@ public interface IEventsDataRepository {
      * If succeeds list of all events are returned (can be empty)
      * -> Every user event update will be notified through the callback
      */
-    void allEvents(@NonNull Activity client, @NonNull Callback<List<Event>> callback);
+    ListenerRegistration allEvents(@NonNull Callback<List<Event>> callback);
 
     /**
      * Get the event corresponding to the ID
