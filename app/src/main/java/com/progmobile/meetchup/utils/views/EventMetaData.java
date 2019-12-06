@@ -1,6 +1,7 @@
 package com.progmobile.meetchup.utils.views;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,9 @@ public class EventMetaData extends FrameLayout {
     private TextView textDuration;
     private ImageView iconLocation;
     private TextView textLocation;
+    private TextView textDescription;
+
+    boolean isCompact = false;
     // description
     // participants
 
@@ -43,6 +47,17 @@ public class EventMetaData extends FrameLayout {
         textDuration = findViewById(R.id.view_event_metadata_duration);
         iconLocation = findViewById(R.id.view_event_metadata_location_icon);
         textLocation = findViewById(R.id.view_event_metadata_location);
+
+        TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.DialogFormLayout, 0, 0);
+        try {
+            isCompact = a.getBoolean(R.styleable.EventMetaData_compact, false);
+        } finally {
+            a.recycle();
+        }
+
+        if (!isCompact)
+            textDescription = findViewById(R.id.view_event_metadata_description);
+
 
     }
 
@@ -63,6 +78,18 @@ public class EventMetaData extends FrameLayout {
 
         if (location != null)
             textLocation.setText(location);
-        findViewById(R.id.view_event_location_container).setVisibility(location == null ? View.GONE : View.VISIBLE);
+        findViewById(R.id.view_event_location_container).setVisibility(location == null || location.isEmpty() ? View.GONE : View.VISIBLE);
+
+        if (!isCompact) {
+            String description = event.getDescription();
+            textDescription.setText(description);
+            textDescription.setVisibility(description == null || description.isEmpty() ? View.GONE : View.VISIBLE);
+        } else {
+            textDescription.setVisibility(View.GONE);
+        }
+    }
+
+    public void setCompact(boolean compact) {
+        isCompact = compact;
     }
 }

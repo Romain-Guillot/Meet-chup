@@ -53,6 +53,7 @@ public class EventsListViewAdapter extends RecyclerView.Adapter<EventsListViewAd
             if (title != null)
                 titleView.setText(title);
 
+            metaDataView.setCompact(true);
             metaDataView.setMetaData(event);
         }
     }

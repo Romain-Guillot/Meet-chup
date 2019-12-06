@@ -44,7 +44,8 @@
     <LinearLayout
         android:id="@+id/view_event_location_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/normal_spacing">
         <ImageView
             android:id="@+id/view_event_metadata_location_icon"
             android:layout_width="16dp"
@@ -60,6 +61,13 @@
             android:layout_height="wrap_content"
             android:textColor="@color/textColorLight"/>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/view_event_metadata_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/block_spacing"
+        android:textColor="@color/textColorLight"/>
 
 
     <!-- Participants -->
