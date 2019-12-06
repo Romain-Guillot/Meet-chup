@@ -19,6 +19,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.ui.event_creation.EventCreationActivity;
 import com.progmobile.meetchup.ui.invitation.InvitationKeyActivity;
@@ -85,6 +86,8 @@ public class EventViewActivity extends ChildActivity {
     boolean userDismissedFirstCreationDialog = false;
     boolean isFirstCreation = false;
 
+    private ListenerRegistration postListeners;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,10 +101,12 @@ public class EventViewActivity extends ChildActivity {
         isFirstCreation = intent.getBooleanExtra(EXTRA_EVENT_FIRST_CREATION , false);
 
         viewModel = ViewModelProviders.of(this).get(EventViewViewModel.class);
+        viewModel.setEventID(eventId);
+        postListeners = viewModel.loadPosts();
 
-        viewModel.eventTitleLive.observe(this, event -> {
-            if (actionBar != null)
-                actionBar.setTitle(event);
+        viewModel.eventMetaData.observe(this, event -> {
+            if (actionBar != null && event.getTitle() != null)
+                actionBar.setTitle(event.getTitle());
         });
 
         BottomNavigationView navView = findViewById(R.id.event_nav_view);
@@ -112,7 +117,7 @@ public class EventViewActivity extends ChildActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        viewModel.initEventMetaData(this, eventId);
+        viewModel.initEventMetaData(this);
 
         if (isFirstCreation && !userDismissedFirstCreationDialog)
             showNewEventDialog();
@@ -126,6 +131,13 @@ public class EventViewActivity extends ChildActivity {
             firstCreationDialog.dismiss();
         if (quitDialog != null && quitDialog.isShowing())
             quitDialog.dismiss();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if( postListeners != null)
+            postListeners.remove();
     }
 
     @Override

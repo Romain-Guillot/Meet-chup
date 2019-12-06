@@ -4,6 +4,10 @@
         <attr name="text" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="EventMetaData">
+        <attr name="compact" format="boolean" />
+    </declare-styleable>
+
     <declare-styleable name="TextFormLayout">
         <attr name="hint" format="string" />
         <attr name="inputType" format="enum">

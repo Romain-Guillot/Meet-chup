@@ -9,6 +9,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.firebase.firestore.ListenerRegistration;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.repositories.FirebaseAuthenticationRepository;
 import com.progmobile.meetchup.repositories.IAuthenticationRepository;
@@ -29,6 +30,8 @@ public class HomePageActivity extends AppCompatActivity {
 
     private JoinBottomSheetFragment joinBottomSheetFragment;
 
+    private ListenerRegistration eventsListener = null;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,13 +46,9 @@ public class HomePageActivity extends AppCompatActivity {
             Intent intent = new Intent(this, EventCreationActivity.class);
             startActivity(intent);
         });
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
         HomepageViewModel viewModel = ViewModelProviders.of(this).get(HomepageViewModel.class);
-        viewModel.init(this);
+        eventsListener = viewModel.init();
     }
 
     /**
@@ -96,5 +95,12 @@ public class HomePageActivity extends AppCompatActivity {
             Intent profileIntent = new Intent(this, ProfileActivity.class);
             startActivity(profileIntent);
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (eventsListener != null)
+            eventsListener.remove();
     }
 }

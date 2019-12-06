@@ -12,6 +12,7 @@ import java.util.List;
 
 public class Event extends Model{
 
+    public final static String EVENT_COL = "events";
     public final static String EVENT_FIELD_INVITKEY = "invitationKey";
     public final static String EVENT_FIELD_PARTICIPANTS = "participantIDs";
     public final static String EVENT_FIELD_TITLE = "title";
@@ -110,8 +111,6 @@ public class Event extends Model{
     @Override
     public int compareTo(Model o) {
         if (o.dateCreated == null && dateCreated == null) return ((Event) o).title.compareTo(title);
-        if (o.dateCreated == null) return -1;
-        if (dateCreated == null) return 1;
         return super.compareTo(o);
     }
 }

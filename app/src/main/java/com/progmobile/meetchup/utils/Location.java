@@ -1,5 +1,6 @@
 package com.progmobile.meetchup.utils;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
@@ -39,4 +40,5 @@ public class Location {
     public Double getLongitude() {
         return longitude;
     }
+
 }

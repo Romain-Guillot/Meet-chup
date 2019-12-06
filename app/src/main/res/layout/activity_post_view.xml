@@ -4,10 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <fragment
-        android:id="@+id/post_view_fragment"
-        android:name="com.progmobile.meetchup.ui.post_view.PostViewFragment"
+    <FrameLayout
+        android:id="@+id/post_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

@@ -8,6 +8,7 @@ import android.location.Geocoder;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.firebase.firestore.ListenerRegistration;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.models.Event;
 import com.progmobile.meetchup.models.Post;
@@ -31,18 +32,12 @@ import java.util.List;
  */
 public class EventViewViewModel extends AndroidViewModel {
 
-    MutableLiveData<String> eventTitleLive = new MutableLiveData<>();
-    MutableLiveData<String> eventBeginDateLive = new MutableLiveData<>();
-    MutableLiveData<String> eventDurationLive = new MutableLiveData<>();
-    MutableLiveData<String> eventLocationLive = new MutableLiveData<>();
-    MutableLiveData<String> eventDescriptionLive = new MutableLiveData<>();
-    MutableLiveData<List<User>> eventParticipantsList = new MutableLiveData<>();
+    String eventID = null;
+    MutableLiveData<Event> eventMetaData = new MutableLiveData<>();
     MutableLiveData<List<Post>> eventPosts = new MutableLiveData<>();
     MutableLiveData<Boolean> requestQuitingIsLoading = new MutableLiveData<>();
     MutableLiveData<Boolean> quitingRequestDone = new MutableLiveData<>();
     private IEventsDataRepository eventsRepo;
-    private Event event = null;
-    private DateFormat dateFormat = DateFormat.getDateInstance();
 
 
     public EventViewViewModel(Application application) {
@@ -51,89 +46,41 @@ public class EventViewViewModel extends AndroidViewModel {
     }
 
 
-    public void initEventMetaData(Activity activity, String eventId) {
-        eventsRepo.getEvent(activity, eventId, new Callback<Event>() {
-            @Override
+    public void setEventID(String eventID) {
+        this.eventID = eventID;
+    }
+
+    public void initEventMetaData(Activity activity) {
+        eventsRepo.getEvent(activity, eventID, new Callback<Event>() {
             public void onSucceed(Event result) {
-                event = result;
-                setEventMetaDataLive();
+                eventMetaData.setValue(result);
             }
 
-            @Override
             public void onFail(CallbackException e) {
 
             }
         });
     }
 
-    private void setEventMetaDataLive() {
-        eventTitleLive.setValue(event.getTitle());
-        Date dateBegin = event.getDateBegin();
-        if (dateBegin != null)
-            eventBeginDateLive.setValue(dateFormat.format(dateBegin));
 
-        Date dateEnd = event.getDateEnd();
-        if (dateBegin != null && dateEnd != null)
-            eventDurationLive.setValue(DurationUtils.getDurationBetweenDate(getApplication(), dateBegin, dateEnd));
+    public ListenerRegistration loadPosts() {
+        return eventsRepo.allPosts(eventID, new Callback<List<Post>>() {
+            public void onSucceed(List<Post> result) {
+                eventPosts.setValue(result);
+            }
 
-        String description = event.getDescription();
-        if (description != null)
-            eventDescriptionLive.setValue(description);
+            public void onFail(CallbackException exception) {
 
-        Location location = event.getLocation();
-        if (location != null)
-            eventLocationLive.setValue(getAddressLocalisation(location));
-
-        List<User> participants = event.getParticipants();
-        if (participants != null && participants.size() > 0)
-            eventParticipantsList.setValue(participants);
+            }
+        });
     }
 
 
-    public void loadPosts() {
-//        eventsRepo.loadEventPosts( event.getId(), new Callback<Event>() {
-//            @Override
-//            public void onSucceed(Event result) {
-//                event = result;
-//                setPostsLive();
-//            }
-//            @Override
-//            public void onFail(CallbackException e) {
-//
-//            }
-//        });
-    }
-
-
-    private void setPostsLive() {
-        List<Post> posts = event.getPosts();
-        if (posts == null || posts.isEmpty())
-            eventPosts.setValue(new ArrayList<>());
-        else
-            eventPosts.setValue(posts);
-    }
-
-
-    private String getAddressLocalisation(Location localisation) {
-//        Geocoder geocoder = new Geocoder(this.getApplication().getApplicationContext());
-//        try {
-//            List<Address> addresses = geocoder.getFromLocation(localisation.getLatitude(), localisation.getLongitude(), 1);
-//            if (addresses.size() >= 1) {
-//                Address a = addresses.get(0);
-//                String address = "";
-//                if (a.getLocality() != null) address += a.getLocality();
-//                if (a.getCountryName() != null)
-//                    address += ((address.isEmpty() ? "" : ", ") + a.getCountryName());
-//                if (!address.isEmpty()) return address;
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-        return null;
-    }
 
 
     void requestQuitEvent() {
+        Event event = eventMetaData.getValue();
+        if (event == null) return ;
         requestQuitingIsLoading.setValue(true);
         eventsRepo.quitEvent(event.getId(), new Callback<Void>() {
             public void onSucceed(Void result) {
