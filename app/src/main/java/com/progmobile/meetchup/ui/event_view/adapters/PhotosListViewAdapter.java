@@ -73,7 +73,6 @@ public class PhotosListViewAdapter extends RecyclerView.Adapter<PhotosListViewAd
                     }
                     public void onFail(CallbackException exception) {
                         loadingView.setVisibility(View.GONE);
-                        imageView.getLayoutParams().height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, context.getResources().getDisplayMetrics());
                         imageView.setImageDrawable(context.getDrawable(R.drawable.ic_error_image));
                     }
                 });
