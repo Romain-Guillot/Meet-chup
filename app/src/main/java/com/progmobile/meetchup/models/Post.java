@@ -1,5 +1,7 @@
 package com.progmobile.meetchup.models;
 
+import com.google.firebase.firestore.Exclude;
+
 import java.util.Date;
 import java.util.List;
 
@@ -8,6 +10,7 @@ public class Post extends Model {
 
     public static final String POST_COL = "posts";
 
+    private String userID;
     private User user;
     private Date date;
     private String description;
@@ -30,8 +33,17 @@ public class Post extends Model {
     }
 
 
+    public String getUserID() {
+        return userID;
+    }
+
+    @Exclude
     public User getUser() {
         return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Date getDate() {

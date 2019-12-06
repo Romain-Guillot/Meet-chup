@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,6 +45,7 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
         TextView descriptionView;
         ImageView imageView;
         TextView userView;
+        ProgressBar loadingView;
         Context context;
 
         PostViewHolder(View itemView) {
@@ -50,6 +53,7 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
             this.descriptionView = itemView.findViewById(R.id.item_post_description);
             this.imageView = itemView.findViewById(R.id.item_post_image);
             this.userView = itemView.findViewById(R.id.item_post_user);
+            this.loadingView = itemView.findViewById(R.id.item_post_loading);
             context = itemView.getContext();
         }
 
@@ -58,19 +62,26 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
             if (description != null)
                 descriptionView.setText(post.getDescription());
 
-            imageView.setVisibility(View.GONE);
+
             String docURL = post.getDocUrl();
             if (docURL != null) {
+                loadingView.setVisibility(View.VISIBLE);
                 PostsListViewAdapter.storageRepository.getData(docURL, new Callback<byte[]>() {
                     public void onSucceed(byte[] result) {
-                        imageView.setVisibility(View.VISIBLE);
                         Bitmap bitmap = BitmapFactory.decodeByteArray(result, 0, result.length);
                         imageView.setImageBitmap(bitmap);
+                        loadingView.setVisibility(View.GONE);
+                        imageView.setVisibility(View.VISIBLE);
                     }
                     public void onFail(CallbackException exception) {
-
+                        loadingView.setVisibility(View.GONE);
+                        imageView.getLayoutParams().height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, context.getResources().getDisplayMetrics());
+                        imageView.setImageDrawable(context.getDrawable(R.drawable.ic_error_image));
                     }
                 });
+            } else {
+                imageView.setVisibility(View.GONE);
+                loadingView.setVisibility(View.GONE);
             }
 
             User user = post.getUser();

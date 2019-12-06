@@ -4,6 +4,7 @@ import java.util.List;
 
 public class User {
 
+    public final static String USER_NAME_FIELD = "name";
     public final static String USERS_COL = "users";
     public final static String USERS_FIELD_EVENTS = "events";
 

@@ -251,7 +251,21 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
             for (QueryDocumentSnapshot docSnap : docsSnap) {
                 try {
                     Post p = docSnap.toObject(Post.class);
-                    posts.add(p);
+                    String userID = p.getUserID();
+                    System.err.println(userID);
+                    if (userID != null) {
+                        firestore.collection(User.USERS_COL).document(p.getUserID()).get().addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Map<String, Object> data = task.getResult().getData();
+                                p.setUser(new User(userID, (String)data.get(User.USER_NAME_FIELD), null));
+                            }
+                            posts.add(p);
+                            Collections.sort(posts);
+                            callback.onSucceed(posts);
+                        });
+                    } else {
+                        posts.add(p);
+                    }
                 } catch (Exception e2) {e2.printStackTrace();}
             }
             Collections.sort(posts);
