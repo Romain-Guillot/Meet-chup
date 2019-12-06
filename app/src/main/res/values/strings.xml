@@ -97,7 +97,9 @@
     <!-- Unclassified / temporary -->
     <string name="google_web_client_id">147707161348-8sr2m5vtelitrtjdht93vdcv3ri87258.apps.googleusercontent.com</string>
     <string name="item_post_image_description">post image</string>
+    <string name="item_photo_image_description">post image</string>
     <string name="event_empty_post_indicator">No post</string>
+    <string name="event_empty_photo_indicator">No photos</string>
     <string name="event_add_new_post_btn_label">Add a new post</string>
     <string name="event_participants_add_label">add</string>
     <string name="post_view_no_comments">No comments</string>
