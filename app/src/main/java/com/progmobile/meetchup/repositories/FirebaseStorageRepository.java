@@ -29,9 +29,11 @@ public class FirebaseStorageRepository implements IStorageRepository {
     public void getData(String url, Callback<byte[]> callback) {
         StorageReference imageRef = storage.getReferenceFromUrl(url);
         imageRef.getBytes(MAX_SIZE).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
+            if (!task.isSuccessful()) {
+                System.err.println("OK1");
                 callback.onFail(CallbackException.fromFirebaseException(task.getException()));
             } else {
+                System.err.println("OK2");
                 callback.onSucceed(task.getResult());
             }
         });
