@@ -1,25 +1,44 @@
 package com.progmobile.meetchup.utils;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 /**
  * Data type to store location (with a longitude and a latitude)
  * Immutable
  */
 public class Location {
-    private final double longitude;
-    private final double latitude;
+    private String location = null;
+
+    private Double longitude = null;
+    private Double latitude = null;
+
+    public Location(){}
 
     // create and initialize a point with given name and
     // (latitude, longitude) specified in degrees
-    public Location(double latitude, double longitude) {
-        this.latitude = latitude;
-        this.longitude = longitude;
+    public Location(String location) {
+        this.location = location;
     }
 
-    public double getLatitude() {
+    public Location(double longitude, double latitude) {
+        this.longitude = longitude;
+        this.latitude = latitude;
+    }
+
+    @Nullable
+    public String getLocation() {
+        return location;
+    }
+
+    @Nullable
+    public Double getLatitude() {
         return latitude;
     }
 
-    public double getLongitude() {
+    @Nullable
+    public Double getLongitude() {
         return longitude;
     }
+
 }

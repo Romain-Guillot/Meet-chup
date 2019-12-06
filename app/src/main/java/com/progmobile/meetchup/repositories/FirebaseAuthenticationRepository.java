@@ -131,7 +131,7 @@ public class FirebaseAuthenticationRepository implements IAuthenticationReposito
 
         if (fbUser != null) {
             Map<String, String> userInfo = new HashMap<>();
-            userInfo.put("name", name);
+            userInfo.put(User.USER_NAME_FIELD, name);
             getUserDocument(fbUser.getUid()).set(userInfo, SetOptions.merge()).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     getCurrentUser().setName(name);

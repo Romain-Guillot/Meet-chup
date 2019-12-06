@@ -12,6 +12,9 @@ import com.progmobile.meetchup.utils.Callback;
  */
 public interface IAuthenticationRepository {
 
+    int NAME_MIN_LENGTH = 6;
+    int NAME_MAX_LENGTH = 15;
+
     LiveData<User> getObservableUser();
 
     User getCurrentUser();

@@ -11,21 +11,27 @@ import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.utils.ChildActivity;
 
 /**
- * This activity holds fragment to :
- * - display user profile {@link ProfileViewFragment}
- * - edit user profile {@link ProfileEditFragment}
- * <p>
- * =================================================================================================
- * <p>
- * The activity simple retrieve it ViewModel ({@link ProfileEditViewModel}) and observe when to
+ * <h1>ProfileActivity</h1>
+ *
+ * <p>This activity holds fragment to :</p>
+ * <ul>
+ *     <li>display user profile {@link ProfileViewFragment}</li>
+ *     <li>edit user profile {@link ProfileEditFragment}</li>
+ * </ul>
+ *
+ * <p>The activity simple retrieve it ViewModel ({@link ProfileEditViewModel}) and observe when to
  * change between the view mode and the edit mode.
- * <p>
- * The edit mode is displayed when the user click on the action nav bar item "edit"
- * The view mode is displayed by default OR if the user back navigate from the edit mode
- * <p>
- * =================================================================================================
- * <p>
- * Known bugs: none
+ *
+ * <p>The edit mode is displayed when the user click on the action nav bar item "edit"<br>
+ * The view mode is displayed by default OR if the user back navigate from the edit mode</p>
+ *
+ *
+ * <h2>INTENT COMMUNICATION</h2>
+ * No extra data required
+ *
+ *
+ * <h2>BUGS</h2>
+ * <p>None</p>
  */
 public class ProfileActivity extends ChildActivity {
 
@@ -76,7 +82,7 @@ public class ProfileActivity extends ChildActivity {
      */
     @Override
     public void onBackPressed() {
-        if (viewModel.editMode.getValue())
+        if (viewModel != null && viewModel.editMode.getValue() != null && viewModel.editMode.getValue())
             viewModel.editMode.setValue(false);
         else
             super.onBackPressed();

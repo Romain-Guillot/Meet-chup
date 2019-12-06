@@ -14,17 +14,12 @@
         android:layout_marginTop="0dp"
         android:text="@string/profile_edit_mail_label" />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <com.progmobile.meetchup.utils.form_views.TextFormLayout
         android:id="@+id/edit_profile_email_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/auth_email_hint">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_profile_email_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:hint="@string/auth_email_hint"
+        app:inputType="singleLine"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/profile_edit_submit_email"
@@ -39,17 +34,12 @@
         android:layout_height="wrap_content"
         android:text="@string/profile_edit_name_label" />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <com.progmobile.meetchup.utils.form_views.TextFormLayout
         android:id="@+id/edit_profile_username_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/auth_setup_username_hint">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_profile_username_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:hint="@string/auth_setup_username_hint"
+        app:inputType="singleLine"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/profile_edit_submit_username"
@@ -62,36 +52,22 @@
         style="@style/SubtitleStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/profile_edit_password_label" />
+        android:text="@string/profile_edit_password_label"/>
 
-    <com.google.android.material.textfield.TextInputLayout
+    <com.progmobile.meetchup.utils.form_views.TextFormLayout
         android:id="@+id/edit_profile_newpassword_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/auth_password_hint"
         android:paddingBottom="@dimen/normal_spacing"
-        app:passwordToggleEnabled="true">
+        app:hint="@string/auth_password_hint"
+        app:inputType="password"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_profile_newpassword_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
+    <com.progmobile.meetchup.utils.form_views.TextFormLayout
         android:id="@+id/edit_profile_newpasswordconfirm_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/auth_password_confirm_hint"
-        app:passwordToggleEnabled="true">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_profile_newpasswordconfirm_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:hint="@string/auth_password_confirm_hint"
+        app:inputType="password"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/profile_edit_submit_password"

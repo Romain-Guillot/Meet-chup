@@ -6,98 +6,62 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.progmobile.meetchup.R;
+import com.progmobile.meetchup.models.Post;
 import com.progmobile.meetchup.ui.event_view.adapters.ParticipantsListViewAdapter;
 import com.progmobile.meetchup.ui.event_view.adapters.PostsListViewAdapter;
 import com.progmobile.meetchup.ui.post_creation.PostCreationActivity;
+import com.progmobile.meetchup.ui.post_view.PostViewActivity;
+import com.progmobile.meetchup.utils.views.EventMetaData;
 
 
 /**
- * TODO 1: Post contextual menu on long-click
- * TODO 2: Add participant button click listener
- * TODO 3: Loading indication while data loading (meta-data, posts and post documents)
+ *
  */
 public class FeedFragment extends Fragment {
 
     private EventViewViewModel viewModel;
 
-    private TextView beginDateView;
-    private TextView durationView;
-    private RecyclerView participantsView;
-    private TextView descriptionView;
-    private TextView localisationView;
+    private EventMetaData eventMetaData;
     private RecyclerView postsView;
     private ViewGroup emptyPostsContainer;
+
+
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getActivity() == null)
-            throw new RuntimeException("Unexpected fragment creation");
-
         viewModel = ViewModelProviders.of(getActivity()).get(EventViewViewModel.class);
-        viewModel.loadPosts();
     }
-
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_event_view_feed, container, false);
 
-        this.beginDateView = view.findViewById(R.id.event_begin_date);
-        this.durationView = view.findViewById(R.id.event_duration);
-        this.descriptionView = view.findViewById(R.id.event_description);
-        this.localisationView = view.findViewById(R.id.event_localisation);
-        this.participantsView = view.findViewById(R.id.event_participants_list);
-        participantsView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
-        this.postsView = view.findViewById(R.id.event_posts);
+        eventMetaData = view.findViewById(R.id.event_feed_metadata);
+
+        postsView = view.findViewById(R.id.event_posts);
         postsView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
-        this.emptyPostsContainer = view.findViewById(R.id.event_empty_posts);
+        emptyPostsContainer = view.findViewById(R.id.event_empty_posts);
 
+        DividerItemDecoration divider = new DividerItemDecoration(getContext(), RecyclerView.VERTICAL);
+        postsView.addItemDecoration(divider);
 
-        viewModel.eventBeginDateLive.observe(this, begin ->
-                beginDateView.setText(begin)
-        );
-
-        viewModel.eventDurationLive.observe(this, duration ->
-                durationView.setText(duration)
-        );
-
-        viewModel.eventDescriptionLive.observe(this, description ->
-                descriptionView.setText(description)
-        );
-
-        viewModel.eventLocationLive.observe(this, localisation ->
-                localisationView.setText(localisation)
-        );
-
-        viewModel.eventParticipantsList.observe(this, participants ->
-                participantsView.setAdapter(new ParticipantsListViewAdapter(participants))
-        );
-
-        viewModel.eventPosts.observe(this, posts -> {
-            if (posts.isEmpty()) {
-                emptyPostsContainer.setVisibility(View.VISIBLE);
-                postsView.setVisibility(View.GONE);
-            } else {
-                emptyPostsContainer.setVisibility(View.GONE);
-                postsView.setVisibility(View.VISIBLE);
-                postsView.setAdapter(new PostsListViewAdapter(posts));
-            }
-        });
 
         FloatingActionButton addPostFAB = view.findViewById(R.id.feed_add_post_fab);
         addPostFAB.setOnClickListener(v ->
@@ -108,8 +72,34 @@ public class FeedFragment extends Fragment {
         addPostButton.setOnClickListener(v ->
                 launchCreationPostActivity()
         );
-
         return view;
+    }
+
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        viewModel.eventMetaData.observe(this, event -> {
+            if (event != null)
+                eventMetaData.setMetaData(event);
+        });
+
+        viewModel.eventPosts.observe(this, posts -> {
+            if (posts.isEmpty()) {
+                emptyPostsContainer.setVisibility(View.VISIBLE);
+                postsView.setVisibility(View.GONE);
+            } else {
+                emptyPostsContainer.setVisibility(View.GONE);
+                postsView.setVisibility(View.VISIBLE);
+                postsView.setAdapter(new PostsListViewAdapter(posts, post -> {
+                    Intent intent = new Intent(getActivity(), PostViewActivity.class);
+                    intent.putExtra(PostViewActivity.EXTRA_POST_ID, post.getId());
+                    intent.putExtra(PostViewActivity.EXTRA_EVENT_ID, viewModel.eventID);
+                    startActivity(intent);
+                }));
+            }
+        });
     }
 
 

@@ -7,13 +7,14 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
+import com.google.firebase.firestore.ListenerRegistration;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.repositories.FirebaseAuthenticationRepository;
 import com.progmobile.meetchup.repositories.IAuthenticationRepository;
 import com.progmobile.meetchup.ui.authentication.AuthenticationActivity;
 import com.progmobile.meetchup.ui.event_creation.EventCreationActivity;
-import com.progmobile.meetchup.ui.event_view.EventViewActivity;
 import com.progmobile.meetchup.ui.invitation.JoinBottomSheetFragment;
 import com.progmobile.meetchup.ui.profile.ProfileActivity;
 
@@ -28,6 +29,8 @@ import com.progmobile.meetchup.ui.profile.ProfileActivity;
 public class HomePageActivity extends AppCompatActivity {
 
     private JoinBottomSheetFragment joinBottomSheetFragment;
+
+    private ListenerRegistration eventsListener = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,20 +47,8 @@ public class HomePageActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-
-        // -----------------------------------------------------------------------------------------
-        // tests
-        Intent intent = new Intent(this, EventViewActivity.class);
-
-        findViewById(R.id.event1).setOnClickListener(v -> {
-            intent.putExtra(EventViewActivity.EXTRA_EVENT_ID, "1");
-            startActivity(intent);
-        });
-
-        findViewById(R.id.event2).setOnClickListener(v -> {
-            intent.putExtra(EventViewActivity.EXTRA_EVENT_ID, "2");
-            startActivity(intent);
-        });
+        HomepageViewModel viewModel = ViewModelProviders.of(this).get(HomepageViewModel.class);
+        eventsListener = viewModel.init();
     }
 
     /**
@@ -104,5 +95,12 @@ public class HomePageActivity extends AppCompatActivity {
             Intent profileIntent = new Intent(this, ProfileActivity.class);
             startActivity(profileIntent);
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (eventsListener != null)
+            eventsListener.remove();
     }
 }

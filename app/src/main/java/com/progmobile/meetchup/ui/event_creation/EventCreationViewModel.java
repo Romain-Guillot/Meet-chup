@@ -1,6 +1,104 @@
 package com.progmobile.meetchup.ui.event_creation;
 
-import androidx.lifecycle.ViewModel;
+import android.app.Activity;
+import android.app.Application;
 
-public class EventCreationViewModel extends ViewModel {
+
+import androidx.lifecycle.MutableLiveData;
+
+import com.progmobile.meetchup.R;
+import com.progmobile.meetchup.utils.Callback;
+import com.progmobile.meetchup.utils.CallbackException;
+import com.progmobile.meetchup.utils.form_data_with_validators.DateValidator;
+import com.progmobile.meetchup.utils.form_data_with_validators.LocationValidator;
+import com.progmobile.meetchup.models.Event;
+import com.progmobile.meetchup.repositories.FirestoreEventsDataRepository;
+import com.progmobile.meetchup.repositories.IEventsDataRepository;
+import com.progmobile.meetchup.utils.FormViewModel;
+import com.progmobile.meetchup.utils.Location;
+import com.progmobile.meetchup.utils.SingleEvent;
+import com.progmobile.meetchup.utils.form_data_with_validators.BasicValidator;
+import com.progmobile.meetchup.utils.form_data_with_validators.FormData;
+
+import java.util.Date;
+
+
+/**
+ * FormViewModel to handle form business logic
+ */
+public class EventCreationViewModel extends FormViewModel {
+
+    private final IEventsDataRepository eventRepo;
+
+   final MutableLiveData<String> eventCreated = new MutableLiveData<>();
+    String eventID = null;
+
+    final FormData<String> titleField = new FormData<>(new BasicValidator(IEventsDataRepository.EVENT_TITLE_MIN_LENGTH, IEventsDataRepository.EVENT_TITLE_MAX_LENGTH));
+    final FormData<String> descriptionField = new FormData<>(new BasicValidator(), false);
+    final FormData<Date> beginDate = new FormData<>(new DateValidator(), false);
+    final FormData<Date> endDate = new FormData<>(new DateValidator(), false);
+    final FormData<Location> location = new FormData<>(new LocationValidator(), false);
+
+
+    public EventCreationViewModel(Application application) {
+        super(application);
+        eventRepo = FirestoreEventsDataRepository.getInstance();
+    }
+
+    protected void setExistingEvent(Activity observer, String eventID) {
+        this.eventID = eventID;
+        eventRepo.getEvent(observer, eventID, new Callback<Event>() {
+            public void onSucceed(Event result) {
+                titleField.setValue(result.getTitle());
+                descriptionField.setValue(result.getDescription());
+                beginDate.setValue(result.getDateBegin());
+                endDate.setValue(result.getDateEnd());
+                location.setValue(result.getLocation());
+                updateKeyEvent.setValue(new SingleEvent<>(true));
+            }
+
+            public void onFail(CallbackException exception) { }
+        });
+    }
+
+    /**
+     * Retrieve form data and send info to the repository
+     */
+    @Override
+    protected void submitForm() {
+        if (validate() && eventCreated.getValue() == null && (isLoadingLive.getValue() == null || !isLoadingLive.getValue())) {
+            isLoadingLive.setValue(true);
+
+            Callback<String> callback = new Callback<String>() {
+                public void onSucceed(String result) {
+                    eventCreated.setValue(result);
+                    new SubmitCallback<>().onSucceed(result);
+                }
+                public void onFail(CallbackException exception) {
+                    new SubmitCallback<>().onFail(exception);
+                }
+            };
+
+            Date now = new Date();
+            Event event = new Event(null, titleField.getValue(), descriptionField.getValue(),
+                    null, beginDate.getValue(), endDate.getValue(), now,
+                    location.getValue(), null);
+
+            if (eventID != null) {
+                eventRepo.updateEvent(eventID, event, callback);
+            } else {
+                eventRepo.createEvent(event, callback);
+            }
+        } else {
+            errorLive.setValue(new SingleEvent<>(getApplication().getString(R.string.invalid_form)));
+        }
+    }
+
+    /**
+     * check if the data in the form is valid.
+     */
+    @Override
+    protected boolean validate() {
+        return titleField.isValid() && descriptionField.isValid() && beginDate.isValid() && endDate.isValid() && location.isValid();
+    }
 }

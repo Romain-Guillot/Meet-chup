@@ -13,36 +13,46 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
-import com.google.android.material.textfield.TextInputLayout;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.ui.authentication.AuthenticationActivity;
 import com.progmobile.meetchup.utils.FormFragment;
 import com.progmobile.meetchup.utils.SnackbarFactory;
+import com.progmobile.meetchup.utils.form_views.TextFormLayout;
 
 import java.util.Arrays;
 import java.util.List;
 
 
 /**
- * Fragment with text fields to edit user profile information :
- * - email
- * - name
- * - password
- * - (a button) to delete its account
- * <p>
- * It's clearly not the best code, but it works and nothing wrong or bad, it's just redundant with
- * all the text fields. It can be improve.
- * <p>
- * See the edit view model to know more about this fragment business logic
- * {@link ProfileEditViewModel}
+ * <p>Fragment with text fields to edit user profile information :</p>
+ *
+ * <ul>
+ *     <li>email</li>
+ *     <li>name</li>
+ *     <li>password</li>
+ *     <li>(a button) to delete its account</li>
+ * </ul>
+
+ * <p> It's clearly not the best code, but it works and nothing wrong or bad, it's just redundant
+ * with all the text fields. It can be improve.</p>
+ *
+ * <p>See the edit view model to know more about this fragment business logic
+ * {@link ProfileEditViewModel} </p>
  */
 public class ProfileEditFragment extends FormFragment {
 
     private ProfileEditViewModel viewModel;
 
+    private TextFormLayout emailLayout;
+    private TextFormLayout usernameLayout;
+    private TextFormLayout passwordLayout;
+    private TextFormLayout passwordConfirmLayout;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getActivity() == null)
+            throw new RuntimeException("Illegal use of ProfileEditFragment");
         viewModel = ViewModelProviders.of(getActivity()).get(ProfileEditViewModel.class);
     }
 
@@ -52,30 +62,26 @@ public class ProfileEditFragment extends FormFragment {
         View view = inflater.inflate(R.layout.fragment_profile_edit, container, false);
 
         // init all text fields layout
-        TextInputLayout emailLayout = view.findViewById(R.id.edit_profile_email_layout);
-        setOnFieldChanged(emailLayout, viewModel.emailFormData);
-        TextInputLayout usernameLayout = view.findViewById(R.id.edit_profile_username_layout);
-        setOnFieldChanged(usernameLayout, viewModel.usernameFormData);
-        TextInputLayout newPasswordLayout = view.findViewById(R.id.edit_profile_newpassword_layout);
-        setOnFieldChanged(newPasswordLayout, viewModel.newPasswordFormData);
-        TextInputLayout newPasswordConfirmLayout = view.findViewById(R.id.edit_profile_newpasswordconfirm_layout);
-        setOnFieldChanged(newPasswordConfirmLayout, viewModel.newPasswordConfirmFormData);
+        emailLayout =  view.findViewById(R.id.edit_profile_email_layout);
+        usernameLayout = view.findViewById(R.id.edit_profile_username_layout);
+        passwordLayout = view.findViewById(R.id.edit_profile_newpassword_layout);
+        passwordConfirmLayout = view.findViewById(R.id.edit_profile_newpasswordconfirm_layout);
 
         // init submits button, add click listeners
         Button emailSubmitBtn = view.findViewById(R.id.profile_edit_submit_email);
         Button usernameSubmitBtn = view.findViewById(R.id.profile_edit_submit_username);
         Button newPasswordSubmitBtn = view.findViewById(R.id.profile_edit_submit_password);
         emailSubmitBtn.setOnClickListener(v -> {
-            setLayoutFieldError(emailLayout, viewModel.emailFormData);
+            emailLayout.setLayoutError();
             viewModel.submitEmailForm();
         });
         usernameSubmitBtn.setOnClickListener(v -> {
-            setLayoutFieldError(usernameLayout, viewModel.usernameFormData);
+            usernameLayout.setLayoutError();
             viewModel.submitUsernameForm();
         });
         newPasswordSubmitBtn.setOnClickListener(v -> {
-            setLayoutFieldError(newPasswordLayout, viewModel.newPasswordFormData);
-            setLayoutFieldError(newPasswordConfirmLayout, viewModel.newPasswordConfirmFormData);
+            passwordLayout.setLayoutError();
+            passwordConfirmLayout.setLayoutError();
             viewModel.submitNewPasswordForm();
         });
 
@@ -127,5 +133,16 @@ public class ProfileEditFragment extends FormFragment {
         });
 
         return view;
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        viewModel.init();
+        emailLayout.bindFormData(viewModel.emailFormData);
+        usernameLayout.bindFormData(viewModel.usernameFormData);
+        passwordLayout.bindFormData(viewModel.newPasswordFormData);
+        passwordConfirmLayout.bindFormData(viewModel.newPasswordConfirmFormData);
     }
 }

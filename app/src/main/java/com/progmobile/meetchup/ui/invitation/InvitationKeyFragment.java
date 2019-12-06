@@ -14,21 +14,22 @@ import androidx.lifecycle.ViewModelProviders;
 import com.google.android.material.textfield.TextInputLayout;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.utils.FormFragment;
+import com.progmobile.meetchup.utils.form_views.TextFormLayout;
 
 import java.util.Collections;
 
 
 /**
- * FormFragment that holds the form to see / remove / update the event invitation key
- * All business logic is handled by the InvitationKeyViewModel {@link InvitationKeyViewModel}
- * <p>
- * Here, we initialize the FormFragment with the input field, the form view model, and other
- * configuration data.
- * <p>
- * So the input field is handled with the FormFragment and the FormViewModel
- * {@link com.progmobile.meetchup.utils.FormViewModel}
- * <p>
- * In addition, the form add a switcher to
+ * <p>FormFragment that holds the form to see / remove / update the event invitation key
+ * All business logic is handled by the InvitationKeyViewModel {@link InvitationKeyViewModel}</p>
+ *
+ * <p>Here, we initialize the FormFragment with the input field, the form view model, and other
+ * configuration data.</p>
+ *
+ * <p>So the input field is handled with the FormFragment and the FormViewModel
+ * {@link com.progmobile.meetchup.utils.FormViewModel}</p>
+ *
+ * <p>In addition, the form add a button to remove the current invitation key (if any)</p>
  */
 public class InvitationKeyFragment extends FormFragment {
 
@@ -37,6 +38,8 @@ public class InvitationKeyFragment extends FormFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getActivity() == null)
+            throw new RuntimeException("Illegal use of the fragment InvitationKeyFragment");
         viewModel = ViewModelProviders.of(getActivity()).get(InvitationKeyViewModel.class);
     }
 
@@ -48,31 +51,27 @@ public class InvitationKeyFragment extends FormFragment {
 
         // View init
         Button disableKeyBtn = view.findViewById(R.id.event_invit_disable);
-        TextInputLayout keyFieldLayout = view.findViewById(R.id.event_invit_key_layout);
         Button updateKeyButton = view.findViewById(R.id.event_invit_updatekey);
         TextView keyStatus = view.findViewById(R.id.event_invit_status);
+
+        TextFormLayout keyFieldLayout = view.findViewById(R.id.event_invit_key_layout);
+        keyFieldLayout.bindFormData(viewModel.eventKeyFieldLive);
 
         // Init the FormFragment with the form configuration
         init(
                 viewModel,
                 Collections.singletonList(keyFieldLayout),
-                Collections.singletonList(viewModel.eventKeyFieldLive),
                 updateKeyButton,
-                "Update invitation key",
-                "Loading...",
-                "Key updated !"
+                getString(R.string.invitation_update_key_btn),
+                getString(R.string.loading_btn),
+                getString(R.string.invitation_key_update_form_success)
         );
 
         // Listener on the disable button
-        disableKeyBtn.setOnClickListener(v -> {
-            viewModel.removeInvitationKey();
-        });
+        disableKeyBtn.setOnClickListener(v ->
+            viewModel.removeInvitationKey()
+        );
 
-        // Observe when the event key is updated
-        viewModel.updateKeyEvent.observe(this, update -> {
-            if (update.getContentIfNotHandled())
-                keyFieldLayout.getEditText().setText(viewModel.eventKeyFieldLive.getValue());
-        });
 
         // Change the UI according the key status
         viewModel.keyEnabledLive.observe(this, isEnable -> {

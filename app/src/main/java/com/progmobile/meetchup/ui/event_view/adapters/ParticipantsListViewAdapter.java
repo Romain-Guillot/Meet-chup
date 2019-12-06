@@ -48,5 +48,4 @@ public class ParticipantsListViewAdapter extends RecyclerView.Adapter<Participan
             this.userName = userName;
         }
     }
-
 }

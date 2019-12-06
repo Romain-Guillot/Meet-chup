@@ -1,18 +1,21 @@
 <resources>
+
+    <color name="auth_text_color">#fff</color>
+
     <dimen name="activity_auth_margin_horizontal">42dp</dimen>
     <dimen name="activity_auth_margin_vertical">32dp</dimen>
 
 
     <style name="Authentication" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">#fff</item>
+        <item name="colorPrimary">@color/auth_text_color</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorOnPrimary">#272727</item>
         <item name="colorSurface">@color/colorSurfaceOnPrimary</item>
         <item name="android:navigationBarColor">@color/colorPrimary</item>
 
         <item name="android:windowBackground">@color/colorPrimary</item>
-        <item name="android:textColor">#fff</item>
-        <item name="android:editTextColor">#fff</item>
+        <item name="android:textColor">@color/auth_text_color</item>
+        <item name="android:editTextColor">@color/auth_text_color</item>
 
         <item name="materialButtonStyle">@style/AuthenticationButton</item>
         <item name="textInputStyle">@style/AuthInputTextStyle</item>
@@ -39,9 +42,10 @@
 
     <style name="AuthInputTextStyle" parent="AppInputTextStyle">
         <item name="boxBackgroundColor">@color/colorSurfaceOnPrimary</item>
-        <item name="passwordToggleTint">#fff</item>
-        <item name="errorTextColor">#fff</item>
+        <item name="passwordToggleTint">@color/auth_text_color</item>
+        <item name="errorTextColor">@color/auth_text_color</item>
         <item name="errorIconTint">@color/error_icon_color</item>
+        <item name="endIconTint">@color/textColor</item>
         <item name="android:textColorHint">#88FFFFFF</item>
         <item name="android:paddingBottom">10dp</item>
     </style>

@@ -28,33 +28,21 @@
         android:text="@string/auth_classic_method" />
 
     <!-- Email field -->
-    <com.google.android.material.textfield.TextInputLayout
+    <com.progmobile.meetchup.utils.form_views.TextFormLayout
         android:id="@+id/auth_signin_email_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/auth_email_hint">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/auth_signin_email_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:hint="@string/auth_email_hint"
+        app:inputType="email"/>
 
     <!-- Password field -->
-    <com.google.android.material.textfield.TextInputLayout
+    <com.progmobile.meetchup.utils.form_views.TextFormLayout
         android:id="@+id/auth_signin_password_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/auth_password_hint"
-        app:passwordToggleEnabled="true">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/auth_signin_password_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:hint="@string/auth_password_hint"
+        app:inputType="password"
+        app:colorTint="@color/auth_text_color"/>
 
     <!-- Submit button -->
     <com.google.android.material.button.MaterialButton

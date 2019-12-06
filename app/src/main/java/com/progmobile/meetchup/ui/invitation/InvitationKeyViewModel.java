@@ -5,6 +5,7 @@ import android.app.Application;
 
 import androidx.lifecycle.MutableLiveData;
 
+
 import com.progmobile.meetchup.models.Event;
 import com.progmobile.meetchup.repositories.FirestoreEventsDataRepository;
 import com.progmobile.meetchup.repositories.IEventsDataRepository;
@@ -12,20 +13,22 @@ import com.progmobile.meetchup.utils.Callback;
 import com.progmobile.meetchup.utils.CallbackException;
 import com.progmobile.meetchup.utils.FormViewModel;
 import com.progmobile.meetchup.utils.SingleEvent;
+import com.progmobile.meetchup.utils.form_data_with_validators.BasicValidator;
 import com.progmobile.meetchup.utils.form_data_with_validators.FormData;
-import com.progmobile.meetchup.utils.form_data_with_validators.InvitationKeyValidator;
+
+
 
 
 /**
- * FormViewModel {@link FormViewModel} that handled the loading, error and success management
+ * <p>FormViewModel {@link FormViewModel} that handled the loading, error and success management
  * Here, we implement the submit button behavior (ask the event repo for deleting or updating
- * the invitation key event)
+ * the invitation key event)</p>
  */
 public class InvitationKeyViewModel extends FormViewModel {
 
     final MutableLiveData<Boolean> keyEnabledLive = new MutableLiveData<>(false);
-    final FormData eventKeyFieldLive = new FormData(new InvitationKeyValidator());
-    final MutableLiveData<SingleEvent<Boolean>> updateKeyEvent = new MutableLiveData<>();
+    final FormData<String> eventKeyFieldLive = new FormData<>(new BasicValidator(IEventsDataRepository.INVITATION_KEY_MIN_LENGTH, IEventsDataRepository.INVITATION_KEY_MAX_LENGTH));
+
     private IEventsDataRepository eventsDataRepository;
     private String eventID;
 

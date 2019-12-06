@@ -1,12 +1,13 @@
 package com.progmobile.meetchup.models;
 
-public class Comment {
-    private String id;
+import java.util.Date;
+
+public class Comment extends Model{
     private User user;
     private String comment;
 
-    public Comment(String id, User user, String comment) {
-        this.id = id;
+    public Comment(String id, User user, String comment, Date createdDate) {
+        super(id, createdDate);
         this.user = user;
         this.comment = comment;
     }

@@ -4,6 +4,10 @@ import java.util.List;
 
 public class User {
 
+    public final static String USER_NAME_FIELD = "name";
+    public final static String USERS_COL = "users";
+    public final static String USERS_FIELD_EVENTS = "events";
+
     private String id;
     private String name;
     private String email;
@@ -20,6 +24,10 @@ public class User {
         this.email = email;
         this.eventList = null;
         this.isFirstLogIn = isFirstLogIn;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getName() {
@@ -40,10 +48,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public boolean isFirstLogIn() {

@@ -4,7 +4,9 @@ import android.app.Activity;
 
 import androidx.annotation.NonNull;
 
+import com.google.firebase.firestore.ListenerRegistration;
 import com.progmobile.meetchup.models.Event;
+import com.progmobile.meetchup.models.Post;
 import com.progmobile.meetchup.utils.Callback;
 
 import java.util.List;
@@ -21,12 +23,18 @@ import java.util.List;
  */
 public interface IEventsDataRepository {
 
+    int INVITATION_KEY_MIN_LENGTH = 8;
+    int INVITATION_KEY_MAX_LENGTH = 20;
+    int EVENT_TITLE_MIN_LENGTH = 6;
+    int EVENT_TITLE_MAX_LENGTH = 50;
+
+
     /**
      * Get all user events
      * If succeeds list of all events are returned (can be empty)
      * -> Every user event update will be notified through the callback
      */
-    void allEvents(@NonNull Activity client, @NonNull Callback<List<Event>> callback);
+    ListenerRegistration allEvents(@NonNull Callback<List<Event>> callback);
 
     /**
      * Get the event corresponding to the ID
@@ -65,13 +73,20 @@ public interface IEventsDataRepository {
      */
     void quitEvent(@NonNull String eventID, @NonNull Callback<Void> callback);
 
+    /**
+     * Update event
+     * The updated event ID is returned through the callback if success
+     */
+    void updateEvent(@NonNull String eventID, @NonNull Event event, Callback<String> callback);
 
-//    public void loadEventPosts(String eventID, Callback<Event> callback);
-//
-//    public void loadEventToDoList(String eventID, Callback<Event> callback);
-//
-//
-//    public void getPost(String post_id, Callback<Post> callback);
+    /**
+     * Get list of posts
+     * The list is returned through the callback if success
+     */
+    ListenerRegistration allPosts(@NonNull String eventID, Callback<List<Post>> callback);
+
+
+    ListenerRegistration getPost(@NonNull String event_id, @NonNull String post_id, Callback<Post> callback);
 //
 //    public void addPost(String eventID, Post post, Callback<Post> callback);
 //

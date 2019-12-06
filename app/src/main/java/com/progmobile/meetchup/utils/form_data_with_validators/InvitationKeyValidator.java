@@ -5,13 +5,23 @@ import android.content.Context;
 
 import com.progmobile.meetchup.R;
 
-public class InvitationKeyValidator implements Validator {
+/**
+ * Deprecated, instead use a basic validator {@link BasicValidator} (min length and max length are
+ * defined by the repos, it's cleaner)
+ */
+@Deprecated
+public class InvitationKeyValidator implements Validator<String> {
 
     public static int minLength = 8;
 
     @Override
     public boolean isValid(String value) {
         return value != null && value.length() >= minLength;
+    }
+
+    @Override
+    public boolean isValid(String value, boolean required) {
+        return false; // deprecated, not implemented
     }
 
     @Override
