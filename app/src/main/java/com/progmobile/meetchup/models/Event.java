@@ -12,6 +12,7 @@ import java.util.List;
 
 public class Event extends Model{
 
+    public final static String EVENT_COL = "events";
     public final static String EVENT_FIELD_INVITKEY = "invitationKey";
     public final static String EVENT_FIELD_PARTICIPANTS = "participantIDs";
     public final static String EVENT_FIELD_TITLE = "title";

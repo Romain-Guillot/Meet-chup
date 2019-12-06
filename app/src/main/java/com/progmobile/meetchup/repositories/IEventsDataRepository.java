@@ -5,6 +5,7 @@ import android.app.Activity;
 import androidx.annotation.NonNull;
 
 import com.progmobile.meetchup.models.Event;
+import com.progmobile.meetchup.models.Post;
 import com.progmobile.meetchup.utils.Callback;
 
 import java.util.List;
@@ -73,13 +74,16 @@ public interface IEventsDataRepository {
 
     /**
      * Update event
-     * The updated event ID is returned through the callback if succes
+     * The updated event ID is returned through the callback if success
      */
     void updateEvent(@NonNull String eventID, @NonNull Event event, Callback<String> callback);
 
+    /**
+     * Get list of posts
+     * The list is returned through the callback if success
+     */
+    void allPosts(@NonNull Activity client, @NonNull String eventID, Callback<List<Post>> callback);
 
-//    public void loadEventPosts(String eventID, Callback<Event> callback);
-//
 //    public void loadEventToDoList(String eventID, Callback<Event> callback);
 //
 //

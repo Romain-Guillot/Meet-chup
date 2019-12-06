@@ -58,27 +58,10 @@ public class EventViewViewModel extends AndroidViewModel {
 
 
     public void loadPosts() {
-//        eventsRepo.loadEventPosts( event.getId(), new Callback<Event>() {
-//            @Override
-//            public void onSucceed(Event result) {
-//                event = result;
-//                setPostsLive();
-//            }
-//            @Override
-//            public void onFail(CallbackException e) {
-//
-//            }
-//        });
+
     }
 
 
-    private void setPostsLive() {
-//        List<Post> posts = event.getPosts();
-//        if (posts == null || posts.isEmpty())
-//            eventPosts.setValue(new ArrayList<>());
-//        else
-//            eventPosts.setValue(posts);
-    }
 
 
     void requestQuitEvent() {
