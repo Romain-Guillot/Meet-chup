@@ -1,6 +1,9 @@
 package com.progmobile.meetchup.repositories;
 
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.progmobile.meetchup.utils.Callback;
+import com.progmobile.meetchup.utils.CallbackException;
 
 
 public class FirebaseStorageRepository implements IStorageRepository {
@@ -22,9 +25,16 @@ public class FirebaseStorageRepository implements IStorageRepository {
     }
 
     @Override
-    public byte[] getImage(String url) {
-
-        return new byte[0];
+    public void getData(String url, Callback<byte[]> callback) {
+        StorageReference imageRef = storage.getReferenceFromUrl(url);
+        final long ONE_MEGABYTE = 1024 * 1024;
+        imageRef.getBytes(ONE_MEGABYTE).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                callback.onFail(CallbackException.fromFirebaseException(task.getException()));
+            } else {
+                callback.onSucceed(task.getResult());
+            }
+        });
     }
 
 }
