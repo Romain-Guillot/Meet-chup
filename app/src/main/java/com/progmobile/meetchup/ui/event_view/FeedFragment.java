@@ -39,14 +39,13 @@ public class FeedFragment extends Fragment {
     private RecyclerView postsView;
     private ViewGroup emptyPostsContainer;
 
-    private ListenerRegistration postListeners;
+
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(getActivity()).get(EventViewViewModel.class);
-        postListeners = viewModel.loadPosts();
     }
 
     @Nullable
@@ -78,8 +77,8 @@ public class FeedFragment extends Fragment {
 
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         viewModel.eventMetaData.observe(this, event -> {
             if (event != null)
@@ -103,12 +102,6 @@ public class FeedFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if( postListeners != null)
-            postListeners.remove();
-    }
 
     private void launchCreationPostActivity() {
         Intent intent = new Intent(getActivity(), PostCreationActivity.class);

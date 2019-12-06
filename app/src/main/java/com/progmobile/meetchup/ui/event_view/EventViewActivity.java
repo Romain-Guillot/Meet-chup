@@ -19,6 +19,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.ui.event_creation.EventCreationActivity;
 import com.progmobile.meetchup.ui.invitation.InvitationKeyActivity;
@@ -85,6 +86,8 @@ public class EventViewActivity extends ChildActivity {
     boolean userDismissedFirstCreationDialog = false;
     boolean isFirstCreation = false;
 
+    private ListenerRegistration postListeners;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,6 +102,7 @@ public class EventViewActivity extends ChildActivity {
 
         viewModel = ViewModelProviders.of(this).get(EventViewViewModel.class);
         viewModel.setEventID(eventId);
+        postListeners = viewModel.loadPosts();
 
         viewModel.eventMetaData.observe(this, event -> {
             if (actionBar != null && event.getTitle() != null)
@@ -127,6 +131,13 @@ public class EventViewActivity extends ChildActivity {
             firstCreationDialog.dismiss();
         if (quitDialog != null && quitDialog.isShowing())
             quitDialog.dismiss();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if( postListeners != null)
+            postListeners.remove();
     }
 
     @Override
