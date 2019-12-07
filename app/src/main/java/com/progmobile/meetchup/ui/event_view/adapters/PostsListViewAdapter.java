@@ -1,7 +1,6 @@
 package com.progmobile.meetchup.ui.event_view.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.TypedValue;
@@ -16,16 +15,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.progmobile.meetchup.R;
-import com.progmobile.meetchup.models.Event;
 import com.progmobile.meetchup.models.Post;
 import com.progmobile.meetchup.models.User;
 import com.progmobile.meetchup.repositories.FirebaseStorageRepository;
 import com.progmobile.meetchup.repositories.IStorageRepository;
-import com.progmobile.meetchup.ui.homepage.EventsListViewAdapter;
-import com.progmobile.meetchup.ui.post_view.PostViewActivity;
 import com.progmobile.meetchup.utils.Callback;
 import com.progmobile.meetchup.utils.CallbackException;
-import com.progmobile.meetchup.utils.DownloadImage;
 
 import java.util.List;
 
@@ -85,7 +80,7 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
             }
 
 
-            String docURL = post.getDocUrl();
+            String docURL = post.getDocURL();
             if (docURL != null) {
                 loadingView.setVisibility(View.VISIBLE);
                 PostsListViewAdapter.storageRepository.getData(docURL, new Callback<byte[]>() {

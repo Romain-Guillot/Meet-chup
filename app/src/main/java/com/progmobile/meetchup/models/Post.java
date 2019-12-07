@@ -1,7 +1,7 @@
 package com.progmobile.meetchup.models;
 
 import com.google.firebase.firestore.Exclude;
-
+import android.net.Uri;
 import java.util.Date;
 import java.util.List;
 
@@ -54,12 +54,24 @@ public class Post extends Model {
         return description;
     }
 
-    public String getDocUrl() {
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDocURL() {
         return docURL;
+    }
+
+    public void setDocURL(String docURL) {
+        this.docURL = docURL;
     }
 
     public String getDocMimeType() {
         return docMimeType;
+    }
+
+    public void setDocMimeType(String docMimeType) {
+        this.docMimeType = docMimeType;
     }
 
     public List<Comment> getCommentsList() {

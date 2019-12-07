@@ -113,13 +113,6 @@
         <item name="iconSize">22sp</item>
         <item name="android:textAllCaps">false</item>
     </style>
-    
-    <style name="FloatingActionStyle" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="android:layout_margin">16dp</item>
-        <item name="tint">#fff</item>
-        <item name="backgroundTint">@color/colorPrimary</item>
-        <item name="android:strokeWidth">0</item>
-    </style>
 
     <style name="SubtitleStyle">
         <item name="android:textSize">16sp</item>
