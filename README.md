@@ -22,7 +22,7 @@ Dans le cadre d'un projet de développement d’applications mobiles, nous propo
     - Informations sur l'événement (métadonnées) ; 
     - Fil d'actualité de tous les posts publiés sur l'événement.
 - [x] **Visualisation de post**
-- [ ] **Galerie d'un événement :** *Galerie photos et vidéos de tous les posts de l'événement sous forme de grille*
+- [x] **Galerie d'un événement :** *Galerie photos et vidéos de tous les posts de l'événement sous forme de grille*
 - [ ] **Publication de post sur l'événément**
 
 
