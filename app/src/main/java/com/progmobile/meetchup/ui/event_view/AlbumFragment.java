@@ -49,7 +49,7 @@ public class AlbumFragment extends Fragment {
 
 
         photosView = view.findViewById(R.id.event_album);
-        photosView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        photosView.setLayoutManager(new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.album_col)));
         emptyPhotosContainer = view.findViewById(R.id.event_empty_photo);
 
         FloatingActionButton addPostFAB = view.findViewById(R.id.album_add_post_fab);
