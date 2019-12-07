@@ -7,7 +7,6 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
@@ -19,20 +18,19 @@ import com.progmobile.meetchup.repositories.FirebaseStorageRepository;
 import com.progmobile.meetchup.repositories.IStorageRepository;
 import com.progmobile.meetchup.utils.Callback;
 import com.progmobile.meetchup.utils.CallbackException;
-import com.progmobile.meetchup.utils.Icon;
+import com.progmobile.meetchup.utils.StorageImageFactory;
+import com.progmobile.meetchup.utils.views.Icon;
 
 import java.util.List;
 
 public class PhotosListViewAdapter extends RecyclerView.Adapter<PhotosListViewAdapter.PhotoViewHolder> {
 
-    private static IStorageRepository storageRepository;
     private List<Post> posts;
     private PhotosListViewAdapter.OnItemClickListener listener;
 
     public PhotosListViewAdapter(List<Post> posts, OnItemClickListener clickListener) {
         this.posts = posts;
         this.listener = clickListener;
-        storageRepository = FirebaseStorageRepository.getInstance();
     }
 
     public static class PhotoViewHolder extends RecyclerView.ViewHolder {
@@ -40,7 +38,6 @@ public class PhotosListViewAdapter extends RecyclerView.Adapter<PhotosListViewAd
         Icon imageView;
         ProgressBar loadingView;
         Context context;
-
 
         public PhotoViewHolder(View itemView) {
             super(itemView);
@@ -50,34 +47,13 @@ public class PhotosListViewAdapter extends RecyclerView.Adapter<PhotosListViewAd
             context = itemView.getContext();
         }
 
-        public void bind(Post post, final PhotosListViewAdapter.OnItemClickListener listener) {
-            if (listener != null)
-                view.setOnClickListener(v -> listener.onItemClick(post));
-
-            if (post == null) {
-                loadingView.setVisibility(View.GONE);
-                imageView.getLayoutParams().height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, context.getResources().getDisplayMetrics());
-                imageView.setImageDrawable(context.getDrawable(R.drawable.ic_error_image));
-                return ;
-            }
+        public void bind(@NonNull Post post, @NonNull final PhotosListViewAdapter.OnItemClickListener listener) {
+            view.setOnClickListener(v -> listener.onItemClick(post));
 
             String docURL = post.getDocUrl();
             if (docURL != null) {
-                loadingView.setVisibility(View.VISIBLE);
-                PhotosListViewAdapter.storageRepository.getData(docURL, new Callback<byte[]>() {
-                    public void onSucceed(byte[] result) {
-                        Bitmap bitmap = BitmapFactory.decodeByteArray(result, 0, result.length);
-                        imageView.setImageBitmap(bitmap);
-                        loadingView.setVisibility(View.GONE);
-                        imageView.setVisibility(View.VISIBLE);
-                    }
-                    public void onFail(CallbackException exception) {
-                        loadingView.setVisibility(View.GONE);
-                        imageView.setImageDrawable(context.getDrawable(R.drawable.ic_error_image));
-                    }
-                });
+                StorageImageFactory.fillImage(context, imageView, loadingView, docURL);
             } else {
-                imageView.setVisibility(View.GONE);
                 loadingView.setVisibility(View.GONE);
             }
         }
