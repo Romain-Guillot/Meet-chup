@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_marginStart="@dimen/activity_margin_horizontal"
-    android:layout_marginEnd="@dimen/activity_margin_horizontal">
+    android:layout_marginEnd="@dimen/activity_margin_horizontal"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
