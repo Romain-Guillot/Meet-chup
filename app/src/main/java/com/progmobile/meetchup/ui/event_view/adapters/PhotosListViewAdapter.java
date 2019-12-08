@@ -50,7 +50,7 @@ public class PhotosListViewAdapter extends RecyclerView.Adapter<PhotosListViewAd
         public void bind(@NonNull Post post, @NonNull final PhotosListViewAdapter.OnItemClickListener listener) {
             view.setOnClickListener(v -> listener.onItemClick(post));
 
-            String docURL = post.getDocUrl();
+            String docURL = post.getDocURL();
             if (docURL != null) {
                 StorageImageFactory.fillImage(context, imageView, loadingView, docURL);
             } else {

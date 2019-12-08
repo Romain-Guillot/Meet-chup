@@ -78,7 +78,7 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
             }
 
 
-            String docURL = post.getDocUrl();
+            String docURL = post.getDocURL();
             if (docURL != null)
                 StorageImageFactory.fillImage(context, imageView, loadingView, docURL);
 

@@ -1,16 +1,19 @@
 package com.progmobile.meetchup.repositories;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.provider.MediaStore;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.progmobile.meetchup.utils.Callback;
 import com.progmobile.meetchup.utils.CallbackException;
+
+import java.io.ByteArrayOutputStream;
 
 
 public class FirebaseStorageRepository implements IStorageRepository {
@@ -51,10 +54,12 @@ public class FirebaseStorageRepository implements IStorageRepository {
     }
 
     @Override
-    public void uploadData(Uri docUri, Callback<String> callback) {
+    public void uploadData(Uri docUri, byte[] data, Callback<String> callback) {
         if (docUri != null) {
             StorageReference riversRef = storage.getReference().child(docUri.getLastPathSegment());
-            UploadTask uploadTask = riversRef.putFile(docUri);
+
+            // Uploading the image
+            UploadTask uploadTask = riversRef.putBytes(data);
 
             // Register observers to listen for when the download is done or if it fails
             uploadTask.addOnFailureListener((Exception exception) ->

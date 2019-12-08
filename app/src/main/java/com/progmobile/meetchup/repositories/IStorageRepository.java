@@ -8,5 +8,5 @@ public interface IStorageRepository {
 
     void getData(String url, Callback<byte[]> callback);
 
-    void uploadData(Uri docUri, Callback<String> callback);
+    void uploadData(Uri docUri, byte[] data, Callback<String> callback);
 }

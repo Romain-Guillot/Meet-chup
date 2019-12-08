@@ -3,9 +3,11 @@ package com.progmobile.meetchup.ui.post_creation;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +28,10 @@ import com.progmobile.meetchup.repositories.FirebaseStorageRepository;
 import com.progmobile.meetchup.repositories.FirestoreEventsDataRepository;
 import com.progmobile.meetchup.utils.Callback;
 import com.progmobile.meetchup.utils.CallbackException;
+import com.progmobile.meetchup.utils.SnackbarFactory;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Date;
 
 public class PostCreationFragment extends Fragment {
@@ -46,7 +51,7 @@ public class PostCreationFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getActivity() == null)
-            throw new RuntimeException("Illegal use of ProfileEditFragment");
+            throw new RuntimeException("Illegal use of PostCreationFragment");
 
         viewModel = ViewModelProviders.of(getActivity()).get(PostCreationViewModel.class);
     }
@@ -87,17 +92,34 @@ public class PostCreationFragment extends Fragment {
         sendPostButton = view.findViewById(R.id.send_post_button);
         sendPostButton.setOnClickListener((View v) -> {
             Post savedPost = viewModel.getPost();
-            fbStorageRepo.uploadData(viewModel.getUri(), new Callback<String>() {
-                @Override
-                public void onSucceed(String result) {
-                    Date currentDate = new Date();
-                    savedPost.setDescription(editText.getText().toString());
-                    Post finalPost = new Post(null, null, currentDate, editText.getText().toString(), result, savedPost.getDocMimeType());
+            String descriptionText = editText.getText().toString();
+            if (savedPost.getDocMimeType() == "" && descriptionText == "")
+                SnackbarFactory.showErrorSnackbar(getActivity().findViewById(android.R.id.content), "Veuilez remplir au moins un des champs.");
+            else {
+                try {
+                    Bitmap bmp = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), viewModel.getUri());
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bmp.compress(Bitmap.CompressFormat.JPEG, 15, baos);
+                    byte[] data = baos.toByteArray();
 
-                    fsEventsDataRepo.addPost(viewModel.event_id, finalPost, new Callback<String>() {
+                    fbStorageRepo.uploadData(viewModel.getUri(), data, new Callback<String>() {
                         @Override
                         public void onSucceed(String result) {
-                            getActivity().finish();
+                            Date currentDate = new Date();
+                            savedPost.setDescription(descriptionText);
+                            Post finalPost = new Post(null, null, currentDate, descriptionText, result, savedPost.getDocMimeType());
+
+                            fsEventsDataRepo.addPost(viewModel.event_id, finalPost, new Callback<String>() {
+                                @Override
+                                public void onSucceed(String result) {
+                                    getActivity().finish();
+                                }
+
+                                @Override
+                                public void onFail(CallbackException exception) {
+                                    new CallbackException(CallbackException.Type.UNKNOWN);
+                                }
+                            });
                         }
 
                         @Override
@@ -105,13 +127,10 @@ public class PostCreationFragment extends Fragment {
                             new CallbackException(CallbackException.Type.UNKNOWN);
                         }
                     });
+                } catch (IOException e) {
+                    SnackbarFactory.showErrorSnackbar(getActivity().findViewById(android.R.id.content), "Erreur lors de l'upload de l'image.");
                 }
-
-                @Override
-                public void onFail(CallbackException exception) {
-                    new CallbackException(CallbackException.Type.UNKNOWN);
-                }
-            });
+            }
         });
 
         return view;

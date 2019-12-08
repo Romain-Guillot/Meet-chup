@@ -89,7 +89,7 @@ public class AlbumFragment extends Fragment {
     private List<Post> PreprocessListPosts(List<Post> posts){
         List<Post> l = new ArrayList<>();
         for (Post p : posts){
-            if(p.getDocUrl() != null){
+            if(p.getDocURL() != null){
                 l.add(p);
             }
         }
