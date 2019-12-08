@@ -16,6 +16,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.firestore.WriteBatch;
 import com.progmobile.meetchup.models.Event;
+import com.progmobile.meetchup.models.Model;
 import com.progmobile.meetchup.models.Post;
 import com.progmobile.meetchup.models.User;
 import com.progmobile.meetchup.utils.Callback;
@@ -288,7 +289,8 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
                 callback.onFail(CallbackException.fromFirebaseException(e));
                 return;
             }
-            List<Post> posts = new ArrayList<>();
+
+            WaitingList<Post> posts = new WaitingList<>(docsSnap.size(), callback);
             for (QueryDocumentSnapshot docSnap : docsSnap) {
                 try {
                     Post p = docSnap.toObject(Post.class);
@@ -301,19 +303,15 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
                                 Map<String, Object> data = task.getResult().getData();
                                 p.setUser(new User(userID, (String) data.get(User.USER_NAME_FIELD), null));
                             }
-                            posts.add(p);
-                            Collections.sort(posts);
-                            callback.onSucceed(posts);
+                            posts.addElement(p);
                         });
                     } else {
-                        posts.add(p);
+                        posts.addElement(p);
                     }
                 } catch (Exception e2) {
-                    e2.printStackTrace();
+                    posts.descrement();
                 }
             }
-            Collections.sort(posts);
-            callback.onSucceed(posts);
         });
     }
 
@@ -366,5 +364,32 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
                 callback.onFail(CallbackException.fromFirebaseException(t.getException()));
             }
         });
+    }
+
+
+    class WaitingList<T extends Model> {
+        List<T> list;
+        int finalLenght;
+        Callback<List<T>> callback;
+
+        public WaitingList(int finalLenght, Callback<List<T>> callback) {
+            this.finalLenght = finalLenght;
+            this.callback = callback;
+            list = new ArrayList<T>();
+        }
+
+        public void addElement(T e) {
+            list.add(e);
+            if (list.size() == finalLenght) {
+                Collections.sort(list);
+                callback.onSucceed(list);
+            }
+        }
+
+        public void descrement() {
+            finalLenght--;
+        }
+
+
     }
 }

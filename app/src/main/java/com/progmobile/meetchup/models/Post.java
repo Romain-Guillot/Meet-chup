@@ -1,8 +1,9 @@
 package com.progmobile.meetchup.models;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.firestore.Exclude;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
 import java.util.List;
@@ -44,7 +45,7 @@ public class Post extends Model {
         return user;
     }
 
-    public void setUser(@NotNull User user) {
+    public void setUser(@NonNull User user) {
         this.user = user;
         this.userID = user.getId();
     }

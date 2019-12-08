@@ -28,6 +28,7 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
     private List<Post> posts;
     private OnItemClickListener listener;
 
+
     public PostsListViewAdapter(List<Post> posts, OnItemClickListener clickListener) {
         this.posts = posts;
         this.listener = clickListener;
