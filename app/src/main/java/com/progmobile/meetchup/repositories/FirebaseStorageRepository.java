@@ -1,19 +1,12 @@
 package com.progmobile.meetchup.repositories;
 
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.provider.MediaStore;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.progmobile.meetchup.utils.Callback;
 import com.progmobile.meetchup.utils.CallbackException;
-
-import java.io.ByteArrayOutputStream;
 
 
 public class FirebaseStorageRepository implements IStorageRepository {

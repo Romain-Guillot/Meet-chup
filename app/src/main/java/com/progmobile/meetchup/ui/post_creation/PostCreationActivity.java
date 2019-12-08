@@ -11,8 +11,8 @@ import com.progmobile.meetchup.R;
 
 
 public class PostCreationActivity extends AppCompatActivity {
-    private PostCreationViewModel viewModel;
     public static final String EXTRA_EVENT_ID = "event_id";
+    private PostCreationViewModel viewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
