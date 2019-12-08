@@ -81,6 +81,7 @@ public class PostCreationFragment extends Fragment {
             if (mediaSet) {
                 imageView.setImageResource(0);
                 addDocumentButton.setBackgroundResource(R.drawable.ic_add);
+                viewModel.setDocument(null, null);
                 mediaSet = false;
             } else {
                 Intent intent = new Intent(Intent.ACTION_PICK);
@@ -93,13 +94,13 @@ public class PostCreationFragment extends Fragment {
         sendPostButton.setOnClickListener((View v) -> {
             Post savedPost = viewModel.getPost();
             String descriptionText = editText.getText().toString();
-            if (savedPost.getDocMimeType() == "" && descriptionText == "")
+            if (savedPost.getDocMimeType() == null && descriptionText.isEmpty())
                 SnackbarFactory.showErrorSnackbar(getActivity().findViewById(android.R.id.content), "Veuilez remplir au moins un des champs.");
             else {
                 try {
                     Bitmap bmp = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), viewModel.getUri());
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    bmp.compress(Bitmap.CompressFormat.JPEG, 15, baos);
+                    bmp.compress(Bitmap.CompressFormat.JPEG, 20, baos);
                     byte[] data = baos.toByteArray();
 
                     fbStorageRepo.uploadData(viewModel.getUri(), data, new Callback<String>() {
