@@ -21,6 +21,8 @@ import com.progmobile.meetchup.repositories.FirebaseStorageRepository;
 import com.progmobile.meetchup.repositories.IStorageRepository;
 import com.progmobile.meetchup.utils.Callback;
 import com.progmobile.meetchup.utils.CallbackException;
+import com.progmobile.meetchup.utils.DownloadImage;
+import com.progmobile.meetchup.utils.StorageImageFactory;
 
 import java.util.List;
 
@@ -30,16 +32,12 @@ import java.util.List;
  */
 public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdapter.PostViewHolder> {
 
-    private static IStorageRepository storageRepository;
     private List<Post> posts;
     private OnItemClickListener listener;
-
-
 
     public PostsListViewAdapter(List<Post> posts, OnItemClickListener clickListener) {
         this.posts = posts;
         this.listener = clickListener;
-        storageRepository = FirebaseStorageRepository.getInstance();
     }
 
     public static class PostViewHolder extends RecyclerView.ViewHolder {
@@ -80,26 +78,10 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
             }
 
 
-            String docURL = post.getDocURL();
-            if (docURL != null) {
-                loadingView.setVisibility(View.VISIBLE);
-                PostsListViewAdapter.storageRepository.getData(docURL, new Callback<byte[]>() {
-                    public void onSucceed(byte[] result) {
-                        Bitmap bitmap = BitmapFactory.decodeByteArray(result, 0, result.length);
-                        imageView.setImageBitmap(bitmap);
-                        loadingView.setVisibility(View.GONE);
-                        imageView.setVisibility(View.VISIBLE);
-                    }
-                    public void onFail(CallbackException exception) {
-                        loadingView.setVisibility(View.GONE);
-                        imageView.getLayoutParams().height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, context.getResources().getDisplayMetrics());
-                        imageView.setImageDrawable(context.getDrawable(R.drawable.ic_error_image));
-                    }
-                });
-            } else {
-                imageView.setVisibility(View.GONE);
-                loadingView.setVisibility(View.GONE);
-            }
+            String docURL = post.getDocUrl();
+            if (docURL != null)
+                StorageImageFactory.fillImage(context, imageView, loadingView, docURL);
+
 
             User user = post.getUser();
             if (user == null || user.getName() == null) {
@@ -108,8 +90,6 @@ public class PostsListViewAdapter extends RecyclerView.Adapter<PostsListViewAdap
                 String name = user.getName();
                 userView.setText(name);
             }
-
-
         }
     }
 
