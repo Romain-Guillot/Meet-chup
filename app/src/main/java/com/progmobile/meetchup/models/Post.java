@@ -1,7 +1,9 @@
 package com.progmobile.meetchup.models;
 
 import com.google.firebase.firestore.Exclude;
-import android.net.Uri;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Date;
 import java.util.List;
 
@@ -18,8 +20,8 @@ public class Post extends Model {
     private String docMimeType;
     private List<Comment> commentsList;
 
-    public Post(String id, User user, Date date, String description, String docURL, String docMimeType, Date dateCreated) {
-        super(id, dateCreated);
+    public Post(String id, User user, Date date, String description, String docURL, String docMimeType) {
+        super(id, date);
         this.user = user;
         this.date = date;
         this.description = description;
@@ -42,12 +44,17 @@ public class Post extends Model {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(@NotNull User user) {
         this.user = user;
+        this.userID = user.getId();
     }
 
     public Date getDate() {
         return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getDescription() {

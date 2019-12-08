@@ -8,6 +8,8 @@ import com.progmobile.meetchup.models.Post;
 
 public class PostCreationViewModel extends ViewModel {
     private Post post;
+    private Uri uri;
+    public String event_id = null;
 
     public PostCreationViewModel() {
         this.post = new Post();
@@ -24,5 +26,13 @@ public class PostCreationViewModel extends ViewModel {
 
     public Post getPost() {
         return post;
+    }
+
+    public void setUri(Uri uri) {
+        this.uri = uri;
+    }
+
+    public Uri getUri() {
+        return uri;
     }
 }

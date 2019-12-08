@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.storage.UploadTask;
 import com.progmobile.meetchup.models.Event;
 import com.progmobile.meetchup.models.Post;
 import com.progmobile.meetchup.models.User;
@@ -305,5 +306,20 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
         });
     }
 
+    @Override
+    public void addPost(@NonNull String eventID, @NonNull Post post, @NonNull Callback<String> callback) {
+        WriteBatch batch = firestore.batch();
+        FirebaseUser fbUser = firebaseAuth.getCurrentUser();
+        post.setUser(FirebaseAuthenticationRepository.getInstance().getCurrentUser());
 
+        DocumentReference docPost = firestore.collection(Event.EVENT_COL).document(eventID).collection(Post.POST_COL).document();
+        batch.set(docPost, post);
+        batch.commit().addOnCompleteListener(t -> {
+            if (t.isSuccessful()) {
+                callback.onSucceed(docPost.getId());
+            } else {
+                callback.onFail(CallbackException.fromFirebaseException(t.getException()));
+            }
+        });
+    }
 }

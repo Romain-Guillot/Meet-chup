@@ -108,6 +108,12 @@ public class Event extends Model{
         this.participants.add(user);
     }
 
+    public void addPost(Post post) {
+        if (posts == null)
+            posts = new ArrayList<>();
+        this.posts.add(post);
+    }
+
     @Override
     public int compareTo(Model o) {
         if (o.dateCreated == null && dateCreated == null) return ((Event) o).title.compareTo(title);

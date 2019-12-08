@@ -2,19 +2,15 @@ package com.progmobile.meetchup.ui.post_view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.firebase.firestore.ListenerRegistration;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.ui.event_view.adapters.PostsListViewAdapter;
-import com.progmobile.meetchup.ui.homepage.EventsListViewAdapter;
 import com.progmobile.meetchup.utils.ChildActivity;
 
 
@@ -22,15 +18,11 @@ public class PostViewActivity extends ChildActivity {
 
     public static final String EXTRA_EVENT_ID = "event_id";
     public static final String EXTRA_POST_ID = "post_id";
-
+    FrameLayout container;
     private String post_id = null;
     private String event_id = null;
     private ListenerRegistration postListener = null;
-
     private PostViewViewModel viewModel;
-
-    FrameLayout container;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -22,6 +22,12 @@ import androidx.lifecycle.ViewModelProviders;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.models.Post;
+import com.progmobile.meetchup.repositories.FirebaseStorageRepository;
+import com.progmobile.meetchup.repositories.FirestoreEventsDataRepository;
+import com.progmobile.meetchup.utils.Callback;
+import com.progmobile.meetchup.utils.CallbackException;
+
+import java.util.Date;
 
 public class PostCreationFragment extends Fragment {
 
@@ -32,6 +38,9 @@ public class PostCreationFragment extends Fragment {
     private boolean mediaSet;
     private Button addDocumentButton;
     private FloatingActionButton sendPostButton;
+
+    private FirebaseStorageRepository fbStorageRepo;
+    private FirestoreEventsDataRepository fsEventsDataRepo;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +55,9 @@ public class PostCreationFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_post_creation, container, false);
+
+        fbStorageRepo = FirebaseStorageRepository.getInstance();
+        fsEventsDataRepo = FirestoreEventsDataRepository.getInstance();
 
         editText = view.findViewById(R.id.descriptionTextView);
         imageView = view.findViewById(R.id.post_image);
@@ -74,7 +86,32 @@ public class PostCreationFragment extends Fragment {
 
         sendPostButton = view.findViewById(R.id.send_post_button);
         sendPostButton.setOnClickListener((View v) -> {
-            // Send post to the post view
+            Post savedPost = viewModel.getPost();
+            fbStorageRepo.uploadData(viewModel.getUri(), new Callback<String>() {
+                @Override
+                public void onSucceed(String result) {
+                    Date currentDate = new Date();
+                    savedPost.setDescription(editText.getText().toString());
+                    Post finalPost = new Post(null, null, currentDate, editText.getText().toString(), result, savedPost.getDocMimeType());
+
+                    fsEventsDataRepo.addPost(viewModel.event_id, finalPost, new Callback<String>() {
+                        @Override
+                        public void onSucceed(String result) {
+                            getActivity().finish();
+                        }
+
+                        @Override
+                        public void onFail(CallbackException exception) {
+                            new CallbackException(CallbackException.Type.UNKNOWN);
+                        }
+                    });
+                }
+
+                @Override
+                public void onFail(CallbackException exception) {
+                    new CallbackException(CallbackException.Type.UNKNOWN);
+                }
+            });
         });
 
         return view;
@@ -88,7 +125,8 @@ public class PostCreationFragment extends Fragment {
             // Get the URI of the file selected from the intent
             Uri selectedMedia = data.getData();
             String mimeType = computeMimeType(selectedMedia);
-            viewModel.setDocument(selectedMedia.toString(), mimeType);
+            viewModel.setDocument(null, mimeType);
+            viewModel.setUri(selectedMedia);
 
             mediaSet = true;
             addDocumentButton.setBackgroundResource(R.drawable.ic_delete);
@@ -133,7 +171,7 @@ public class PostCreationFragment extends Fragment {
 
         String mimeType = post.getDocMimeType();
         if (mimeType != null && mimeType.startsWith("image")) {
-            imageView.setImageURI(Uri.parse(post.getDocURL()));
+            imageView.setImageURI(viewModel.getUri());
         }
     }
 
