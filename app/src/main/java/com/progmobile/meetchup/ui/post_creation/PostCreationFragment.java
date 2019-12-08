@@ -21,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.progmobile.meetchup.R;
 import com.progmobile.meetchup.models.Post;
@@ -41,7 +42,7 @@ public class PostCreationFragment extends Fragment {
     private EditText editText;
     private ImageView imageView;
     private boolean mediaSet;
-    private Button addDocumentButton;
+    private MaterialButton addDocumentButton;
     private FloatingActionButton sendPostButton;
 
     private FirebaseStorageRepository fbStorageRepo;
@@ -65,22 +66,15 @@ public class PostCreationFragment extends Fragment {
         fsEventsDataRepo = FirestoreEventsDataRepository.getInstance();
 
         editText = view.findViewById(R.id.descriptionTextView);
+        addDocumentButton = view.findViewById(R.id.add_document_button);
+        setImageButtonSelector();
         imageView = view.findViewById(R.id.post_image);
-        imageView.setOnClickListener((View v) -> {
-            Intent intent = new Intent(Intent.ACTION_PICK);
-            intent.setType("image/*");
-            startActivityForResult(intent, GALLERY_REQUEST_CODE);
-        });
 
         mediaSet = false;
-        addDocumentButton = view.findViewById(R.id.add_document_button);
-        addDocumentButton.setBackgroundColor(Color.rgb(0, 0, 0));
-        addDocumentButton.setBackgroundResource(R.drawable.ic_add);
 
         addDocumentButton.setOnClickListener((View v) -> {
             if (mediaSet) {
                 imageView.setImageResource(0);
-                addDocumentButton.setBackgroundResource(R.drawable.ic_add);
                 viewModel.setDocument(null, null);
                 mediaSet = false;
             } else {
@@ -88,6 +82,7 @@ public class PostCreationFragment extends Fragment {
                 intent.setType("image/*");
                 startActivityForResult(intent, GALLERY_REQUEST_CODE);
             }
+            setImageButtonSelector();
         });
 
         sendPostButton = view.findViewById(R.id.send_post_button);
@@ -149,12 +144,22 @@ public class PostCreationFragment extends Fragment {
             viewModel.setUri(selectedMedia);
 
             mediaSet = true;
-            addDocumentButton.setBackgroundResource(R.drawable.ic_delete);
+            setImageButtonSelector();
 
             // Probably useless
             if (mimeType.startsWith("image")) {
                 imageView.setImageURI(selectedMedia);
             }
+        }
+    }
+
+    public void setImageButtonSelector() {
+        if (!mediaSet) {
+            addDocumentButton.setText(getString(R.string.add_image));
+            addDocumentButton.setIcon(getResources().getDrawable(R.drawable.ic_add));
+        } else {
+            addDocumentButton.setText(getString(R.string.delete_image));
+            addDocumentButton.setIcon(getResources().getDrawable(R.drawable.ic_delete));
         }
     }
 

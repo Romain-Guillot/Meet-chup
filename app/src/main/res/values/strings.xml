@@ -117,5 +117,8 @@
     <string name="menu_event_quit">Quit this event</string>
     <string name="share_event_button_first_creation">Share the event !</string>
     <string name="unknown_user">Unknown user</string>
+    <string name="new_post">New post</string>
+    <string name="add_image">Add image</string>
+    <string name="delete_image">Delete image</string>
 
 </resources>
