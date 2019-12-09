@@ -12,6 +12,7 @@
  import com.progmobile.meetchup.R;
  import com.progmobile.meetchup.repositories.FirebaseStorageRepository;
 
+ import java.io.InputStream;
 
 
  public class StorageImageFactory {
@@ -26,35 +27,22 @@
 
             @Override
             protected Bitmap doInBackground(String... urls) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(result, 0, result.length);
-                return resize(bitmap, 720, 720);
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inJustDecodeBounds = true;
+                BitmapFactory.decodeByteArray(result, 0, result.length, options);
+                float aspectRatio = options.outWidth / (float) options.outHeight;
+                options.inJustDecodeBounds = false;
+                options.inSampleSize = calculateInSampleSize(options, 720, (int) (720 / aspectRatio));
+                Bitmap tmpBitmap = BitmapFactory.decodeByteArray(result, 0, result.length, options);
+                Bitmap bmp = Bitmap.createScaledBitmap(tmpBitmap, 720, (int) (720 / aspectRatio), true);
+
+                return bmp;
             }
 
             protected void onPostExecute(Bitmap result) {
                 loadingIndicator.setVisibility(View.GONE);
                 imageView.setVisibility(View.VISIBLE);
                 imageView.setImageBitmap(result);
-        }
-
-        private Bitmap resize(Bitmap image, int maxWidth, int maxHeight) {
-            if (maxHeight > 0 && maxWidth > 0) {
-                int width = image.getWidth();
-                int height = image.getHeight();
-                float ratioBitmap = (float) width / (float) height;
-                float ratioMax = (float) maxWidth / (float) maxHeight;
-
-                int finalWidth = maxWidth;
-                int finalHeight = maxHeight;
-                if (ratioMax > ratioBitmap) {
-                    finalWidth = (int) ((float)maxHeight * ratioBitmap);
-                    } else {
-                        finalHeight = (int) ((float)maxWidth / ratioBitmap);
-                    }
-                    image = Bitmap.createScaledBitmap(image, finalWidth, finalHeight, true);
-                    return image;
-                } else {
-                    return image;
-                }
             }
         }.execute();
 
@@ -65,5 +53,18 @@
          imageView.setImageDrawable(context.getDrawable(R.drawable.ic_error_image));
          }
          });
+     }
+
+     public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+         final int height = options.outHeight;
+         final int width = options.outWidth;
+         int inSampleSize = 1;
+         if (height > reqHeight || width > reqWidth) {
+             final int halfHeight = height / 2;
+             final int halfWidth = width / 2;
+             while ((halfHeight / inSampleSize) >= reqHeight && (halfWidth / inSampleSize) >= reqWidth)
+                 inSampleSize *= 2;
+         }
+         return inSampleSize;
      }
  }
