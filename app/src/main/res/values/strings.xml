@@ -120,5 +120,6 @@
     <string name="new_post">New post</string>
     <string name="add_image">Add image</string>
     <string name="delete_image">Remove image</string>
+    <string name="new_post_error">"Cannot upload your photo. Please try again.</string>
 
 </resources>

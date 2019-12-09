@@ -99,32 +99,28 @@ public class PostCreationFragment extends Fragment {
                     byte[] data = baos.toByteArray();
 
                     fbStorageRepo.uploadData(viewModel.getUri(), data, new Callback<String>() {
-                        @Override
                         public void onSucceed(String result) {
                             Date currentDate = new Date();
                             savedPost.setDescription(descriptionText);
                             Post finalPost = new Post(null, null, currentDate, descriptionText, result, savedPost.getDocMimeType());
 
                             fsEventsDataRepo.addPost(viewModel.event_id, finalPost, new Callback<String>() {
-                                @Override
                                 public void onSucceed(String result) {
                                     getActivity().finish();
                                 }
 
-                                @Override
                                 public void onFail(CallbackException exception) {
-                                    new CallbackException(CallbackException.Type.UNKNOWN);
+                                    SnackbarFactory.showErrorSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.new_post_error));
                                 }
                             });
                         }
 
-                        @Override
                         public void onFail(CallbackException exception) {
-                            new CallbackException(CallbackException.Type.UNKNOWN);
+                            SnackbarFactory.showErrorSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.new_post_error));
                         }
                     });
                 } catch (IOException e) {
-                    SnackbarFactory.showErrorSnackbar(getActivity().findViewById(android.R.id.content), "Erreur lors de l'upload de l'image.");
+                    SnackbarFactory.showErrorSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.new_post_error));
                 }
             }
         });
