@@ -105,7 +105,7 @@ public class FeedFragment extends Fragment {
 
     private void launchCreationPostActivity() {
         Intent intent = new Intent(getActivity(), PostCreationActivity.class);
-        // put extras
+        intent.putExtra(PostCreationActivity.EXTRA_EVENT_ID, viewModel.eventID);
         startActivity(intent);
     }
 

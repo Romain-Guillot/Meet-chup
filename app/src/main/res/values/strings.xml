@@ -83,7 +83,7 @@
     <string name="invitation_key_status_disable">Invitation key disable !</string>
     <string name="invitation_key_hint">Invitation key</string>
     <string name="invitation_update_key_button">Change the invitation key</string>
-    <string name="invitation_description">To share this event with other firends, you need to give them the invitation key below.</string>
+    <string name="invitation_description">To share this event with other friends, you need to give them the invitation key below.</string>
     <string name="invitation_warning_description">Everyone with this key will be able to join the event.</string>
 
     <!-- Event creation / modification -->
@@ -101,6 +101,7 @@
     <string name="event_empty_post_indicator">No post</string>
     <string name="event_empty_photo_indicator">No photos</string>
     <string name="event_add_new_post_btn_label">Add a new post</string>
+    <string name="post_description_hint_text">Enter the description of your post here</string>
     <string name="event_participants_add_label">add</string>
     <string name="post_view_no_comments">No comments</string>
     <string name="loading_btn">Loading …</string>
@@ -116,5 +117,9 @@
     <string name="menu_event_quit">Quit this event</string>
     <string name="share_event_button_first_creation">Share the event !</string>
     <string name="unknown_user">Unknown user</string>
+    <string name="new_post">New post</string>
+    <string name="add_image">Add image</string>
+    <string name="delete_image">Remove image</string>
+    <string name="new_post_error">"Cannot upload your photo. Please try again.</string>
 
 </resources>

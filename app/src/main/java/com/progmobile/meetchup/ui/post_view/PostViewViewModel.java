@@ -28,6 +28,7 @@ public class PostViewViewModel extends ViewModel {
             public void onSucceed(Post result) {
                 postLive.setValue(result);
             }
+
             public void onFail(CallbackException exception) {
                 postLive.setValue(null);
             }

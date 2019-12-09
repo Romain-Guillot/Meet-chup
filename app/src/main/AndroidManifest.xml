@@ -32,7 +32,8 @@
 
         <activity android:name="com.progmobile.meetchup.ui.post_view.PostViewActivity" />
 
-        <activity android:name="com.progmobile.meetchup.ui.post_creation.PostCreationActivity" />
+        <activity android:name="com.progmobile.meetchup.ui.post_creation.PostCreationActivity"
+            android:windowSoftInputMode="adjustResize"/>
 
         <activity android:name="com.progmobile.meetchup.ui.profile.ProfileActivity" />
 

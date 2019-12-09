@@ -87,11 +87,15 @@ public interface IEventsDataRepository {
 
 
     ListenerRegistration getPost(@NonNull String event_id, @NonNull String post_id, Callback<Post> callback);
-//
-//    public void addPost(String eventID, Post post, Callback<Post> callback);
-//
+
+    /**
+     * Add a post to the database
+     * The created post ID is returned through the callback
+     */
+    void addPost(@NonNull String eventID, @NonNull Post post, @NonNull Callback<String> callback);
+
 //    public void deletePost(String eventID,Post post, Callback<Boolean> callback);
-//
+
 //    public void loadPostComments(Post post, Callback<Post> callback);
 
 }
