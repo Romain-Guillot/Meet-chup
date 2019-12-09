@@ -17,14 +17,18 @@
         android:layout_marginStart="@dimen/activity_margin_horizontal"
         android:layout_marginEnd="@dimen/activity_margin_horizontal">
 
-        <EditText
-            android:id="@+id/descriptionTextView"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
             android:hint="@string/post_description_hint_text"
-            android:inputType="textMultiLine"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+            app:inputType="text">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/descriptionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="2"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/add_document_button"

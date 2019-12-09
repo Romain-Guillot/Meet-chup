@@ -69,6 +69,11 @@ public class PostCreationFragment extends Fragment {
         addDocumentButton = view.findViewById(R.id.add_document_button);
         setImageButtonSelector();
         imageView = view.findViewById(R.id.post_image);
+        imageView.setOnClickListener((View v) -> {
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType("image/*");
+            startActivityForResult(intent, GALLERY_REQUEST_CODE);
+        });
 
         mediaSet = false;
 
