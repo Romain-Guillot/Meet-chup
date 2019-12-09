@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,6 +116,7 @@ public class PostCreationFragment extends Fragment {
 
                     float aspectRatio = options.outWidth / (float) options.outHeight;
                     options.inJustDecodeBounds = false;
+                    options.inSampleSize = calculateInSampleSize(options, 720, (int) (720 / aspectRatio));
                     input = getContext().getContentResolver().openInputStream(viewModel.getUri());
                     Bitmap tmpBitmap = BitmapFactory.decodeStream(input,null, options);
                     Bitmap bmp = Bitmap.createScaledBitmap(tmpBitmap, 720, (int) (720 / aspectRatio), true);
@@ -233,5 +235,28 @@ public class PostCreationFragment extends Fragment {
         viewModel.setText(editText.getText().toString());
 
         super.onStop();
+    }
+
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) >= reqHeight
+                    && (halfWidth / inSampleSize) >= reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
     }
 }

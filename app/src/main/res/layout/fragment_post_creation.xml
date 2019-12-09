@@ -26,7 +26,8 @@
                 android:id="@+id/descriptionTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:lines="4"/>
+                android:lines="4"
+                android:inputType="textCapSentences|textMultiLine"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
