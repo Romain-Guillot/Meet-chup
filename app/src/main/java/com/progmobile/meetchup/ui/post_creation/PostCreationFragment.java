@@ -87,10 +87,15 @@ public class PostCreationFragment extends Fragment {
 
         sendPostButton = view.findViewById(R.id.send_post_button);
         sendPostButton.setOnClickListener((View v) -> {
+            sendPostButton.setEnabled(false);
             Post savedPost = viewModel.getPost();
             String descriptionText = editText.getText().toString();
-            if (savedPost.getDocMimeType() == null && descriptionText.isEmpty())
+
+            if (savedPost.getDocMimeType() == null && descriptionText.isEmpty()) {
                 SnackbarFactory.showErrorSnackbar(getActivity().findViewById(android.R.id.content), "Veuilez remplir au moins un des champs.");
+                sendPostButton.setEnabled(true);
+            }
+
             else {
                 try {
                     Bitmap bmp = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), viewModel.getUri());
@@ -111,16 +116,19 @@ public class PostCreationFragment extends Fragment {
 
                                 public void onFail(CallbackException exception) {
                                     SnackbarFactory.showErrorSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.new_post_error));
+                                    sendPostButton.setEnabled(true);
                                 }
                             });
                         }
 
                         public void onFail(CallbackException exception) {
                             SnackbarFactory.showErrorSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.new_post_error));
+                            sendPostButton.setEnabled(true);
                         }
                     });
                 } catch (IOException e) {
                     SnackbarFactory.showErrorSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.new_post_error));
+                    sendPostButton.setEnabled(true);
                 }
             }
         });
