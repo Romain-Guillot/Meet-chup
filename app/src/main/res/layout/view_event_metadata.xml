@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
 
     <!-- Dates, duration -->
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_gravity="left"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
 
         <ImageView
             android:id="@+id/view_event_metadata_begin_date_icon"
             android:layout_width="16dp"
-            android:layout_height="match_parent"
+            android:layout_height="16dp"
             android:tint="@color/textColorLight"
             android:layout_marginEnd="@dimen/normal_spacing"
             android:src="@drawable/ic_calendar"/>
@@ -22,13 +23,14 @@
         <TextView
             android:id="@+id/view_event_metadata_begin_date"
             android:textColor="@color/textColorLight"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OKK"/>
 
         <ImageView
             android:id="@+id/view_event_metadata_duration_icon"
             android:layout_width="16dp"
-            android:layout_height="match_parent"
+            android:layout_height="16dp"
             android:tint="@color/textColorLight"
             android:src="@drawable/ic_duration"
             android:layout_marginEnd="@dimen/normal_spacing"
@@ -49,11 +51,12 @@
         android:id="@+id/view_event_location_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/normal_spacing">
+        android:layout_marginTop="@dimen/normal_spacing"
+        android:gravity="center_vertical">
         <ImageView
             android:id="@+id/view_event_metadata_location_icon"
             android:layout_width="16dp"
-            android:layout_height="match_parent"
+            android:layout_height="16dp"
             android:adjustViewBounds="true"
             android:tint="@color/textColorLight"
             android:src="@drawable/ic_location"
