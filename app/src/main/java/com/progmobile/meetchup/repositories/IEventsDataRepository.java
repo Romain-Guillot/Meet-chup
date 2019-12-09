@@ -94,7 +94,11 @@ public interface IEventsDataRepository {
      */
     void addPost(@NonNull String eventID, @NonNull Post post, @NonNull Callback<String> callback);
 
-//    public void deletePost(String eventID,Post post, Callback<Boolean> callback);
+    /**
+     * Delete post
+     * Nothing returned through the callback (just calling success() or fail() method)
+     */
+    void deletePost(String eventID ,String postID, Callback<Void> callback);
 
 //    public void loadPostComments(Post post, Callback<Post> callback);
 

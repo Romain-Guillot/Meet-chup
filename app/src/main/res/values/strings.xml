@@ -114,6 +114,8 @@
     <string name="invitation_key_update_form_success">Key updated !</string>
     <string name="user_empty_events_indicator">No events</string>
     <string name="menu_event_share">Share this event !</string>
+    <string name="menu_post_delete">Delete this post</string>
+
     <string name="menu_event_quit">Quit this event</string>
     <string name="share_event_button_first_creation">Share the event !</string>
     <string name="unknown_user">Unknown user</string>
@@ -121,5 +123,8 @@
     <string name="add_image">Add image</string>
     <string name="delete_image">Remove image</string>
     <string name="new_post_error">"Cannot upload your photo. Please try again.</string>
+    <string name="post_delete_error">Cannot delete your post</string>
+    <string name="post_delete_loading">Loading ...</string>
+
 
 </resources>

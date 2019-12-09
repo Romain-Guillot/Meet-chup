@@ -298,7 +298,6 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
                     Post p = docSnap.toObject(Post.class);
                     p.setId(docSnap.getId());
                     String userID = p.getUserID();
-                    System.err.println(userID);
                     if (userID != null) {
                         firestore.collection(User.USERS_COL).document(p.getUserID()).get().addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
@@ -314,6 +313,8 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
                     posts.descrement();
                 }
             }
+            if (docsSnap.isEmpty())
+                callback.onSucceed(new ArrayList<>());
         });
     }
 
@@ -365,6 +366,20 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
             } else {
                 callback.onFail(CallbackException.fromFirebaseException(t.getException()));
             }
+        });
+    }
+
+    /**
+     * Delete post
+     * Nothing returned through the callback (just calling success() or fail() method)
+     */
+    @Override
+    public void deletePost(String eventID, String postID, Callback<Void> callback) {
+        firestore.collection(Event.EVENT_COL).document(eventID).collection(Post.POST_COL).document(postID).delete().addOnCompleteListener(task -> {
+           if (task.isSuccessful())
+               callback.onSucceed(null);
+           else
+               callback.onFail(CallbackException.fromFirebaseException(task.getException()));
         });
     }
 
