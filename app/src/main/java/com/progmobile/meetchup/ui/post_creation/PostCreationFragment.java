@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,7 +33,9 @@ import com.progmobile.meetchup.utils.CallbackException;
 import com.progmobile.meetchup.utils.SnackbarFactory;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 
 public class PostCreationFragment extends Fragment {
@@ -103,7 +106,20 @@ public class PostCreationFragment extends Fragment {
 
             else {
                 try {
-                    Bitmap bmp = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), viewModel.getUri());
+                    InputStream input = getContext().getContentResolver().openInputStream(viewModel.getUri());
+
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inJustDecodeBounds = true;
+                    BitmapFactory.decodeStream(input, null, options);
+                    input.close();
+
+                    float aspectRatio = options.outWidth / (float) options.outHeight;
+                    options.inJustDecodeBounds = false;
+                    input = getContext().getContentResolver().openInputStream(viewModel.getUri());
+                    Bitmap tmpBitmap = BitmapFactory.decodeStream(input,null, options);
+                    Bitmap bmp = Bitmap.createScaledBitmap(tmpBitmap, 720, (int) (720 / aspectRatio), true);
+                    input.close();
+
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     bmp.compress(Bitmap.CompressFormat.JPEG, 20, baos);
                     byte[] data = baos.toByteArray();
@@ -120,6 +136,7 @@ public class PostCreationFragment extends Fragment {
                                 }
 
                                 public void onFail(CallbackException exception) {
+                                    exception.printStackTrace();
                                     SnackbarFactory.showErrorSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.new_post_error));
                                     sendPostButton.setEnabled(true);
                                 }
@@ -127,11 +144,13 @@ public class PostCreationFragment extends Fragment {
                         }
 
                         public void onFail(CallbackException exception) {
+                            exception.printStackTrace();
                             SnackbarFactory.showErrorSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.new_post_error));
                             sendPostButton.setEnabled(true);
                         }
                     });
-                } catch (IOException e) {
+                } catch (Exception e) {
+                    e.printStackTrace();
                     SnackbarFactory.showErrorSnackbar(getActivity().findViewById(android.R.id.content), getString(R.string.new_post_error));
                     sendPostButton.setEnabled(true);
                 }
