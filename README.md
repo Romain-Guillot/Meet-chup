@@ -32,6 +32,7 @@ Dans le cadre d'un projet de développement d’applications mobiles, nous propo
 - [x] **Visualisation de post**
 - [x] **Galerie d'un événement :** *Galerie photos et vidéos de tous les posts de l'événement sous forme de grille*
 - [x] **Publication de post sur l'événément**
+- [x] **Suppression de post**
 
 
 ### Secondaires
