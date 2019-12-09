@@ -71,10 +71,13 @@ public class EventMetaData extends FrameLayout {
         if (dateBegin != null)
             textDateBegin.setText(dateFormat.format(dateBegin));
         iconDateBegin.setVisibility(dateBegin == null ? View.GONE : View.VISIBLE);
+        textDateBegin.setVisibility(dateBegin == null ? View.GONE : View.VISIBLE);
 
         if (dateBegin != null && dateEnd != null)
             textDuration.setText(DurationUtils.getDurationBetweenDate(getContext(), dateBegin, dateEnd));
         iconDuration.setVisibility(dateBegin != null && dateEnd != null ? View.VISIBLE : View.GONE);
+        textDuration.setVisibility(dateBegin != null && dateEnd != null ? View.VISIBLE : View.GONE);
+
 
         if (location != null)
             textLocation.setText(location);
