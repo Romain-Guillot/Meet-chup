@@ -73,7 +73,9 @@ public class FirestoreEventsDataRepository implements IEventsDataRepository {
             }
             try {
                 List<String> eventIDs = (List<String>) documentSnapshot.getData().get(User.USERS_FIELD_EVENTS);
+
                 List<Event> events = new ArrayList<>();
+
                 if (eventIDs.isEmpty()) {
                     callback.onSucceed(events);
                     return;

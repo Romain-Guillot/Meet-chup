@@ -17,34 +17,45 @@
 
  public class StorageImageFactory {
 
+     private static class Task extends AsyncTask<String, Void, Bitmap> {
+
+         byte[] result;
+         View loadingIndicator;
+         ImageView imageView;
+
+         Task(byte[] result, View loadingIndicator, ImageView imageView) {
+             this.result = result;
+             this.loadingIndicator = loadingIndicator;
+             this.imageView = imageView;
+         }
+
+         @Override
+         protected Bitmap doInBackground(String... urls) {
+             BitmapFactory.Options options = new BitmapFactory.Options();
+             options.inJustDecodeBounds = true;
+             BitmapFactory.decodeByteArray(result, 0, result.length, options);
+             float aspectRatio = options.outWidth / (float) options.outHeight;
+             options.inJustDecodeBounds = false;
+             options.inSampleSize = calculateInSampleSize(options, 720, (int) (720 / aspectRatio));
+             Bitmap tmpBitmap = BitmapFactory.decodeByteArray(result, 0, result.length, options);
+             Bitmap bmp = Bitmap.createScaledBitmap(tmpBitmap, 720, (int) (720 / aspectRatio), true);
+
+             return bmp;
+         }
+
+         protected void onPostExecute(Bitmap result) {
+             loadingIndicator.setVisibility(View.GONE);
+             imageView.setVisibility(View.VISIBLE);
+             imageView.setImageBitmap(result);
+         }
+     }
 
      public static void fillImage(Context context, ImageView imageView, ProgressBar loadingIndicator, String docURL) {
          loadingIndicator.setVisibility(View.VISIBLE);
          FirebaseStorageRepository.getInstance().getData(docURL, new Callback<byte[]>() {
          public void onSucceed(byte[] result) {
 
-             new AsyncTask<String, Void, Bitmap> (){
-
-            @Override
-            protected Bitmap doInBackground(String... urls) {
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inJustDecodeBounds = true;
-                BitmapFactory.decodeByteArray(result, 0, result.length, options);
-                float aspectRatio = options.outWidth / (float) options.outHeight;
-                options.inJustDecodeBounds = false;
-                options.inSampleSize = calculateInSampleSize(options, 720, (int) (720 / aspectRatio));
-                Bitmap tmpBitmap = BitmapFactory.decodeByteArray(result, 0, result.length, options);
-                Bitmap bmp = Bitmap.createScaledBitmap(tmpBitmap, 720, (int) (720 / aspectRatio), true);
-
-                return bmp;
-            }
-
-            protected void onPostExecute(Bitmap result) {
-                loadingIndicator.setVisibility(View.GONE);
-                imageView.setVisibility(View.VISIBLE);
-                imageView.setImageBitmap(result);
-            }
-        }.execute();
+             new Task(result, loadingIndicator, imageView).execute();
 
          }
          public void onFail(CallbackException exception) {
